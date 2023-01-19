@@ -1,0 +1,16 @@
+@import '../assets/scss/vars';
+
+.window {
+  width: 600px;
+  height: 515px;
+  background-color: $cray;
+  border: 5px solid $dark-brown;
+  box-shadow: -10px 10px 0 $orange;
+  position: relative;
+  .window-item-container {
+    height: 100%;
+    padding: 8rem 2rem 2rem 2rem;
+    display: flex;
+    gap: $big-gutter;
+  }
+}

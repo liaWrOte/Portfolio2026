@@ -1,0 +1,14 @@
+@import '../assets/scss/vars';
+
+.item {
+  display: flex;
+  flex-direction: column;
+  width: fit-content;
+  align-items: center;
+  img {
+    width: fit-content;
+  }
+  span {
+    margin-top: 0.5rem;
+  }
+}
