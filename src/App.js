@@ -4,6 +4,7 @@ import { Desktop } from './stories/Desktop/Desktop';
 import { DesktopBottomBar } from './stories/DesktopBottomBar/DesktopBottomBar';
 
 function App() {
+
   return (
     <div className="App">
       <DesktopTopBar/>

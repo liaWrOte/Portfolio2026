@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import './window-header.scss';
 import file from '../assets/img/file.png';
@@ -8,22 +8,44 @@ import arrowRight from '../assets/img/arrow_right.svg';
 /**
  * Primary UI component for user interaction
  */
-export const WindowHeader = ({ primary, backgroundColor, size, label, srcImg, ...props }) => {
+export const WindowHeader = ({ primary, backgroundColor, size, label, closeWindow, itemId, expandWindow, ...props }) => {
+
+  function minifyWindow(e) {
+    let window = e.target.closest('.window');
+    window.classList.toggle('minified');
+    console.log(window);
+  }
+  
+  function expandedWindow(e) {
+    let window = e.target.closest('.window');
+    window.classList.toggle('full');
+    console.log(window);
+  }
+
+
   return (
     <div className='window-header'>
-      <div className="toggle-window-container">
-        <span class="toggle-window red"></span>
-        <span class="toggle-window yellow"></span>
-        <span class="toggle-window green"></span>
-      </div>
-      <span className="window-header-label">Projets</span>
-      <div className="window-header-nav">
-          <span className="nav nav-right">
-            <img src={arrowRight} alt="" />
-          </span>
-          <span className="nav nav-left">
-            <img src={arrowLeft} alt="" />
-          </span>
+      <div className="window-header-container">
+        <div className="toggle-window-container">
+          <span
+            className="toggle-window red"
+            onClick={() => closeWindow(itemId)}
+          ></span>
+          <span
+            className="toggle-window yellow"
+            onClick={(e) => minifyWindow(e)}
+          ></span>
+          {itemId !== undefined && itemId[1] === 'img' &&
+            <span
+              className="toggle-window green"
+              onClick={(e) => expandedWindow(e)}
+              // onClick={() => expandWindow(itemId)}
+            ></span>
+          }
+        </div>
+        <span className="window-header-label">{label}</span>
+        <div className="window-header-nav">
+        </div>
       </div>
     </div>
   );

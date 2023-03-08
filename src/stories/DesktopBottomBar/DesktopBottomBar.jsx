@@ -1,17 +1,56 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './desktop-bottom-bar.scss';
-import { Item } from '../Item/Item';
+import Item from '../Item/Item';
+
+// svg
+import stolify from '../assets/img/icons/stolify.svg';
+import artquiz from '../assets/img/icons/artquiz.svg';
 
 /**
  * Primary UI component for user interaction
  */
 export const DesktopBottomBar = ({ primary, backgroundColor, size, label, srcImg, ...props }) => {
+
+  
+  let controlAppContainer = setInterval(function(){
+    let appContainer = document.querySelectorAll('.App');
+    if (appContainer.length > 0) {
+      appContainer[0].addEventListener('click', (e) => {
+        if (e.target.closest('.stolify-class') === null) {
+          let stolifyContainer = document.getElementById('stolify');
+            if (stolifyContainer) {
+              if (!stolifyContainer.classList.contains('hide')) {
+                stolifyContainer.classList.add('hide');
+              }
+            }
+          }
+        })
+      clearInterval(controlAppContainer);
+    }
+  }, 100)
+
   return (
     <div className="desktop-bar">
-      <Item />
-      <Item />
-      <Item />
+      <Item
+        inWindow={false}
+        outWindowLabel="ArtQuiz"
+        srcImg={artquiz}
+        clickTrigger={"simple"}
+      />
+      <Item
+        inWindow={false}
+        outWindowLabel="Stolify"
+        triggerOpen="stolify"
+        // srcImg={stolify}
+        animated={true}
+        clickTrigger={"simple"}
+      />
+      <Item
+        inWindow={false}
+        outWindowLabel="ToDo"
+        clickTrigger={"simple"}
+      />
     </div>
   );
 };

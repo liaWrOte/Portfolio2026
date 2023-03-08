@@ -1,14 +1,24 @@
-@import '../assets/scss/vars';
+// @import '../assets/scss/vars';
 
 .item {
-  display: flex;
+  display: inline-block;
   flex-direction: column;
   width: fit-content;
   align-items: center;
-  img {
-    width: fit-content;
+  &:hover {
+    cursor: pointer;
+  }
+  >img {
+    // width: 70px;
+    display: block;
+    margin: 0 auto;
+    height: 54.06px;
   }
   span {
     margin-top: 0.5rem;
+    text-align: center;
+  }
+  &.on-desktop {
+    display: flex;
   }
 }

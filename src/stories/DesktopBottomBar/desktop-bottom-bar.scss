@@ -1,13 +1,15 @@
 @import '../assets/scss/vars';
 
 .desktop-bar {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
+  position: relative;
+  height: 100px;
   display: flex;
   align-items: center;
   justify-content: center;
   background-color: $light-brown;
   gap: $gutter;
+  z-index: 10;
+  .item {
+    margin: 0 0.5rem;
+  }
 }

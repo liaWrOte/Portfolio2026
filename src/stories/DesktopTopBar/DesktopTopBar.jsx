@@ -1,4 +1,5 @@
 import React from 'react';
+import { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import './desktop-top-bar.scss';
 
@@ -6,10 +7,26 @@ import './desktop-top-bar.scss';
  * Primary UI component for user interaction
  */
 export const DesktopTopBar = ({ primary, backgroundColor, size, label, srcImg, ...props }) => {
+  const locale = 'fr-FR';
+  const [today, setDate] = useState(new Date());
+
+  useEffect(() => {
+      const timer = setInterval(() => {
+      setDate(new Date());
+    }, 60 * 1000);
+    return () => {
+      clearInterval(timer);
+    }
+  }, []);
+
+  const hour = today.toLocaleTimeString(locale, {hour: '2-digit', minute:'2-digit'});
+
   return (
-    <div className="desktop-top-bar">
-      <span className="identity">Sandrine M'ZE</span>
-      <span className="time">18:25</span>
+    <div className="desktop-top-bar-container">
+      <div className="desktop-top-bar">
+        <span className="identity">Sandrine M'ZE</span>
+        <span className="time">{hour}</span>
+      </div>
     </div>
   );
 };

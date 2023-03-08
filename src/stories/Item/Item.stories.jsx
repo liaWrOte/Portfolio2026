@@ -5,7 +5,7 @@ import file from '../assets/img/file.png';
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
-  title: 'Example/Item',
+  title: 'Item',
   component: Item,
   // More on argTypes: https://storybook.js.org/docs/react/api/argtypes
   argTypes: {
@@ -22,15 +22,4 @@ Primary.args = {
   primary: true,
   label: 'Projets',
   srcImd : file,
-};
-
-export const Secondary = Template.bind({});
-Secondary.args = {
-  label: 'Item',
-};
-
-export const Ternary = Template.bind({});
-Ternary.args = {
-  size: 'large',
-  label: 'Item',
 };

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Calque_2" data-name="Calque 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 247 190.77">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #5d161a;
+        stroke: #5d161a;
+      }
+
+      .cls-1, .cls-2, .cls-3, .cls-4, .cls-5, .cls-6 {
+        stroke-miterlimit: 10;
+      }
+
+      .cls-1, .cls-2, .cls-4, .cls-6 {
+        stroke-width: 8px;
+      }
+
+      .cls-2 {
+        fill: #7f2010;
+      }
+
+      .cls-2, .cls-3, .cls-4, .cls-5 {
+        stroke: #7f2010;
+      }
+
+      .cls-3 {
+        stroke-width: 12px;
+      }
+
+      .cls-3, .cls-4, .cls-5, .cls-6 {
+        fill: none;
+      }
+
+      .cls-5 {
+        stroke-width: 15px;
+      }
+
+      .cls-7 {
+        fill: #bd3018;
+      }
+
+      .cls-6 {
+        stroke: #e6a934;
+      }
+    </style>
+  </defs>
+  <g id="Calque_1-2" data-name="Calque 1">
+    <rect class="cls-6" x="27.64" y="13.35" width="215.36" height="166.07"/>
+    <circle class="cls-7" cx="95.39" cy="95.39" r="95.39"/>
+    <circle class="cls-2" cx="95.39" cy="95.39" r="26.38"/>
+    <circle class="cls-1" cx="95.39" cy="95.39" r="4.43"/>
+    <g>
+      <polyline class="cls-4" points="216.31 38.58 175.69 124.72 147.31 143.06"/>
+      <line class="cls-5" x1="127.79" y1="152.62" x2="138.53" y2="147.36"/>
+      <line class="cls-3" x1="138.53" y1="147.31" x2="149.28" y2="142.06"/>
+    </g>
+  </g>
+</svg>

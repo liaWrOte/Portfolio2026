@@ -1,16 +1,102 @@
 @import '../assets/scss/vars';
 
+
 .window {
   width: 600px;
   height: 515px;
   background-color: $cray;
   border: 5px solid $dark-brown;
   box-shadow: -10px 10px 0 $orange;
-  position: relative;
+  position: absolute;
+  overflow: hidden;
+  transition: left 1.2s, top 1.2s;
   .window-item-container {
-    height: 100%;
-    padding: 8rem 2rem 2rem 2rem;
-    display: flex;
+    position: fixed;
+    height: -webkit-fill-available;
+    padding: 2rem 2rem 2rem 2rem;
     gap: $big-gutter;
+    font-family: monospace;
+    h1 {
+      margin-top: 0;
+      display: inline;
+      margin-right: $big-gutter;
+    }
+    &>*, &div, p {
+      font-family: monospace;
+      color: $dark-brown;
+    }
+    &.specs {
+      background-image: url('../assets/img/specs/paper.svg');
+      background-repeat: repeat;
+      background-size: 10%;
+      overflow: auto;
+    }
+    &.img {
+      padding: 0;
+      resize: both;
+      overflow-y: auto;
+      img {
+        width: 100%;
+      }
+    }
   }
+  .item {
+    span {
+      width: 100%;
+      display: inline-block;
+      color: $dark-brown;
+    }
+  }
+  &.level-class-first {
+    position: absolute;
+    z-index: 0;
+    left: 140px;
+    top: 90px;
+    transform: scale(1);
+  }
+  &.level-class-second {
+    z-index: 1;
+    left: 170px;
+    top: 120px;
+  }
+  &.level-class-third {
+    z-index: 2;
+    right: 200px;
+    top: 150px;
+  }
+  &.level-class-fourth {
+    z-index: 2;
+    left: 230px;
+    top: 180px;
+  }
+  &.full {
+    width: 100vw;
+    height: 100vh;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    transform: translate(0, 0) !important;
+  }
+  &.minified {
+    height: 87px;
+    width: 450px;
+  }
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 20px;
+}
+
+::-webkit-scrollbar-track {
+  background: $orange;
+}
+
+::-webkit-scrollbar-thumb {
+  background: $light-brown;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }

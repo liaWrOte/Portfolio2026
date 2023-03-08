@@ -1,0 +1,69 @@
+@import '../assets/scss/vars';
+
+.stolify-container {
+  display: block;
+  position: absolute;
+  width: 150px;
+  // top: -100px;
+  height: fit-content;
+  background-color: $black-brown;
+  color: $cray;
+  justify-content: space-between;
+  transform: translateY(-245px);
+  border: 5px solid $black-brown;
+  &.hide {
+    display: none;
+  }
+  .title-container {
+    box-sizing: border-box;
+    padding: 0.5rem;
+    width: 100%;
+    .title {
+      font-size: 10px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+      width: 90%;
+      display: block;
+      margin: 0 auto;
+    }
+  }
+  .cover-container {
+    display: block;
+    overflow: hidden;
+    position: relative;
+    text-align: center;
+    height: fit-content;
+    width: 100%;
+    .cover {
+      margin: auto;
+      max-height: 100%;
+      max-width: 100%;
+      width: 100%;
+    }
+  }
+ 
+  .stolify-controls {
+    width: 150px;
+    text-align: center;
+    display: flex;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 0.5rem 0;
+    img {
+      width: 18px;
+      height: 18px;
+      &:hover {
+        cursor: pointer;
+      }
+    }
+    .main-controls {
+      width: 25px;
+      height: 25px;
+    }
+  }
+}
+
+.stolify-class {
+  position: relative
+}

@@ -1,30 +1,61 @@
+import { uuid } from 'uuidv4';
 import React from 'react';
 import PropTypes from 'prop-types';
 import './desktop.scss';
-import { Item } from '../Item/Item';
+import Item from '../../containers/item';
+import Window from '../../containers/window';
 
+// svg
+import cv from '../assets/img/icons/cv.svg';
+import animations from '../assets/img/icons/animations.svg';
 
 /**
  * Primary UI component for user interaction
  */
-export const Desktop = ({ primary, backgroundColor, size, label, srcImg, ...props}) => {
-  // let eventLogger = (e: MouseEvent, data: Object) => {
-  //   console.log('Event: ', e);
-  //   console.log('Data: ', data);
-  // };
-  // console.log(handleStart);
+export const Desktop = ({ displayWindowItem, displayImageItem, displayWindow, ...props}) => {
 
   return (
     <div className="desktop">
-      {/* <Draggable>
-      </Draggable> */}
-      {/* <Draggable>
-        <div>SALUT</div>
-      </Draggable> */}
+      <Item 
+        key={Math.random()}
+        inWindow={false} 
+        itemId="projets"
+        triggerOpen="openWindow"
+      />
 
+      <Item 
+        key={Math.random()}
+        inWindow={false} 
+        itemId="cv"
+        outWindowLabel="CV"
+        triggerOpen="cv"
+        srcImg={cv}
+      />
 
-          <Item />
-        </div>
+      <Item 
+        key={Math.random()}
+        inWindow={false} 
+        itemId="animations"
+        outWindowLabel="Animations"
+        triggerOpen="openWindow"
+        srcImg={animations}
+      />
+
+      <Item 
+        key={Math.random()}
+        inWindow={false} 
+        itemId="readme"
+        outWindowLabel="Read.me"
+        triggerOpen="openWindow"
+        srcImg={animations}
+      />
+
+      {/* {displayWindowItem &&
+          <Window windowLevel="second"/>
+      }  */}
+      <Window/>
+
+    </div>
   );
 };
 
@@ -32,34 +63,11 @@ Desktop.propTypes = {
   /**
    * Is this the principal call to action on the page?
    */
-  primary: PropTypes.bool,
-  /**
-   * What background color to use
-   */
-  backgroundColor: PropTypes.string,
-  /**
-   * How large should the button be?
-   */
-  size: PropTypes.oneOf(['small', 'medium', 'large']),
-  /**
-   * Desktop contents
-   */
-  label: PropTypes.string.isRequired,
-  /**
-   * Optional click handler
-   */
-  onClick: PropTypes.func,
-  /**
-   * image
-   */
-  srcImg: PropTypes.string
+  displayWindowItem: PropTypes.bool,
+
 
 };
 
 Desktop.defaultProps = {
-  backgroundColor: null,
-  primary: false,
-  size: 'medium',
-  onClick: undefined,
-  label: 'Projets'
+  displayWindowItem: false,
 };

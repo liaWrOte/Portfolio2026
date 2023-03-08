@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg id="Calque_2" data-name="Calque 2" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260.29 262.71">
+  <defs>
+    <style>
+      .cls-1 {
+        stroke: #d45514;
+        stroke-width: 7.2px;
+      }
+
+      .cls-1, .cls-2, .cls-3 {
+        stroke-miterlimit: 10;
+      }
+
+      .cls-1, .cls-3 {
+        fill: none;
+      }
+
+      .cls-2 {
+        stroke: #5d161a;
+        stroke-width: 10px;
+      }
+
+      .cls-2, .cls-4 {
+        fill: #5d161a;
+      }
+
+      .cls-5 {
+        fill: #e6a934;
+      }
+
+      .cls-3 {
+        stroke: #e6a934;
+        stroke-width: 6px;
+      }
+    </style>
+  </defs>
+  <g id="Calque_1-2" data-name="Calque 1">
+    <rect class="cls-3" x="13.01" y="9.72" width="241.5" height="241.5"/>
+    <circle class="cls-4" cx="214.09" cy="124.16" r="36.4"/>
+    <circle class="cls-4" cx="218.88" cy="160.56" r="36.4"/>
+    <ellipse class="cls-1" cx="218.88" cy="196.96" rx="26.28" ry="37.03"/>
+    <circle class="cls-4" cx="88.94" cy="206.06" r="36.4"/>
+    <circle class="cls-5" cx="157.21" cy="157.06" r="79.1"/>
+    <circle class="cls-5" cx="122.74" cy="146.03" r="11.03"/>
+    <path class="cls-2" d="M140.27,172.17c0-4.99,4.05-9.04,9.04-9.04s9.04,4.05,9.04,9.04"/>
+    <path class="cls-2" d="M186.91,172.17c0-4.99,4.05-9.04,9.04-9.04s9.04,4.05,9.04,9.04"/>
+    <circle class="cls-4" cx="61.68" cy="156.36" r="36.4"/>
+    <circle class="cls-4" cx="61.68" cy="217.79" r="36.4"/>
+    <circle class="cls-4" cx="36.4" cy="181.39" r="36.4"/>
+    <circle class="cls-4" cx="36.4" cy="124.16" r="36.4"/>
+    <circle class="cls-4" cx="88.94" cy="119.96" r="36.4"/>
+    <circle class="cls-4" cx="78.11" cy="91.21" r="36.4"/>
+    <circle class="cls-4" cx="45.92" cy="91.21" r="36.4"/>
+    <circle class="cls-4" cx="122.74" cy="87.75" r="36.4"/>
+    <circle class="cls-4" cx="148.11" cy="70.6" r="36.4"/>
+    <circle class="cls-4" cx="174.89" cy="87.75" r="36.4"/>
+    <circle class="cls-4" cx="205.69" cy="83.55" r="36.4"/>
+    <circle class="cls-4" cx="205.69" cy="60.85" r="36.4"/>
+    <circle class="cls-4" cx="111.71" cy="62.2" r="36.4"/>
+    <circle class="cls-4" cx="112.31" cy="36.4" r="36.4"/>
+    <circle class="cls-4" cx="72.8" cy="58.01" r="36.4"/>
+    <circle class="cls-4" cx="162.38" cy="58.01" r="36.4"/>
+    <circle class="cls-4" cx="166.12" cy="46.71" r="36.4"/>
+    <circle class="cls-4" cx="166.12" cy="37.61" r="36.4"/>
+    <circle class="cls-4" cx="223.89" cy="116.81" r="18.2"/>
+    <circle class="cls-4" cx="242.09" cy="124.16" r="18.2"/>
+    <circle class="cls-4" cx="242.09" cy="103.41" r="18.2"/>
+    <circle class="cls-4" cx="236.32" cy="83.11" r="18.2"/>
+    <circle class="cls-4" cx="236.32" cy="142.36" r="18.2"/>
+    <ellipse class="cls-1" cx="91.54" cy="222.08" rx="26.28" ry="37.03"/>
+    <circle class="cls-4" cx="75.31" cy="170.9" r="36.4"/>
+  </g>
+</svg>
