@@ -1,13 +1,16 @@
-import { uuid } from 'uuidv4';
 import React from 'react';
 import PropTypes from 'prop-types';
 import './desktop.scss';
 import Item from '../../containers/item';
 import Window from '../../containers/window';
-
-// svg
 import cv from '../assets/img/icons/cv.svg';
 import animations from '../assets/img/icons/animations.svg';
+
+// const RemoteQuiz = React.lazy(
+//   async () => (await import('remote/Quiz'))
+// );
+// const RemoteQuiz = React.lazy(() => import("remote/Quiz"));
+// svg
 
 /**
  * Primary UI component for user interaction
@@ -49,6 +52,8 @@ export const Desktop = ({ displayWindowItem, displayImageItem, displayWindow, ..
         triggerOpen="openWindow"
         srcImg={animations}
       />
+
+      {/* <RemoteQuiz /> */}
 
       {/* {displayWindowItem &&
           <Window windowLevel="second"/>

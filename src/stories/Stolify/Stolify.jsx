@@ -1,8 +1,5 @@
 import React, { useState, useRef, useEffect, useHasChanged } from 'react';
-import useSound from 'use-sound';
-import AudioPlayer from 'react-h5-audio-player';
 import PropTypes from 'prop-types';
-import Playlist from 'react-mp3-player';
 import './stolify.scss';
 
 // svg btn
@@ -51,6 +48,8 @@ const Stolify = () => {
     audioRef.current.play();
     let stolifySvg = document.getElementById('stolify-svg');
     stolifySvg.classList.add('playing');
+    let stolifyContainer = document.getElementById('stolify-container');
+    stolifyContainer.classList.add('playing');
   };
   
   const pause = () => {
@@ -58,6 +57,7 @@ const Stolify = () => {
     audioRef.current.pause();
     let stolifySvg = document.getElementById('stolify-svg');
     stolifySvg.classList.remove('playing');
+
   };
 
   const previous = () => {

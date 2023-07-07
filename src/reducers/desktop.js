@@ -13,7 +13,8 @@ import {
     OPEN_STOLIFY,
     EXPAND_WINDOW,
     OPEN_CV,
-    SET_POSITION
+    SET_POSITION,
+    OPEN_ARTQUIZ
 } from '../actions/desktop';
 
 const initialState = {
@@ -28,6 +29,7 @@ const initialState = {
     openWindows: [],
     displayCv: false,
     windowPosition: {},
+    displayArtQuiz: false
 }
 
 const desktopReducer = (state = initialState, action = {}) => {

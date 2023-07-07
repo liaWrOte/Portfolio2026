@@ -1,3 +1,4 @@
+import React from 'react';
 import './App.scss';
 import { DesktopTopBar } from './stories/DesktopTopBar/DesktopTopBar';
 import { Desktop } from './stories/Desktop/Desktop';

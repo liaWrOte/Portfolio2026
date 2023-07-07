@@ -1,4 +1,4 @@
-import { useEffect, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import PropTypes from 'prop-types';
 import './item.scss';
 
@@ -15,11 +15,14 @@ const Item = ({ inWindow, outWindowLabel, label, srcImg, triggerOpen, openSingle
   let desktopClass = !inWindow ? ' on-desktop' : '';
   const ref = useRef();
 
-  function openWindowFunc (triggerOpen) {
+  console.error(triggerOpen, ', ', itemId);
+
+  function openWindowFunc(triggerOpen) {
     switch (triggerOpen) {
 
       case 'openWindow':
         openWindow(itemId);
+        console.log(1);
         setPosition(ref.current.getBoundingClientRect());
         break;
 
@@ -52,6 +55,7 @@ const Item = ({ inWindow, outWindowLabel, label, srcImg, triggerOpen, openSingle
         break;
 
       default:
+        console.log(2);
         openWindow(itemId);
     }
   }

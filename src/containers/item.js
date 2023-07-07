@@ -10,7 +10,7 @@ import {
   closeWindow,
   openStolify,
   openCv,
-  setPosition
+  setPosition,
 } from '../actions/desktop';
 
 const mapStateToProps = (state) => ({

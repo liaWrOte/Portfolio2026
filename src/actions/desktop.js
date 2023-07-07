@@ -87,3 +87,4 @@ export const setPosition = (value) => ({
     type: SET_POSITION,
     value
 })
+

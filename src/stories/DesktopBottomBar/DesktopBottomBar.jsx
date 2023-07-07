@@ -33,12 +33,16 @@ export const DesktopBottomBar = ({ primary, backgroundColor, size, label, srcImg
   return (
     <div className="desktop-bar">
       <Item
+        key={Math.random()}
         inWindow={false}
-        outWindowLabel="ArtQuiz"
+        outWindowLabel="Artquiz"
+        triggerOpen="openWindow"
+        itemId="artquiz"
         srcImg={artquiz}
         clickTrigger={"simple"}
       />
       <Item
+        key={Math.random()}
         inWindow={false}
         outWindowLabel="Stolify"
         triggerOpen="stolify"
@@ -47,6 +51,7 @@ export const DesktopBottomBar = ({ primary, backgroundColor, size, label, srcImg
         clickTrigger={"simple"}
       />
       <Item
+        key={Math.random()}
         inWindow={false}
         outWindowLabel="ToDo"
         clickTrigger={"simple"}
