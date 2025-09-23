@@ -1,16 +1,12 @@
 import React from 'react';
 import './App.scss';
-import { DesktopTopBar } from './stories/DesktopTopBar/DesktopTopBar';
-import { Desktop } from './stories/Desktop/Desktop';
-import { DesktopBottomBar } from './stories/DesktopBottomBar/DesktopBottomBar';
+import Main from './stories/Main/Main';
 
 function App() {
 
   return (
     <div className="App">
-      <DesktopTopBar/>
-      <Desktop />
-      <DesktopBottomBar/>  
+      <Main />
     </div>
   );
 }

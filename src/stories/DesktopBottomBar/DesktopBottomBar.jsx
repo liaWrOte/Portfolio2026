@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import './desktop-bottom-bar.scss';
-import Item from '../Item/Item';
+import Item from '../../containers/item';
 
 // svg
 import stolify from '../assets/img/icons/stolify.svg';
@@ -10,9 +10,8 @@ import artquiz from '../assets/img/icons/artquiz.svg';
 /**
  * Primary UI component for user interaction
  */
-export const DesktopBottomBar = ({ primary, backgroundColor, size, label, srcImg, ...props }) => {
+export const DesktopBottomBar = ({ primary, backgroundColor, size, label, srcImg, openArtquiz, ...props }) => {
 
-  
   let controlAppContainer = setInterval(function(){
     let appContainer = document.querySelectorAll('.App');
     if (appContainer.length > 0) {
@@ -36,7 +35,7 @@ export const DesktopBottomBar = ({ primary, backgroundColor, size, label, srcImg
         key={Math.random()}
         inWindow={false}
         outWindowLabel="Artquiz"
-        triggerOpen="openWindow"
+        triggerOpen="artquiz"
         itemId="artquiz"
         srcImg={artquiz}
         clickTrigger={"simple"}
@@ -54,6 +53,14 @@ export const DesktopBottomBar = ({ primary, backgroundColor, size, label, srcImg
         key={Math.random()}
         inWindow={false}
         outWindowLabel="ToDo"
+        clickTrigger={"simple"}
+      />
+      <Item 
+        key={Math.random()}
+        inWindow={false} 
+        itemId="cv"
+        outWindowLabel="CV"
+        triggerOpen="cv"
         clickTrigger={"simple"}
       />
     </div>

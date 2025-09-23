@@ -3,8 +3,6 @@ const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPl
 const dependencies = require("./package.json").dependencies;
 const path = require('path');
 
-console.log(__dirname);
-
 module.exports = {
     entry: {
         index: path.resolve(__dirname, './src/index.js')

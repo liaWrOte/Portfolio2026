@@ -1,15 +1,22 @@
 @import '../assets/scss/vars';
 
 
+.window-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: scale(0.1);
+  opacity: 0;
+  transition: left 0.7s, top 0.7s, transform 0.7s, opacity 0.7s;
+}
 .window {
   width: 600px;
   height: 515px;
   background-color: $cray;
-  border: 5px solid $dark-brown;
+  border: 2px solid $dark-brown;
   box-shadow: -10px 10px 0 $orange;
   position: absolute;
   overflow: hidden;
-  transition: left 1.2s, top 1.2s;
   .window-item-container {
     position: fixed;
     height: -webkit-fill-available;
@@ -83,6 +90,8 @@
     width: 450px;
   }
 }
+
+
 
 /* width */
 ::-webkit-scrollbar {

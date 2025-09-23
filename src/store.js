@@ -1,19 +1,16 @@
 import { configureStore } from '@reduxjs/toolkit';
-import desktopMiddleware from './middlewares/desktop';
-import desktopReducer from './reducers/desktop';
+import mainMiddleware from './middlewares/main';
+import mainReducer from './reducers/main';
 
 const store = configureStore({
     reducer: {
-        desktop: desktopReducer
+        main: mainReducer
     },
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware({
           immutableCheck: false,
           serializableCheck: false,
-        }).concat(desktopMiddleware),
+        }).concat(mainMiddleware),
 })
-
-console.log('store ', store.getState());
-
 
 export default store;

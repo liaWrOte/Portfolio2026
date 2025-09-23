@@ -8,18 +8,20 @@ import arrowRight from '../assets/img/arrow_right.svg';
 /**
  * Primary UI component for user interaction
  */
-export const WindowHeader = ({ primary, backgroundColor, size, label, closeWindow, itemId, expandWindow, ...props }) => {
+export const WindowHeader = ({ primary, backgroundColor, size, label, closeWindow, itemId, expandWindow, minify, isMinified, closeAnimState, closeAnim,  ...props }) => {
 
   function minifyWindow(e) {
     let window = e.target.closest('.window');
     window.classList.toggle('minified');
-    console.log(window);
   }
   
   function expandedWindow(e) {
-    let window = e.target.closest('.window');
-    window.classList.toggle('full');
-    console.log(window);
+    console.log('expanded');
+  }
+
+  function handleClose(itemId) {
+    // closeAnim(true);
+    closeWindow(itemId);
   }
 
 
@@ -29,11 +31,15 @@ export const WindowHeader = ({ primary, backgroundColor, size, label, closeWindo
         <div className="toggle-window-container">
           <span
             className="toggle-window red"
-            onClick={() => closeWindow(itemId)}
+            onClick={() => handleClose(itemId)}
           ></span>
-          <span
+          {/* <span
             className="toggle-window yellow"
             onClick={(e) => minifyWindow(e)}
+          ></span> */}
+          <span
+            className="toggle-window yellow"
+            onClick={() => minify(!isMinified)}
           ></span>
           {itemId !== undefined && itemId[1] === 'img' &&
             <span

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import './item.scss';
 
@@ -6,23 +6,19 @@ import file from '../assets/img/file.png';
 import Stolify from '../Stolify/Stolify';
 import StolifySvg from '../animated/stolify/StolifySvg';
 
-
 /**
  * Primary UI component for user interaction
  */
-const Item = ({ inWindow, outWindowLabel, label, srcImg, triggerOpen, openSingleItem, openWindowItem, openImageItem, openSpecsItem, openAllItems, openWindow, itemId, app, openCv, clickTrigger, setPosition, animated, ...props }) => {
+const Item = ({ inWindow, outWindowLabel, label, srcImg, triggerOpen, openSingleItem, openWindowItem, openImageItem, openSpecsItem, openAllItems, openWindow, itemId, app, clickTrigger, setPosition, animated, openArtquiz, openCv, ...props }) => {
 
   let desktopClass = !inWindow ? ' on-desktop' : '';
   const ref = useRef();
-
-  console.error(triggerOpen, ', ', itemId);
 
   function openWindowFunc(triggerOpen) {
     switch (triggerOpen) {
 
       case 'openWindow':
         openWindow(itemId);
-        console.log(1);
         setPosition(ref.current.getBoundingClientRect());
         break;
 
@@ -54,11 +50,15 @@ const Item = ({ inWindow, outWindowLabel, label, srcImg, triggerOpen, openSingle
         openCv();
         break;
 
+      case 'artquiz':
+        openArtquiz(itemId);
+        break;
+
       default:
-        console.log(2);
-        openWindow(itemId);
+        break;
     }
   }
+
 
   return (
 
@@ -88,7 +88,7 @@ const Item = ({ inWindow, outWindowLabel, label, srcImg, triggerOpen, openSingle
             <img 
               src={srcImg} 
               alt="Logo" 
-              onDoubleClick={() => openWindowFunc(triggerOpen)}
+              onClick={() => openWindowFunc(triggerOpen)}
               />
             {inWindow ? <span>{label}</span> : <span>{outWindowLabel}</span> }
           </>

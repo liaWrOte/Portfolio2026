@@ -8,16 +8,16 @@ import {
   openSpecsItem,
   openAllItems,
   closeWindow,
-  openStolify,
   openCv,
   setPosition,
-} from '../actions/desktop';
+  openArtquiz,
+} from '../actions/main';
 
 const mapStateToProps = (state) => ({
-  displayWindow: state.desktop.displayImageItem,
-  displayProjects: state.desktop.displaySpecsItem,
-  displayWindowItem: state.desktop.displayWindowItem,
-  windowItemId: state.desktop.windowItemId
+  displayWindow: state.main.displayImageItem,
+  displayProjects: state.main.displaySpecsItem,
+  displayWindowItem: state.main.displayWindowItem,
+  windowItemId: state.main.windowItemId
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -25,7 +25,6 @@ const mapDispatchToProps = (dispatch) => ({
     dispatch(getProject(newValue));
   },
   openWindow: (newValue) => {
-    console.log(dispatch);
     dispatch(openWindow(newValue));
   },
   closeWindow: (newValue) => {
@@ -48,8 +47,12 @@ const mapDispatchToProps = (dispatch) => ({
   },
   setPosition: (newValue) => {
     dispatch(setPosition(newValue));
+  },
+  openArtquiz: (newValue) => {
+    dispatch(openArtquiz(newValue));
   }
 });
+
 
 export default connect(
   mapStateToProps,

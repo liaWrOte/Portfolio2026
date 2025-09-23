@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, Suspense, Trans} from 'react';
 import PropTypes from 'prop-types';
 import Draggable from 'react-draggable';
 import ReactMarkdown from "react-markdown";
@@ -6,15 +6,20 @@ import ReactMarkdown from "react-markdown";
 import { backendUrl } from '../../middlewares/env';
 import './window.scss';
 
+import Loader from '../Loader/Loader';
 import WindowHeader from '../../containers/windowHeader';
 import Item from '../../containers/item';
-
 import cv from '../assets/img/cv/Sandrine_MZE_CV.jpg';
+
+const RemoteQuiz = React.lazy(
+  async () => (await import('remote/Quiz'))
+);
+
 
 /**
  * Primary UI component for user interaction
  */
-const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, displayWindowItem, displayImageItem, displaySpecsItem, displayAllItems, windowItemId, displayCv, position, windowPosition }) => {
+const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, displayWindowItem, displayImageItem, displaySpecsItem, displayAllItems, windowItemId, displayCv, displayArtquiz, position, windowPosition }) => {
 
   useEffect(() => {
     const fetchData = async()=> {
@@ -34,20 +39,21 @@ const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, d
     e.target.closest('.window').style.zIndex = '1';
   }
 
-  console.log('windowPosition ', windowPosition);
+  const [isMinified, minify] = useState(false);
 
-  const [showStyle, setShowStyle] = useState(false);
+
+  const [showStyle, setShowStyle] = useState(true);
 
   useEffect(() => {
     if (displayWindow) {
-      setShowStyle(true);
-      const timeout = setTimeout(() => setShowStyle(false), 1000);
-      return () => clearTimeout(timeout);
+      // setShowStyle(true);
+      setTimeout(() => setShowStyle(false), 1000);
+      // return () => clearTimeout(timeout);
     }
   }, [displayWindow]);
 
   const divStyleStart = {
-    position: 'absolute',
+    // position: 'absolute',
     top: windowPosition.top,
     left: windowPosition.left,
     transform: 'scale(0.1)',
@@ -57,7 +63,7 @@ const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, d
 
 
   const divStyleEnd = {
-    position: 'absolute',
+    // position: 'absolute',
     top: '90px',
     opacity: '1',
     left: '140px',
@@ -65,13 +71,11 @@ const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, d
     transition: 'left 0.7s, top 0.7s, transform 0.7s, opacity 0.7s',
   };
 
-  console.log('DISPLAYWindow ', displayWindow);
-
     return (
       <>
 
         {displayWindow && displayProjects && 
-          <div style={showStyle ? divStyleStart: divStyleEnd}>
+          <div className={`window-container`} style={showStyle ? divStyleStart : divStyleEnd}>
             <Draggable
               bounds={'.App'}
               onDrag={(e) => handleZIndex(e)}
@@ -81,13 +85,14 @@ const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, d
               // style={showStyle ? divStyleStart: divStyleEnd}
             >
               <div
-                className={`window`}
+                className={`window ${isMinified ? "minified" : ""}`}
                 onClick={(e) => handleZIndex(e)}
                 origin={position}
                 // style={showStyle ? divStyle : ''}
-                
               >
-                <WindowHeader label="Projets"/>
+                <WindowHeader label="Projets" minify={minify} isMinified={isMinified}               
+                closeAnimState={showStyle}
+                closeAnim={setShowStyle}/>
                 <div className="window-item-container">
                   {displayProjects.map((item, id) => {
                     return (
@@ -109,8 +114,10 @@ const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, d
         }
 
         {displayProjects.map((item, id) => {
+          console.log(item, id);
           if(item.projectOpen) {
             return (
+              <div className={`window-container`} style={showStyle ? divStyleStart : divStyleEnd}>
               <Draggable bounds={'.App'} onDrag={(e) => handleZIndex(e)}>
                 <div
                   className={`window level-class-second`}
@@ -119,7 +126,9 @@ const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, d
                 >
                 <WindowHeader
                   label={`Projets/${displayProjects[id].attributes.title}`}
-                  itemId={[id]}
+                  itemId={[id]} minify={minify} isMinified={isMinified}
+                  closeAnimState={showStyle}
+                  closeAnim={setShowStyle}
                 />
                   <div className="window-item-container">
                     <Item
@@ -136,6 +145,18 @@ const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, d
                       triggerOpen='openImageItem'
                       itemId={id}
                       />
+                    {item.attributes.capture_desktop &&
+                      item.attributes.capture_desktop.data &&
+                      item.imgOpen &&
+                      <Item 
+                        key={Math.random()}
+                        inWindow={false} 
+                        itemId="ouest-france"
+                        outWindowLabel="ouest-france"
+                        triggerOpen="ouest-france"
+                        srcImg={`${backendUrl}${item.attributes.capture_desktop.data.attributes.url}`}
+                      />
+                    }
                     <Item
                       key={Math.random()}
                       inWindow={true}
@@ -146,10 +167,10 @@ const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, d
                   </div>
                 </div>
               </Draggable>
-              // }
+              
+              </div>
             )
           }
-
         })}
 
         {displayProjects.map((item, id) => {
@@ -158,7 +179,6 @@ const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, d
             if (item.attributes.capture_desktop) {
               if(item.imgOpen) {
                 let fullClass = item.imgExpandedWindow ? ' full' : '';
-                // console.log(displayProjects[item.id].attributes.capture_desktop);
                 return (
                     <Draggable bounds={'.App'} onDrag={(e) => handleZIndex(e)}>
                     <div
@@ -196,7 +216,7 @@ const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, d
                 >
                   <WindowHeader
                     label={`Projets/${displayProjects[id].attributes.title}/specs`}
-                    itemId={[id, 'specs']}
+                    itemId={[id, 'specs']} minify={minify} isMinified={isMinified}
                   />
                   <div className="window-item-container specs">
                     <h1>{item.attributes.title}</h1>
@@ -245,12 +265,20 @@ const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, d
                 <WindowHeader
                   label={`Projets/CV`}
                   itemId={['cv', 'img']}
+                  minify={minify} isMinified={isMinified}
                 />
                 <div className="window-item-container img">
                   <img src={cv} alt="cv" />
                 </div>
               </div>
             </Draggable>
+        }
+
+        {displayArtquiz && 
+          <Suspense fallback={<Loader />}>
+            <RemoteQuiz/>
+          </Suspense>
+              // <span>YOYOYO</span>
         }
 
       </>

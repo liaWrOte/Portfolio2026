@@ -4,8 +4,8 @@
   display: block;
   background-color: $yellow;
   padding: 0 1.6rem;
-  border-bottom: 5px solid $dark-brown;
-  height: 70px;
+  border-bottom: 2px solid $dark-brown;
+  height: 50px;
   .window-header-container {
     display: flex;
     justify-content: space-between;
@@ -35,7 +35,7 @@
     }
   }
   .window-header-label {
-    font-size: $font-size-medium;
+    font-size: $font-size-small;
     border: 0.5px solid $dark-brown;
     padding: 0.2rem 0.7rem;
     border-radius: 0.4rem;

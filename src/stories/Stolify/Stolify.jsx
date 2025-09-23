@@ -48,7 +48,7 @@ const Stolify = () => {
     audioRef.current.play();
     let stolifySvg = document.getElementById('stolify-svg');
     stolifySvg.classList.add('playing');
-    let stolifyContainer = document.getElementById('stolify-container');
+    let stolifyContainer = document.getElementsByClassName('stolify-container')[0];
     stolifyContainer.classList.add('playing');
   };
   

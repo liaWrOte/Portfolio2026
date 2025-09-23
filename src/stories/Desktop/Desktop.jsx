@@ -5,10 +5,11 @@ import Item from '../../containers/item';
 import Window from '../../containers/window';
 import cv from '../assets/img/icons/cv.svg';
 import animations from '../assets/img/icons/animations.svg';
+import resume from '../assets/img/cv/Sandrine_MZE_CV.jpg';
 
-// const RemoteQuiz = React.lazy(
-//   async () => (await import('remote/Quiz'))
-// );
+const RemoteQuiz = React.lazy(
+  async () => (await import('remote/Quiz'))
+);
 // const RemoteQuiz = React.lazy(() => import("remote/Quiz"));
 // svg
 
@@ -16,13 +17,21 @@ import animations from '../assets/img/icons/animations.svg';
  * Primary UI component for user interaction
  */
 export const Desktop = ({ displayWindowItem, displayImageItem, displayWindow, ...props}) => {
-
   return (
     <div className="desktop">
       <Item 
         key={Math.random()}
         inWindow={false} 
-        itemId="projets"
+        itemId="pro"
+        outWindowLabel="Pro"
+        triggerOpen="openWindow"
+      />
+
+      <Item 
+        key={Math.random()}
+        inWindow={false} 
+        itemId="brand_design"
+        outWindowLabel="Brand Design"
         triggerOpen="openWindow"
       />
 
@@ -30,9 +39,9 @@ export const Desktop = ({ displayWindowItem, displayImageItem, displayWindow, ..
         key={Math.random()}
         inWindow={false} 
         itemId="cv"
-        outWindowLabel="CV"
+        outWindowLabel="cv.pdf"
         triggerOpen="cv"
-        srcImg={cv}
+        srcImg={resume}
       />
 
       <Item 
@@ -47,8 +56,8 @@ export const Desktop = ({ displayWindowItem, displayImageItem, displayWindow, ..
       <Item 
         key={Math.random()}
         inWindow={false} 
-        itemId="readme"
-        outWindowLabel="Read.me"
+        itemId="contact_me"
+        outWindowLabel="contact.me"
         triggerOpen="openWindow"
         srcImg={animations}
       />
@@ -59,6 +68,10 @@ export const Desktop = ({ displayWindowItem, displayImageItem, displayWindow, ..
           <Window windowLevel="second"/>
       }  */}
       <Window/>
+
+      {props.displayArtquiz &&
+        <RemoteQuiz />
+      }
 
     </div>
   );

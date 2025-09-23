@@ -4,17 +4,17 @@ import { WindowHeader } from '../stories/WindowHeader/WindowHeader';
 import {
   closeWindow,
   expandWindow
-} from '../actions/desktop';
+} from '../actions/main';
 
 
 const mapStateToProps = (state) => ({
-  displayWindow: state.desktop.displayWindow,
-  displayProjects: state.desktop.allProjects,
-  displayWindowItem: state.desktop.displayWindowItem,
-  windowItemId: state.desktop.windowItemId,
-  displayImageItem: state.desktop.displayImageItem,
-  displaySpecsItem: state.desktop.displaySpecsItem,
-  displayAllItems: state.desktop.displayAllItems,
+  displayWindow: state.main.displayWindow,
+  displayProjects: state.main.allProjects,
+  displayWindowItem: state.main.displayWindowItem,
+  windowItemId: state.main.windowItemId,
+  displayImageItem: state.main.displayImageItem,
+  displaySpecsItem: state.main.displaySpecsItem,
+  displayAllItems: state.main.displayAllItems,
 });
 
 const mapDispatchToProps = (dispatch) => ({
