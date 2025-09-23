@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Suspense, Trans} from 'react';
+import React, { useEffect, useState, Suspense, useRef} from 'react';
 import PropTypes from 'prop-types';
 import Draggable from 'react-draggable';
 import ReactMarkdown from "react-markdown";
@@ -36,12 +36,12 @@ const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, d
     windows.forEach((el) => {
       el.style.zIndex = '0';
     });
-    e.target.closest('.window').style.zIndex = '1';
+    if (e.target.closest('.window')) {
+      e.target.closest('.window').style.zIndex = '1';
+    }
   }
 
   const [isMinified, minify] = useState(false);
-
-
   const [showStyle, setShowStyle] = useState(true);
 
   useEffect(() => {
@@ -61,7 +61,6 @@ const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, d
     // transition: 'left 0.7s, top 0.7s, transform 0.7s, opacity 0.7s',
   };
 
-
   const divStyleEnd = {
     // position: 'absolute',
     top: '90px',
@@ -75,7 +74,8 @@ const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, d
       <>
 
         {displayWindow && displayProjects && 
-          <div className={`window-container`} style={showStyle ? divStyleStart : divStyleEnd}>
+          <>
+          {/* <div className={`window-container`} style={showStyle ? divStyleStart : divStyleEnd}> */}
             <Draggable
               bounds={'.App'}
               onDrag={(e) => handleZIndex(e)}
@@ -110,11 +110,11 @@ const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, d
                 </div>
               </div>
             </Draggable>
-          </div>
+          {/* </div> */}
+          </>
         }
 
         {displayProjects.map((item, id) => {
-          console.log(item, id);
           if(item.projectOpen) {
             return (
               <div className={`window-container`} style={showStyle ? divStyleStart : divStyleEnd}>
@@ -145,18 +145,37 @@ const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, d
                       triggerOpen='openImageItem'
                       itemId={id}
                       />
-                    {item.attributes.capture_desktop &&
-                      item.attributes.capture_desktop.data &&
-                      item.imgOpen &&
-                      <Item 
+                      {item.attributes.capture_desktop.data &&
+                        <Item 
+                          key={Math.random()}
+                          inWindow={true}
+                          itemId={`${item.attributes.capture_desktop.data.attributes.name}`}
+                          outWindowLabel={`${item.attributes.capture_desktop.data.attributes.name}`}
+                          triggerOpen="ouest-france"
+                          srcImg={`${backendUrl}${item.attributes.capture_desktop.data.attributes.url}`}
+                        />
+                      }
+                      {item.attributes.capture_desktop_2.data &&
+                        <Item 
+                          key={Math.random()}
+                          inWindow={true}
+                          itemId={`${item.attributes.capture_desktop_2.data.attributes.name}`}
+                          outWindowLabel={`${item.attributes.capture_desktop_2.data.attributes.name}`}
+                          triggerOpen="ouest-france"
+                          srcImg={`${backendUrl}${item.attributes.capture_desktop_2.data.attributes.url}`}
+                        />
+                      }
+                      {item.attributes.capture_mobile.data &&
+                        <Item 
                         key={Math.random()}
-                        inWindow={false} 
-                        itemId="ouest-france"
-                        outWindowLabel="ouest-france"
+                        inWindow={true}
+                        itemId={`${item.attributes.capture_mobile.data.attributes.name}`}
+                        outWindowLabel={`${item.attributes.capture_mobile.data.attributes.name}`}
                         triggerOpen="ouest-france"
-                        srcImg={`${backendUrl}${item.attributes.capture_desktop.data.attributes.url}`}
-                      />
-                    }
+                        srcImg={`${backendUrl}${item.attributes.capture_mobile.data.attributes.url}`}
+                        />
+                      }
+
                     <Item
                       key={Math.random()}
                       inWindow={true}
