@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="219" height="260" viewBox="0 0 219 260">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #e6a934;
+        font-size: 166px;
+        font-family: Sutturah-Fat, Sutturah Fat;
+        font-weight: 900;
+        letter-spacing: 0.005em;
+        opacity: 0.36;
+      }
+
+      .cls-2 {
+        filter: url(#_up);
+      }
+    </style>
+    <filter id="_up" x="0" y="0" width="219" height="260" filterUnits="userSpaceOnUse">
+      <feOffset dx="5" dy="5" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-opacity="0.588"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g class="cls-2" transform="matrix(1, 0, 0, 1, 0, 0)">
+    <text id="_up-2" data-name=" up" class="cls-1" transform="translate(4 191)"><tspan x="0" y="0" xml:space="preserve"> up</tspan></text>
+  </g>
+</svg>

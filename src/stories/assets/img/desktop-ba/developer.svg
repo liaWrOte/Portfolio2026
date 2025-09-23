@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="438" height="164" viewBox="0 0 438 164">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #e6a934;
+        font-size: 100px;
+        font-family: Sutturah-Fat, Sutturah Fat;
+        font-weight: 900;
+        letter-spacing: 0.005em;
+        opacity: 0.36;
+      }
+
+      .cls-2 {
+        filter: url(#developer);
+      }
+    </style>
+    <filter id="developer" x="0" y="0" width="438" height="164" filterUnits="userSpaceOnUse">
+      <feOffset dx="5" dy="5" input="SourceAlpha"/>
+      <feGaussianBlur stdDeviation="3" result="blur"/>
+      <feFlood flood-opacity="0.588"/>
+      <feComposite operator="in" in2="blur"/>
+      <feComposite in="SourceGraphic"/>
+    </filter>
+  </defs>
+  <g class="cls-2" transform="matrix(1, 0, 0, 1, 0, 0)">
+    <text id="developer-2" data-name="developer" class="cls-1" transform="translate(4 117)"><tspan x="0" y="0">developer</tspan></text>
+  </g>
+</svg>
