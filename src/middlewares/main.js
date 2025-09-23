@@ -37,7 +37,7 @@ const desktopMiddleware = (store) => (next) => (action) => {
             break;
 
         case GET_ALL_PROJECTS: 
-            axios.get(`${apiUrl}/projects`)
+            axios.get(`${apiUrl}/projects?populate=*`)
             .then((response) => {
                 let projects = response.data.data;
                 store.dispatch(showAllProjects(projects));
