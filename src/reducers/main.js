@@ -71,11 +71,17 @@ const desktopReducer = (state = initialState, action = {}) => {
         }
 
         case OPEN_WINDOW : {
+            let tempArr = [...state.allProjects];
+            tempArr.forEach((project, id) => {
+                project.projectOpen = 0;
+            })
             return {
                 ...state,
                 // displayWindow: true,
+                allProjects: tempArr,
                 windowItemId: action.value,
-                openWindows: state.openWindows.concat(action.value)
+                openWindows: !(state.openWindows.includes(action.value)) ? state.openWindows.concat(action.value) : state.openWindows,
+                displayWindowItem: false,
             }
         }
 
@@ -84,7 +90,7 @@ const desktopReducer = (state = initialState, action = {}) => {
             tempArr[action.value].projectOpen = 1;
             return {
                 ...state,
-                // displayWindowItem: true,
+                displayWindowItem: true,
                 allProjects: tempArr
             }
         }
@@ -148,12 +154,18 @@ const desktopReducer = (state = initialState, action = {}) => {
 
         case CLOSE_WINDOW : {
             if (action.value !== undefined && action.value[0] !== undefined && action.value[1] === undefined) {
+                console.log(action);
                 let tempArr = [...state.allProjects];
+                // tempArr.forEach((project, id) => {
+                //     project.projectOpen = 0;
+                // })
                 tempArr[action.value[0]].projectOpen = 0;
                 return {
                     ...state,
                     // displayWindowItem: true,
-                    allProjects: tempArr,
+                    openWindows: state.openWindows.filter(window => window !== action.value),
+                    allProjects: tempArr
+
                 }
             }
 
@@ -171,15 +183,14 @@ const desktopReducer = (state = initialState, action = {}) => {
                 return {
                     ...state,
                     // displayWindowItem: true,
-                    allProjects: tempArr
+                    // allProjects: tempArr
                 }
             }
 
             if (action.value === undefined) {
                 return {
                     ...state,
-                    // displayWindowItem: true,
-                    displayWindow: !state.displayWindow
+                    displayWindowItem: false
                 }
             }
 

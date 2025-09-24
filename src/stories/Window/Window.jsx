@@ -19,7 +19,7 @@ const RemoteQuiz = React.lazy(
 /**
  * Primary UI component for user interaction
  */
-const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, displayWindowItem, displayImageItem, displaySpecsItem, displayAllItems, windowItemId, displayCv, displayArtquiz, position, windowPosition }) => {
+const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, displayWindowItem, displayImageItem, displaySpecsItem, displayAllItems, windowItemId, displayCv, displayArtquiz, position, windowPosition, openWindow, openWindowItem }) => {
 
   useEffect(() => {
     const fetchData = async()=> {
@@ -90,9 +90,13 @@ const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, d
                 origin={position}
                 // style={showStyle ? divStyle : ''}
               >
-                <WindowHeader label={windowItemId} minify={minify} isMinified={isMinified}               
-                closeAnimState={showStyle}
-                closeAnim={setShowStyle}/>
+                <WindowHeader label={windowItemId}
+                  minify={minify}
+                  isMinified={isMinified}               
+                  closeAnimState={showStyle}
+                  closeAnim={setShowStyle}
+                  // itemId={windowItemId}
+                  />
                 <div className="window-item-container">
 
                   <ul className="window-left-nav">
@@ -102,8 +106,18 @@ const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, d
                       const showType = currentType !== previousType;
                         return (
                           <>
-                            {showType && <li className="window-left-nav-type">{currentType}</li>}
-                            <li className='window-left-nav-item'>{item.attributes.title}</li>
+                            {showType &&
+                              <li
+                                className="window-left-nav-type"
+                                onClick={(e => openWindow(currentType))}>
+                                  {currentType}
+                              </li>
+                            }
+                            <li
+                              className='window-left-nav-item'
+                              onClick={(e => openWindowItem(id))}>
+                                {item.attributes.title}
+                            </li>
                           </>
                         )
                     })}
@@ -111,21 +125,84 @@ const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, d
 
                   <div className="window-right-items">
                     {displayProjects.map((item, id) => {
-                      if (item.attributes.type ===  windowItemId) {
-                        return (
-                          <Item 
-                            key={Math.random()} 
-                            inWindow={true} 
-                            label={item.attributes.title} 
-                            triggerOpen='openWindowItem'
-                            // itemId={`Projets/${item.attributes.title}`}
-                            itemId={id}
-                            projectId={id}
-                          />
-                        )
-                      }
+                        if (item.attributes.type ===  windowItemId) {
+                          console.log('ici');
+                          return (
+                            <>
+                              {!displayWindowItem &&
+                                <Item 
+                                  key={Math.random()} 
+                                  inWindow={true} 
+                                  label={item.attributes.title} 
+                                  triggerOpen='openWindowItem'
+                                  // itemId={`Projets/${item.attributes.title}`}
+                                  itemId={id}
+                                  // projectId={id}
+                                />
+                              }
+                              {item.projectOpen &&
+                                <div className="window-item-container">
+                                  <Item
+                                    key={Math.random()}
+                                    inWindow={true}
+                                    label="Specs"
+                                    triggerOpen='openSpecsItem'
+                                    itemId={id}
+                                  />
+                                  <Item
+                                    key={Math.random()}
+                                    inWindow={true}
+                                    label="Images"
+                                    triggerOpen='openImageItem'
+                                    itemId={id}
+                                    />
+                                    {item.attributes.capture_desktop.data &&
+                                      <Item 
+                                        key={Math.random()}
+                                        inWindow={true}
+                                        itemId={`${item.attributes.capture_desktop.data.attributes.name}`}
+                                        outWindowLabel={`${item.attributes.capture_desktop.data.attributes.name}`}
+                                        triggerOpen="ouest-france"
+                                        srcImg={`${backendUrl}${item.attributes.capture_desktop.data.attributes.url}`}
+                                      />
+                                    }
+                                    {item.attributes.capture_desktop_2.data &&
+                                      <Item 
+                                        key={Math.random()}
+                                        inWindow={true}
+                                        itemId={`${item.attributes.capture_desktop_2.data.attributes.name}`}
+                                        outWindowLabel={`${item.attributes.capture_desktop_2.data.attributes.name}`}
+                                        triggerOpen="ouest-france"
+                                        srcImg={`${backendUrl}${item.attributes.capture_desktop_2.data.attributes.url}`}
+                                      />
+                                    }
+                                    {item.attributes.capture_mobile.data &&
+                                      <Item 
+                                      key={Math.random()}
+                                      inWindow={true}
+                                      itemId={`${item.attributes.capture_mobile.data.attributes.name}`}
+                                      outWindowLabel={`${item.attributes.capture_mobile.data.attributes.name}`}
+                                      triggerOpen="ouest-france"
+                                      srcImg={`${backendUrl}${item.attributes.capture_mobile.data.attributes.url}`}
+                                      />
+                                    }
+        
+                                  <Item
+                                    key={Math.random()}
+                                    inWindow={true}
+                                    label="Tout ouvrir"
+                                    triggerOpen='openAllItems'
+                                    itemId={id}
+                                  />
+                                </div>
+                              }
+                            </>
+                          )
+                        }
                     })}
                   </div>
+
+                  
                 </div>
               </div>
             </Draggable>
@@ -134,6 +211,10 @@ const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, d
         }
 
         {displayProjects.map((item, id) => {
+
+        })}
+
+        {/* {displayProjects.map((item, id) => {
           if(item.projectOpen) {
             return (
               <div className={`window-container`} style={showStyle ? divStyleStart : divStyleEnd}>
@@ -209,7 +290,7 @@ const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, d
               </div>
             )
           }
-        })}
+        })} */}
 
         {displayProjects.map((item, id) => {
             // console.error('IMG OPEN', item.imgOpen );

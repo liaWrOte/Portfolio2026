@@ -3,6 +3,8 @@ import Window from '../stories/Window/Window';
 
 import {
   getAllProjects,
+  openWindow,
+  openWindowItem
 } from '../actions/main';
 
 
@@ -22,6 +24,12 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   getAllProjects: (newValue) => {
     dispatch(getAllProjects(newValue));
+  },
+  openWindow: (newValue) => {
+    dispatch(openWindow(newValue));
+  },
+  openWindowItem: (newValue) => {
+    dispatch(openWindowItem(newValue));
   }
 });
 

@@ -21,16 +21,34 @@
     display: flex;
     position: fixed;
     height: -webkit-fill-available;
-    gap: $big-gutter;
     font-family: monospace;
     .window-left-nav {
+      width: 40%;
+      padding: 1rem;
       border-right: 1px solid $dark-brown;
       li {
+        padding-top: 0.5rem;
         list-style-type: none;
+        &.window-left-nav-type {
+          font-size: 1.1rem;
+        }
+        &.window-left-nav-item {
+          padding-left: 1rem;
+          display: flex;
+          &:before {
+            content:"";
+            display: block;
+            border-top: 1px solid $dark-brown;
+          }
+        }
+        &:hover {
+          cursor: pointer;
+          font-style: italic;
+        }
       }
     }
     .window-right-items {
-      padding: 2rem;
+      padding: 1rem;
     }
     h1 {
       margin-top: 0;
