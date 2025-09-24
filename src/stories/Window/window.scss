@@ -60,10 +60,13 @@
       color: $dark-brown;
     }
     &.specs {
+      padding: $big-gutter;
       background-image: url('../assets/img/specs/paper.svg');
       background-repeat: repeat;
       background-size: 10%;
       overflow: auto;
+      flex-direction: column;
+      gap: $big-gutter;
     }
     &.img {
       padding: 0;

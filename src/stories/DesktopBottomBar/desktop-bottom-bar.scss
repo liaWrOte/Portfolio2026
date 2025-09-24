@@ -6,10 +6,11 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background-color: $light-brown;
+  background-color: $cray;
   gap: $gutter;
   z-index: 10;
   padding: 0 30px;
+  border-top: 1px solid $dark-brown;
   .desktop-bar-center {
     display: flex;
     align-items: center;

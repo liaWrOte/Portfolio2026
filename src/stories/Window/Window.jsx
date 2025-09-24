@@ -126,7 +126,6 @@ const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, d
                   <div className="window-right-items">
                     {displayProjects.map((item, id) => {
                         if (item.attributes.type ===  windowItemId) {
-                          console.log('ici');
                           return (
                             <>
                               {!displayWindowItem &&
@@ -149,13 +148,6 @@ const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, d
                                     triggerOpen='openSpecsItem'
                                     itemId={id}
                                   />
-                                  <Item
-                                    key={Math.random()}
-                                    inWindow={true}
-                                    label="Images"
-                                    triggerOpen='openImageItem'
-                                    itemId={id}
-                                    />
                                     {item.attributes.capture_desktop.data &&
                                       <Item 
                                         key={Math.random()}
@@ -213,84 +205,6 @@ const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, d
         {displayProjects.map((item, id) => {
 
         })}
-
-        {/* {displayProjects.map((item, id) => {
-          if(item.projectOpen) {
-            return (
-              <div className={`window-container`} style={showStyle ? divStyleStart : divStyleEnd}>
-              <Draggable bounds={'.App'} onDrag={(e) => handleZIndex(e)}>
-                <div
-                  className={`window level-class-second`}
-                  key={Math.random()}
-                  onClick={(e) => handleZIndex(e)}
-                >
-                <WindowHeader
-                  label={`Projets/${displayProjects[id].attributes.title}`}
-                  itemId={[id]} minify={minify} isMinified={isMinified}
-                  closeAnimState={showStyle}
-                  closeAnim={setShowStyle}
-                />
-                  <div className="window-item-container">
-                    <Item
-                      key={Math.random()}
-                      inWindow={true}
-                      label="Specs"
-                      triggerOpen='openSpecsItem'
-                      itemId={id}
-                    />
-                    <Item
-                      key={Math.random()}
-                      inWindow={true}
-                      label="Images"
-                      triggerOpen='openImageItem'
-                      itemId={id}
-                      />
-                      {item.attributes.capture_desktop.data &&
-                        <Item 
-                          key={Math.random()}
-                          inWindow={true}
-                          itemId={`${item.attributes.capture_desktop.data.attributes.name}`}
-                          outWindowLabel={`${item.attributes.capture_desktop.data.attributes.name}`}
-                          triggerOpen="ouest-france"
-                          srcImg={`${backendUrl}${item.attributes.capture_desktop.data.attributes.url}`}
-                        />
-                      }
-                      {item.attributes.capture_desktop_2.data &&
-                        <Item 
-                          key={Math.random()}
-                          inWindow={true}
-                          itemId={`${item.attributes.capture_desktop_2.data.attributes.name}`}
-                          outWindowLabel={`${item.attributes.capture_desktop_2.data.attributes.name}`}
-                          triggerOpen="ouest-france"
-                          srcImg={`${backendUrl}${item.attributes.capture_desktop_2.data.attributes.url}`}
-                        />
-                      }
-                      {item.attributes.capture_mobile.data &&
-                        <Item 
-                        key={Math.random()}
-                        inWindow={true}
-                        itemId={`${item.attributes.capture_mobile.data.attributes.name}`}
-                        outWindowLabel={`${item.attributes.capture_mobile.data.attributes.name}`}
-                        triggerOpen="ouest-france"
-                        srcImg={`${backendUrl}${item.attributes.capture_mobile.data.attributes.url}`}
-                        />
-                      }
-
-                    <Item
-                      key={Math.random()}
-                      inWindow={true}
-                      label="Tout ouvrir"
-                      triggerOpen='openAllItems'
-                      itemId={id}
-                    />
-                  </div>
-                </div>
-              </Draggable>
-              
-              </div>
-            )
-          }
-        })} */}
 
         {displayProjects.map((item, id) => {
             // console.error('IMG OPEN', item.imgOpen );
