@@ -67,7 +67,15 @@ export const Desktop = ({ displayWindowItem, displayImageItem, displayWindow, ..
       {/* {displayWindowItem &&
           <Window windowLevel="second"/>
       }  */}
-      <Window/>
+      {/* <Window/> */}
+
+      {/* Exemple intégration CodePen */}
+      {/* <div id="integration">
+        <iframe height="400" style={{width: 40 + '%'}} scrolling="no" title="Nom du Pen"
+          src="https://codepen.io/liaWO/embed/mdNOqKJ?default-tab=html%2Cresult"
+          frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
+        </iframe>
+      </div> */}
 
       {props.displayArtquiz &&
         <RemoteQuiz />
