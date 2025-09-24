@@ -49,7 +49,7 @@ export const DesktopBottomBar = ({ primary, backgroundColor, size, label, srcImg
 
         <span className="identity">Sandrine M'ZE</span>
 
-      <div class="desktop-bar-center">
+      <div className="desktop-bar-center">
         <Item
           key={Math.random()}
           inWindow={false}

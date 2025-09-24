@@ -74,6 +74,7 @@ const desktopReducer = (state = initialState, action = {}) => {
             return {
                 ...state,
                 // displayWindow: true,
+                windowItemId: action.value,
                 openWindows: state.openWindows.concat(action.value)
             }
         }

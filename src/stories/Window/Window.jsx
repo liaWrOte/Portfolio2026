@@ -90,22 +90,25 @@ const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, d
                 origin={position}
                 // style={showStyle ? divStyle : ''}
               >
-                <WindowHeader label="Projets" minify={minify} isMinified={isMinified}               
+                <WindowHeader label={windowItemId} minify={minify} isMinified={isMinified}               
                 closeAnimState={showStyle}
                 closeAnim={setShowStyle}/>
                 <div className="window-item-container">
+
                   {displayProjects.map((item, id) => {
-                    return (
-                      <Item 
-                        key={Math.random()} 
-                        inWindow={true} 
-                        label={item.attributes.title} 
-                        triggerOpen='openWindowItem'
-                        // itemId={`Projets/${item.attributes.title}`}
-                        itemId={id}
-                        projectId={id}
-                      />
-                    )
+                    if (item.attributes.type ===  windowItemId) {
+                      return (
+                        <Item 
+                          key={Math.random()} 
+                          inWindow={true} 
+                          label={item.attributes.title} 
+                          triggerOpen='openWindowItem'
+                          // itemId={`Projets/${item.attributes.title}`}
+                          itemId={id}
+                          projectId={id}
+                        />
+                      )
+                    }
                   })}
                 </div>
               </div>

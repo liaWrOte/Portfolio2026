@@ -22,7 +22,7 @@ export const Desktop = ({ displayWindowItem, displayImageItem, displayWindow, ..
       <Item 
         key={Math.random()}
         inWindow={false} 
-        itemId="pro"
+        itemId="Pro"
         outWindowLabel="Pro"
         triggerOpen="openWindow"
       />
@@ -30,7 +30,7 @@ export const Desktop = ({ displayWindowItem, displayImageItem, displayWindow, ..
       <Item 
         key={Math.random()}
         inWindow={false} 
-        itemId="brand_design"
+        itemId="Brand Design"
         outWindowLabel="Brand Design"
         triggerOpen="openWindow"
       />
