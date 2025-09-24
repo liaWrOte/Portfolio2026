@@ -296,7 +296,7 @@ const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, d
                 onClick={(e) => handleZIndex(e)}
               >
                 <WindowHeader
-                  label={`Projets/CV`}
+                  label={`cv.pdf`}
                   itemId={['cv', 'img']}
                   minify={minify} isMinified={isMinified}
                 />

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { apiUrl, backendUrl } from './env';
+import { apiUrl } from './env';
 
 import {
     GET_PROJECT,
@@ -8,10 +8,7 @@ import {
     showWindow,
     GET_ALL_PROJECTS,
     showAllProjects,
-    showWindowItem,
     OPEN_IMAGE_ITEM,
-    openWindowItem,
-    openImageItem,
     showImageItem
 } from '../actions/main';
 
