@@ -95,21 +95,37 @@ const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, d
                 closeAnim={setShowStyle}/>
                 <div className="window-item-container">
 
-                  {displayProjects.map((item, id) => {
-                    if (item.attributes.type ===  windowItemId) {
-                      return (
-                        <Item 
-                          key={Math.random()} 
-                          inWindow={true} 
-                          label={item.attributes.title} 
-                          triggerOpen='openWindowItem'
-                          // itemId={`Projets/${item.attributes.title}`}
-                          itemId={id}
-                          projectId={id}
-                        />
-                      )
-                    }
-                  })}
+                  <ul className="window-left-nav">
+                    {displayProjects.map((item, id) => {
+                      const currentType = item.attributes.type;
+                      const previousType = id > 0 ? displayProjects[id - 1].attributes.type : null;
+                      const showType = currentType !== previousType;
+                        return (
+                          <>
+                            {showType && <li className="window-left-nav-type">{currentType}</li>}
+                            <li className='window-left-nav-item'>{item.attributes.title}</li>
+                          </>
+                        )
+                    })}
+                  </ul>
+
+                  <div className="window-right-items">
+                    {displayProjects.map((item, id) => {
+                      if (item.attributes.type ===  windowItemId) {
+                        return (
+                          <Item 
+                            key={Math.random()} 
+                            inWindow={true} 
+                            label={item.attributes.title} 
+                            triggerOpen='openWindowItem'
+                            // itemId={`Projets/${item.attributes.title}`}
+                            itemId={id}
+                            projectId={id}
+                          />
+                        )
+                      }
+                    })}
+                  </div>
                 </div>
               </div>
             </Draggable>

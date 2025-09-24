@@ -18,11 +18,20 @@
   position: absolute;
   overflow: hidden;
   .window-item-container {
+    display: flex;
     position: fixed;
     height: -webkit-fill-available;
-    padding: 2rem 2rem 2rem 2rem;
     gap: $big-gutter;
     font-family: monospace;
+    .window-left-nav {
+      border-right: 1px solid $dark-brown;
+      li {
+        list-style-type: none;
+      }
+    }
+    .window-right-items {
+      padding: 2rem;
+    }
     h1 {
       margin-top: 0;
       display: inline;
