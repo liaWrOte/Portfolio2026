@@ -1,4 +1,5 @@
 import React from 'react';
+import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import './desktop-bottom-bar.scss';
 import Item from '../../containers/item';
@@ -11,6 +12,20 @@ import artquiz from '../assets/img/icons/artquiz.svg';
  * Primary UI component for user interaction
  */
 export const DesktopBottomBar = ({ primary, backgroundColor, size, label, srcImg, openArtquiz, ...props }) => {
+
+  const locale = 'fr-FR';
+  const [today, setDate] = useState(new Date());
+
+  useEffect(() => {
+      const timer = setInterval(() => {
+      setDate(new Date());
+    }, 60 * 1000);
+    return () => {
+      clearInterval(timer);
+    }
+  }, []);
+
+  const hour = today.toLocaleTimeString(locale, {hour: '2-digit', minute:'2-digit'});
 
   let controlAppContainer = setInterval(function(){
     let appContainer = document.querySelectorAll('.App');
@@ -31,38 +46,47 @@ export const DesktopBottomBar = ({ primary, backgroundColor, size, label, srcImg
 
   return (
     <div className="desktop-bar">
-      <Item
-        key={Math.random()}
-        inWindow={false}
-        outWindowLabel="Artquiz"
-        triggerOpen="artquiz"
-        itemId="artquiz"
-        srcImg={artquiz}
-        clickTrigger={"simple"}
-      />
-      <Item
-        key={Math.random()}
-        inWindow={false}
-        outWindowLabel="Stolify"
-        triggerOpen="stolify"
-        // srcImg={stolify}
-        animated={true}
-        clickTrigger={"simple"}
-      />
-      <Item
-        key={Math.random()}
-        inWindow={false}
-        outWindowLabel="ToDo"
-        clickTrigger={"simple"}
-      />
-      <Item 
-        key={Math.random()}
-        inWindow={false} 
-        itemId="cv"
-        outWindowLabel="CV"
-        triggerOpen="cv"
-        clickTrigger={"simple"}
-      />
+
+        <span className="identity">Sandrine M'ZE</span>
+
+      <div class="desktop-bar-center">
+        <Item
+          key={Math.random()}
+          inWindow={false}
+          outWindowLabel="Artquiz"
+          triggerOpen="artquiz"
+          itemId="artquiz"
+          srcImg={artquiz}
+          clickTrigger={"simple"}
+        />
+        <Item
+          key={Math.random()}
+          inWindow={false}
+          outWindowLabel="Stolify"
+          triggerOpen="stolify"
+          // srcImg={stolify}
+          animated={true}
+          clickTrigger={"simple"}
+        />
+        <Item
+          key={Math.random()}
+          inWindow={false}
+          outWindowLabel="ToDo"
+          clickTrigger={"simple"}
+        />
+        <Item 
+          key={Math.random()}
+          inWindow={false} 
+          itemId="cv"
+          outWindowLabel="CV"
+          triggerOpen="cv"
+          clickTrigger={"simple"}
+        />
+      </div>
+
+      <span className="time">{hour}</span>
+
+
     </div>
   );
 };

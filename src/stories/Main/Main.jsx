@@ -1,5 +1,4 @@
 import React from 'react';
-import { DesktopTopBar } from '../DesktopTopBar/DesktopTopBar';
 import { Desktop } from '../Desktop/Desktop';
 import { DesktopBottomBar } from '../DesktopBottomBar/DesktopBottomBar';
 
@@ -9,7 +8,6 @@ import { DesktopBottomBar } from '../DesktopBottomBar/DesktopBottomBar';
 const Main = ({...props }) => {
   return (
     <div>
-      <DesktopTopBar />
       <Desktop />
       <DesktopBottomBar />  
     </div>
