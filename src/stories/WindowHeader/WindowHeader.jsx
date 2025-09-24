@@ -10,13 +10,15 @@ import arrowRight from '../assets/img/arrow_right.svg';
  */
 export const WindowHeader = ({ primary, backgroundColor, size, label, closeWindow, itemId, expandWindow, minify, isMinified, closeAnimState, closeAnim,  ...props }) => {
 
+  
   function minifyWindow(e) {
-    let window = e.target.closest('.window');
+    const window = e.target.closest('.window');
     window.classList.toggle('minified');
   }
   
   function expandedWindow(e) {
-    console.log('expanded');
+    const window = e.target.closest('.window');
+    window.classList.toggle('full');
   }
 
   function handleClose(itemId) {
@@ -28,6 +30,9 @@ export const WindowHeader = ({ primary, backgroundColor, size, label, closeWindo
   return (
     <div className='window-header'>
       <div className="window-header-container">
+        <div className="window-header-nav">
+        </div>
+        <span className="window-header-label">{label}</span>
         <div className="toggle-window-container">
           <span
             className="toggle-window red"
@@ -49,9 +54,7 @@ export const WindowHeader = ({ primary, backgroundColor, size, label, closeWindo
             ></span>
           }
         </div>
-        <span className="window-header-label">{label}</span>
-        <div className="window-header-nav">
-        </div>
+
       </div>
     </div>
   );
