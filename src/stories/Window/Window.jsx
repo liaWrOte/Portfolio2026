@@ -73,6 +73,7 @@ const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, d
     return (
       <>
 
+        {/* Show projects window */}
         {displayWindow && displayProjects && 
           <>
           {/* <div className={`window-container`} style={showStyle ? divStyleStart : divStyleEnd}> */}
@@ -95,7 +96,7 @@ const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, d
                   isMinified={isMinified}               
                   closeAnimState={showStyle}
                   closeAnim={setShowStyle}
-                  // itemId={windowItemId}
+                  itemId={windowItemId}
                   />
 
                 <div className="window-item-container">
@@ -108,12 +109,14 @@ const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, d
                           <>
                             {showType &&
                               <li
+                                key={Math.random()}
                                 className="window-left-nav-type"
                                 onClick={(e => openWindow(currentType))}>
                                   {currentType}
                               </li>
                             }
                             <li
+                              key={Math.random()}
                               className='window-left-nav-item'
                               onClick={(e => openWindowItem(id))}>
                                 {item.attributes.title}
@@ -152,9 +155,9 @@ const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, d
                                       <Item 
                                         key={Math.random()}
                                         inWindow={true}
-                                        itemId={`${item.attributes.capture_desktop.data.attributes.name}`}
+                                        itemId={item.id}
                                         outWindowLabel={`${item.attributes.capture_desktop.data.attributes.name}`}
-                                        triggerOpen="ouest-france"
+                                        triggerOpen='capture_desktop'
                                         srcImg={`${backendUrl}${item.attributes.capture_desktop.data.attributes.url}`}
                                       />
                                     }
@@ -162,9 +165,9 @@ const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, d
                                       <Item 
                                         key={Math.random()}
                                         inWindow={true}
-                                        itemId={`${item.attributes.capture_desktop_2.data.attributes.name}`}
+                                        itemId={item.id}
                                         outWindowLabel={`${item.attributes.capture_desktop_2.data.attributes.name}`}
-                                        triggerOpen="ouest-france"
+                                        triggerOpen='capture_desktop_2'
                                         srcImg={`${backendUrl}${item.attributes.capture_desktop_2.data.attributes.url}`}
                                       />
                                     }
@@ -172,9 +175,9 @@ const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, d
                                       <Item 
                                       key={Math.random()}
                                       inWindow={true}
-                                      itemId={`${item.attributes.capture_mobile.data.attributes.name}`}
+                                      itemId={item.id}
                                       outWindowLabel={`${item.attributes.capture_mobile.data.attributes.name}`}
-                                      triggerOpen="ouest-france"
+                                      triggerOpen='capture_mobile'
                                       srcImg={`${backendUrl}${item.attributes.capture_mobile.data.attributes.url}`}
                                       />
                                     }
@@ -201,35 +204,26 @@ const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, d
         }
 
         {displayProjects.map((item, id) => {
-            // console.error('IMG OPEN', item.imgOpen );
-            // console.error('IMG attributes', item.attributes.capture_desktop);
-            if (item.attributes.capture_desktop) {
-              if(item.imgOpen) {
-                let fullClass = item.imgExpandedWindow ? ' full' : '';
-                return (
-                    <Draggable bounds={'.App'} onDrag={(e) => handleZIndex(e)}>
-                    <div
-                      className={`window level-class-third img ${fullClass}`}
-                      key={Math.random()}
-                      onClick={(e) => handleZIndex(e)}
-                    >
-                      <WindowHeader
-                        label={`Projets/${item.attributes.title}/images`}
-                        itemId={[id, 'img']}
-                      />
-                      <div className="window-item-container img">
-                        {item.attributes.capture_desktop.data &&
-                          <img src={`${backendUrl}${item.attributes.capture_desktop.data.attributes.url}`} alt="capture"/>
-                        }
-                        {item.attributes.capture_desktop_2.data &&
-                          <img src={`${backendUrl}${item.attributes.capture_desktop_2.data.attributes.url}`} alt="capture"/>
-                        }
-                      </div>
-                    </div>
-                     </Draggable>
-                )
-              }
-            }
+          if(item.imgOpen) {
+            let fullClass = item.imgExpandedWindow ? ' full' : '';
+            return (
+                <Draggable bounds={'.App'} onDrag={(e) => handleZIndex(e)}>
+                <div
+                  className={`window level-class-third img ${fullClass}`}
+                  key={Math.random()}
+                  onClick={(e) => handleZIndex(e)}
+                >
+                  <WindowHeader
+                    label={`Projets/${item.attributes.title}/images`}
+                    itemId={[id, 'img']}
+                  />
+                  <div className="window-item-container img">
+                    <img src={`${backendUrl}${item.attributes[displayImageItem].data.attributes.url}`} alt="capture"/>
+                  </div>
+                </div>
+                  </Draggable>
+            )
+          }
         })}
 
         {displayProjects.map((item, id) => {

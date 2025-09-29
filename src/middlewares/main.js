@@ -46,11 +46,11 @@ const desktopMiddleware = (store) => (next) => (action) => {
             break;
 
         case OPEN_IMAGE_ITEM:
-            let id = action.value + 1;
+            let id = action.value.itemId ? action.value.itemId : action.value;
             axios.get(`${apiUrl}/projects/${id}?populate=*`)
             .then((response) => {
                 let project = response.data.data;
-                let test = store.dispatch(showImageItem(project));
+                store.dispatch(showImageItem(project));
             })
             .catch((error) => {
                 console.error(error);

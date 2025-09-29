@@ -100,33 +100,35 @@ const desktopReducer = (state = initialState, action = {}) => {
 
         case OPEN_IMAGE_ITEM : {
             let tempArr = [...state.allProjects];
-            tempArr[action.value].imgOpen = 1;
+            let tempDisplayImageItem = state.displayImageItem;
+            const triggerOpen = action.value.triggerOpen ?? null;
+            tempDisplayImageItem = triggerOpen;
             return {
                 ...state,
-                // displayWindowItem: true,
-                allProjects: tempArr
+                allProjects: tempArr,
+                displayImageItem: tempDisplayImageItem
             }
         }
 
         case SHOW_IMAGE_ITEM : {
             let tempArr = [...state.allProjects];
-            tempArr = state.allProjects;
+            const itemId = action.value.id ?? action.value;
+            console.log('itemId', itemId);
                 
-                let media = {
-                    capture_desktop : action.value.attributes.capture_desktop,
-                    capture_desktop_2 : action.value.attributes.capture_desktop_2,
-                    capture_mobile : action.value.attributes.capture_mobile,
-                    thumbnail : action.value.attributes.thumbnail,
-                }
-                tempArr[action.value.id - 1].attributes = {
-                   ...tempArr[action.value.id - 1].attributes,
-                   ...media 
-                };
+            const media = {
+                capture_desktop : action.value.attributes.capture_desktop,
+                capture_desktop_2 : action.value.attributes.capture_desktop_2,
+                capture_mobile : action.value.attributes.capture_mobile,
+                thumbnail : action.value.attributes.thumbnail,
+            }
+            tempArr[itemId - 1].attributes = {
+                ...tempArr[itemId- 1].attributes,
+                ...media 
+            };
 
-                // tempArr[action.value].imgOpen = 1;
+            tempArr[itemId - 1].imgOpen = 1;
 
                 
-            tempArr[action.value.id - 1].imgOpen = 1;
             return {
                 ...state,
                 // displayWindowItem: true,

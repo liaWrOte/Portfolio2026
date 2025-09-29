@@ -55,6 +55,7 @@ const Item = ({ inWindow, outWindowLabel, label, srcImg, triggerOpen, openSingle
         break;
 
       default:
+        openImageItem({itemId, triggerOpen});
         break;
     }
   }
@@ -85,6 +86,7 @@ const Item = ({ inWindow, outWindowLabel, label, srcImg, triggerOpen, openSingle
 
         {clickTrigger === undefined && 
           <>
+          {triggerOpen}
             <img 
               src={srcImg} 
               alt="Logo" 
