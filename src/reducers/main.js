@@ -87,6 +87,9 @@ const desktopReducer = (state = initialState, action = {}) => {
 
         case OPEN_WINDOW_ITEM : {
             let tempArr = [...state.allProjects];
+            tempArr.forEach(el => {
+                el.projectOpen = 0;
+            });
             tempArr[action.value].projectOpen = 1;
             return {
                 ...state,

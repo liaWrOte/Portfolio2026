@@ -67,7 +67,7 @@ export const Desktop = ({ displayWindowItem, displayImageItem, displayWindow, ..
       {/* {displayWindowItem &&
           <Window windowLevel="second"/>
       }  */}
-      {/* <Window/> */}
+      <Window/>
 
       {/* Exemple intégration CodePen */}
       {/* <div id="integration">
