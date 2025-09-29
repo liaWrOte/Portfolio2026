@@ -20,7 +20,8 @@
   .window-item-container {
     width: 100%;
     display: flex;
-    position: fixed;
+    flex-wrap: wrap;
+    align-items: flex-start;
     height: -webkit-fill-available;
     font-family: monospace;
     .window-left-nav {

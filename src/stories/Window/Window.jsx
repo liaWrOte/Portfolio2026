@@ -70,6 +70,17 @@ const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, d
     transition: 'left 0.7s, top 0.7s, transform 0.7s, opacity 0.7s',
   };
 
+  useEffect(() => {
+    const projectOpen = displayProjects.find(
+      (item) => item?.projectOpen && item.projectOpen !== 0
+    );
+    if (projectOpen) {
+      setHeaderlabel('/' + projectOpen.attributes.title);
+    }
+  }, [displayProjects])
+
+  const [headerLabel, setHeaderlabel] = useState('');
+
     return (
       <>
 
@@ -91,7 +102,7 @@ const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, d
                 origin={position}
                 // style={showStyle ? divStyle : ''}
               >
-                <WindowHeader label={windowItemId}
+                <WindowHeader label={windowItemId + headerLabel}
                   minify={minify}
                   isMinified={isMinified}               
                   closeAnimState={showStyle}
@@ -181,6 +192,16 @@ const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, d
                                       srcImg={`${backendUrl}${item.attributes.capture_mobile.data.attributes.url}`}
                                       />
                                     }
+                                    {item.attributes.logo.data &&
+                                      <Item 
+                                      key={Math.random()}
+                                      inWindow={true}
+                                      itemId={item.id}
+                                      outWindowLabel={`${item.attributes.logo.data.attributes.name}`}
+                                      triggerOpen='logo'
+                                      srcImg={`${backendUrl}${item.attributes.logo.data.attributes.url}`}
+                                      />
+                                    }
         
                                   <Item
                                     key={Math.random()}
@@ -214,7 +235,7 @@ const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, d
                   onClick={(e) => handleZIndex(e)}
                 >
                   <WindowHeader
-                    label={`Projets/${item.attributes.title}/images`}
+                    label={`Projets`+ headerLabel + '/' + item.attributes[displayImageItem].data.attributes.name}
                     itemId={[id, 'img']}
                   />
                   <div className="window-item-container img">

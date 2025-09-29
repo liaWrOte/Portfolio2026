@@ -14,7 +14,8 @@ import {
     EXPAND_WINDOW,
     OPEN_CV,
     SET_POSITION,
-    OPEN_ARTQUIZ
+    OPEN_ARTQUIZ,
+    openWindow
 } from '../actions/main';
 
 const initialState = {
@@ -113,7 +114,6 @@ const desktopReducer = (state = initialState, action = {}) => {
         case SHOW_IMAGE_ITEM : {
             let tempArr = [...state.allProjects];
             const itemId = action.value.id ?? action.value;
-            console.log('itemId', itemId);
                 
             const media = {
                 capture_desktop : action.value.attributes.capture_desktop,
@@ -159,7 +159,6 @@ const desktopReducer = (state = initialState, action = {}) => {
 
         case CLOSE_WINDOW : {
             if (action.value !== undefined && action.value[0] !== undefined && action.value[1] === undefined) {
-                console.log(action);
                 let tempArr = [...state.allProjects];
                 // tempArr.forEach((project, id) => {
                 //     project.projectOpen = 0;
@@ -182,13 +181,14 @@ const desktopReducer = (state = initialState, action = {}) => {
             }
             
             if (action.value !== undefined && action.value[1] !== undefined) {
-                let tempArr = [...state.allProjects];
-                let type = action.value[1] + "Open";
-                tempArr[action.value[0]][type] = 0;
+                let tempArr = [...state.openWindows];
+                // let type = action.value[1] + "Open";
+                tempArr = tempArr.filter((window) => window !== action.value);
                 return {
                     ...state,
                     // displayWindowItem: true,
-                    // allProjects: tempArr
+                    displayWindow: false,
+                    openWindows: tempArr
                 }
             }
 
