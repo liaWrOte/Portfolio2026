@@ -94,9 +94,9 @@ const Item = ({ inWindow, outWindowLabel, label, srcImg, triggerOpen, openSingle
           </>
         }
 
-      {triggerOpen === "stolify" &&
-        <Stolify />
-      }
+        {triggerOpen === "stolify" &&
+          <Stolify />
+        }
 
       </div>
 

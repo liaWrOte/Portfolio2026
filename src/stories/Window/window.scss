@@ -18,12 +18,13 @@
   position: absolute;
   overflow: hidden;
   .window-item-container {
+    width: 100%;
     display: flex;
     position: fixed;
     height: -webkit-fill-available;
     font-family: monospace;
     .window-left-nav {
-      width: 40%;
+      width: 30%;
       padding: 1rem;
       border-right: 1px solid $dark-brown;
       li {
@@ -48,6 +49,7 @@
       }
     }
     .window-right-items {
+      width: 70%;
       padding: 1rem;
     }
     h1 {

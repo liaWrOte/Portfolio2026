@@ -97,8 +97,8 @@ const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, d
                   closeAnim={setShowStyle}
                   // itemId={windowItemId}
                   />
-                <div className="window-item-container">
 
+                <div className="window-item-container">
                   <ul className="window-left-nav">
                     {displayProjects.map((item, id) => {
                       const currentType = item.attributes.type;
@@ -125,10 +125,9 @@ const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, d
 
                   <div className="window-right-items">
                     {displayProjects.map((item, id) => {
-                        if (item.attributes.type ===  windowItemId) {
                           return (
                             <>
-                              {!displayWindowItem &&
+                              {item.attributes.type ===  windowItemId && !displayWindowItem &&
                                 <Item 
                                   key={Math.random()} 
                                   inWindow={true} 
@@ -139,7 +138,8 @@ const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, d
                                   // projectId={id}
                                 />
                               }
-                              {item.projectOpen &&
+                             
+                              {item.projectOpen !== 0 &&
                                 <div className="window-item-container">
                                   <Item
                                     key={Math.random()}
@@ -190,21 +190,15 @@ const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, d
                               }
                             </>
                           )
-                        }
                     })}
                   </div>
-
-                  
                 </div>
+
               </div>
             </Draggable>
           {/* </div> */}
           </>
         }
-
-        {displayProjects.map((item, id) => {
-
-        })}
 
         {displayProjects.map((item, id) => {
             // console.error('IMG OPEN', item.imgOpen );
@@ -311,7 +305,6 @@ const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, d
           <Suspense fallback={<Loader />}>
             <RemoteQuiz/>
           </Suspense>
-              // <span>YOYOYO</span>
         }
 
       </>
