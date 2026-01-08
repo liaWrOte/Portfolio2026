@@ -10,7 +10,7 @@
   transition: left 0.7s, top 0.7s, transform 0.7s, opacity 0.7s;
 }
 .window {
-  width: 600px;
+  width: 750px;
   height: 515px;
   background-color: $cray;
   border: 2px solid $dark-brown;
@@ -28,7 +28,7 @@
     align-items: flex-start;
     height: -webkit-fill-available;
     font-family: monospace;
-    .sidebar-tree{
+    .sidebar-tree {
       width: 30%;
       height: 100%;
       padding: 1rem;
@@ -48,6 +48,8 @@
             border-top: 1px solid $dark-brown;
           }
         }
+      }
+      span {
         &:hover {
           cursor: pointer;
           font-style: italic;
