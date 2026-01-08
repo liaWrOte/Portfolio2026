@@ -7,9 +7,16 @@
 }
 
 .desktop {
-  height: calc(100vh - 80px);
+  position: relative;
   display: block;
+  height: calc(100vh - 80px);
   background-color: $cray;
+  .cloud {
+    position: absolute;
+    width: 13vw;
+    right: 12%;
+    top: 10%;
+  }
   .item {
     padding: 1em;
   }

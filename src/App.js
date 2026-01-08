@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.scss';
-import Main from './stories/Main/Main';
+import Main from './containers/Main';
+import { fetchProjects } from './actions/main';
 
 function App() {
 

@@ -15,8 +15,12 @@
   background-color: $cray;
   border: 2px solid $dark-brown;
   box-shadow: -10px 10px 0 $orange;
-  position: absolute;
+  position: fixed;
+  z-index: 9999;
+  left: 0;
+  top: 0;
   overflow: hidden;
+  resize: both;
   .window-item-container {
     width: 100%;
     display: flex;
@@ -24,8 +28,9 @@
     align-items: flex-start;
     height: -webkit-fill-available;
     font-family: monospace;
-    .window-left-nav {
+    .sidebar-tree{
       width: 30%;
+      height: 100%;
       padding: 1rem;
       border-right: 1px solid $dark-brown;
       li {
@@ -124,8 +129,6 @@
     width: 450px;
   }
 }
-
-
 
 /* width */
 ::-webkit-scrollbar {

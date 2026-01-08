@@ -6,6 +6,7 @@ import Window from '../../containers/window';
 import cv from '../assets/img/icons/cv.svg';
 import animations from '../assets/img/icons/animations.svg';
 import resume from '../assets/img/cv/Sandrine_MZE_CV.jpg';
+import cloud from '../assets/img/cloud.svg';
 
 const RemoteQuiz = React.lazy(
   async () => (await import('remote/Quiz'))
@@ -18,20 +19,18 @@ const RemoteQuiz = React.lazy(
  */
 export const Desktop = ({ displayWindowItem, displayImageItem, displayWindow, ...props}) => {
   return (
-    <div className="desktop">
+    <div className="desktop"
+    // style={{ backgroundImage: `url(${desktopBackground})` }}
+    >
+      <img
+        className='cloud'
+        src={cloud}
+        alt="background" />
       <Item 
         key={Math.random()}
         inWindow={false} 
-        itemId="Pro"
-        outWindowLabel="Pro"
-        triggerOpen="openWindow"
-      />
-
-      <Item 
-        key={Math.random()}
-        inWindow={false} 
-        itemId="Brand Design"
-        outWindowLabel="Brand Design"
+        itemId="Projets"
+        outWindowLabel="Projets"
         triggerOpen="openWindow"
       />
 
@@ -42,15 +41,6 @@ export const Desktop = ({ displayWindowItem, displayImageItem, displayWindow, ..
         outWindowLabel="cv.pdf"
         triggerOpen="cv"
         srcImg={resume}
-      />
-
-      <Item 
-        key={Math.random()}
-        inWindow={false} 
-        itemId="animations"
-        outWindowLabel="Animations"
-        triggerOpen="openWindow"
-        srcImg={animations}
       />
 
       <Item 

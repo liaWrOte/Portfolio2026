@@ -1,4 +1,4 @@
-import React, { useEffect, useState, Suspense, useRef} from 'react';
+import React, { useEffect, useState, Suspense, useRef, useLayoutEffect} from 'react';
 import PropTypes from 'prop-types';
 import Draggable from 'react-draggable';
 import ReactMarkdown from "react-markdown";
@@ -8,8 +8,12 @@ import './window.scss';
 
 import Loader from '../Loader/Loader';
 import WindowHeader from '../../containers/windowHeader';
-import Item from '../../containers/item';
-import cv from '../assets/img/cv/Sandrine_MZE_CV.jpg';
+import SidebarTree from './../../containers/sidebarTree';
+import ExplorerView from '../ExplorerView/ExplorerView';
+
+
+import Icon from 'react-mp3-player/dist/icons/PlayerIcons';
+import IconGrid from '../../containers/iconGrid';
 
 const RemoteQuiz = React.lazy(
   async () => (await import('remote/Quiz'))
@@ -19,17 +23,35 @@ const RemoteQuiz = React.lazy(
 /**
  * Primary UI component for user interaction
  */
-const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, displayWindowItem, displayImageItem, displaySpecsItem, displayAllItems, windowItemId, displayCv, displayArtquiz, position, windowPosition, openWindow, openWindowItem }) => {
+const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, displayWindowItem, displayImageItem, displaySpecsItem, displayAllItems, windowItemId, displayCv, displayArtquiz, position, windowPosition, openWindow, openWindowItem, isOpen, fileSystem, activeId, currentNode }) => {
 
-  useEffect(() => {
-    const fetchData = async()=> {
-      if(displayProjects) {
-        const data = await getAllProjects();
-        return data;
-      }
+
+  console.log('CURRENT NODE IN WINDOW ', currentNode);
+  const boxRef = useRef(null);
+  const [defaultPos, setDefaultPos] = useState({ x: 0, y: 0 });
+
+  useLayoutEffect(() => {
+    // if (!boxRef.current) return; 
+
+    if (displayWindow && boxRef.current) {
+      const rect = boxRef.current.getBoundingClientRect();
+  
+      const centerX = window.innerWidth / 2 - rect.width / 2;
+      const centerY = window.innerHeight / 2 - rect.height / 2;
+  
+      setDefaultPos({ x: centerX, y: centerY });
     }
-    fetchData();
-  }, []);
+  }, [displayWindow]);
+
+  // useEffect(() => {
+  //   const fetchData = async()=> {
+  //     if(displayProjects) {
+  //       const data = await getAllProjects();
+  //       return data;
+  //     }
+  //   }
+  //   fetchData();
+  // }, []);
 
   function handleZIndex(e) {
     let windows = document.querySelectorAll('.window');
@@ -77,7 +99,7 @@ const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, d
     if (projectOpen) {
       setHeaderlabel('/' + projectOpen.attributes.title);
     }
-  }, [displayProjects])
+  }, [fileSystem])
 
   const [headerLabel, setHeaderlabel] = useState('');
 
@@ -85,13 +107,15 @@ const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, d
       <>
 
         {/* Show projects window */}
-        {displayWindow && displayProjects && 
+        {isOpen && fileSystem && 
           <>
           {/* <div className={`window-container`} style={showStyle ? divStyleStart : divStyleEnd}> */}
             <Draggable
-              bounds={'.App'}
+              bounds={'.desktop'}
+              handle='.window-header-container'
               onDrag={(e) => handleZIndex(e)}
               key={Math.random()}
+              defaultPosition={defaultPos}
               // positionOffset={showStyle ? {x: -windowPosition.width, y: -windowPosition.top} : ''}
               // scale={1}
               // style={showStyle ? divStyleStart: divStyleEnd}
@@ -100,6 +124,7 @@ const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, d
                 className={`window ${isMinified ? "minified" : ""}`}
                 onClick={(e) => handleZIndex(e)}
                 origin={position}
+                ref={boxRef}
                 // style={showStyle ? divStyle : ''}
               >
                 <WindowHeader label={windowItemId + headerLabel}
@@ -111,8 +136,8 @@ const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, d
                   />
 
                 <div className="window-item-container">
-                  <ul className="window-left-nav">
-                    {displayProjects.map((item, id) => {
+                    <SidebarTree />
+                    {/* {displayProjects.map((item, id) => {
                       const currentType = item.attributes.type;
                       const previousType = id > 0 ? displayProjects[id - 1].attributes.type : null;
                       const showType = currentType !== previousType;
@@ -134,11 +159,10 @@ const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, d
                             </li>
                           </>
                         )
-                    })}
-                  </ul>
+                    })} */}
 
                   <div className="window-right-items">
-                    {displayProjects.map((item, id) => {
+                    {/* {displayProjects.map((item, id) => {
                           return (
                             <>
                               {item.attributes.type ===  windowItemId && !displayWindowItem &&
@@ -214,7 +238,13 @@ const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, d
                               }
                             </>
                           )
-                    })}
+                    })} */}
+                    {fileSystem && currentNode &&
+                    <>
+                      <ExplorerView node={currentNode} />
+                      <IconGrid items={currentNode.children || []} />
+                    </>
+                    }
                   </div>
                 </div>
 
@@ -227,6 +257,7 @@ const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, d
         {displayProjects.map((item, id) => {
           if(item.imgOpen) {
             let fullClass = item.imgExpandedWindow ? ' full' : '';
+            const image = item.attributes?.[displayImageItem]?.data?.attributes;
             return (
                 <Draggable bounds={'.App'} onDrag={(e) => handleZIndex(e)}>
                 <div
@@ -235,11 +266,11 @@ const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, d
                   onClick={(e) => handleZIndex(e)}
                 >
                   <WindowHeader
-                    label={`Projets`+ headerLabel + '/' + item.attributes[displayImageItem].data.attributes.name}
+                    label={`Projets`+ headerLabel + '/${image?.name ??'}
                     itemId={[id, 'img']}
                   />
                   <div className="window-item-container img">
-                    <img src={`${backendUrl}${item.attributes[displayImageItem].data.attributes.url}`} alt="capture"/>
+                    <img src={image?.url ? `${backendUrl}${image.url}` : ''} alt="capture"/>
                   </div>
                 </div>
                   </Draggable>
@@ -309,9 +340,7 @@ const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, d
                   itemId={['cv', 'img']}
                   minify={minify} isMinified={isMinified}
                 />
-                <div className="window-item-container img">
-                  <img src={cv} alt="cv" />
-                </div>
+                <iframe src="https://heady-salto-322.notion.site/ebd//2aadb394a5ab8121bd4afde3e99c9a7f" width="100%" height="100%" frameborder="0" allowfullscreen title="resume" />
               </div>
             </Draggable>
         }

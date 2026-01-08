@@ -11,10 +11,16 @@
   z-index: 10;
   padding: 0 30px;
   border-top: 1px solid $dark-brown;
+  & > * {
+    flex: 1;
+  }
   .desktop-bar-center {
     display: flex;
     align-items: center;
     justify-content: center;
+  }
+  .time {
+    text-align: right;
   }
   .item {
     margin: 0 0.5rem;

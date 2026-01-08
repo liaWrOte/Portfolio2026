@@ -47,7 +47,10 @@ export const DesktopBottomBar = ({ primary, backgroundColor, size, label, srcImg
   return (
     <div className="desktop-bar">
 
-        <span className="identity">Sandrine M'ZE</span>
+    <div className="identity">
+      <p>Sandrine M'ZE</p>
+      <p>Développeuse front-end WordPress | React créative</p>
+    </div>
 
       <div className="desktop-bar-center">
         <Item
@@ -66,20 +69,6 @@ export const DesktopBottomBar = ({ primary, backgroundColor, size, label, srcImg
           triggerOpen="stolify"
           // srcImg={stolify}
           animated={true}
-          clickTrigger={"simple"}
-        />
-        <Item
-          key={Math.random()}
-          inWindow={false}
-          outWindowLabel="ToDo"
-          clickTrigger={"simple"}
-        />
-        <Item 
-          key={Math.random()}
-          inWindow={false} 
-          itemId="cv"
-          outWindowLabel="CV"
-          triggerOpen="cv"
           clickTrigger={"simple"}
         />
       </div>

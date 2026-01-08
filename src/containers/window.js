@@ -19,6 +19,10 @@ const mapStateToProps = (state) => ({
   displayCv: state.main.displayCv,
   windowPosition: state.main.windowPosition,
   displayArtquiz: state.main.displayArtquiz,
+  isOpen: state.main.window.isOpen,
+  fileSystem: state.main.fileSystem,
+  activeId: state.main.window.activeId,
+  currentNode: state.main.navigation.currentNode, 
 });
 
 const mapDispatchToProps = (dispatch) => ({

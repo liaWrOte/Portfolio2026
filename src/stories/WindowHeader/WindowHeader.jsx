@@ -23,6 +23,7 @@ export const WindowHeader = ({ primary, backgroundColor, size, label, closeWindo
 
   function handleClose(itemId) {
     // closeAnim(true);
+    console.log(itemId);
     closeWindow(itemId);
   }
 

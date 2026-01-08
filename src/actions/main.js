@@ -16,6 +16,12 @@ export const OPEN_CV = 'OPEN_CV';
 export const SET_POSITION = 'SET_POSITION';
 export const OPEN_ARTQUIZ = 'OPEN_ARTQUIZ';
 
+export const FETCH_PROJECTS = 'FETCH_PROJECTS';
+export const SET_FILESYSTEM = 'SET_FILESYSTEM';
+export const OPEN_FOLDER = 'OPEN_FOLDER';
+export const OPEN_PROJECT = 'OPEN_PROJECT';
+export const GO_BACK = 'GO_BACK';
+
 export const getProject = () => ({
     type: GET_PROJECT,
 })
@@ -91,6 +97,28 @@ export const setPosition = (value) => ({
 
 export const openArtquiz = (value) => ({
     type: OPEN_ARTQUIZ,
+    value
+})
+
+export const fetchProjects = () => ({ type: 'FETCH_PROJECTS' });
+
+export const setFileSystem = (value) => ({
+    type: SET_FILESYSTEM,
+    value
+})
+
+export const openFolder = (value) => ({
+    type: OPEN_FOLDER,
+    value
+})
+
+export const openProject = (value) => ({
+    type: OPEN_PROJECT,
+    value
+})
+
+export const goBack = (value) => ({
+    type: GO_BACK,
     value
 })
 

@@ -15,7 +15,12 @@ import {
     OPEN_CV,
     SET_POSITION,
     OPEN_ARTQUIZ,
-    openWindow
+    
+    SET_FILESYSTEM,
+    OPEN_PROJECT,
+    OPEN_FOLDER,
+    GO_BACK,
+    FETCH_PROJECTS
 } from '../actions/main';
 
 const initialState = {
@@ -30,7 +35,20 @@ const initialState = {
     openWindows: [],
     displayCv: false,
     windowPosition: {},
-    displayArtquiz: false
+    displayArtquiz: false,
+
+    fileSystem: null,
+    window: {
+        isOpen: true,
+        view: 'explorer', // 'explorer' | 'project'
+        activeId: null,
+    },
+    navigation: {
+        currentPath: ['root', 'Web'],
+        history: [['root']],
+        historyIndex: 0 
+    },
+    loading: true,
 }
 
 const desktopReducer = (state = initialState, action = {}) => {
@@ -50,26 +68,49 @@ const desktopReducer = (state = initialState, action = {}) => {
             }
         }
 
-        case SHOW_ALL_PROJECTS : {
-            let tempArr = action.value;
-            if (state.allProjects.length === 0) {
-                tempArr.forEach(el => {
-                    el.projectOpen = 0;
-                    el.imgOpen = 0;
-                    el.specsOpen = 0;
-                    el.imgExpandedWindow = false;
-                });
-                return {
-                    ...state,
-                    allProjects: tempArr
-                }
-            } else {
-                return {
-                    ...state
-                }
+        case SET_FILESYSTEM : {
+            return {
+                ...state,
+                fileSystem: action.value,
+                currentNode: action.payload,
+                loading: false
             }
-
         }
+
+        case OPEN_FOLDER: {
+            const newPath = [...state.navigation.currentPath, action.payload];
+
+            return {
+                ...state,
+                window: {
+                ...state.window,
+                view: 'explorer',
+                activeId: null
+                },
+                navigation: {
+                ...state.navigation,
+                currentPath: newPath,
+                history: [...state.navigation.history, newPath],
+                historyIndex: state.navigation.historyIndex + 1
+                }
+            };
+        }
+
+        case OPEN_PROJECT:
+        return {
+            ...state,
+            window: {
+            ...state.window,
+            view: 'project',
+            activeId: action.payload
+            }
+        };
+
+        case GO_BACK:
+        return {
+            ...state,
+            window: { ...state.window, view: 'explorer', activeId: null },
+        };
 
         case OPEN_WINDOW : {
             let tempArr = [...state.allProjects];
@@ -148,6 +189,7 @@ const desktopReducer = (state = initialState, action = {}) => {
 
         case OPEN_ALL_ITEMS : {
             let tempArr = [...state.allProjects];
+            console.log(tempArr[action.value]);
             tempArr[action.value].imgOpen = 1;
             tempArr[action.value].specsOpen = 1;
             return {
@@ -158,22 +200,25 @@ const desktopReducer = (state = initialState, action = {}) => {
         }
 
         case CLOSE_WINDOW : {
+            console.log('CLOSE_WINDOW ', action.value);
             if (action.value !== undefined && action.value[0] !== undefined && action.value[1] === undefined) {
+                console.error(1);
                 let tempArr = [...state.allProjects];
                 // tempArr.forEach((project, id) => {
-                //     project.projectOpen = 0;
-                // })
-                tempArr[action.value[0]].projectOpen = 0;
-                return {
-                    ...state,
-                    // displayWindowItem: true,
-                    openWindows: state.openWindows.filter(window => window !== action.value),
-                    allProjects: tempArr
-
+                    //     project.projectOpen = 0;
+                    // })
+                    tempArr[action.value[0]].projectOpen = 0;
+                    return {
+                        ...state,
+                        // displayWindowItem: true,
+                        openWindows: state.openWindows.filter(window => window !== action.value),
+                        allProjects: tempArr
+                        
+                    }
                 }
-            }
-
+                
             if (action.value !== undefined && action.value[0] === 'cv') {
+                console.error(2);
                 return {
                     ...state,
                     displayCv: !state.displayCv
@@ -181,6 +226,7 @@ const desktopReducer = (state = initialState, action = {}) => {
             }
             
             if (action.value !== undefined && action.value[1] !== undefined) {
+                console.error(3);
                 let tempArr = [...state.openWindows];
                 // let type = action.value[1] + "Open";
                 tempArr = tempArr.filter((window) => window !== action.value);
@@ -191,8 +237,9 @@ const desktopReducer = (state = initialState, action = {}) => {
                     openWindows: tempArr
                 }
             }
-
+            
             if (action.value === undefined) {
+                console.error(4);
                 return {
                     ...state,
                     displayWindowItem: false
