@@ -112,7 +112,7 @@ const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, d
           {/* <div className={`window-container`} style={showStyle ? divStyleStart : divStyleEnd}> */}
             <Draggable
               bounds={'.desktop'}
-              handle='.window-header-container'
+              handle={'.window-header-container'}
               onDrag={(e) => handleZIndex(e)}
               key={Math.random()}
               defaultPosition={defaultPos}
@@ -329,7 +329,11 @@ const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, d
         })}
 
         {displayCv && 
-            <Draggable bounds={'.App'} onDrag={(e) => handleZIndex(e)}>
+            <Draggable
+              bounds={'.App'}
+              onDrag={(e) => handleZIndex(e)}
+              handle={'.window-header-container'}
+              >
               <div
                 className={`window level-class-fourth`}
                 key={Math.random()}
