@@ -8,6 +8,7 @@ export default function TreeNode({
   currentPath,
 }) {
   const isActive = currentPath.includes(node.id);
+  console.log('NODE.ID', node.id);
 
   const handleClick = () => {
     if (node.type === 'folder') openFolder(node.id);
