@@ -1,8 +1,9 @@
 import React from "react";  
-import IconGrid from "../IconGrid/IconGrid";
+import IconGrid from "../../containers/iconGrid";
 import ProjectView from "../ProjectView/ProjectView";  
 
 const ExplorerView = ({ node, view }) => {
+  console.log('EXPLORER_VIEW', view, node);
   if (!node) return null;
 
   if (view === 'explorer') {
@@ -10,7 +11,7 @@ const ExplorerView = ({ node, view }) => {
   }
 
   if (view === 'project') {
-    return <ProjectView />;
+    return <ProjectView node={node} />;
   }
 
   return null;

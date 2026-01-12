@@ -1,7 +1,9 @@
 import React, { useEffect, useState, Suspense, useRef, useLayoutEffect} from 'react';
+import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import Draggable from 'react-draggable';
 import ReactMarkdown from "react-markdown";
+import { getCurrentNode } from '../../selectors/explorerSelectors';
 
 import { backendUrl } from '../../middlewares/env';
 import './window.scss';
@@ -10,23 +12,24 @@ import Loader from '../Loader/Loader';
 import WindowHeader from '../../containers/windowHeader';
 import SidebarTree from './../../containers/sidebarTree';
 import ExplorerView from '../ExplorerView/ExplorerView';
+import IconGrid from '../../containers/iconGrid';
 
 
 import Icon from 'react-mp3-player/dist/icons/PlayerIcons';
-import IconGrid from '../../containers/iconGrid';
+import { use } from 'react';
 
 const RemoteQuiz = React.lazy(
   async () => (await import('remote/Quiz'))
 );
 
 
+
 /**
  * Primary UI component for user interaction
  */
-const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, displayWindowItem, displayImageItem, displaySpecsItem, displayAllItems, windowItemId, displayCv, displayArtquiz, position, windowPosition, openWindow, openWindowItem, isOpen, fileSystem, activeId, currentNode }) => {
+const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, displayWindowItem, displayImageItem, displaySpecsItem, displayAllItems, windowItemId, displayCv, displayArtquiz, position, windowPosition, openWindow, openWindowItem, isOpen, fileSystem, activeId, view }) => {
 
 
-  console.log('CURRENT NODE IN WINDOW ', currentNode);
   const boxRef = useRef(null);
   const [defaultPos, setDefaultPos] = useState({ x: 0, y: 0 });
 
@@ -102,6 +105,10 @@ const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, d
   }, [fileSystem])
 
   const [headerLabel, setHeaderlabel] = useState('');
+
+  const node = useSelector(getCurrentNode);
+  console.log('CURRENT NODE IN WINDOW ', node, view);
+
 
     return (
       <>
@@ -239,12 +246,13 @@ const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, d
                             </>
                           )
                     })} */}
-                    {fileSystem && currentNode &&
-                    <>
-                      <ExplorerView node={currentNode} />
-                      <IconGrid items={currentNode.children || []} />
-                    </>
+                    {fileSystem && view && view === 'explorer' &&
+                      <ExplorerView view={view} node={fileSystem} />
                     }
+                    {fileSystem && view && view === 'folder' &&
+                      <IconGrid items={node.children || []} isIconGrid={true} />
+                    }
+
                   </div>
                 </div>
 

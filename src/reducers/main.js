@@ -44,7 +44,7 @@ const initialState = {
         activeId: null,
     },
     navigation: {
-        currentPath: ['root', 'Web'],
+        currentPath: ['root'],
         history: [['root']],
         historyIndex: 0 
     },
@@ -71,20 +71,19 @@ const desktopReducer = (state = initialState, action = {}) => {
         case SET_FILESYSTEM : {
             return {
                 ...state,
-                fileSystem: action.value,
-                currentNode: action.payload,
+                fileSystem: action.payload,
                 loading: false
             }
         }
 
         case OPEN_FOLDER: {
             const newPath = [...state.navigation.currentPath, action.payload];
-
+            console.log('OPEN_FOLDER ', action, newPath);
             return {
                 ...state,
                 window: {
                 ...state.window,
-                view: 'explorer',
+                view: 'folder',
                 activeId: null
                 },
                 navigation: {
@@ -100,10 +99,10 @@ const desktopReducer = (state = initialState, action = {}) => {
         return {
             ...state,
             window: {
-            ...state.window,
-            view: 'project',
-            activeId: action.payload
-            }
+                ...state.window,
+                view: 'project',
+                activeId: action.payload
+                }
         };
 
         case GO_BACK:

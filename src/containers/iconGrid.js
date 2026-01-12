@@ -7,11 +7,11 @@ import {
 } from '../actions/main';
 
 const mapDispatchToProps = (dispatch) => ({
-  openFolder: (newValue) => {
-    dispatch(openFolder(newValue));
+  openFolder: (id) => {
+    dispatch(openFolder(id));
   },
-  openProject: (newValue) => {
-    dispatch(openProject(newValue));
+  openProject: (id) => {
+    dispatch(openProject(id));
   }
 });
 

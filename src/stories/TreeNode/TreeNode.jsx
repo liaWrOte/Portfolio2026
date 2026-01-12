@@ -1,21 +1,32 @@
 import React from 'react'; 
 
-export default function TreeNode({ node, openFolder, openProject, nodeLevel }) {
+export default function TreeNode({
+  node,
+  openFolder,
+  openProject,
+  nodeLevel = 0,
+  currentPath,
+}) {
+  const isActive = currentPath.includes(node.id);
 
-  console.log(openFolder, openProject);
   const handleClick = () => {
     if (node.type === 'folder') openFolder(node.id);
     if (node.type === 'project') openProject(node.projectId);
   };
 
-  nodeLevel++;
-
   return (
     <li>
-      <span onClick={handleClick}>
-        {[...Array(nodeLevel)].map((_, i) => (
+      <span
+        onClick={handleClick}
+        style={{
+          fontWeight: isActive ? 'bold' : 'normal',
+          background: isActive ? '#e0e0e0' : 'transparent',
+          cursor: 'pointer',
+        }}
+      >
+        {[...Array(nodeLevel)].map((_, i) =>
           i > 0 ? <span key={i}>&nbsp;</span> : null
-        ))}
+        )}
         {node.type === 'folder' ? '📁' : '📄'} {node.name}
       </span>
 
@@ -27,7 +38,8 @@ export default function TreeNode({ node, openFolder, openProject, nodeLevel }) {
               node={child}
               openFolder={openFolder}
               openProject={openProject}
-              nodeLevel={nodeLevel}
+              nodeLevel={nodeLevel + 1}
+              currentPath={currentPath}
             />
           ))}
         </ul>
@@ -35,3 +47,4 @@ export default function TreeNode({ node, openFolder, openProject, nodeLevel }) {
     </li>
   );
 }
+

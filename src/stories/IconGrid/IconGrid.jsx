@@ -1,17 +1,17 @@
 import React from "react";  
 
-const IconGrid = ({ items, openFolder, openProject }) => {
+const IconGrid = ({ items, openFolder, openProject, isIconGrid }) => {
 
-  console.log(items);
   if (!items) return null;
 
   return (
     <div className="icon-grid">
+      { isIconGrid && <div className="icon-grid-label">Icon Grid View</div> }
       {items.map(item => (
         <div
           key={item.id}
           className="icon"
-          onDoubleClick={() =>
+          onClick={() =>
             item.type === 'folder'
               ? openFolder(item.id)
               : openProject(item.projectId)

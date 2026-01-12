@@ -22,7 +22,7 @@ const mapStateToProps = (state) => ({
   isOpen: state.main.window.isOpen,
   fileSystem: state.main.fileSystem,
   activeId: state.main.window.activeId,
-  currentNode: state.main.navigation.currentNode, 
+  view: state.main.window.view
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -1,7 +1,7 @@
 import React from 'react';
 import TreeNode from '../../containers/treeNode';
 
-const SidebarTree = (fileSystem, openFolder, openProject) => {
+const SidebarTree = (fileSystem, currentPath, openFolder, openProject) => {
   const fs = fileSystem.fileSystem;
   console.log('SIDEBAR TREE ', fileSystem.fileSystem);
 
@@ -13,8 +13,9 @@ const SidebarTree = (fileSystem, openFolder, openProject) => {
       <TreeNode 
         node={fs}
         nodeLevel={treeNodeLevel}
-        // openFolder={openFolder(fs.id)}
-        // openProject={openProject(fs.id)}
+        currentPath={currentPath}
+        openFolder={openFolder}
+        openProject={openProject}
       />
     </ul>
   );

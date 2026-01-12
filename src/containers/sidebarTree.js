@@ -7,7 +7,8 @@ import {
 } from '../actions/main';
 
 const mapStateToProps = (state) => ({
-  fileSystem: state.main.fileSystem
+  fileSystem: state.main.fileSystem,
+  currentPath: state.main.navigation.currentPath
 });
 
 const mapDispatchToProps = (dispatch) => ({

@@ -102,19 +102,19 @@ export const openArtquiz = (value) => ({
 
 export const fetchProjects = () => ({ type: 'FETCH_PROJECTS' });
 
-export const setFileSystem = (value) => ({
+export const setFileSystem = (fs) => ({
     type: SET_FILESYSTEM,
-    value
+    payload: fs
 })
 
-export const openFolder = (value) => ({
+export const openFolder = (id) => ({
     type: OPEN_FOLDER,
-    value
+    payload: id
 })
 
-export const openProject = (value) => ({
+export const openProject = (id) => ({
     type: OPEN_PROJECT,
-    value
+    payload: id
 })
 
 export const goBack = (value) => ({

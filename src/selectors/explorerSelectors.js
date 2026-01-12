@@ -1,8 +1,15 @@
 export const getCurrentNode = state => {
-  let node = state.fileSystem;
-  state.navigation.currentPath.forEach(id => {
+  let node = state.main.fileSystem;
+  console.log('NODE BEFORE', node);
+  // console.log('state', state);
+  // console.log('state.main.navigation.currentPath', state.main.navigation.currentPath);
+  state.main.navigation.currentPath
+    .filter(id => id !== 'root')
+    .forEach(id => {
+    if (!node || !node.children) return;
     node = node.children?.find(child => child.id === id);
   });
+  console.log('NODE AFTER', node);
   return node;
 };
 
