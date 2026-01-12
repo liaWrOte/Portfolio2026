@@ -14,7 +14,7 @@ const IconGrid = ({ items, openFolder, openProject, isIconGrid }) => {
           onClick={() =>
             item.type === 'folder'
               ? openFolder(item.id)
-              : openProject(item.projectId)
+              : openProject(item.id)
           }
         >
           <div>{item.type === 'folder' ? '📁' : '📄'}</div>

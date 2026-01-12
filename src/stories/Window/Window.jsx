@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import Draggable from 'react-draggable';
 import ReactMarkdown from "react-markdown";
-import { getCurrentNode } from '../../selectors/explorerSelectors';
+import { getCurrentNode, getProjectById } from '../../selectors/explorerSelectors';
 
 import { backendUrl } from '../../middlewares/env';
 import './window.scss';
@@ -12,11 +12,9 @@ import Loader from '../Loader/Loader';
 import WindowHeader from '../../containers/windowHeader';
 import SidebarTree from './../../containers/sidebarTree';
 import ExplorerView from '../ExplorerView/ExplorerView';
+import ProjectView from '../ProjectView/ProjectView';
 import IconGrid from '../../containers/iconGrid';
 
-
-import Icon from 'react-mp3-player/dist/icons/PlayerIcons';
-import { use } from 'react';
 
 const RemoteQuiz = React.lazy(
   async () => (await import('remote/Quiz'))
@@ -107,7 +105,8 @@ const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, d
   const [headerLabel, setHeaderlabel] = useState('');
 
   const node = useSelector(getCurrentNode);
-  console.log('CURRENT NODE IN WINDOW ', node, view);
+  const activeProject = useSelector(getProjectById);
+  console.log('CURRENT NODE IN WINDOW ', node, view, activeProject);
 
 
     return (
@@ -246,8 +245,11 @@ const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, d
                             </>
                           )
                     })} */}
-                    {fileSystem && view && view === 'explorer' &&
+                    {fileSystem && view && (view === 'explorer') &&
                       <ExplorerView view={view} node={fileSystem} />
+                    }
+                    {fileSystem && view && (view === 'project') &&
+                      <ProjectView node={activeProject??node} />
                     }
                     {fileSystem && view && view === 'folder' &&
                       <IconGrid items={node.children || []} isIconGrid={true} />

@@ -82,28 +82,37 @@ const desktopReducer = (state = initialState, action = {}) => {
             return {
                 ...state,
                 window: {
-                ...state.window,
-                view: 'folder',
-                activeId: null
+                    ...state.window,
+                    view: 'folder',
+                    activeId: null
                 },
                 navigation: {
-                ...state.navigation,
-                currentPath: newPath,
-                history: [...state.navigation.history, newPath],
-                historyIndex: state.navigation.historyIndex + 1
+                    ...state.navigation,
+                    currentPath: newPath,
+                    history: [...state.navigation.history, newPath],
+                    historyIndex: state.navigation.historyIndex + 1
                 }
             };
         }
 
-        case OPEN_PROJECT:
-        return {
-            ...state,
-            window: {
-                ...state.window,
-                view: 'project',
-                activeId: action.payload
+        case OPEN_PROJECT: {
+            const newPath = [...state.navigation.currentPath, action.payload];
+            console.log('OPEN_PROJECT ', action, newPath);
+            return {
+                ...state,
+                window: {
+                    ...state.window,
+                    view: 'project',
+                    activeId: action.payload
+                },
+                navigation: {
+                    ...state.navigation,
+                    currentPath: newPath,
+                    history: [...state.navigation.history, newPath],
+                    historyIndex: state.navigation.historyIndex + 1
                 }
-        };
+            };
+        }
 
         case GO_BACK:
         return {
