@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import Item from '../stories/Item/Item';
+import Item from '../components/Item/Item';
 import {
   getProject,
   openWindow,

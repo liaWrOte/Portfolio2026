@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import IconGrid from '../stories/IconGrid/IconGrid';
+import IconGrid from '../components/IconGrid/IconGrid';
 
 import {
   openFolder,

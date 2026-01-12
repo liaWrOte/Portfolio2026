@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import ExplorerView from '../stories/ExplorerView/ExplorerView';
+import ExplorerView from '../components/ExplorerView/ExplorerView';
 
 import {
   openFolder,

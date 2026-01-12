@@ -1,4 +1,3 @@
-import { actions } from '@storybook/addon-actions';
 import {
     SHOW_PROJECT_LABEL,
     SHOW_WINDOW,

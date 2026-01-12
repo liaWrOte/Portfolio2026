@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import Window from '../stories/Window/Window';
+import Window from '../components/Window/Window';
 
 import {
   getAllProjects,

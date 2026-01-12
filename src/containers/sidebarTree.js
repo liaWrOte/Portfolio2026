@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import SidebarTree from '../stories/SidebarTree/SidebarTree';
+import SidebarTree from '../components/SidebarTree/SidebarTree';
 
 import {
   openFolder,

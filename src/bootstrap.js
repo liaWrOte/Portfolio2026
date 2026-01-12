@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom/client';
 // const RemoteButton = React.lazy(() => import("Remote/Button"));
 import App from './App';
 
-import './stories/assets/scss/index.scss';
+import './components/assets/scss/index.scss';
 import reportWebVitals from './reportWebVitals';
 import store from './store';
 import { Provider } from 'react-redux';

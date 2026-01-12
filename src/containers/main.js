@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import Main from '../stories/Main/Main';
+import Main from '../components/Main/Main';
 import { fetchProjects } from '../actions/main';
 
 const mapStateToProps = (state) => ({

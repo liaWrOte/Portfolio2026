@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { WindowHeader } from '../stories/WindowHeader/WindowHeader';
+import { WindowHeader } from '../components/WindowHeader/WindowHeader';
 
 import {
   closeWindow,

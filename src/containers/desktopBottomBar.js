@@ -1,5 +1,5 @@
 // import { connect } from 'react-redux';
-// import DesktopBottomBar from '../stories/DesktopBottomBar/DesktopBottomBar';
+// import DesktopBottomBar from '../components/DesktopBottomBar/DesktopBottomBar';
 
 
 // const mapStateToProps = (state) => ({

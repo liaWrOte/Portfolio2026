@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import TreeNode from '../stories/TreeNode/TreeNode';
+import TreeNode from '../components/TreeNode/TreeNode';
 
 const mapStateToProps = (state) => ({
   currentPath: state.main.navigation.currentPath
