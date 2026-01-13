@@ -3,7 +3,8 @@ import { WindowHeader } from '../components/WindowHeader/WindowHeader';
 
 import {
   closeWindow,
-  expandWindow
+  expandWindow,
+  openFolder
 } from '../actions/main';
 
 
@@ -15,6 +16,8 @@ const mapStateToProps = (state) => ({
   displayImageItem: state.main.displayImageItem,
   displaySpecsItem: state.main.displaySpecsItem,
   displayAllItems: state.main.displayAllItems,
+  currentPath: state.main.navigation.currentPath,
+  fileSystem: state.main.fileSystem,
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -23,6 +26,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   expandWindow: (newValue) => {
     dispatch(expandWindow(newValue));
+  },
+  openFolder: (newValue) => {
+    dispatch(openFolder(newValue));
   }
 });
 

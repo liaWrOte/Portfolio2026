@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import './window-header.scss';
 import file from '../assets/img/file.png';
+import Breadcrumb from '../Breadcrumb/Breadcrumb';
 
 // Import images 
 import arrowLeft from '../assets/img/arrow_left.svg';
 import arrowRight from '../assets/img/arrow_right.svg';
-
 
 export const WindowHeader = ({
   primary,
@@ -18,7 +18,10 @@ export const WindowHeader = ({
   minify,
   isMinified,
   closeAnimState,
-  closeAnim
+  closeAnim,
+  currentPath,
+  fileSystem,
+  openFolder
 }) => {
 
   
@@ -44,7 +47,17 @@ export const WindowHeader = ({
       <div className="window-header-container">
         <div className="window-header-nav">
         </div>
-        <span className="window-header-label">{label}</span>
+        <div className="window-header-label">
+          {currentPath && fileSystem ? (
+            <Breadcrumb 
+              currentPath={currentPath}
+              fileSystem={fileSystem}
+              openFolder={openFolder}
+            />
+          ) : (
+            <span>{label}</span>
+          )}
+        </div>
         <div className="toggle-window-container">
           <span
             className="toggle-window red"
