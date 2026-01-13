@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import './desktop-bottom-bar.scss';
 import Item from '../../containers/item';
 
-// svg
+// Import images
 import stolify from '../assets/img/icons/stolify.svg';
 import artquiz from '../assets/img/icons/artquiz.svg';
 
