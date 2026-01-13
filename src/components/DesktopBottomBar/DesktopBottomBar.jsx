@@ -9,7 +9,14 @@ import stolify from '../assets/img/icons/stolify.svg';
 import artquiz from '../assets/img/icons/artquiz.svg';
 
 
-export const DesktopBottomBar = ({ primary, backgroundColor, size, label, srcImg, openArtquiz, ...props }) => {
+export const DesktopBottomBar = ({
+  primary,
+  backgroundColor,
+  size,
+  label,
+  srcImg,
+  openArtquiz
+}) => {
 
   // START Date and time display
   const locale = 'fr-FR';
