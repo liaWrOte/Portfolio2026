@@ -1,0 +1,29 @@
+@import '../assets/scss/vars';
+
+.project-view {
+  width: 100%;
+  padding: 1rem;
+  
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.5rem;
+    padding: 1rem;
+    
+    @media (max-width: 768px) {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+      padding: 0.5rem;
+    }
+    
+    @media (min-width: 1200px) {
+      grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    }
+  }
+  
+  // Single project view
+  .project-card {
+    max-width: 600px;
+    margin: 0 auto;
+  }
+}
