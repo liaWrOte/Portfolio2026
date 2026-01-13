@@ -75,7 +75,22 @@ const desktopReducer = (state = initialState, action = {}) => {
         }
 
         case OPEN_FOLDER: {
-            const newPath = [...state.navigation.currentPath, action.payload];
+            // Handle navigation to folders from any location
+            let newPath;
+            console.log('action.payload ', action.payload);
+            if (action.payload === 'root' && state.navigation.currentPath.length > 2) {
+                // We're in a project and clicking on "projets" (payload = 'root')
+                newPath = ['root'];
+            } else if (action.payload === 'root') {
+                // Clicking on "projets" from root level
+                newPath = ['root'];
+            } else if (state.navigation.currentPath.length > 2) {
+                // We're in a project and clicking on a category folder (e.g., "Brand Design")
+                newPath = ['root', action.payload];
+            } else {
+                // Normal navigation - add folder to current path
+                newPath = [...state.navigation.currentPath, action.payload];
+            }
             console.log('OPEN_FOLDER ', action, newPath);
             return {
                 ...state,
@@ -87,7 +102,7 @@ const desktopReducer = (state = initialState, action = {}) => {
                 navigation: {
                     ...state.navigation,
                     currentPath: newPath,
-                    history: [...state.navigation.history, newPath],
+                    history: newPath,
                     historyIndex: state.navigation.historyIndex + 1
                 }
             };

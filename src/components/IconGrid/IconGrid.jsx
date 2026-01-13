@@ -25,8 +25,8 @@ const IconGrid = ({
               : openProject(item.id)
           }
         >
-          <div>{item.type === 'folder' ? '📁' : '📄'}</div>
-          <div>{item.name}</div>
+          <span>{item.type === 'folder' ? '📁' : '📄'}</span>
+          <span>{item.name}</span>
         </div>
       ))}
 
