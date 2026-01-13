@@ -11,7 +11,7 @@ import {
     SHOW_IMAGE_ITEM,
     OPEN_STOLIFY,
     EXPAND_WINDOW,
-    OPEN_CV,
+    OPEN_RESUME,
     SET_POSITION,
     OPEN_ARTQUIZ,
     
@@ -32,7 +32,7 @@ const initialState = {
     displaySpecsItem: false,
     displayAllItems: false,
     openWindows: [],
-    displayCv: false,
+    displayResume: false,
     windowPosition: {},
     displayArtquiz: false,
 
@@ -224,11 +224,11 @@ const desktopReducer = (state = initialState, action = {}) => {
                     }
                 }
                 
-            if (action.value !== undefined && action.value[0] === 'cv') {
+            if (action.value !== undefined && action.value[0] === 'Resume') {
                 console.error(2);
                 return {
                     ...state,
-                    displayCv: !state.displayCv
+                    displayResume: !state.displayResume
                 }
             }
             
@@ -269,10 +269,10 @@ const desktopReducer = (state = initialState, action = {}) => {
             }
         }
 
-        case OPEN_CV : {
+        case OPEN_RESUME : {
             return {
                 ...state,
-                displayCv: !state.displayCv,
+                displayResume: !state.displayResume,
             }
         }
 

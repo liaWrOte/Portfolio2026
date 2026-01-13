@@ -3,29 +3,26 @@ import PropTypes from 'prop-types';
 import './desktop.scss';
 import Item from '../../containers/item';
 import Window from '../../containers/window';
-import cv from '../assets/img/icons/cv.svg';
 import animations from '../assets/img/icons/animations.svg';
-import resume from '../assets/img/cv/Sandrine_MZE_CV.jpg';
 import cloud from '../assets/img/cloud.svg';
 
+// Import React Quiz extrn app
 const RemoteQuiz = React.lazy(
   async () => (await import('remote/Quiz'))
 );
-// const RemoteQuiz = React.lazy(() => import("remote/Quiz"));
-// svg
 
 /**
  * Primary UI component for user interaction
  */
 export const Desktop = ({ displayWindowItem, displayImageItem, displayWindow, ...props}) => {
   return (
-    <div className="desktop"
-    // style={{ backgroundImage: `url(${desktopBackground})` }}
-    >
+    <div className="desktop">
       <img
         className='cloud'
         src={cloud}
         alt="background" />
+
+      {/* Item projets */}
       <Item 
         key={Math.random()}
         inWindow={false} 
@@ -34,13 +31,13 @@ export const Desktop = ({ displayWindowItem, displayImageItem, displayWindow, ..
         triggerOpen="openWindow"
       />
 
+      Item resume
       <Item 
         key={Math.random()}
         inWindow={false} 
-        itemId="cv"
-        outWindowLabel="cv.pdf"
-        triggerOpen="cv"
-        srcImg={resume}
+        itemId="resume"
+        outWindowLabel="resume.pdf"
+        triggerOpen="resume"
       />
 
       <Item 

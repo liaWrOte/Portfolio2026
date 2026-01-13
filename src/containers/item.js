@@ -8,7 +8,7 @@ import {
   openSpecsItem,
   openAllItems,
   closeWindow,
-  openCv,
+  openResume,
   setPosition,
   openArtquiz,
 } from '../actions/main';
@@ -42,8 +42,8 @@ const mapDispatchToProps = (dispatch) => ({
   openAllItems: (newValue) => {
     dispatch(openAllItems(newValue));
   },
-  openCv: (newValue) => {
-    dispatch(openCv(newValue));
+  openResume: (newValue) => {
+    dispatch(openResume(newValue));
   },
   setPosition: (newValue) => {
     dispatch(setPosition(newValue));

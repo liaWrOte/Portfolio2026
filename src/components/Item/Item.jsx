@@ -9,7 +9,7 @@ import StolifySvg from '../animated/stolify/StolifySvg';
 /**
  * Primary UI component for user interaction
  */
-const Item = ({ inWindow, outWindowLabel, label, srcImg, triggerOpen, openSingleItem, openWindowItem, openImageItem, openSpecsItem, openAllItems, openWindow, itemId, app, clickTrigger, setPosition, animated, openArtquiz, openCv, ...props }) => {
+const Item = ({ inWindow, outWindowLabel, label, srcImg, triggerOpen, openSingleItem, openWindowItem, openImageItem, openSpecsItem, openAllItems, openWindow, itemId, app, clickTrigger, setPosition, animated, openArtquiz, openResume, ...props }) => {
 
   let desktopClass = !inWindow ? ' on-desktop' : '';
   const ref = useRef();
@@ -46,8 +46,8 @@ const Item = ({ inWindow, outWindowLabel, label, srcImg, triggerOpen, openSingle
         stolifySvg.classList.toggle('start');
         break;
 
-      case 'cv':
-        openCv();
+      case 'resume':
+        openResume();
         break;
 
       case 'artquiz':

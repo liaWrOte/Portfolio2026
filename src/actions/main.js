@@ -12,7 +12,7 @@ export const OPEN_ALL_ITEMS = 'OPEN_ALL_ITEMS';
 export const CLOSE_WINDOW = 'CLOSE_WINDOW';
 export const SHOW_IMAGE_ITEM = 'SHOW_IMAGE_ITEM';
 export const EXPAND_WINDOW = 'EXPAND_WINDOW';
-export const OPEN_CV = 'OPEN_CV';
+export const OPEN_RESUME = 'OPEN_RESUME';
 export const SET_POSITION = 'SET_POSITION';
 export const OPEN_ARTQUIZ = 'OPEN_ARTQUIZ';
 
@@ -85,8 +85,8 @@ export const expandWindow = (value) => ({
     value
 })
 
-export const openCv = (value) => ({
-    type: OPEN_CV,
+export const openResume = (value) => ({
+    type: OPEN_RESUME,
     value
 })
 

@@ -25,7 +25,7 @@ const RemoteQuiz = React.lazy(
 /**
  * Primary UI component for user interaction
  */
-const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, displayWindowItem, displayImageItem, displaySpecsItem, displayAllItems, windowItemId, displayCv, displayArtquiz, position, windowPosition, openWindow, openWindowItem, isOpen, fileSystem, activeId, view }) => {
+const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, displayWindowItem, displayImageItem, displaySpecsItem, displayAllItems, windowItemId, displayResume, displayArtquiz, position, windowPosition, openWindow, openWindowItem, isOpen, fileSystem, activeId, view }) => {
 
 
   const boxRef = useRef(null);
@@ -338,7 +338,7 @@ const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, d
           }
         })}
 
-        {displayCv && 
+        {displayResume && 
             <Draggable
               bounds={'.App'}
               onDrag={(e) => handleZIndex(e)}
@@ -350,8 +350,8 @@ const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, d
                 onClick={(e) => handleZIndex(e)}
               >
                 <WindowHeader
-                  label={`cv.pdf`}
-                  itemId={['cv', 'img']}
+                  label={`Resume.pdf`}
+                  itemId={['Resume', 'img']}
                   minify={minify} isMinified={isMinified}
                 />
                 <iframe src="https://heady-salto-322.notion.site/ebd//2aadb394a5ab8121bd4afde3e99c9a7f" width="100%" height="100%" frameborder="0" allowfullscreen title="resume" />
