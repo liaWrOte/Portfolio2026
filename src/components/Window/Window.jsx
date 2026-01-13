@@ -3,11 +3,17 @@ import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import Draggable from 'react-draggable';
 import ReactMarkdown from "react-markdown";
+
+// Import State selectors
 import { getCurrentNode, getProjectById } from '../../selectors/explorerSelectors';
 
+// Import backend URL for backend calls 
 import { backendUrl } from '../../middlewares/env';
+
+// Import styles 
 import './window.scss';
 
+// Import components 
 import Loader from '../Loader/Loader';
 import WindowHeader from '../../containers/windowHeader';
 import SidebarTree from './../../containers/sidebarTree';
@@ -16,24 +22,25 @@ import ProjectView from '../ProjectView/ProjectView';
 import IconGrid from '../../containers/iconGrid';
 
 
-const RemoteQuiz = React.lazy(
-  async () => (await import('remote/Quiz'))
-);
+const Window = ({
+  displayWindow,
+  displayProjects,
+  displayImageItem,
+  windowItemId,
+  displayResume,
+  displayArtquiz,
+  position,
+  windowPosition,
+  isOpen,
+  fileSystem,
+  view
+}) => {
 
-
-
-/**
- * Primary UI component for user interaction
- */
-const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, displayWindowItem, displayImageItem, displaySpecsItem, displayAllItems, windowItemId, displayResume, displayArtquiz, position, windowPosition, openWindow, openWindowItem, isOpen, fileSystem, activeId, view }) => {
-
-
+  // Window positioning
   const boxRef = useRef(null);
   const [defaultPos, setDefaultPos] = useState({ x: 0, y: 0 });
 
   useLayoutEffect(() => {
-    // if (!boxRef.current) return; 
-
     if (displayWindow && boxRef.current) {
       const rect = boxRef.current.getBoundingClientRect();
   
@@ -44,16 +51,8 @@ const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, d
     }
   }, [displayWindow]);
 
-  // useEffect(() => {
-  //   const fetchData = async()=> {
-  //     if(displayProjects) {
-  //       const data = await getAllProjects();
-  //       return data;
-  //     }
-  //   }
-  //   fetchData();
-  // }, []);
 
+  // Handle z-index on click
   function handleZIndex(e) {
     let windows = document.querySelectorAll('.window');
     windows.forEach((el) => {
@@ -64,6 +63,7 @@ const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, d
     }
   }
 
+  // Handle minifying window
   const [isMinified, minify] = useState(false);
   const [showStyle, setShowStyle] = useState(true);
 
@@ -74,24 +74,6 @@ const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, d
       // return () => clearTimeout(timeout);
     }
   }, [displayWindow]);
-
-  const divStyleStart = {
-    // position: 'absolute',
-    top: windowPosition.top,
-    left: windowPosition.left,
-    transform: 'scale(0.1)',
-    opacity: '0',
-    // transition: 'left 0.7s, top 0.7s, transform 0.7s, opacity 0.7s',
-  };
-
-  const divStyleEnd = {
-    // position: 'absolute',
-    top: '90px',
-    opacity: '1',
-    left: '140px',
-    transform: 'scale(1)',
-    transition: 'left 0.7s, top 0.7s, transform 0.7s, opacity 0.7s',
-  };
 
   useEffect(() => {
     const projectOpen = displayProjects.find(
@@ -104,35 +86,35 @@ const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, d
 
   const [headerLabel, setHeaderlabel] = useState('');
 
+  // Get current node and active project from Redux store
   const node = useSelector(getCurrentNode);
+  // Get active project by ID
   const activeProject = useSelector(getProjectById);
-  console.log('CURRENT NODE IN WINDOW ', node, view, activeProject);
 
 
     return (
       <>
 
-        {/* Show projects window */}
+        {/* File explorer and projects */}
         {isOpen && fileSystem && 
           <>
-          {/* <div className={`window-container`} style={showStyle ? divStyleStart : divStyleEnd}> */}
+
+            {/* Container to make window draggable */}
             <Draggable
               bounds={'.desktop'}
               handle={'.window-header-container'}
               onDrag={(e) => handleZIndex(e)}
               key={Math.random()}
               defaultPosition={defaultPos}
-              // positionOffset={showStyle ? {x: -windowPosition.width, y: -windowPosition.top} : ''}
-              // scale={1}
-              // style={showStyle ? divStyleStart: divStyleEnd}
             >
               <div
                 className={`window ${isMinified ? "minified" : ""}`}
                 onClick={(e) => handleZIndex(e)}
                 origin={position}
                 ref={boxRef}
-                // style={showStyle ? divStyle : ''}
               >
+
+                {/* Window Header  */}
                 <WindowHeader label={windowItemId + headerLabel}
                   minify={minify}
                   isMinified={isMinified}               
@@ -142,202 +124,37 @@ const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, d
                   />
 
                 <div className="window-item-container">
-                    <SidebarTree />
-                    {/* {displayProjects.map((item, id) => {
-                      const currentType = item.attributes.type;
-                      const previousType = id > 0 ? displayProjects[id - 1].attributes.type : null;
-                      const showType = currentType !== previousType;
-                        return (
-                          <>
-                            {showType &&
-                              <li
-                                key={Math.random()}
-                                className="window-left-nav-type"
-                                onClick={(e => openWindow(currentType))}>
-                                  {currentType}
-                              </li>
-                            }
-                            <li
-                              key={Math.random()}
-                              className='window-left-nav-item'
-                              onClick={(e => openWindowItem(id))}>
-                                {item.attributes.title}
-                            </li>
-                          </>
-                        )
-                    })} */}
+
+                  {/* SidebarTree for explorer navigation */}
+                  <SidebarTree />
 
                   <div className="window-right-items">
-                    {/* {displayProjects.map((item, id) => {
-                          return (
-                            <>
-                              {item.attributes.type ===  windowItemId && !displayWindowItem &&
-                                <Item 
-                                  key={Math.random()} 
-                                  inWindow={true} 
-                                  label={item.attributes.title} 
-                                  triggerOpen='openWindowItem'
-                                  // itemId={`Projets/${item.attributes.title}`}
-                                  itemId={id}
-                                  // projectId={id}
-                                />
-                              }
-                             
-                              {item.projectOpen !== 0 &&
-                                <div className="window-item-container">
-                                  <Item
-                                    key={Math.random()}
-                                    inWindow={true}
-                                    label="Specs"
-                                    triggerOpen='openSpecsItem'
-                                    itemId={id}
-                                  />
-                                    {item.attributes.capture_desktop.data &&
-                                      <Item 
-                                        key={Math.random()}
-                                        inWindow={true}
-                                        itemId={item.id}
-                                        outWindowLabel={`${item.attributes.capture_desktop.data.attributes.name}`}
-                                        triggerOpen='capture_desktop'
-                                        srcImg={`${backendUrl}${item.attributes.capture_desktop.data.attributes.url}`}
-                                      />
-                                    }
-                                    {item.attributes.capture_desktop_2.data &&
-                                      <Item 
-                                        key={Math.random()}
-                                        inWindow={true}
-                                        itemId={item.id}
-                                        outWindowLabel={`${item.attributes.capture_desktop_2.data.attributes.name}`}
-                                        triggerOpen='capture_desktop_2'
-                                        srcImg={`${backendUrl}${item.attributes.capture_desktop_2.data.attributes.url}`}
-                                      />
-                                    }
-                                    {item.attributes.capture_mobile.data &&
-                                      <Item 
-                                      key={Math.random()}
-                                      inWindow={true}
-                                      itemId={item.id}
-                                      outWindowLabel={`${item.attributes.capture_mobile.data.attributes.name}`}
-                                      triggerOpen='capture_mobile'
-                                      srcImg={`${backendUrl}${item.attributes.capture_mobile.data.attributes.url}`}
-                                      />
-                                    }
-                                    {item.attributes.logo.data &&
-                                      <Item 
-                                      key={Math.random()}
-                                      inWindow={true}
-                                      itemId={item.id}
-                                      outWindowLabel={`${item.attributes.logo.data.attributes.name}`}
-                                      triggerOpen='logo'
-                                      srcImg={`${backendUrl}${item.attributes.logo.data.attributes.url}`}
-                                      />
-                                    }
-        
-                                  <Item
-                                    key={Math.random()}
-                                    inWindow={true}
-                                    label="Tout ouvrir"
-                                    triggerOpen='openAllItems'
-                                    itemId={id}
-                                  />
-                                </div>
-                              }
-                            </>
-                          )
-                    })} */}
+                    
+                    {/* Explorer view */}
                     {fileSystem && view && (view === 'explorer') &&
                       <ExplorerView view={view} node={fileSystem} />
                     }
-                    {fileSystem && view && (view === 'project') &&
-                      <ProjectView node={activeProject??node} />
-                    }
+
+                    {/* Folder view */}
                     {fileSystem && view && view === 'folder' &&
                       <IconGrid items={node.children || []} isIconGrid={true} />
                     }
 
+                    {/* Project View  */}
+                    {fileSystem && view && (view === 'project') &&
+                      <ProjectView node={activeProject??node} />
+                    }
+
                   </div>
+
                 </div>
 
               </div>
             </Draggable>
-          {/* </div> */}
           </>
         }
 
-        {displayProjects.map((item, id) => {
-          if(item.imgOpen) {
-            let fullClass = item.imgExpandedWindow ? ' full' : '';
-            const image = item.attributes?.[displayImageItem]?.data?.attributes;
-            return (
-                <Draggable bounds={'.App'} onDrag={(e) => handleZIndex(e)}>
-                <div
-                  className={`window level-class-third img ${fullClass}`}
-                  key={Math.random()}
-                  onClick={(e) => handleZIndex(e)}
-                >
-                  <WindowHeader
-                    label={`Projets`+ headerLabel + '/${image?.name ??'}
-                    itemId={[id, 'img']}
-                  />
-                  <div className="window-item-container img">
-                    <img src={image?.url ? `${backendUrl}${image.url}` : ''} alt="capture"/>
-                  </div>
-                </div>
-                  </Draggable>
-            )
-          }
-        })}
-
-        {displayProjects.map((item, id) => {
-          if(item.specsOpen) {
-            return (
-              <Draggable bounds={'.App'} onDrag={(e) => handleZIndex(e)}>
-                <div
-                  className={`window level-class-fourth`}
-                  key={Math.random()}
-                  onClick={(e) => handleZIndex(e)}
-                >
-                  <WindowHeader
-                    label={`Projets/${displayProjects[id].attributes.title}/specs`}
-                    itemId={[id, 'specs']} minify={minify} isMinified={isMinified}
-                  />
-                  <div className="window-item-container specs">
-                    <h1>{item.attributes.title}</h1>
-                    {item.attributes.link && 
-                      <a href={item.attributes.link} className="link-site">
-                          Voir le site
-                      </a>
-                    }
-                    {item.attributes.type && 
-                      <p>{item.attributes.type}</p>
-                    }
-                    {item.attributes.role &&
-                      <>
-                        <h2>Rôle</h2>
-                        <p>{item.attributes.role}</p>
-                      </>
-                    }
-                    {item.attributes.techno &&
-                      <>
-                        <h2>Techno</h2>
-                        <p>{item.attributes.techno}</p>
-                      </>
-                    }
-                    {item.attributes.pitch && 
-                      <>
-                        <h2>Missions réalisées</h2>
-                        <ReactMarkdown>
-                          {item.attributes.pitch}
-                        </ReactMarkdown>
-                      </>
-                    }
-                  </div>
-                </div>
-              </Draggable>
-            )
-          }
-        })}
-
+        {/* Resume  */}
         {displayResume && 
             <Draggable
               bounds={'.App'}
@@ -357,12 +174,6 @@ const Window = ({ displayWindow, getAllProjects, displayProjects, windowLevel, d
                 <iframe src="https://heady-salto-322.notion.site/ebd//2aadb394a5ab8121bd4afde3e99c9a7f" width="100%" height="100%" frameborder="0" allowfullscreen title="resume" />
               </div>
             </Draggable>
-        }
-
-        {displayArtquiz && 
-          <Suspense fallback={<Loader />}>
-            <RemoteQuiz/>
-          </Suspense>
         }
 
       </>
