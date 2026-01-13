@@ -1,19 +1,23 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+
+// Import styles 
 import './desktop.scss';
+
+// Import components 
 import Item from '../../containers/item';
 import Window from '../../containers/window';
 import animations from '../assets/img/icons/animations.svg';
 import cloud from '../assets/img/cloud.svg';
 
-// Import React Quiz extrn app
+import fileImg from '../assets/img/file.png';
+import resumeImg from '../assets/img/icons/resume.svg';
+
+// Import React Quiz extern app
 const RemoteQuiz = React.lazy(
   async () => (await import('remote/Quiz'))
 );
 
-/**
- * Primary UI component for user interaction
- */
+
 export const Desktop = ({
   displayWindowItem,
   displayImageItem,
@@ -34,6 +38,7 @@ export const Desktop = ({
         itemId="Projets"
         outWindowLabel="Projets"
         triggerOpen="openWindow"
+        srcImg={fileImg}
       />
 
       {/* Item resume */}
@@ -43,6 +48,7 @@ export const Desktop = ({
         itemId="resume"
         outWindowLabel="resume.pdf"
         triggerOpen="resume"
+        srcImg={resumeImg}
       />
 
       {/* Item contact me */}
