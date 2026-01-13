@@ -38,18 +38,63 @@ const Window = ({
 
   // Window positioning
   const boxRef = useRef(null);
-  const [defaultPos, setDefaultPos] = useState({ x: 0, y: 0 });
+  
+  // Default to center of screen, but allow override with position prop
+  const getDefaultPosition = () => {
+    if (position && typeof position === 'object') {
+      return position;
+    }
+    
+    // Get desktop dimensions (excluding taskbar, etc.)
+    const desktopWidth = window.innerWidth;
+    const desktopHeight = window.innerHeight - 80; // Subtract desktop bar height
+    
+    // Center window precisely - get dimensions from CSS
+    const getWindowDimensions = () => {
+      // Create a temporary element to measure CSS dimensions
+      const tempEl = document.createElement('div');
+      tempEl.style.position = 'fixed';
+      tempEl.style.width = '750px';
+      tempEl.style.height = '515px';
+      tempEl.style.visibility = 'hidden';
+      document.body.appendChild(tempEl);
+      
+      const rect = tempEl.getBoundingClientRect();
+      document.body.removeChild(tempEl);
+      
+      return {
+        width: rect.width,
+        height: rect.height
+      };
+    };
+    
+    const windowDimensions = getWindowDimensions();
+    
+    return {
+      x: Math.max(0, (desktopWidth - windowDimensions.width) / 2),
+      y: Math.max(0, (desktopHeight - windowDimensions.height) / 2)
+    };
+  };
+
+  const [defaultPos, setDefaultPos] = useState(getDefaultPosition());
 
   useLayoutEffect(() => {
     if (displayWindow && boxRef.current) {
-      const rect = boxRef.current.getBoundingClientRect();
-  
-      const centerX = window.innerWidth / 2 - rect.width / 2;
-      const centerY = window.innerHeight / 2 - rect.height / 2;
-  
-      setDefaultPos({ x: centerX, y: centerY });
+      setDefaultPos(getDefaultPosition());
     }
-  }, [displayWindow]);
+  }, [displayWindow, position]);
+
+  // Handle window resize to keep window centered
+  useEffect(() => {
+    const handleResize = () => {
+      if (displayWindow && !position) {
+        setDefaultPos(getDefaultPosition());
+      }
+    };
+
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, [displayWindow, position]);
 
 
   // Handle z-index on click
