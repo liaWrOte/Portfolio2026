@@ -19,7 +19,6 @@ import {
     OPEN_PROJECT,
     OPEN_FOLDER,
     GO_BACK,
-    FETCH_PROJECTS
 } from '../actions/main';
 
 const initialState = {
