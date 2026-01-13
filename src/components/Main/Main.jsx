@@ -24,5 +24,4 @@ const Main = ({ fetchProjects, fileSystem, loadingState }) => {
   );
 };
 
-
 export default Main;

@@ -66,16 +66,3 @@ export const Desktop = ({
     </div>
   );
 };
-
-Desktop.propTypes = {
-  /**
-   * Is this the principal call to action on the page?
-   */
-  displayWindowItem: PropTypes.bool,
-
-
-};
-
-Desktop.defaultProps = {
-  displayWindowItem: false,
-};

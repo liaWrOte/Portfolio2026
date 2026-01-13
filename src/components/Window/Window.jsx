@@ -97,15 +97,14 @@ const Window = ({
 
         {/* File explorer and projects */}
         {isOpen && fileSystem && 
-          <>
 
-            {/* Container to make window draggable */}
             <Draggable
               bounds={'.desktop'}
               handle={'.window-header-container'}
               onDrag={(e) => handleZIndex(e)}
               key={Math.random()}
               defaultPosition={defaultPos}
+              nodeRef={boxRef}
             >
               <div
                 className={`window ${isMinified ? "minified" : ""}`}
@@ -151,11 +150,11 @@ const Window = ({
 
               </div>
             </Draggable>
-          </>
         }
 
         {/* Resume  */}
         {displayResume && 
+        
             <Draggable
               bounds={'.App'}
               onDrag={(e) => handleZIndex(e)}
@@ -181,21 +180,5 @@ const Window = ({
 
 }; 
 
-Window.propTypes = {
-  /**
-   * Show items window of firt level
-   */
-  displayWindow: PropTypes.bool.isRequired,
-  /**
-   * Show items window of second level
-   */
-  displayWindowItem: PropTypes.bool,
-
-};
-
-Window.defaultProps = {
-  displayWindow: false,
-  displayWindowItem: false,
-};
 
 export default Window;

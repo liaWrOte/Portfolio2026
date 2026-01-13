@@ -1,5 +1,6 @@
-import React, { useState, useRef, useEffect, useHasChanged } from 'react';
-import PropTypes from 'prop-types';
+import React, { useState, useRef } from 'react';
+
+// Import styles 
 import './stolify.scss';
 
 // Imports image buttons
@@ -147,21 +148,5 @@ const Stolify = () => {
   );
 };
 
-Stolify.propTypes = {
-  /**
-   * Show items Stolify of firt level
-   */
-  displayStolify: PropTypes.bool.isRequired,
-  /**
-   * Show items Stolify of second level
-   */
-  displayStolifyItem: PropTypes.bool,
-
-};
-
-Stolify.defaultProps = {
-  displayStolify: false,
-  displayStolifyItem: false,
-};
 
 export default Stolify;

@@ -29,21 +29,4 @@ const StolifySvg = () => {
   );
 };
 
-StolifySvg.propTypes = {
-  /**
-   * Show items StolifySvg of firt level
-   */
-  displayStolifySvg: PropTypes.bool.isRequired,
-  /**
-   * Show items StolifySvg of second level
-   */
-  displayStolifySvgItem: PropTypes.bool,
-
-};
-
-StolifySvg.defaultProps = {
-  displayStolifySvg: false,
-  displayStolifyItem: false,
-};
-
 export default StolifySvg;

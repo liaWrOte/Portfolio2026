@@ -9,10 +9,4 @@ const Loader = () => {
   );
 };
 
-Loader.propTypes = {
-};
-
-Loader.defaultProps = {
-};
-
 export default Loader;
