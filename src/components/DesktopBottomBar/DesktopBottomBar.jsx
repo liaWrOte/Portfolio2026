@@ -8,11 +8,10 @@ import Item from '../../containers/item';
 import stolify from '../assets/img/icons/stolify.svg';
 import artquiz from '../assets/img/icons/artquiz.svg';
 
-/**
- * Primary UI component for user interaction
- */
+
 export const DesktopBottomBar = ({ primary, backgroundColor, size, label, srcImg, openArtquiz, ...props }) => {
 
+  // START Date and time display
   const locale = 'fr-FR';
   const [today, setDate] = useState(new Date());
 
@@ -44,13 +43,15 @@ export const DesktopBottomBar = ({ primary, backgroundColor, size, label, srcImg
     }
   }, 100)
 
-  return (
-    <div className="desktop-bar">
+  // END Date and time display
 
-    <div className="identity">
-      <p>Sandrine M'ZE</p>
-      <p>Développeuse front-end WordPress | React créative</p>
-    </div>
+  return (
+    <aside className="desktop-bar">
+
+      <div className="identity">
+        <p>Sandrine M'ZE</p>
+        <p>Développeuse front-end WordPress | React créative</p>
+      </div>
 
       <div className="desktop-bar-center">
         <Item
@@ -76,7 +77,7 @@ export const DesktopBottomBar = ({ primary, backgroundColor, size, label, srcImg
       <span className="time">{hour}</span>
 
 
-    </div>
+    </aside>
   );
 };
 

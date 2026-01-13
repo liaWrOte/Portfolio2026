@@ -31,7 +31,7 @@ export const Desktop = ({ displayWindowItem, displayImageItem, displayWindow, ..
         triggerOpen="openWindow"
       />
 
-      Item resume
+      {/* Item resume */}
       <Item 
         key={Math.random()}
         inWindow={false} 
@@ -40,6 +40,7 @@ export const Desktop = ({ displayWindowItem, displayImageItem, displayWindow, ..
         triggerOpen="resume"
       />
 
+      {/* Item contact me */}
       <Item 
         key={Math.random()}
         inWindow={false} 
@@ -49,21 +50,10 @@ export const Desktop = ({ displayWindowItem, displayImageItem, displayWindow, ..
         srcImg={animations}
       />
 
-      {/* <RemoteQuiz /> */}
-
-      {/* {displayWindowItem &&
-          <Window windowLevel="second"/>
-      }  */}
+      {/* Item Window to open all items */}
       <Window/>
 
-      {/* Exemple intégration CodePen */}
-      {/* <div id="integration">
-        <iframe height="400" style={{width: 40 + '%'}} scrolling="no" title="Nom du Pen"
-          src="https://codepen.io/liaWO/embed/mdNOqKJ?default-tab=html%2Cresult"
-          frameborder="no" loading="lazy" allowtransparency="true" allowfullscreen="true">
-        </iframe>
-      </div> */}
-
+      {/* Remote React ArtQuiz app */}  
       {props.displayArtquiz &&
         <RemoteQuiz />
       }
