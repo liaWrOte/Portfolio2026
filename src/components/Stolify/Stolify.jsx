@@ -2,22 +2,23 @@ import React, { useState, useRef, useEffect, useHasChanged } from 'react';
 import PropTypes from 'prop-types';
 import './stolify.scss';
 
-// svg btn
+// Imports image buttons
 import nextBtn from '../assets/img/audio_player/next.svg';
 import previousBtn from '../assets/img/audio_player/previous.svg';
 import playBtn from '../assets/img/audio_player/play.svg';
 import pauseBtn from '../assets/img/audio_player/pause.svg';
 
-// jpeg tracks covers
+// Imports tracks covers images
 import labiCover from '../assets/img/audio_player/labi.jpeg';
 import irmaCover from '../assets/img/audio_player/irma.jpg';
 import tezetaCover from '../assets/img/audio_player/tezeta.jpg';
 
-// mp3
+// Imports mp3
 import labi from '../assets/mp3/I Got The... (2006 Remaster) (128 kbps).mp3';
 import irma from '../assets/mp3/Irma Thomas Anyone Who Knows What Love Is (128 kbps).mp3';
 import tezeta from '../assets/mp3/Tezeta (Nostalgia) (128 kbps).mp3';
 
+// Tracks list mapping
 const tracks = [
   {
     title : 'I Got The... (2006 Remaster)',
@@ -37,12 +38,12 @@ const tracks = [
 ];
 
 const Stolify = () => {
-
   
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef(new Audio(tracks[currentTrackIndex].source));
   
+  // Play function 
   const play = () => {
     setIsPlaying(true);
     audioRef.current.play();
@@ -52,6 +53,7 @@ const Stolify = () => {
     stolifyContainer.classList.add('playing');
   };
   
+  // Pause function 
   const pause = () => {
     setIsPlaying(false);
     audioRef.current.pause();
@@ -60,6 +62,7 @@ const Stolify = () => {
 
   };
 
+  // Previous navigation function 
   const previous = () => {
     const newIndex = currentTrackIndex - 1;
     if (newIndex < 0) {
@@ -76,6 +79,7 @@ const Stolify = () => {
     }
   };
 
+  // Next navigation function 
   const next = () => {
     const newIndex = currentTrackIndex + 1;
     if (newIndex >= tracks.length) {
@@ -95,9 +99,13 @@ const Stolify = () => {
   return (
     
     <div className="stolify-container hide" id="stolify">
+
+      {/* Track title */}
       <div className="title-container">
         <span className='title'>{tracks[currentTrackIndex].title}</span>
       </div>
+
+      {/* Track cover */}
       <div className='cover-container'>
         <img
           src={tracks[currentTrackIndex].cover}
@@ -105,8 +113,9 @@ const Stolify = () => {
           className="cover"
         />
       </div>
-      <div className="stolify-controls">
 
+      {/* Audio controls */}
+      <div className="stolify-controls">
         <img 
             src={previousBtn} 
             alt="previous song"
