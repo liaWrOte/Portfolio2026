@@ -14,7 +14,12 @@ const RemoteQuiz = React.lazy(
 /**
  * Primary UI component for user interaction
  */
-export const Desktop = ({ displayWindowItem, displayImageItem, displayWindow, ...props}) => {
+export const Desktop = ({
+  displayWindowItem,
+  displayImageItem,
+  displayWindow,
+  ...props
+}) => {
   return (
     <div className="desktop">
       <img
