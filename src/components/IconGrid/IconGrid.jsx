@@ -1,12 +1,20 @@
 import React from "react";  
 
-const IconGrid = ({ items, openFolder, openProject, isIconGrid }) => {
+const IconGrid = ({
+  items,
+  openFolder,
+  openProject,
+  isIconGrid
+}) => {
 
   if (!items) return null;
 
   return (
+
     <div className="icon-grid">
+
       { isIconGrid && <div className="icon-grid-label">Icon Grid View</div> }
+
       {items.map(item => (
         <div
           key={item.id}
@@ -21,7 +29,9 @@ const IconGrid = ({ items, openFolder, openProject, isIconGrid }) => {
           <div>{item.name}</div>
         </div>
       ))}
+
     </div>
+
   );
 }   
 
