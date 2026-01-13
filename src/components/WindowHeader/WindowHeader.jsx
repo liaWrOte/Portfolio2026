@@ -2,13 +2,25 @@ import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import './window-header.scss';
 import file from '../assets/img/file.png';
+
+// Import images 
 import arrowLeft from '../assets/img/arrow_left.svg';
 import arrowRight from '../assets/img/arrow_right.svg';
 
-/**
- * Primary UI component for user interaction
- */
-export const WindowHeader = ({ primary, backgroundColor, size, label, closeWindow, itemId, expandWindow, minify, isMinified, closeAnimState, closeAnim,  ...props }) => {
+
+export const WindowHeader = ({
+  primary,
+  backgroundColor,
+  size,
+  label,
+  closeWindow,
+  itemId,
+  expandWindow,
+  minify,
+  isMinified,
+  closeAnimState,
+  closeAnim
+}) => {
 
   
   function minifyWindow(e) {
