@@ -1,12 +1,12 @@
 import React, { useEffect } from 'react';
+
+// Import components
 import { Desktop } from '../Desktop/Desktop';
 import { DesktopBottomBar } from '../DesktopBottomBar/DesktopBottomBar';
 
-/**
- * Primary UI component for user interaction
- */
 const Main = ({ fetchProjects, fileSystem, loadingState }) => {
 
+  // Fetch projects on component mount
   useEffect(() => {
     fetchProjects()
   }, []);
