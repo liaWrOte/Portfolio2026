@@ -1,77 +1,34 @@
-# Getting Started with Create React App
+Portfolio III est une application web de portfolio développée avec React et Strapi.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+**Architecture principale**
 
-## Available Scripts
+* Frontend : Application React 18 avec Redux Toolkit pour la gestion d'état
+* Backend : CMS Strapi pour la gestion de contenu
+* Build : Webpack avec TypeScript et Sass
 
-In the project directory, you can run:
+**Technologies clés**
 
-### `npm start`
+* React 18.2.0, Redux Toolkit, React Router
+* Strapi (backend CMS)
+* Sass pour le styling
+* Axios pour les requêtes API
+* Audio players (react-h5-audio-player, use-sound)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+**Structure**
+* Frontend (src/) : Components, containers, Redux store
+* Backend (strapi/) : API Strapi pour la gestion de projets
+* Remote (remote/) : Applications additionnelles (dont Artquiz)
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+**Fonctionnalités**
+* Interface avec grille d'icônes (IconGrid) pour naviguer entre projets/dossiers
+* Système de navigation par dossiers et projets
+* Support multimédia (audio)
 
-### `npm test`
+**Lancement**
+    ```bash
+# Frontend : yarn start (racine)
+# Backend : yarn run develop (dossier strapi)
+# Artquiz : npm start (dossier remote/artquiz)
+    ```
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-
-
-Lancer simultanément :
-
-Le front : yarn start à la racine
-Le back : yarn run develop à ./strapi
-Artquiz : npm start à ./remote/artquiz
+C'est un portfolio interactif avec une architecture full-stack moderne.
