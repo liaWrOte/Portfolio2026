@@ -2,14 +2,29 @@ import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import './item.scss';
 
+// Imports images
 import file from '../assets/img/file.png';
 import Stolify from '../Stolify/Stolify';
 import StolifySvg from '../animated/stolify/StolifySvg';
 
-/**
- * Primary UI component for user interaction
- */
-const Item = ({ inWindow, outWindowLabel, label, srcImg, triggerOpen, openSingleItem, openWindowItem, openImageItem, openSpecsItem, openAllItems, openWindow, itemId, app, clickTrigger, setPosition, animated, openArtquiz, openResume, ...props }) => {
+const Item = ({
+  inWindow,
+  outWindowLabel,
+  label,
+  srcImg,
+  triggerOpen,
+  openWindowItem,
+  openImageItem,
+  openSpecsItem,
+  openAllItems,
+  openWindow,
+  itemId,
+  clickTrigger,
+  setPosition,
+  animated,
+  openArtquiz,
+  openResume
+}) => {
 
   let desktopClass = !inWindow ? ' on-desktop' : '';
   const ref = useRef();
