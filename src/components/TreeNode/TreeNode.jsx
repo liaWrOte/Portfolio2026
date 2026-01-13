@@ -7,8 +7,11 @@ export default function TreeNode({
   nodeLevel = 0,
   currentPath,
 }) {
+
+  // IsActive class for selected node 
   const isActive = currentPath.includes(node.id);
 
+  // Dispatch of called function on click 
   const handleClick = () => {
     if (node.type === 'folder') openFolder(node.id);
     if (node.type === 'project') openProject(node.id);
@@ -16,6 +19,8 @@ export default function TreeNode({
 
   return (
     <li>
+
+      {/* TreeNode element */}
       <span
         onClick={handleClick}
         style={{
@@ -30,6 +35,7 @@ export default function TreeNode({
         {node.type === 'folder' ? '📁' : '📄'} {node.name}
       </span>
 
+      {/* Recursive TreeNode children */}
       {node.children && (
         <ul>
           {node.children.map(child => (
@@ -44,6 +50,7 @@ export default function TreeNode({
           ))}
         </ul>
       )}
+      
     </li>
   );
 }
