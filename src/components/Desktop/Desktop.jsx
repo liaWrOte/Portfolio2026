@@ -35,9 +35,9 @@ export const Desktop = ({
       <Item 
         key={Math.random()}
         inWindow={false} 
-        itemId="Projets"
+        itemId="projets"
         outWindowLabel="Projets"
-        triggerOpen="openWindow"
+        triggerOpen="projets"
         srcImg={fileImg}
       />
 

@@ -17,6 +17,7 @@ import {
 
 
 const desktopMiddleware = (store) => (next) => (action) => {
+    console.log(action.type);
     switch (action.type) {
         case GET_PROJECT:
             axios.get(`${apiUrl}/projects?populate=media`)
@@ -51,18 +52,18 @@ const desktopMiddleware = (store) => (next) => (action) => {
             next(action);
             break;
 
-        case OPEN_IMAGE_ITEM:
-            let id = action.value.itemId ? action.value.itemId : action.value;
-            axios.get(`${apiUrl}/projects/${id}?populate=*`)
-            .then((response) => {
-                let project = response.data.data;
-                store.dispatch(showImageItem(project));
-            })
-            .catch((error) => {
-                console.error(error);
-            });
-            next(action);
-            break;
+        // case OPEN_IMAGE_ITEM:
+        //     let id = action.value.itemId ? action.value.itemId : action.value;
+        //     axios.get(`${apiUrl}/projects/${id}?populate=*`)
+        //     .then((response) => {
+        //         let project = response.data.data;
+        //         store.dispatch(showImageItem(project));
+        //     })
+        //     .catch((error) => {
+        //         console.error(error);
+        //     });
+        //     next(action);
+        //     break;
 
         default:
             next(action);

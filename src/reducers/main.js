@@ -37,7 +37,7 @@ const initialState = {
 
     fileSystem: null,
     window: {
-        isOpen: true,
+        isOpen: false,
         view: 'explorer', // 'explorer' | 'project'
         activeId: null,
     },
@@ -62,15 +62,21 @@ const desktopReducer = (state = initialState, action = {}) => {
         case SHOW_WINDOW : {
             return {
                 ...state,
-                displayWindow: action.value
+                displayWindow: true,
+                window: {
+                    ...state.window,
+                    isOpen: true
+                }
             }
         }
 
         case SET_FILESYSTEM : {
+            console.log(action);
             return {
                 ...state,
                 fileSystem: action.payload,
-                loading: false
+                loading: false,
+                displayWindowItem: true
             }
         }
 
@@ -135,90 +141,90 @@ const desktopReducer = (state = initialState, action = {}) => {
 
         case OPEN_WINDOW : {
             let tempArr = [...state.allProjects];
-            tempArr.forEach((project, id) => {
-                project.projectOpen = 0;
-            })
+            // tempArr.forEach((project, id) => {
+            //     project.projectOpen = 0;
+            // })
             return {
                 ...state,
                 // displayWindow: true,
                 allProjects: tempArr,
                 windowItemId: action.value,
                 openWindows: !(state.openWindows.includes(action.value)) ? state.openWindows.concat(action.value) : state.openWindows,
-                displayWindowItem: false,
+                displayWindow: action.value
             }
         }
 
-        case OPEN_WINDOW_ITEM : {
-            let tempArr = [...state.allProjects];
-            tempArr.forEach(el => {
-                el.projectOpen = 0;
-            });
-            tempArr[action.value].projectOpen = 1;
-            return {
-                ...state,
-                displayWindowItem: true,
-                allProjects: tempArr
-            }
-        }
+        // case OPEN_WINDOW_ITEM : {
+        //     let tempArr = [...state.allProjects];
+        //     tempArr.forEach(el => {
+        //         el.projectOpen = 0;
+        //     });
+        //     tempArr[action.value].projectOpen = 1;
+        //     return {
+        //         ...state,
+        //         displayWindowItem: true,
+        //         allProjects: tempArr
+        //     }
+        // }
 
-        case OPEN_IMAGE_ITEM : {
-            let tempArr = [...state.allProjects];
-            let tempDisplayImageItem = state.displayImageItem;
-            const triggerOpen = action.value.triggerOpen ?? null;
-            tempDisplayImageItem = triggerOpen;
-            return {
-                ...state,
-                allProjects: tempArr,
-                displayImageItem: tempDisplayImageItem
-            }
-        }
+        // case OPEN_IMAGE_ITEM : {
+        //     let tempArr = [...state.allProjects];
+        //     let tempDisplayImageItem = state.displayImageItem;
+        //     const triggerOpen = action.value.triggerOpen ?? null;
+        //     tempDisplayImageItem = triggerOpen;
+        //     return {
+        //         ...state,
+        //         allProjects: tempArr,
+        //         displayImageItem: tempDisplayImageItem
+        //     }
+        // }
 
-        case SHOW_IMAGE_ITEM : {
-            let tempArr = [...state.allProjects];
-            const itemId = action.value.id ?? action.value;
+        // case SHOW_IMAGE_ITEM : {
+        //     let tempArr = [...state.allProjects];
+        //     const itemId = action.value.id ?? action.value;
                 
-            const media = {
-                capture_desktop : action.value.attributes.capture_desktop,
-                capture_desktop_2 : action.value.attributes.capture_desktop_2,
-                capture_mobile : action.value.attributes.capture_mobile,
-                thumbnail : action.value.attributes.thumbnail,
-            }
-            tempArr[itemId - 1].attributes = {
-                ...tempArr[itemId- 1].attributes,
-                ...media 
-            };
+        //     const media = {
+        //         capture_desktop : action.value.attributes.capture_desktop,
+        //         capture_desktop_2 : action.value.attributes.capture_desktop_2,
+        //         capture_mobile : action.value.attributes.capture_mobile,
+        //         thumbnail : action.value.attributes.thumbnail,
+        //     }
+        //     tempArr[itemId - 1].attributes = {
+        //         ...tempArr[itemId- 1].attributes,
+        //         ...media 
+        //     };
 
-            tempArr[itemId - 1].imgOpen = 1;
+        //     tempArr[itemId - 1].imgOpen = 1;
 
                 
-            return {
-                ...state,
-                // displayWindowItem: true,
-                allProjects: tempArr
-            }
-        }
+        //     return {
+        //         ...state,
+        //         // displayWindowItem: true,
+        //         allProjects: tempArr
+        //     }
+        // }
 
-        case OPEN_SPECS_ITEM : {
-            let tempArr = [...state.allProjects];
-            tempArr[action.value].specsOpen = 1;
-            return {
-                ...state,
-                // displayWindowItem: true,
-                allProjects: tempArr
-            }
-        }
+        // case OPEN_SPECS_ITEM : {
+        //     let tempArr = [...state.allProjects];
+        //     tempArr[action.value].specsOpen = 1;
+        //     return {
+        //         ...state,
+        //         // displayWindowItem: true,
+        //         allProjects: tempArr
+        //     }
+        // }
 
-        case OPEN_ALL_ITEMS : {
-            let tempArr = [...state.allProjects];
-            console.log(tempArr[action.value]);
-            tempArr[action.value].imgOpen = 1;
-            tempArr[action.value].specsOpen = 1;
-            return {
-                ...state,
-                // displayWindowItem: true,
-                allProjects: tempArr
-            }
-        }
+        // case OPEN_ALL_ITEMS : {
+        //     let tempArr = [...state.allProjects];
+        //     console.log(tempArr[action.value]);
+        //     tempArr[action.value].imgOpen = 1;
+        //     tempArr[action.value].specsOpen = 1;
+        //     return {
+        //         ...state,
+        //         // displayWindowItem: true,
+        //         allProjects: tempArr
+        //     }
+        // }
 
         case CLOSE_WINDOW : {
             console.log('CLOSE_WINDOW ', action.value);

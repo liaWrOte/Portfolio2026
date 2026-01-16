@@ -62,12 +62,16 @@ const Item = ({
         break;
 
       case 'resume':
-        openResume();
+        openWindow(itemId);
         break;
 
       case 'artquiz':
         openArtquiz(itemId);
         break;
+
+      case 'projets':
+        openWindow(itemId);
+      break;
 
       default:
         openImageItem({itemId, triggerOpen});
