@@ -22,6 +22,17 @@
   .time {
     text-align: right;
   }
+  .date {
+    text-align: right;
+    font-size: 0.8em;
+    color: $dark-brown;
+  }
+  .datetime-container {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    gap: 2px;
+  }
   .item {
     margin: 0 0.5rem;
   }

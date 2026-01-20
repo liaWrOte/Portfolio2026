@@ -38,6 +38,7 @@ const DesktopBottomBar = ({
   }, []);
 
   const hour = today.toLocaleTimeString(locale, {hour: '2-digit', minute:'2-digit'});
+  const date = today.toLocaleDateString(locale, {day: '2-digit', month: '2-digit', year: 'numeric'});
 
   let controlAppContainer = setInterval(function(){
     let appContainer = document.querySelectorAll('.App');
@@ -94,7 +95,10 @@ const DesktopBottomBar = ({
 
       </div>
 
-      <span className="time">{hour}</span>
+      <div className="datetime-container">
+        <span className="time">{hour}</span>
+        <span className="date">{date}</span>
+      </div>
 
 
     </aside>
