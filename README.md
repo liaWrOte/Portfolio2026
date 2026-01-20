@@ -17,7 +17,6 @@ Portfolio III est une application web de portfolio développée avec React et St
 **Structure**
 * Frontend (src/) : Components, containers, Redux store
 * Backend (strapi/) : API Strapi pour la gestion de projets
-* Remote (remote/) : Applications additionnelles (dont Artquiz)
 
 **Fonctionnalités**
 * Interface avec grille d'icônes (IconGrid) pour naviguer entre projets/dossiers
