@@ -28,7 +28,6 @@ Portfolio III est une application web de portfolio développée avec React et St
     ```bash
 # Frontend : yarn start (racine) (localhost:3000)
 # Backend : yarn start (dossier strapi) (localhost:1337)
-# Artquiz : yarnstart (dossier remote/artquiz) (localhost:3001)
     ```
 
 C'est un portfolio interactif avec une architecture full-stack moderne.
