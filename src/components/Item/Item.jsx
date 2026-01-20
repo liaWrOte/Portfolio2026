@@ -35,8 +35,6 @@ const Item = ({
       case 'openWindow':
       case 'projets':
       case 'resume':
-      case 'artquiz':
-      case 'stolify':
         openWindow(itemId);
         if (triggerOpen === 'openWindow' || triggerOpen === 'projets') {
           setPosition(ref.current.getBoundingClientRect());
@@ -60,11 +58,29 @@ const Item = ({
         break;
 
       case 'stolify':
+        console.log('Clic sur Stolify - comportement spécifique');
+        
         let stolify = document.getElementById('stolify');
-        stolify.classList.toggle('hide');
+        console.log('Élément stolify trouvé:', stolify);
+        
+        if (stolify) {
+          console.log('Toggle classe hide sur stolify');
+          stolify.classList.toggle('hide');
+          console.log('Classe hide après toggle:', stolify.className);
+        } else {
+          console.log('Élément stolify non trouvé!');
+        }
 
         let stolifySvg = document.getElementById('stolify-svg');
-        stolifySvg.classList.toggle('start');
+        console.log('Élément stolify-svg trouvé:', stolifySvg);
+        
+        if (stolifySvg) {
+          console.log('Toggle classe start sur stolify-svg');
+          stolifySvg.classList.toggle('start');
+          console.log('Classe start après toggle:', stolifySvg.className);
+        } else {
+          console.log('Élément stolify-svg non trouvé!');
+        }
         break;
 
       default:

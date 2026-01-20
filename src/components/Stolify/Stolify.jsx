@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 
 // Import styles 
 import './stolify.scss';
@@ -43,15 +43,19 @@ const Stolify = () => {
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const audioRef = useRef(new Audio(tracks[currentTrackIndex].source));
-  
+
   // Play function 
   const play = () => {
     setIsPlaying(true);
     audioRef.current.play();
     let stolifySvg = document.getElementById('stolify-svg');
-    stolifySvg.classList.add('playing');
+    if (stolifySvg) {
+      stolifySvg.classList.add('playing');
+    }
     let stolifyContainer = document.getElementsByClassName('stolify-container')[0];
-    stolifyContainer.classList.add('playing');
+    if (stolifyContainer) {
+      stolifyContainer.classList.add('playing');
+    }
   };
   
   // Pause function 
@@ -59,8 +63,9 @@ const Stolify = () => {
     setIsPlaying(false);
     audioRef.current.pause();
     let stolifySvg = document.getElementById('stolify-svg');
-    stolifySvg.classList.remove('playing');
-
+    if (stolifySvg) {
+      stolifySvg.classList.remove('playing');
+    }
   };
 
   // Previous navigation function 
