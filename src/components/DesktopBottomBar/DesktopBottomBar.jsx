@@ -67,12 +67,7 @@ const DesktopBottomBar = ({
       </div>
 
       <div className="desktop-bar-center">
-        <TaskBar 
-          openWindows={openWindows || []}
-          onWindowClick={onToggleWindow}
-          onCloseWindow={onCloseWindow}
-        />
-        
+       
         <Item
           key={Math.random()}
           inWindow={false}
@@ -91,6 +86,12 @@ const DesktopBottomBar = ({
           animated={true}
           clickTrigger={"simple"}
         />
+        <TaskBar 
+          openWindows={openWindows || []}
+          onWindowClick={onToggleWindow}
+          onCloseWindow={onCloseWindow}
+        />
+
       </div>
 
       <span className="time">{hour}</span>

@@ -3,6 +3,12 @@ import PropTypes from 'prop-types';
 import './task-bar.scss';
 
 const TaskBar = ({ openWindows, onWindowClick, onCloseWindow }) => {
+  
+  // Ne pas afficher la TaskBar si aucune fenêtre n'est ouverte
+  if (!openWindows || openWindows.length === 0) {
+    return null;
+  }
+
   const getIconForWindow = (windowId) => {
     switch(windowId) {
       case 'projets':
