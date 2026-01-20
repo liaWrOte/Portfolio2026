@@ -11,9 +11,10 @@ import {
     SHOW_IMAGE_ITEM,
     OPEN_STOLIFY,
     EXPAND_WINDOW,
-    OPEN_RESUME,
     SET_POSITION,
-    OPEN_ARTQUIZ,
+    MINIMIZE_WINDOW,
+    RESTORE_WINDOW,
+    TOGGLE_WINDOW,
     
     SET_FILESYSTEM,
     OPEN_PROJECT,
@@ -31,6 +32,7 @@ const initialState = {
     displaySpecsItem: false,
     displayAllItems: false,
     openWindows: [],
+    minimizedWindows: [],
     displayResume: false,
     windowPosition: {},
     displayArtquiz: false,
@@ -141,16 +143,19 @@ const desktopReducer = (state = initialState, action = {}) => {
 
         case OPEN_WINDOW : {
             let tempArr = [...state.allProjects];
-            // tempArr.forEach((project, id) => {
-            //     project.projectOpen = 0;
-            // })
+            const windowId = action.value;
+            
             return {
                 ...state,
-                // displayWindow: true,
+                displayWindow: true,
                 allProjects: tempArr,
-                windowItemId: action.value,
-                openWindows: !(state.openWindows.includes(action.value)) ? state.openWindows.concat(action.value) : state.openWindows,
-                displayWindow: action.value
+                windowItemId: windowId,
+                openWindows: !(state.openWindows.includes(windowId)) ? state.openWindows.concat(windowId) : state.openWindows,
+                // Remove from minimized windows when opening
+                minimizedWindows: state.minimizedWindows.filter(window => window !== windowId),
+                // Handle specific window display states
+                displayResume: windowId === 'resume' ? true : state.displayResume,
+                displayArtquiz: windowId === 'artquiz' ? true : state.displayArtquiz,
             }
         }
 
@@ -228,56 +233,47 @@ const desktopReducer = (state = initialState, action = {}) => {
 
         case CLOSE_WINDOW : {
             console.log('CLOSE_WINDOW ', action.value);
-            if (action.value !== undefined && action.value[0] !== undefined && action.value[1] === undefined) {
-                console.error(1);
-                let tempArr = [...state.allProjects];
-                // tempArr.forEach((project, id) => {
-                    //     project.projectOpen = 0;
-                    // })
-                    tempArr[action.value[0]].projectOpen = 0;
+            
+            // Handle simple string window IDs (from TaskBar)
+            if (typeof action.value === 'string') {
+                // Normalize window ID to lowercase for consistency
+                const windowId = action.value.toLowerCase();
+                return {
+                    ...state,
+                    openWindows: state.openWindows.filter(window => window !== action.value && window !== windowId),
+                    minimizedWindows: state.minimizedWindows.filter(window => window !== action.value && window !== windowId),
+                    // Handle specific window types
+                    displayResume: (action.value === 'resume' || action.value === 'Resume') ? false : state.displayResume,
+                    displayArtquiz: action.value === 'artquiz' ? false : state.displayArtquiz,
+                    displayWindow: action.value === 'projets' ? false : state.displayWindow
+                };
+            }
+            
+            // Handle array format (legacy)
+            if (Array.isArray(action.value)) {
+                if (action.value[0] === 'Resume') {
                     return {
                         ...state,
-                        // displayWindowItem: true,
-                        openWindows: state.openWindows.filter(window => window !== action.value),
-                        allProjects: tempArr
-                        
-                    }
+                        displayResume: !state.displayResume,
+                        openWindows: state.openWindows.filter(window => window !== 'resume' && window !== 'Resume'),
+                        minimizedWindows: state.minimizedWindows.filter(window => window !== 'resume' && window !== 'Resume')
+                    };
                 }
                 
-            if (action.value !== undefined && action.value[0] === 'Resume') {
-                console.error(2);
-                return {
-                    ...state,
-                    displayResume: !state.displayResume
+                if (action.value.length === 1) {
+                    return {
+                        ...state,
+                        openWindows: state.openWindows.filter(window => window !== action.value[0]),
+                        minimizedWindows: state.minimizedWindows.filter(window => window !== action.value[0])
+                    };
                 }
             }
             
-            if (action.value !== undefined && action.value[1] !== undefined) {
-                console.error(3);
-                let tempArr = [...state.openWindows];
-                // let type = action.value[1] + "Open";
-                tempArr = tempArr.filter((window) => window !== action.value);
-                return {
-                    ...state,
-                    // displayWindowItem: true,
-                    displayWindow: false,
-                    openWindows: tempArr
-                }
-            }
-            
-            if (action.value === undefined) {
-                console.error(4);
-                return {
-                    ...state,
-                    displayWindowItem: false
-                }
-            }
-
+            // Default case
             return {
                 ...state,
-                // displayWindowItem: true,
                 displayWindow: false
-            }
+            };
         }
 
         case EXPAND_WINDOW : {
@@ -289,24 +285,32 @@ const desktopReducer = (state = initialState, action = {}) => {
             }
         }
 
-        case OPEN_RESUME : {
+        case MINIMIZE_WINDOW : {
+            const windowId = action.payload;
             return {
                 ...state,
-                displayResume: !state.displayResume,
+                minimizedWindows: state.minimizedWindows.includes(windowId) 
+                    ? state.minimizedWindows 
+                    : [...state.minimizedWindows, windowId]
             }
         }
 
-        case SET_POSITION : {
+        case RESTORE_WINDOW : {
+            const windowId = action.payload;
             return {
                 ...state,
-                windowPosition: action.value,
+                minimizedWindows: state.minimizedWindows.filter(id => id !== windowId)
             }
         }
 
-        case OPEN_ARTQUIZ : {
+        case TOGGLE_WINDOW : {
+            const windowId = action.payload;
+            const isMinimized = state.minimizedWindows.includes(windowId);
             return {
                 ...state,
-                displayArtquiz: true,
+                minimizedWindows: isMinimized 
+                    ? state.minimizedWindows.filter(id => id !== windowId)
+                    : [...state.minimizedWindows, windowId]
             }
         }
 

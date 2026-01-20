@@ -33,7 +33,11 @@ const Window = ({
   windowPosition,
   isOpen,
   fileSystem,
-  view
+  view,
+  minimizedWindows,
+  openWindows,
+  currentPath,
+  openFolder
 }) => {
 
   // Window positioning
@@ -136,12 +140,40 @@ const Window = ({
   // Get active project by ID
   const activeProject = useSelector(getProjectById);
 
+  // Mapping for window labels to match outWindowLabel
+  const getWindowLabel = (windowId) => {
+    switch(windowId) {
+      case 'projets':
+        return 'Projets';
+      case 'resume':
+        return 'resume.pdf';
+      case 'contact_me':
+        return 'contact.me';
+      case 'artquiz':
+        return 'Artquiz';
+      case 'stolify':
+        return 'Stolify';
+      default:
+        return windowId;
+    }
+  };
+
+
+    // Check if a window is minimized
+  const isWindowMinimized = (windowId) => {
+    return minimizedWindows && minimizedWindows.includes(windowId);
+  };
+
+  // Check if a window should be displayed
+  const shouldDisplayWindow = (windowId) => {
+    return openWindows && openWindows.includes(windowId) && !isWindowMinimized(windowId);
+  };
 
     return (
       <>
 
         {/* File explorer and projects */}
-        {isOpen && fileSystem && 
+        {shouldDisplayWindow('projets') && fileSystem && 
 
             <Draggable
               bounds={'.desktop'}
@@ -159,12 +191,15 @@ const Window = ({
               >
 
                 {/* Window Header  */}
-                <WindowHeader label={windowItemId + headerLabel}
+                <WindowHeader label={getWindowLabel('projets')}
                   minify={minify}
                   isMinified={isMinified}               
                   closeAnimState={showStyle}
                   closeAnim={setShowStyle}
                   itemId={windowItemId}
+                  currentPath={currentPath}
+                  fileSystem={fileSystem}
+                  openFolder={openFolder}
                   />
 
                 <div className="window-item-container">
@@ -198,7 +233,7 @@ const Window = ({
         }
 
         {/* Resume  */}
-        {displayResume && 
+        {shouldDisplayWindow('resume') && 
         
             <Draggable
               bounds={'.App'}
@@ -210,12 +245,51 @@ const Window = ({
                 key={Math.random()}
                 onClick={(e) => handleZIndex(e)}
               >
-                <WindowHeader
-                  label={`Resume.pdf`}
-                  itemId={['Resume', 'img']}
+                <WindowHeader label={getWindowLabel('resume')}
+                  itemId={'resume'}
                   minify={minify} isMinified={isMinified}
+                  currentPath={null}
+                  fileSystem={null}
+                  openFolder={openFolder}
+                  useOnlyLabel={true}
                 />
                 <iframe src="https://heady-salto-322.notion.site/ebd//2aadb394a5ab8121bd4afde3e99c9a7f" width="100%" height="100%" frameborder="0" allowfullscreen title="resume" />
+              </div>
+            </Draggable>
+        }
+
+        {/* Contact Me */}
+        {shouldDisplayWindow('contact_me') && 
+        
+            <Draggable
+              bounds={'.App'}
+              onDrag={(e) => handleZIndex(e)}
+              handle={'.window-header-container'}
+              defaultPosition={{ x: 100, y: 100 }}
+              >
+              <div
+                className={`window level-class-fourth`}
+                key={Math.random()}
+                onClick={(e) => handleZIndex(e)}
+              >
+                <WindowHeader
+                  label={getWindowLabel('contact_me')}
+                  itemId={'contact_me'}
+                  minify={minify} isMinified={isMinified}
+                  currentPath={null}
+                  fileSystem={null}
+                  openFolder={openFolder}
+                  useOnlyLabel={true}
+                />
+                <div style={{ padding: '20px', height: 'calc(100% - 40px)', overflow: 'auto' }}>
+                  <h2>Contactez-moi</h2>
+                  <p>Vous pouvez me contacter via :</p>
+                  <ul>
+                    <li>Email : sandrine@example.com</li>
+                    <li>LinkedIn : linkedin.com/in/sandrine-mze</li>
+                    <li>GitHub : github.com/sandrine</li>
+                  </ul>
+                </div>
               </div>
             </Draggable>
         }

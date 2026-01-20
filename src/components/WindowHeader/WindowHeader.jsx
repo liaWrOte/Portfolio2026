@@ -21,7 +21,8 @@ export const WindowHeader = ({
   closeAnim,
   currentPath,
   fileSystem,
-  openFolder
+  openFolder,
+  useOnlyLabel = false
 }) => {
 
   
@@ -48,14 +49,14 @@ export const WindowHeader = ({
         <div className="window-header-nav">
         </div>
         <div className="window-header-label">
-          {currentPath && fileSystem ? (
+          {useOnlyLabel || !currentPath || !fileSystem ? (
+            <span>{label}</span>
+          ) : (
             <Breadcrumb 
               currentPath={currentPath}
               fileSystem={fileSystem}
               openFolder={openFolder}
             />
-          ) : (
-            <span>{label}</span>
           )}
         </div>
         <div className="toggle-window-container">

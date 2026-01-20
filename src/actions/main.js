@@ -12,10 +12,12 @@ export const OPEN_ALL_ITEMS = 'OPEN_ALL_ITEMS';
 export const CLOSE_WINDOW = 'CLOSE_WINDOW';
 export const SHOW_IMAGE_ITEM = 'SHOW_IMAGE_ITEM';
 export const EXPAND_WINDOW = 'EXPAND_WINDOW';
-export const OPEN_RESUME = 'OPEN_RESUME';
 export const SET_POSITION = 'SET_POSITION';
-export const OPEN_ARTQUIZ = 'OPEN_ARTQUIZ';
+export const OPEN_STOLIFY = 'OPEN_STOLIFY';
 
+export const MINIMIZE_WINDOW = 'MINIMIZE_WINDOW';
+export const RESTORE_WINDOW = 'RESTORE_WINDOW';
+export const TOGGLE_WINDOW = 'TOGGLE_WINDOW';
 export const FETCH_PROJECTS = 'FETCH_PROJECTS';
 export const SET_FILESYSTEM = 'SET_FILESYSTEM';
 export const OPEN_FOLDER = 'OPEN_FOLDER';
@@ -85,18 +87,8 @@ export const expandWindow = (value) => ({
     value
 })
 
-export const openResume = (value) => ({
-    type: OPEN_RESUME,
-    value
-})
-
 export const setPosition = (value) => ({
     type: SET_POSITION,
-    value
-})
-
-export const openArtquiz = (value) => ({
-    type: OPEN_ARTQUIZ,
     value
 })
 
@@ -120,5 +112,20 @@ export const openProject = (id) => ({
 export const goBack = (value) => ({
     type: GO_BACK,
     value
+})
+
+export const minimizeWindow = (windowId) => ({
+    type: MINIMIZE_WINDOW,
+    payload: windowId
+})
+
+export const restoreWindow = (windowId) => ({
+    type: RESTORE_WINDOW,
+    payload: windowId
+})
+
+export const toggleWindow = (windowId) => ({
+    type: TOGGLE_WINDOW,
+    payload: windowId
 })
 

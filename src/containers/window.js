@@ -4,7 +4,8 @@ import Window from '../components/Window/Window';
 import {
   getAllProjects,
   openWindow,
-  openWindowItem
+  openWindowItem,
+  openFolder
 } from '../actions/main';
 
 
@@ -22,7 +23,10 @@ const mapStateToProps = (state) => ({
   isOpen: state.main.window.isOpen,
   fileSystem: state.main.fileSystem,
   activeId: state.main.window.activeId,
-  view: state.main.window.view
+  view: state.main.window.view,
+  currentPath: state.main.navigation.currentPath,
+  minimizedWindows: state.main.minimizedWindows,
+  openWindows: state.main.openWindows
 });
 
 const mapDispatchToProps = (dispatch) => ({
@@ -34,6 +38,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   openWindowItem: (newValue) => {
     dispatch(openWindowItem(newValue));
+  },
+  openFolder: (newValue) => {
+    dispatch(openFolder(newValue));
   }
 });
 

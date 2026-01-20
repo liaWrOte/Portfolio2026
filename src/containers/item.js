@@ -3,14 +3,12 @@ import Item from '../components/Item/Item';
 import {
   getProject,
   openWindow,
+  closeWindow,
   openWindowItem,
   openImageItem,
   openSpecsItem,
   openAllItems,
-  closeWindow,
-  openResume,
-  setPosition,
-  openArtquiz,
+  setPosition
 } from '../actions/main';
 
 const mapStateToProps = (state) => ({
@@ -42,14 +40,8 @@ const mapDispatchToProps = (dispatch) => ({
   openAllItems: (newValue) => {
     dispatch(openAllItems(newValue));
   },
-  openResume: (newValue) => {
-    dispatch(openResume(newValue));
-  },
   setPosition: (newValue) => {
     dispatch(setPosition(newValue));
-  },
-  openArtquiz: (newValue) => {
-    dispatch(openArtquiz(newValue));
   }
 });
 

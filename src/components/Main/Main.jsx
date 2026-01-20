@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 // Import components
 import { Desktop } from '../Desktop/Desktop';
-import { DesktopBottomBar } from '../DesktopBottomBar/DesktopBottomBar';
+import DesktopBottomBar from '../DesktopBottomBar/DesktopBottomBar';
 
 const Main = ({ fetchProjects, fileSystem, loadingState }) => {
 

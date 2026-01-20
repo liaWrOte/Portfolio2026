@@ -3,19 +3,25 @@ import { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import './desktop-bottom-bar.scss';
 import Item from '../../containers/item';
+import TaskBar from '../TaskBar/TaskBar';
+import { connect } from 'react-redux';
+import { toggleWindow, closeWindow } from '../../actions/main';
 
 // Import images
 import stolify from '../assets/img/icons/stolify.svg';
 import artquiz from '../assets/img/icons/artquiz.svg';
 
-
-export const DesktopBottomBar = ({
+const DesktopBottomBar = ({
   primary,
   backgroundColor,
   size,
   label,
   srcImg,
-  openArtquiz
+  openArtquiz,
+  openWindows,
+  minimizedWindows,
+  onToggleWindow,
+  onCloseWindow
 }) => {
 
   // START Date and time display
@@ -61,6 +67,12 @@ export const DesktopBottomBar = ({
       </div>
 
       <div className="desktop-bar-center">
+        <TaskBar 
+          openWindows={openWindows || []}
+          onWindowClick={onToggleWindow}
+          onCloseWindow={onCloseWindow}
+        />
+        
         <Item
           key={Math.random()}
           inWindow={false}
@@ -87,3 +99,28 @@ export const DesktopBottomBar = ({
     </aside>
   );
 };
+
+DesktopBottomBar.propTypes = {
+  primary: PropTypes.string,
+  backgroundColor: PropTypes.string,
+  size: PropTypes.string,
+  label: PropTypes.string,
+  srcImg: PropTypes.string,
+  openArtquiz: PropTypes.func,
+  openWindows: PropTypes.array,
+  minimizedWindows: PropTypes.array,
+  onToggleWindow: PropTypes.func,
+  onCloseWindow: PropTypes.func,
+};
+
+const mapStateToProps = (state) => ({
+  openWindows: state.main.openWindows,
+  minimizedWindows: state.main.minimizedWindows,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onToggleWindow: (windowId) => dispatch(toggleWindow(windowId)),
+  onCloseWindow: (windowId) => dispatch(closeWindow(windowId)),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(DesktopBottomBar);

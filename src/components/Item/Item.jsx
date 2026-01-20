@@ -33,8 +33,14 @@ const Item = ({
     switch (triggerOpen) {
 
       case 'openWindow':
+      case 'projets':
+      case 'resume':
+      case 'artquiz':
+      case 'stolify':
         openWindow(itemId);
-        setPosition(ref.current.getBoundingClientRect());
+        if (triggerOpen === 'openWindow' || triggerOpen === 'projets') {
+          setPosition(ref.current.getBoundingClientRect());
+        }
         break;
 
       case 'openWindowItem':
@@ -60,18 +66,6 @@ const Item = ({
         let stolifySvg = document.getElementById('stolify-svg');
         stolifySvg.classList.toggle('start');
         break;
-
-      case 'resume':
-        openWindow(itemId);
-        break;
-
-      case 'artquiz':
-        openArtquiz(itemId);
-        break;
-
-      case 'projets':
-        openWindow(itemId);
-      break;
 
       default:
         openImageItem({itemId, triggerOpen});
