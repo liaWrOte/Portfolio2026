@@ -72,7 +72,7 @@ export const WindowHeader = ({
             className="toggle-window yellow"
             onClick={() => minify(!isMinified)}
           ></span>
-          {itemId !== undefined && itemId[1] === 'img' &&
+          {itemId !== undefined &&
             <span
               className="toggle-window green"
               onClick={(e) => expandedWindow(e)}
