@@ -12,6 +12,7 @@ import {
     OPEN_STOLIFY,
     EXPAND_WINDOW,
     SET_POSITION,
+    OPEN_ARTQUIZ,
     MINIMIZE_WINDOW,
     RESTORE_WINDOW,
     TOGGLE_WINDOW,
@@ -155,7 +156,6 @@ const desktopReducer = (state = initialState, action = {}) => {
                 minimizedWindows: state.minimizedWindows.filter(window => window !== windowId),
                 // Handle specific window display states
                 displayResume: windowId === 'resume' ? true : state.displayResume,
-                displayArtquiz: windowId === 'artquiz' ? true : state.displayArtquiz,
             }
         }
 
@@ -282,6 +282,13 @@ const desktopReducer = (state = initialState, action = {}) => {
             return {
                 ...state,
                 allProjects: tempArr
+            }
+        }
+
+        case OPEN_ARTQUIZ : {
+            return {
+                ...state,
+                displayArtquiz: true
             }
         }
 

@@ -8,7 +8,8 @@ import {
   openImageItem,
   openSpecsItem,
   openAllItems,
-  setPosition
+  setPosition,
+  openArtquiz
 } from '../actions/main';
 
 const mapStateToProps = (state) => ({
@@ -42,6 +43,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   setPosition: (newValue) => {
     dispatch(setPosition(newValue));
+  },
+  openArtquiz: (newValue) => {
+    dispatch(openArtquiz(newValue));
   }
 });
 

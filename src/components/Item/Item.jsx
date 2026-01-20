@@ -57,6 +57,10 @@ const Item = ({
         openAllItems(itemId);
         break;
 
+      case 'artquiz':
+        openArtquiz();
+        break;
+
       case 'stolify':
         let stolify = document.getElementById('stolify');
         if (stolify) {

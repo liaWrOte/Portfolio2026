@@ -14,6 +14,7 @@ export const SHOW_IMAGE_ITEM = 'SHOW_IMAGE_ITEM';
 export const EXPAND_WINDOW = 'EXPAND_WINDOW';
 export const SET_POSITION = 'SET_POSITION';
 export const OPEN_STOLIFY = 'OPEN_STOLIFY';
+export const OPEN_ARTQUIZ = 'OPEN_ARTQUIZ';
 
 export const MINIMIZE_WINDOW = 'MINIMIZE_WINDOW';
 export const RESTORE_WINDOW = 'RESTORE_WINDOW';
@@ -89,6 +90,11 @@ export const expandWindow = (value) => ({
 
 export const setPosition = (value) => ({
     type: SET_POSITION,
+    value
+})
+
+export const openArtquiz = (value) => ({
+    type: OPEN_ARTQUIZ,
     value
 })
 
