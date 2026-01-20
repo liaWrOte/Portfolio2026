@@ -1,0 +1,12 @@
+@import '../_vars';
+
+.next-question {
+    text-align: right;
+    width: 100%;
+    display: inline-block;
+    margin-top: calc($big-gutter * 3);
+    &.next-question-arrow {
+        width: 100px;
+        display: inline-block;
+    }
+}

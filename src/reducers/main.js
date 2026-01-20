@@ -13,6 +13,7 @@ import {
     EXPAND_WINDOW,
     SET_POSITION,
     OPEN_ARTQUIZ,
+    CLOSE_ARTQUIZ,
     MINIMIZE_WINDOW,
     RESTORE_WINDOW,
     TOGGLE_WINDOW,
@@ -244,7 +245,6 @@ const desktopReducer = (state = initialState, action = {}) => {
                     minimizedWindows: state.minimizedWindows.filter(window => window !== action.value && window !== windowId),
                     // Handle specific window types
                     displayResume: (action.value === 'resume' || action.value === 'Resume') ? false : state.displayResume,
-                    displayArtquiz: action.value === 'artquiz' ? false : state.displayArtquiz,
                     displayWindow: action.value === 'projets' ? false : state.displayWindow
                 };
             }
@@ -289,6 +289,13 @@ const desktopReducer = (state = initialState, action = {}) => {
             return {
                 ...state,
                 displayArtquiz: true
+            }
+        }
+
+        case CLOSE_ARTQUIZ : {
+            return {
+                ...state,
+                displayArtquiz: false
             }
         }
 

@@ -15,6 +15,7 @@ export const EXPAND_WINDOW = 'EXPAND_WINDOW';
 export const SET_POSITION = 'SET_POSITION';
 export const OPEN_STOLIFY = 'OPEN_STOLIFY';
 export const OPEN_ARTQUIZ = 'OPEN_ARTQUIZ';
+export const CLOSE_ARTQUIZ = 'CLOSE_ARTQUIZ';
 
 export const MINIMIZE_WINDOW = 'MINIMIZE_WINDOW';
 export const RESTORE_WINDOW = 'RESTORE_WINDOW';
@@ -95,6 +96,10 @@ export const setPosition = (value) => ({
 
 export const openArtquiz = () => ({
     type: OPEN_ARTQUIZ
+})
+
+export const closeArtquiz = () => ({
+    type: CLOSE_ARTQUIZ
 })
 
 export const fetchProjects = () => ({ type: 'FETCH_PROJECTS' });

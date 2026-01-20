@@ -1,0 +1,58 @@
+.cutie {
+    width: 200px;
+    height: 200px;
+    background-color: yellow;
+    border-radius: 50%;
+    margin: 0 auto;
+    .eyes {
+        width: 100%;
+        height: 50px;
+        display: flex;
+        justify-content: space-evenly;
+        padding-top: 70px;
+        padding-right: 20px;
+        transition: padding-top 0.5s ease-in-out;
+        .eye {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: black;
+        }
+    }
+    .mouth {
+        width: 40px;
+        height: 20px;
+        margin: 30px auto 0 auto;
+        margin-left: 70px;
+        border-bottom-left-radius: 20px;
+        border-bottom-right-radius: 20px;
+        border: 10px solid black;
+        border-top: 0;
+        background-color: none;
+        transition: margin-top 0.5s ease-in-out, border 1s ease-in-out, width 0.5s ease-in-out, border-bottom-left-radius 0.5s ease-in-out, border-bottom-right-radius 0.5s ease-in-out, background-color 0.2s ease-in-out;
+    }
+    &:hover {
+        .eyes {
+            padding-top: 80px;
+            .eye {
+                width: 30px;
+                border-top-left-radius: 15px;
+                border-top-right-radius: 15px;
+                border-bottom-left-radius: 0px;
+                border-bottom-right-radius: 0px;
+                border: 2px solid black;
+                border-bottom: 0;
+                background: none;
+            }
+        }
+        .mouth {
+            width: 60px;
+            margin-top: 40px;
+            margin-left: 65px;
+            border: 15px solid black !important;
+            border-bottom-left-radius: 30px;
+            border-bottom-right-radius: 30px;
+            background-color: black;
+        }
+    }
+}

@@ -4,7 +4,7 @@ import React, { useEffect } from 'react';
 import { Desktop } from '../Desktop/Desktop';
 import DesktopBottomBar from '../DesktopBottomBar/DesktopBottomBar';
 
-const Main = ({ fetchProjects, fileSystem, loadingState }) => {
+const Main = ({ fetchProjects, fileSystem, loadingState, displayArtquiz }) => {
 
   // Fetch projects on component mount
   useEffect(() => {
@@ -18,7 +18,7 @@ const Main = ({ fetchProjects, fileSystem, loadingState }) => {
 
   return (
     <div>
-      <Desktop />
+      <Desktop displayArtquiz={displayArtquiz} />
       <DesktopBottomBar />  
     </div>
   );

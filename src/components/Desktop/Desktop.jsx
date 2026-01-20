@@ -12,10 +12,8 @@ import cloud from '../assets/img/cloud.svg';
 import fileImg from '../assets/img/file.png';
 import resumeImg from '../assets/img/icons/resume.svg';
 
-// Import React Quiz extern app
-const RemoteQuiz = React.lazy(
-  async () => (await import('remote/Quiz'))
-);
+// Import React Quiz local app
+import ArtQuizApp from '../ArtQuiz/App';
 
 
 export const Desktop = ({
@@ -64,9 +62,9 @@ export const Desktop = ({
       {/* Item Window to open all items */}
       <Window/>
 
-      {/* Remote React ArtQuiz app */}  
+      {/* Local React ArtQuiz app */}  
       {props.displayArtquiz &&
-        <RemoteQuiz />
+        <ArtQuizApp />
       }
 
     </div>
