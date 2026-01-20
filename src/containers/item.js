@@ -44,8 +44,8 @@ const mapDispatchToProps = (dispatch) => ({
   setPosition: (newValue) => {
     dispatch(setPosition(newValue));
   },
-  openArtquiz: (newValue) => {
-    dispatch(openArtquiz(newValue));
+  openArtquiz: () => {
+    dispatch(openArtquiz());
   }
 });
 

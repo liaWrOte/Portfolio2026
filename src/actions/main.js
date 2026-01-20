@@ -93,9 +93,8 @@ export const setPosition = (value) => ({
     value
 })
 
-export const openArtquiz = (value) => ({
-    type: OPEN_ARTQUIZ,
-    value
+export const openArtquiz = () => ({
+    type: OPEN_ARTQUIZ
 })
 
 export const fetchProjects = () => ({ type: 'FETCH_PROJECTS' });
