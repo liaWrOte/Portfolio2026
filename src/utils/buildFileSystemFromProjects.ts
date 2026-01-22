@@ -1,28 +1,30 @@
-// utils/buildFileSystemFromProjects.js
-export function buildFileSystemFromProjects(projects) {
-  const root = {
+// utils/buildFileSystemFromProjects.ts
+import { Project, FileSystemNode } from '../types';
+
+export function buildFileSystemFromProjects(projects: Project[]): FileSystemNode {
+  const root: FileSystemNode = {
     id: 'root',
     name: 'Projets',
     type: 'folder',
-    children: [],
+    children: []
   };
-
-  const foldersMap = {};
-
-  projects.forEach(project => {
+  
+  const foldersMap: Record<string, FileSystemNode> = {};
+  
+  projects.forEach((project: Project) => {
     const category = project.attributes.type || 'Autres';
-
+    
     if (!foldersMap[category]) {
       foldersMap[category] = {
         id: category,
         name: category,
         type: 'folder',
-        children: [],
+        children: []
       };
-      root.children.push(foldersMap[category]);
+      root.children!.push(foldersMap[category]);
     }
-
-    foldersMap[category].children.push({
+    
+    foldersMap[category].children!.push({
       id: project.id,
       name: project.attributes.title,
       type: 'project',

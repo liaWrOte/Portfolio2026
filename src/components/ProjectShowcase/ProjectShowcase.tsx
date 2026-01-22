@@ -1,8 +1,17 @@
 import React from 'react';
 import ProjectGrid from '../ProjectGrid/ProjectGrid';
+import { Project } from '../../types';
 import './project-showcase.scss';
 
-const ProjectShowcase = ({ 
+interface ProjectShowcaseProps {
+  projects: Project[];
+  onProjectClick: (projectId: string) => void;
+  selectedProjectId?: string;
+  title?: string;
+  subtitle?: string;
+}
+
+const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({ 
   projects, 
   onProjectClick,
   selectedProjectId,

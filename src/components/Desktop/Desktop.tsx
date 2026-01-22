@@ -6,6 +6,7 @@ import './desktop.scss';
 // Import components 
 import Item from '../../containers/item';
 import Window from '../../containers/window';
+import DesktopBottomBar from '../DesktopBottomBar/DesktopBottomBar';
 import animations from '../assets/img/icons/animations.svg';
 import cloud from '../assets/img/cloud.svg';
 

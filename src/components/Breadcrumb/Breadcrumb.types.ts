@@ -11,7 +11,7 @@ export interface BreadcrumbItem {
 }
 
 export interface BreadcrumbProps {
-  currentPath: string[];
-  fileSystem: FileSystemItem;
+  currentPath?: string[];
+  fileSystem?: FileSystemItem;
   openFolder: (id: string) => void;
 }

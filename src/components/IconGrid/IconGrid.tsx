@@ -1,13 +1,21 @@
-import React from "react";  
+import React from "react";
+import { FileSystemNode } from '../../types';
 
-const IconGrid = ({
+interface IconGridProps {
+  items: FileSystemNode[];
+  openFolder: (id: string) => void;
+  openProject: (id: string) => void;
+  isIconGrid?: boolean;
+}
+
+const IconGrid: React.FC<IconGridProps> = ({
   items,
   openFolder,
   openProject,
   isIconGrid
 }) => {
 
-  if (!items) return null;
+  if (!items || items.length === 0) return null;
 
   return (
 
@@ -15,7 +23,7 @@ const IconGrid = ({
 
       { isIconGrid && <div className="icon-grid-label">Icon Grid View</div> }
 
-      {items.map(item => (
+      {items.map((item: FileSystemNode) => (
         <div
           key={item.id}
           className="icon"

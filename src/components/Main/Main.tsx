@@ -1,10 +1,18 @@
 import React, { useEffect } from 'react';
+import { FileSystemNode } from '../../types';
 
 // Import components
 import { Desktop } from '../Desktop/Desktop';
 import DesktopBottomBar from '../DesktopBottomBar/DesktopBottomBar';
 
-const Main = ({ fetchProjects, fileSystem, loadingState, displayArtquiz }) => {
+interface MainProps {
+  fetchProjects: () => void;
+  fileSystem: FileSystemNode | null;
+  loadingState: boolean;
+  displayArtquiz: boolean;
+}
+
+const Main: React.FC<MainProps> = ({ fetchProjects, fileSystem, loadingState, displayArtquiz }) => {
 
   // Fetch projects on component mount
   useEffect(() => {

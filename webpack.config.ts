@@ -5,7 +5,7 @@ const path = require('path');
 
 module.exports = {
     entry: {
-        index: path.resolve(__dirname, './src/index.js')
+        index: path.resolve(__dirname, './src/index.ts')
     },
     mode: 'development',
     devServer: {
@@ -24,9 +24,9 @@ module.exports = {
         rules:[
             {
                 loader: 'babel-loader',
-                test: /\.js$|jsx/,
+                test: /\.js$|jsx$|ts$|tsx/,
                 exclude: /node_modules/,
-                options: { presets: ['@babel/env', '@babel/preset-react'] },
+                options: { presets: ['@babel/env', '@babel/preset-react', '@babel/preset-typescript'] },
             },
             // Images
             {
@@ -89,6 +89,6 @@ module.exports = {
           }),
     ],
     resolve: {
-        extensions: [".js", ".jsx"]
+        extensions: [".js", ".jsx", ".ts", ".tsx"]
     }
 }

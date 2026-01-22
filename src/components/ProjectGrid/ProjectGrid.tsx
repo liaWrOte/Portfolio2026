@@ -1,8 +1,15 @@
 import React from 'react';
 import ProjectCard from '../ProjectCard/ProjectCard';
+import { Project, FileSystemNode } from '../../types';
 import './project-grid.scss';
 
-const ProjectGrid = ({ 
+interface ProjectGridProps {
+  projects: (Project | FileSystemNode)[];
+  onProjectClick: (projectId: string) => void;
+  selectedProjectId?: string | null;
+}
+
+const ProjectGrid: React.FC<ProjectGridProps> = ({ 
   projects, 
   onProjectClick,
   selectedProjectId = null 
@@ -17,7 +24,7 @@ const ProjectGrid = ({
 
   return (
     <div className="project-grid">
-      {projects.map((project) => (
+      {projects.map((project: Project | FileSystemNode) => (
         <ProjectCard
           key={project.id}
           project={project}

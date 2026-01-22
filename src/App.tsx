@@ -3,13 +3,13 @@ import './App.scss';
 import Main from './containers/main';
 import { fetchProjects } from './actions/main';
 
-function App() {
+const App: React.FC = () => {
 
   return (
     <div className="App">
       <Main />
     </div>
   );
-}
+};
 
 export default App;

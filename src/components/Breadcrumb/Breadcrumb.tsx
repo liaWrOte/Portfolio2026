@@ -3,10 +3,12 @@ import './breadcrumb.scss';
 import { BreadcrumbProps, BreadcrumbItem } from './Breadcrumb.types';
 
 // Breadcrumb component for navigation
-const Breadcrumb: React.FC<BreadcrumbProps> = ({ currentPath, fileSystem, openFolder }) => {
+const Breadcrumb: React.FC<BreadcrumbProps> = ({ currentPath = [], fileSystem, openFolder }) => {
   const buildBreadcrumb = (): BreadcrumbItem[] => {
     const breadcrumb: BreadcrumbItem[] = [];
     let current = fileSystem;
+    
+    if (!currentPath || !fileSystem) return breadcrumb;
     
     currentPath.forEach((pathId: string, index: number) => {
       if (current && current.id === pathId) {

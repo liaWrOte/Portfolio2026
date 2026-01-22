@@ -3,17 +3,28 @@
     "outDir": "build/dist",
     "module": "commonjs",
     "target": "es6",
-    "lib": ["es6", "dom"],
+    "lib": ["es6", "dom", "dom.iterable"],
     "sourceMap": true,
     "allowJs": true,
-    "jsx": "react",
+    "jsx": "react-jsx",
     "moduleResolution": "node",
     "rootDir": "src",
     "noImplicitReturns": true,
     "noImplicitThis": true,
     "noImplicitAny": true,
-    "strictNullChecks": true
+    "strictNullChecks": true,
+    "strict": false,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "noEmit": false,
+    "declaration": true,
+    "declarationMap": true
   },
+  "include": ["src/**/*"],
   "exclude": [
     "node_modules",
     "build",
@@ -22,8 +33,5 @@
     "webpack",
     "jest",
     "src/setupTests.ts"
-  ],
-  "types": [
-    "typePatches"
   ]
 }
