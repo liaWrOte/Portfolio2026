@@ -2,18 +2,16 @@
 
 .stolify-container {
   display: block;
-  position: absolute;
-  width: 150px;
-  // top: -100px;
+  position: relative; // Changed from absolute
+  width: 200px; // Increased size for better display in window
   height: fit-content;
   background-color: $black-brown;
   color: $cray;
   justify-content: space-between;
-  transform: translateY(-245px);
-  border: 2px solid $black-brown;
-  &.hide {
-    display: none;
-  }
+  transform: none; // Removed transform
+  border: none; // Removed border as window already has one
+  margin: 0 auto; // Center in window
+  padding: 1rem 0; // Add padding
   .title-container {
     box-sizing: border-box;
     padding: 0.5rem 1rem;
@@ -44,7 +42,7 @@
   }
  
   .stolify-controls {
-    width: 150px;
+    width: 200px; // Match container width
     text-align: center;
     display: flex;
     justify-content: space-evenly;

@@ -62,15 +62,7 @@ const Item = ({
         break;
 
       case 'stolify':
-        let stolify = document.getElementById('stolify');
-        if (stolify) {
-          stolify.classList.toggle('hide');
-        }
-
-        let stolifySvg = document.getElementById('stolify-svg');
-        if (stolifySvg) {
-          stolifySvg.classList.toggle('start');
-        }
+        openWindow('stolify');
         break;
 
       default:
@@ -108,10 +100,6 @@ const Item = ({
               />
             {inWindow ? <span>{label}</span> : <span>{outWindowLabel}</span> }
           </>
-        }
-
-        {triggerOpen === "stolify" &&
-          <Stolify />
         }
 
       </div>

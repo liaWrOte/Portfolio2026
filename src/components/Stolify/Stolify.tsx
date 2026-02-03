@@ -48,24 +48,12 @@ const Stolify = () => {
   const play = () => {
     setIsPlaying(true);
     audioRef.current.play();
-    let stolifySvg = document.getElementById('stolify-svg');
-    if (stolifySvg) {
-      stolifySvg.classList.add('playing');
-    }
-    let stolifyContainer = document.getElementsByClassName('stolify-container')[0];
-    if (stolifyContainer) {
-      stolifyContainer.classList.add('playing');
-    }
   };
   
   // Pause function 
   const pause = () => {
     setIsPlaying(false);
     audioRef.current.pause();
-    let stolifySvg = document.getElementById('stolify-svg');
-    if (stolifySvg) {
-      stolifySvg.classList.remove('playing');
-    }
   };
 
   // Previous navigation function 
@@ -104,7 +92,7 @@ const Stolify = () => {
 
   return (
     
-    <div className="stolify-container hide" id="stolify">
+    <div className="stolify-container" id="stolify">
 
       {/* Track title */}
       <div className="title-container">
