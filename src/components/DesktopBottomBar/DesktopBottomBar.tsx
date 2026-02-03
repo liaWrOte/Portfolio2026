@@ -5,7 +5,7 @@ import './desktop-bottom-bar.scss';
 import Item from '../../containers/item';
 import TaskBar from '../TaskBar/TaskBar';
 import { connect } from 'react-redux';
-import { toggleWindow, closeWindow } from '../../actions/main';
+import { toggleWindow, closeWindow, minimizeWindow, restoreWindow } from '../../actions/main';
 
 // Import images
 import stolifyIcon from '../assets/img/icons/stolify_icon.svg';
@@ -21,7 +21,9 @@ const DesktopBottomBar = ({
   openWindows,
   minimizedWindows,
   onToggleWindow,
-  onCloseWindow
+  onCloseWindow,
+  onMinimizeWindow,
+  onRestoreWindow
 }) => {
 
   // START Date and time display
@@ -91,6 +93,8 @@ const DesktopBottomBar = ({
           openWindows={openWindows || []}
           onWindowClick={onToggleWindow}
           onCloseWindow={onCloseWindow}
+          minimizedWindows={minimizedWindows || []}
+          restoreWindow={onRestoreWindow}
         />
 
       </div>
@@ -126,6 +130,8 @@ const mapStateToProps = (state) => ({
 const mapDispatchToProps = (dispatch) => ({
   onToggleWindow: (windowId) => dispatch(toggleWindow(windowId)),
   onCloseWindow: (windowId) => dispatch(closeWindow(windowId)),
+  onMinimizeWindow: (windowId) => dispatch(minimizeWindow(windowId)),
+  onRestoreWindow: (windowId) => dispatch(restoreWindow(windowId)),
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DesktopBottomBar);

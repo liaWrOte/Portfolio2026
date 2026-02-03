@@ -17,6 +17,7 @@ interface WindowHeaderProps {
   itemId?: string;
   expandWindow: (e: React.MouseEvent) => void;
   minify: (minified: boolean) => void;
+  minimizeWindow: (windowId: string) => void;
   isMinified: boolean;
   closeAnimState?: boolean;
   closeAnim?: () => void;
@@ -35,6 +36,7 @@ export const WindowHeader: React.FC<WindowHeaderProps> = ({
   itemId,
   expandWindow,
   minify,
+  minimizeWindow,
   isMinified,
   closeAnimState,
   closeAnim,
@@ -89,7 +91,7 @@ export const WindowHeader: React.FC<WindowHeaderProps> = ({
           ></span> */}
           <span
             className="toggle-window yellow"
-            onClick={() => minify(!isMinified)}
+            onClick={() => itemId && minimizeWindow(itemId)}
           ></span>
           {itemId !== undefined &&
             <span

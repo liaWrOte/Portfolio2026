@@ -7,7 +7,7 @@ import folderClosed2Icon from '../assets/img/icons/folder_closed_2_icon.svg';
 import fileIcon from '../assets/img/icons/file_icon.svg';
 import emailIcon from '../assets/img/icons/email_icon.svg';
 
-const TaskBar = ({ openWindows, onWindowClick, onCloseWindow }) => {
+const TaskBar = ({ openWindows, onWindowClick, onCloseWindow, minimizedWindows, restoreWindow }) => {
   
   // Ne pas afficher la TaskBar si aucune fenêtre n'est ouverte
   if (!openWindows || openWindows.length === 0) {
@@ -50,13 +50,22 @@ const TaskBar = ({ openWindows, onWindowClick, onCloseWindow }) => {
     }
   };
 
+  const handleWindowClick = (windowId) => {
+    const isMinimized = minimizedWindows && minimizedWindows.includes(windowId);
+    if (isMinimized) {
+      restoreWindow(windowId);
+    } else {
+      onWindowClick(windowId);
+    }
+  };
+
   return (
     <div className="task-bar">
       {filteredWindows.map((windowId) => (
         <div
           key={windowId}
           className="task-bar-item"
-          onClick={() => onWindowClick(windowId)}
+          onClick={() => handleWindowClick(windowId)}
         >
           <div className="task-bar-content">
             <img 
@@ -76,6 +85,8 @@ TaskBar.propTypes = {
   openWindows: PropTypes.array.isRequired,
   onWindowClick: PropTypes.func.isRequired,
   onCloseWindow: PropTypes.func.isRequired,
+  minimizedWindows: PropTypes.array,
+  restoreWindow: PropTypes.func.isRequired,
 };
 
 export default TaskBar;

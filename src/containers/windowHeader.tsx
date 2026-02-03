@@ -4,7 +4,8 @@ import { WindowHeader } from '../components/WindowHeader/WindowHeader';
 import {
   closeWindow,
   expandWindow,
-  openFolder
+  openFolder,
+  minimizeWindow
 } from '../actions/main';
 
 
@@ -29,6 +30,9 @@ const mapDispatchToProps = (dispatch) => ({
   },
   openFolder: (newValue) => {
     dispatch(openFolder(newValue));
+  },
+  minimizeWindow: (windowId) => {
+    dispatch(minimizeWindow(windowId));
   }
 });
 
