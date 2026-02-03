@@ -90,15 +90,11 @@ const Item = ({
 
         {clickTrigger === "simple" && 
           <div onClick={() => openWindowFunc(triggerOpen)}>
-            {animated &&
-                <StolifySvg />
-            }
-            {!animated &&
-              <img 
+            <img 
                 src={srcImg} 
                 alt="Logo" 
-                />
-            }
+                onClick={() => openWindowFunc(triggerOpen)}
+            />
             {inWindow ? <span>{label}</span> : <span>{outWindowLabel}</span> }
           </div>
         }

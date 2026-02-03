@@ -7,11 +7,11 @@ import './desktop.scss';
 import Item from '../../containers/item';
 import Window from '../../containers/window';
 import DesktopBottomBar from '../DesktopBottomBar/DesktopBottomBar';
-import animations from '../assets/img/icons/animations.svg';
 import cloud from '../assets/img/cloud.svg';
 
-import fileImg from '../assets/img/file.png';
-import resumeImg from '../assets/img/icons/resume.svg';
+import folderClosed2Icon from '../assets/img/icons/folder_closed_2_icon.svg';
+import fileIcon from '../assets/img/icons/file_icon.svg';
+import emailIcon from '../assets/img/icons/email_icon.svg';
 
 // Import React Quiz local app
 import ArtQuizApp from '../ArtQuiz/App';
@@ -37,7 +37,7 @@ export const Desktop = ({
         itemId="projets"
         outWindowLabel="Projets"
         triggerOpen="projets"
-        srcImg={fileImg}
+        srcImg={folderClosed2Icon}
       />
 
       {/* Item resume */}
@@ -47,7 +47,7 @@ export const Desktop = ({
         itemId="resume"
         outWindowLabel="resume.pdf"
         triggerOpen="resume"
-        srcImg={resumeImg}
+        srcImg={fileIcon}
       />
 
       {/* Item contact me */}
@@ -57,7 +57,7 @@ export const Desktop = ({
         itemId="contact_me"
         outWindowLabel="contact.me"
         triggerOpen="openWindow"
-        srcImg={animations}
+        srcImg={emailIcon}
       />
 
       {/* Item Window to open all items */}

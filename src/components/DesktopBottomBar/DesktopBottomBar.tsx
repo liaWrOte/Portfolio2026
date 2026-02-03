@@ -8,8 +8,8 @@ import { connect } from 'react-redux';
 import { toggleWindow, closeWindow } from '../../actions/main';
 
 // Import images
-import stolify from '../assets/img/icons/stolify.svg';
-import artquiz from '../assets/img/icons/artquiz.svg';
+import stolifyIcon from '../assets/img/icons/stolify_icon.svg';
+import artquizIcon from '../assets/img/icons/artquiz_icon.svg';
 
 const DesktopBottomBar = ({
   primary,
@@ -75,7 +75,7 @@ const DesktopBottomBar = ({
           outWindowLabel="Artquiz"
           triggerOpen="artquiz"
           itemId="artquiz"
-          srcImg={artquiz}
+          srcImg={artquizIcon}
           clickTrigger={"simple"}
         />
         <Item
@@ -83,7 +83,7 @@ const DesktopBottomBar = ({
           inWindow={false}
           outWindowLabel="Stolify"
           triggerOpen="stolify"
-          // srcImg={stolify}
+          srcImg={stolifyIcon}
           animated={true}
           clickTrigger={"simple"}
         />
