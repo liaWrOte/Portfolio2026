@@ -2,6 +2,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import './task-bar.scss';
 
+// Import des mêmes icônes que les items
+import folderClosed2Icon from '../assets/img/icons/folder_closed_2_icon.svg';
+import fileIcon from '../assets/img/icons/file_icon.svg';
+import emailIcon from '../assets/img/icons/email_icon.svg';
+
 const TaskBar = ({ openWindows, onWindowClick, onCloseWindow }) => {
   
   // Ne pas afficher la TaskBar si aucune fenêtre n'est ouverte
@@ -9,20 +14,26 @@ const TaskBar = ({ openWindows, onWindowClick, onCloseWindow }) => {
     return null;
   }
 
+  // Filtrer artquiz et stolify car ils sont déjà dans DesktopBottomBar
+  const filteredWindows = openWindows.filter(windowId => 
+    windowId !== 'artquiz' && windowId !== 'stolify'
+  );
+
+  // Ne pas afficher la TaskBar si aucune fenêtre restante après filtrage
+  if (filteredWindows.length === 0) {
+    return null;
+  }
+
   const getIconForWindow = (windowId) => {
     switch(windowId) {
       case 'projets':
-        return '📁';
+        return folderClosed2Icon;
       case 'resume':
-        return '📄';
+        return fileIcon;
       case 'contact_me':
-        return '✉️';
-      case 'artquiz':
-        return '🎨';
-      case 'stolify':
-        return '🎮';
+        return emailIcon;
       default:
-        return '📄';
+        return fileIcon;
     }
   };
 
@@ -34,10 +45,6 @@ const TaskBar = ({ openWindows, onWindowClick, onCloseWindow }) => {
         return 'resume.pdf';
       case 'contact_me':
         return 'contact.me';
-      case 'artquiz':
-        return 'Artquiz';
-      case 'stolify':
-        return 'Stolify';
       default:
         return windowId;
     }
@@ -45,23 +52,20 @@ const TaskBar = ({ openWindows, onWindowClick, onCloseWindow }) => {
 
   return (
     <div className="task-bar">
-      {openWindows.map((windowId) => (
+      {filteredWindows.map((windowId) => (
         <div
           key={windowId}
           className="task-bar-item"
           onClick={() => onWindowClick(windowId)}
         >
-          <span className="task-bar-icon">{getIconForWindow(windowId)}</span>
-          <span className="task-bar-label">{getLabelForWindow(windowId)}</span>
-          <button 
-            className="task-bar-close"
-            onClick={(e) => {
-              e.stopPropagation();
-              onCloseWindow(windowId);
-            }}
-          >
-            ✕
-          </button>
+          <div className="task-bar-content">
+            <img 
+              src={getIconForWindow(windowId)} 
+              alt={getLabelForWindow(windowId)}
+              className="task-bar-icon"
+            />
+            <span className="task-bar-label">{getLabelForWindow(windowId)}</span>
+          </div>
         </div>
       ))}
     </div>

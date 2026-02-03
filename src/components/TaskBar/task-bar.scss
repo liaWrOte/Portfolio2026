@@ -1,73 +1,49 @@
+@import '../assets/scss/vars';
+
 .task-bar {
   display: flex;
-  gap: 2px;
+  gap: 8px;
   align-items: center;
   height: 100%;
   padding: 0 8px;
-  background: linear-gradient(to bottom, #e1e1e1, #d4d4d4);
-  border: 1px solid #999;
-  border-radius: 3px;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.5);
 }
 
 .task-bar-item {
   display: flex;
+  flex-direction: column;
+  width: fit-content;
   align-items: center;
-  gap: 6px;
-  padding: 4px 8px;
-  background: linear-gradient(to bottom, #f5f5f5, #e8e8e8);
-  border: 1px solid #ccc;
-  border-radius: 3px;
   cursor: pointer;
-  min-width: 120px;
-  max-width: 200px;
-  transition: all 0.1s ease;
   position: relative;
+  padding: 4px;
+  border-radius: 3px;
+  transition: all 0.1s ease;
 
   &:hover {
-    background: linear-gradient(to bottom, #ffffff, #f0f0f0);
-    border-color: #999;
-    transform: translateY(-1px);
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
   }
+}
 
-  &:active {
-    background: linear-gradient(to bottom, #e0e0e0, #d0d0d0);
-    transform: translateY(0);
-  }
+.task-bar-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: fit-content;
 }
 
 .task-bar-icon {
-  font-size: 14px;
-  flex-shrink: 0;
+  display: block;
+  margin: 0 auto;
+  width: 48px;
+  height: 48px;
 }
 
 .task-bar-label {
+  margin-top: 0.5rem;
+  text-align: center;
   font-size: 11px;
-  font-family: 'Tahoma', 'Arial', sans-serif;
-  color: #000;
+  font-family: monospace;
+  color: $dark-brown;
   white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  flex: 1;
-}
-
-.task-bar-close {
-  display: none;
-  background: none;
-  border: none;
-  color: #666;
-  font-size: 10px;
-  cursor: pointer;
-  padding: 2px;
-  border-radius: 2px;
-  margin-left: auto;
-
-  &:hover {
-    background: rgba(255, 0, 0, 0.1);
-    color: #000;
-  }
-}
-
-.task-bar-item:hover .task-bar-close {
-  display: block;
 }
