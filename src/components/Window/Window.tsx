@@ -62,40 +62,49 @@ const Window: React.FC<WindowProps> = ({
   // Window positioning
   const boxRef = useRef(null);
   
-  // Default to center of screen, but allow override with position prop
-  const getDefaultPosition = () => {
-    if (position && typeof position === 'object') {
-      return position;
+  // Get default position for window (centered with offset for multiple windows)
+  const getDefaultPosition = (windowIndex = 0) => {
+    const desktop = document.querySelector('.desktop');
+    if (!desktop) {
+      return { x: 100, y: 100 };
     }
     
-    // Get desktop dimensions (excluding taskbar, etc.)
-    const desktopWidth = window.innerWidth;
-    const desktopHeight = window.innerHeight - 80; // Subtract desktop bar height
+    const rect = desktop.getBoundingClientRect();
+    const desktopWidth = rect.width;
+    const desktopHeight = rect.height;
     
-    // Center window precisely - get dimensions from CSS
     const getWindowDimensions = () => {
-      // Create a temporary element to measure CSS dimensions
-      const tempEl = document.createElement('div');
-      tempEl.style.position = 'fixed';
-      tempEl.style.width = '750px';
-      tempEl.style.height = '515px';
-      tempEl.style.visibility = 'hidden';
-      document.body.appendChild(tempEl);
+      const windowWidth = 800; // Default window width
+      const windowHeight = 600; // Default window height
       
-      const rect = tempEl.getBoundingClientRect();
-      document.body.removeChild(tempEl);
+      // Try to get actual window dimensions if available
+      if (boxRef.current) {
+        const windowRect = boxRef.current.getBoundingClientRect();
+        return {
+          width: windowRect.width || windowWidth,
+          height: windowRect.height || windowHeight
+        };
+      }
       
       return {
-        width: rect.width,
-        height: rect.height
+        width: windowWidth,
+        height: windowHeight
       };
     };
     
     const windowDimensions = getWindowDimensions();
     
+    // Calculate center position
+    const centerX = Math.max(0, (desktopWidth - windowDimensions.width) / 2);
+    const centerY = Math.max(0, (desktopHeight - windowDimensions.height) / 2);
+    
+    // Add offset based on window index (50px right and down for each additional window)
+    const offsetX = windowIndex * 50;
+    const offsetY = windowIndex * 50;
+    
     return {
-      x: Math.max(0, (desktopWidth - windowDimensions.width) / 2),
-      y: Math.max(0, (desktopHeight - windowDimensions.height) / 2)
+      x: centerX + offsetX,
+      y: centerY + offsetY
     };
   };
 
@@ -205,6 +214,13 @@ const Window: React.FC<WindowProps> = ({
     return openWindows && openWindows.includes(windowId) && !isWindowMinimized(windowId);
   };
 
+  // Get window index for positioning
+  const getWindowIndex = (windowId) => {
+    if (!openWindows) return 0;
+    const visibleWindows = openWindows.filter(id => !isWindowMinimized(id));
+    return visibleWindows.indexOf(windowId);
+  };
+
     return (
       <>
 
@@ -216,7 +232,7 @@ const Window: React.FC<WindowProps> = ({
               handle={'.window-header-container'}
               onDrag={(e) => handleZIndex(e)}
               key={Math.random()}
-              defaultPosition={defaultPos}
+              defaultPosition={getDefaultPosition(getWindowIndex('projets'))}
               nodeRef={boxRef}
             >
               <div
@@ -275,6 +291,7 @@ const Window: React.FC<WindowProps> = ({
               bounds={'.App'}
               onDrag={(e) => handleZIndex(e)}
               handle={'.window-header-container'}
+              defaultPosition={getDefaultPosition(getWindowIndex('resume'))}
               >
               <div
                 className={`window ${isMinified ? "minified" : ""}`}
@@ -301,7 +318,7 @@ const Window: React.FC<WindowProps> = ({
               bounds={'.App'}
               onDrag={(e) => handleZIndex(e)}
               handle={'.window-header-container'}
-              defaultPosition={{ x: 100, y: 100 }}
+              defaultPosition={getDefaultPosition(getWindowIndex('contact_me'))}
               >
               <div
                 className={`window ${isMinified ? "minified" : ""}`}
