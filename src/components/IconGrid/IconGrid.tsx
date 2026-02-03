@@ -1,5 +1,7 @@
 import React from "react";
 import { FileSystemNode } from '../../types';
+import folderClosed2Icon from '../assets/img/icons/folder_closed_2_icon.svg';
+import fileIcon from '../assets/img/icons/file_icon.svg';
 
 interface IconGridProps {
   items: FileSystemNode[];
@@ -21,19 +23,20 @@ const IconGrid: React.FC<IconGridProps> = ({
 
     <div className="icon-grid">
 
-      { isIconGrid && <div className="icon-grid-label">Icon Grid View</div> }
-
       {items.map((item: FileSystemNode) => (
         <div
           key={item.id}
-          className="icon"
+          className="item"
           onClick={() =>
             item.type === 'folder'
               ? openFolder(item.id)
               : openProject(item.id)
           }
         >
-          <span>{item.type === 'folder' ? '📁' : '📄'}</span>
+          <img 
+            src={item.type === 'folder' ? folderClosed2Icon : fileIcon} 
+            alt={item.type === 'folder' ? 'Folder' : 'File'}
+          />
           <span>{item.name}</span>
         </div>
       ))}
