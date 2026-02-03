@@ -239,13 +239,19 @@ const desktopReducer = (state = initialState, action = {}) => {
             if (typeof action.value === 'string') {
                 // Normalize window ID to lowercase for consistency
                 const windowId = action.value.toLowerCase();
+                const newOpenWindows = state.openWindows.filter(window => window !== action.value && window !== windowId);
+                const newMinimizedWindows = state.minimizedWindows.filter(window => window !== action.value && window !== windowId);
+                
+                // Check if any windows are still open after closing this one
+                const hasOtherWindows = newOpenWindows.length > 0;
+                
                 return {
                     ...state,
-                    openWindows: state.openWindows.filter(window => window !== action.value && window !== windowId),
-                    minimizedWindows: state.minimizedWindows.filter(window => window !== action.value && window !== windowId),
+                    openWindows: newOpenWindows,
+                    minimizedWindows: newMinimizedWindows,
                     // Handle specific window types
                     displayResume: (action.value === 'resume' || action.value === 'Resume') ? false : state.displayResume,
-                    displayWindow: action.value === 'projets' ? false : state.displayWindow
+                    displayWindow: hasOtherWindows // Only close displayWindow if no other windows are open
                 };
             }
             

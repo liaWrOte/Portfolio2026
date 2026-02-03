@@ -123,11 +123,22 @@ const Window: React.FC<WindowProps> = ({
   // Handle z-index on click
   function handleZIndex(e) {
     let windows = document.querySelectorAll('.window');
+    let maxZ = 0;
+    
+    // Find the current max z-index
+    windows.forEach((el) => {
+      let z = parseInt(el.style.zIndex || '0');
+      if (z > maxZ) maxZ = z;
+    });
+    
+    // Reset all windows to lower z-index
     windows.forEach((el) => {
       el.style.zIndex = '0';
     });
+    
+    // Set clicked window to highest z-index
     if (e.target.closest('.window')) {
-      e.target.closest('.window').style.zIndex = '1';
+      e.target.closest('.window').style.zIndex = (maxZ + 1).toString();
     }
   }
 
@@ -266,7 +277,7 @@ const Window: React.FC<WindowProps> = ({
               handle={'.window-header-container'}
               >
               <div
-                className={`window level-class-fourth`}
+                className={`window ${isMinified ? "minified" : ""}`}
                 key={Math.random()}
                 onClick={(e) => handleZIndex(e)}
               >
@@ -293,7 +304,7 @@ const Window: React.FC<WindowProps> = ({
               defaultPosition={{ x: 100, y: 100 }}
               >
               <div
-                className={`window level-class-fourth`}
+                className={`window ${isMinified ? "minified" : ""}`}
                 key={Math.random()}
                 onClick={(e) => handleZIndex(e)}
               >
