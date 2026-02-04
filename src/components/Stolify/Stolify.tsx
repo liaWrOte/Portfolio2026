@@ -3,11 +3,11 @@ import React, { useState, useRef, useEffect } from 'react';
 // Import styles 
 import './stolify.scss';
 
-// Imports image buttons
-import nextBtn from '../assets/img/audio_player/next.svg';
-import previousBtn from '../assets/img/audio_player/previous.svg';
-import playBtn from '../assets/img/audio_player/play.svg';
-import pauseBtn from '../assets/img/audio_player/pause.svg';
+// Imports image buttons - Ancienne UI (commentée)
+// import nextBtn from '../assets/img/audio_player/next.svg';
+// import previousBtn from '../assets/img/audio_player/previous.svg';
+// import playBtn from '../assets/img/audio_player/play.svg';
+// import pauseBtn from '../assets/img/audio_player/pause.svg';
 import stolifyUI from '../assets/img/stolify_ui.svg';
 
 // Imports tracks covers images
@@ -71,24 +71,28 @@ const Stolify = () => {
 
     if (playElement) {
       playElement.style.cursor = 'pointer';
+      playElement.style.padding = '10px';
+      playElement.style.margin = '-10px';
       playElement.addEventListener('click', (e) => {
         e.stopPropagation();
         play();
-        updateControlStates();
       });
     }
 
     if (pauseElement) {
       pauseElement.style.cursor = 'pointer';
+      pauseElement.style.padding = '10px';
+      pauseElement.style.margin = '-10px';
       pauseElement.addEventListener('click', (e) => {
         e.stopPropagation();
         pause();
-        updateControlStates();
       });
     }
 
     if (nextElement) {
       nextElement.style.cursor = 'pointer';
+      nextElement.style.padding = '10px';
+      nextElement.style.margin = '-10px';
       nextElement.addEventListener('click', (e) => {
         e.stopPropagation();
         next();
@@ -97,6 +101,8 @@ const Stolify = () => {
 
     if (previousElement) {
       previousElement.style.cursor = 'pointer';
+      previousElement.style.padding = '10px';
+      previousElement.style.margin = '-10px';
       previousElement.addEventListener('click', (e) => {
         e.stopPropagation();
         previous();
@@ -108,12 +114,15 @@ const Stolify = () => {
   };
 
   // Mettre à jour l'état visuel des contrôles selon l'état de lecture
-  const updateControlStates = () => {
+  const updateControlStates = (forceState?: boolean) => {
     const playElement = document.querySelector('#play') as HTMLElement;
     const pauseElement = document.querySelector('#pause') as HTMLElement;
+    
+    // Utiliser l'état forcé ou l'état actuel
+    const currentState = forceState !== undefined ? forceState : isPlaying;
 
     if (playElement && pauseElement) {
-      if (isPlaying) {
+      if (currentState) {
         // Quand on joue, cacher play et montrer pause
         playElement.style.display = 'none';
         pauseElement.style.display = 'block';
@@ -129,12 +138,16 @@ const Stolify = () => {
   const play = () => {
     setIsPlaying(true);
     audioRef.current.play();
+    // Mettre à jour l'UI SVG avec le nouvel état
+    updateControlStates(true);
   };
   
   // Pause function 
   const pause = () => {
     setIsPlaying(false);
     audioRef.current.pause();
+    // Mettre à jour l'UI SVG avec le nouvel état
+    updateControlStates(false);
   };
 
   // Previous navigation function 
@@ -173,51 +186,51 @@ const Stolify = () => {
 
   return (
     <div className="stolify-wrapper">
-      <div className="stolify-container" id="stolify">
+      {/* <div className="stolify-container" id="stolify"> */}
 
         {/* Track title */}
-        <div className="title-container">
+        {/* <div className="title-container">
           <span className='title'>{tracks[currentTrackIndex].title}</span>
-        </div>
+        </div> */}
 
         {/* Track cover */}
-        <div className='cover-container'>
+        {/* <div className='cover-container'>
           <img
             src={tracks[currentTrackIndex].cover}
             alt={`${tracks[currentTrackIndex].title} cover`}
             className="cover"
           />
-        </div>
+        </div> */}
 
-        {/* Audio controls */}
-        <div className="stolify-controls">
-          <img 
-              src={previousBtn} 
-              alt="previous song"
-              onClick={previous}
-            />
-          {isPlaying ? (
-            <img 
-              src={pauseBtn} 
-              alt="pause song"
-              onClick={pause}
-              className="main-controls"
-            />
-          ) : (
-            <img 
-              src={playBtn} 
-              alt="play song"
-              onClick={play}
-              className="main-controls"
-            />
-          )}
-          <img 
-            src={nextBtn} 
-            alt="next song"
-            onClick={next}
+        {/* Audio controls - Ancienne UI (commentée) */}
+      {/* <div className="stolify-controls">
+        <img 
+            src={previousBtn} 
+            alt="previous song"
+            onClick={previous}
           />
-        </div>
-      </div>
+        {isPlaying ? (
+          <img 
+            src={pauseBtn} 
+            alt="pause song"
+            onClick={pause}
+            className="main-controls"
+          />
+        ) : (
+          <img 
+            src={playBtn} 
+            alt="play song"
+            onClick={play}
+            className="main-controls"
+          />
+        )}
+        <img 
+          src={nextBtn} 
+          alt="next song"
+          onClick={next}
+        />
+      </div> */}
+      {/* </div> */}
 
       <div className="stolify-container" id="stolify-ui">
         {svgContent ? (
