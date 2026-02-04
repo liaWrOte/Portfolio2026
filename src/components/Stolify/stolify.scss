@@ -1,16 +1,9 @@
 @import '../assets/scss/vars';
 
-.stolify-wrapper {
-  display: flex;
-  gap: 20px;
-  align-items: center;
-  justify-content: center;
-}
-
 .stolify-container {
   display: block;
   position: relative; // Changed from absolute
-  width: 200px; // Increased size for better display in window
+  width: auto; // Changed from 200px
   height: fit-content;
   background-color: $black-brown;
   color: $cray;
@@ -18,7 +11,7 @@
   transform: none; // Removed transform
   border: none; // Removed border as window already has one
   margin: 0 auto; // Center in window
-  padding: 1rem 0; // Add padding
+  padding: 0; // Removed padding
   
   #stolify-ui {
     width: 100%;

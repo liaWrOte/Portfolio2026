@@ -671,17 +671,12 @@ const Window: React.FC<WindowProps> = ({
               >
 
               <div
-
-                className={`window level-class-fourth`}
-
+                className={`window level-class-fourth stolify-main-window`}
                 key={Math.random()}
-
                 onClick={(e) => handleZIndex(e)}
-
               >
 
                 <WindowHeader
-
                   label={getWindowLabel('stolify')}
 
                   itemId={'stolify'}
@@ -698,7 +693,7 @@ const Window: React.FC<WindowProps> = ({
 
                 />
 
-                <div className="window-item-container">
+                <div className="window-item-container stolify-window">
 
                   <Stolify />
 

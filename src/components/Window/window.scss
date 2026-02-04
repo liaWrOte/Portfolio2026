@@ -19,6 +19,16 @@
   top: 0;
   overflow: hidden;
   resize: both;
+  
+  // Style spécifique pour la fenêtre Stolify
+  &.stolify-main-window {
+    width: auto;
+    height: auto;
+    min-width: 359.6px;
+    min-height: 415.01px;
+    resize: none;
+  }
+  
   .window-item-container {
     width: 100%;
     display: flex;
@@ -26,6 +36,26 @@
     align-items: flex-start;
     height: -webkit-fill-available;
     font-family: monospace;
+    
+    // Style spécifique pour Stolify
+    &.stolify-window {
+      padding: 0;
+      overflow: hidden;
+      width: fit-content; // Adapter la largeur au contenu
+      height: fit-content; // Adapter la hauteur au contenu
+      min-width: 359.6px; // Largeur minimale pour le SVG
+      min-height: 415.01px; // Hauteur minimale pour le SVG
+      
+      // Désactiver complètement les scrollbars
+      &::-webkit-scrollbar {
+        display: none;
+      }
+      & {
+        scrollbar-width: none; // Firefox
+        -ms-overflow-style: none; // IE/Edge
+      }
+    }
+    
     .sidebar-tree {
       width: 30%;
       height: 100%;
