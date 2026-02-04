@@ -4,6 +4,14 @@ import PropTypes from 'prop-types';
 
 import './task-bar.scss';
 
+// Importer les mêmes icônes que les items
+import stolifyIcon from '../assets/img/icons/stolify_icon.svg';
+import artquizIcon from '../assets/img/icons/artquiz_icon.svg';
+import folderIcon from '../assets/img/icons/folder_closed_2_icon.svg';
+import folderOpenIcon from '../assets/img/icons/folder_open_icon.svg';
+import fileIcon from '../assets/img/icons/file_icon.svg';
+import emailIcon from '../assets/img/icons/email_icon.svg';
+
 
 
 const TaskBar = ({ openWindows, onWindowClick, onCloseWindow }) => {
@@ -36,27 +44,28 @@ const TaskBar = ({ openWindows, onWindowClick, onCloseWindow }) => {
 
       case 'projets':
 
-        return '📁';
+        // Vérifier si la fenêtre projets est ouverte
+        return openWindows && openWindows.includes('projets') ? folderOpenIcon : folderIcon;
 
       case 'resume':
 
-        return '📄';
+        return fileIcon; // Icône fichier
 
       case 'contact_me':
 
-        return '✉️';
+        return emailIcon; // Icône email
 
       case 'artquiz':
 
-        return '🎨';
+        return artquizIcon; // Utiliser la vraie icône artquiz
 
       case 'stolify':
 
-        return '🎮';
+        return stolifyIcon; // Utiliser la vraie icône stolify
 
       default:
 
-        return '📄';
+        return fileIcon; // Icône fichier par défaut
 
     }
 
@@ -114,7 +123,11 @@ const TaskBar = ({ openWindows, onWindowClick, onCloseWindow }) => {
 
         >
 
-          <span className="task-bar-icon">{getIconForWindow(windowId)}</span>
+          <img 
+            src={getIconForWindow(windowId)} 
+            alt={`${getLabelForWindow(windowId)} icon`}
+            className="task-bar-icon"
+          />
 
           <span className="task-bar-label">{getLabelForWindow(windowId)}</span>
 
