@@ -104,7 +104,7 @@
         }
       }
     },
-    "Paragraph": {
+    "paragraph": {
       "type": "component",
       "repeatable": true,
       "component": "paragraph.paragraph",

@@ -36,6 +36,7 @@ export function buildFileSystemFromProjects(projects: Project[]): FileSystemNode
       createdAt: project.attributes.createdAt,
       updatedAt: project.attributes.updatedAt,
       publishedAt: project.attributes.publishedAt,
+      paragraph: project.attributes.paragraph,
     });
   });
 

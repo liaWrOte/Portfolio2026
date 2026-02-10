@@ -11,6 +11,11 @@ export interface ProjectAttributes {
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
+  paragraph?: Array<{
+    Title?: string;
+    Description?: string;
+    Image?: any[];
+  }>;
 }
 
 export interface Project {
@@ -34,6 +39,11 @@ export interface FileSystemNode {
   createdAt?: string;
   updatedAt?: string;
   publishedAt?: string;
+  paragraph?: Array<{
+    Title?: string;
+    Description?: string;
+    Image?: any[];
+  }>;
 }
 
 export interface WindowState {
