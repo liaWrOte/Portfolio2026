@@ -241,6 +241,18 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
       className={`project-card ${isSelected ? 'selected' : ''}`}
       onClick={() => onClick(id)}
     >
+      {/* Project link button */}
+      {link && (
+        <a 
+          href={link} 
+          target="_blank" 
+          rel="noopener noreferrer"
+          className="project-link-button"
+          onClick={(e) => e.stopPropagation()}
+        >
+          Voir le projet
+        </a>
+      )}
 
       {/* Project title */}
       <h1 className="project-title">{name}</h1>

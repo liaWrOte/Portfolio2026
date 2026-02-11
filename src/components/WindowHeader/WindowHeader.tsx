@@ -160,21 +160,7 @@ export const WindowHeader: React.FC<WindowHeaderProps> = ({
 
         <div className="toggle-window-container">
 
-          <span
 
-            className="toggle-window red"
-
-            onClick={() => itemId && handleClose(itemId)}
-
-          ></span>
-
-          {/* <span
-
-            className="toggle-window yellow"
-
-            onClick={(e) => minifyWindow(e)}
-
-          ></span> */}
 
           <span
 
@@ -197,6 +183,14 @@ export const WindowHeader: React.FC<WindowHeaderProps> = ({
             ></span>
 
           }
+
+          <span
+
+            className="toggle-window red"
+
+            onClick={() => itemId && handleClose(itemId)}
+
+          ></span>
 
         </div>
 
