@@ -87,7 +87,11 @@ const ImageZoomModal: React.FC<{
           className="zoomed-image"
         />
         {currentImage.attributes.caption && (
-          <div className="zoom-caption">{currentImage.attributes.caption}</div>
+          <div className="zoom-caption"
+            dangerouslySetInnerHTML={{ 
+              __html: marked.parse(currentImage.attributes.caption) as string
+            }}
+          />
         )}
         
         {/* Image counter */}
@@ -157,9 +161,11 @@ const ImageSlider: React.FC<{ images: any[] }> = ({ images }) => {
         
         {/* Caption block */}
         {currentImage.attributes.caption && (
-          <div className="slider-caption">
-            {currentImage.attributes.caption}
-          </div>
+          <div className="slider-caption"
+            dangerouslySetInnerHTML={{ 
+              __html: marked.parse(currentImage.attributes.caption) as string
+            }}
+          />
         )}
         
         {images.length > 1 && (
@@ -220,7 +226,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
       return <BlocksRenderer content={content} />;
     } else if (typeof content === 'string') {
       // C'est du markdown brut - on le parse en HTML
-      const htmlContent = marked(content) as string;
+      const htmlContent = marked.parse(content) as string;
       return <div className="markdown-content" dangerouslySetInnerHTML={{ __html: htmlContent }} />;
     }
     return null;
