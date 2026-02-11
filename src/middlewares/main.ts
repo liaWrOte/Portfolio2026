@@ -38,7 +38,7 @@ const desktopMiddleware = (store) => (next) => (action) => {
             break;
 
         case FETCH_PROJECTS: 
-            axios.get(`${apiUrl}/projects?populate=*&sort[0]=type&sort[1]=date`)
+            axios.get(`${apiUrl}/projects?populate[paragraph][populate][Image]=*&sort[0]=type&sort[1]=date`)
             .then((response) => {
                 let projects = response.data.data;
                 // Construction du file system
