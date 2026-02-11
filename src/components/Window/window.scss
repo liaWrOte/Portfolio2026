@@ -87,6 +87,27 @@
     .window-right-items {
       width: 70%;
       padding: 1rem;
+      overflow-y: auto;
+      height: -webkit-fill-available;
+      
+      // Custom scrollbar styling
+      &::-webkit-scrollbar {
+        width: 8px;
+      }
+      
+      &::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 4px;
+      }
+      
+      &::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 4px;
+        
+        &:hover {
+          background: #555;
+        }
+      }
     }
     h1 {
       margin-top: 0;

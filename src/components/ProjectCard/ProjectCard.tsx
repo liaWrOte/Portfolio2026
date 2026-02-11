@@ -1,5 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { marked } from 'marked';
+import { BlocksRenderer } from '@strapi/blocks-react-renderer';
 import { FileSystemNode } from '../../types';
+import { backendUrl } from '../../middlewares/env';
 import './project-card.scss';
 
 interface ProjectCardProps {
@@ -7,6 +10,60 @@ interface ProjectCardProps {
   onClick: (projectId: string) => void;
   isSelected?: boolean;
 }
+
+// ImageSlider component
+const ImageSlider: React.FC<{ images: any[] }> = ({ images }) => {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const goToPrevious = () => {
+    const isFirstSlide = currentIndex === 0;
+    const newIndex = isFirstSlide ? images.length - 1 : currentIndex - 1;
+    setCurrentIndex(newIndex);
+  };
+
+  const goToNext = () => {
+    const isLastSlide = currentIndex === images.length - 1;
+    const newIndex = isLastSlide ? 0 : currentIndex + 1;
+    setCurrentIndex(newIndex);
+  };
+
+  if (images.length === 0) return null;
+
+  return (
+    <div className="image-slider">
+      <div className="slider-container">
+        <img 
+          src={`${backendUrl}${images[currentIndex].attributes.url}`} 
+          alt={images[currentIndex].attributes.alternativeText || ''} 
+          className="slider-image" 
+        />
+        
+        {images.length > 1 && (
+          <>
+            <button className="slider-button prev" onClick={goToPrevious}>
+              ‹
+            </button>
+            <button className="slider-button next" onClick={goToNext}>
+              ›
+            </button>
+          </>
+        )}
+      </div>
+      
+      {images.length > 1 && (
+        <div className="slider-dots">
+          {images.map((_, index) => (
+            <button
+              key={index}
+              className={`dot ${index === currentIndex ? 'active' : ''}`}
+              onClick={() => setCurrentIndex(index)}
+            />
+          ))}
+        </div>
+      )}
+    </div>
+  );
+};
 
 const ProjectCard: React.FC<ProjectCardProps> = ({ 
   project, 
@@ -29,6 +86,23 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
     type,
     paragraph
   } = fsNode;
+
+  // Debug du contenu
+  if (pitch) console.log('Pitch content:', pitch);
+  if (paragraph) console.log('Paragraph content:', paragraph);
+
+  // Fonction pour parser le contenu selon son type
+  const parseContent = (content: any) => {
+    if (Array.isArray(content)) {
+      // C'est un bloc Strapi
+      return <BlocksRenderer content={content} />;
+    } else if (typeof content === 'string') {
+      // C'est du markdown brut - on le parse en HTML
+      const htmlContent = marked(content) as string;
+      return <div className="markdown-content" dangerouslySetInnerHTML={{ __html: htmlContent }} />;
+    }
+    return null;
+  };
 
   // Ensure techno is an array
   const technologies = Array.isArray(techno) ? techno : 
@@ -55,7 +129,9 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
 
       {/* Project description */}
       {pitch && (
-        <p className="project-description">{pitch}</p>
+        <div className="project-description">
+          {parseContent(pitch)}
+        </div>
       )}
 
       {/* Project info block */}
@@ -85,34 +161,27 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           </div>
         )}
       </div>
-
       {/* Paragraphs */}
       {paragraph && paragraph.length > 0 && (
         <div className="project-paragraphs">
           {paragraph.map((para: any, index: number) => (
             <div key={index} className="paragraph-item">
               {para.Title && <h4 className="paragraph-title">{para.Title}</h4>}
-              {para.Description && <p className="paragraph-description">{para.Description}</p>}
-              {para.Image && para.Image.length > 0 && (
-                <div className="paragraph-images">
-                  {para.Image.map((img: any, imgIndex: number) => (
-                    <img key={imgIndex} src={img.url} alt={img.alt || ''} className="paragraph-image" />
-                  ))}
+              {para.Description && (
+                <div className="paragraph-description">
+                  {parseContent(para.Description)}
                 </div>
               )}
+              {para.Image && para.Image.data.length > 0 && (
+                <div className="paragraph-images">
+                  <ImageSlider images={para.Image.data} />
+                </div>
+               )}
             </div>
           ))}
         </div>
       )}
 
-      {/* Project link */}
-      {link && (
-        <div className="project-link">
-          <a href={link} target="_blank" rel="noopener noreferrer" onClick={(e: React.MouseEvent) => e.stopPropagation()}>
-            View Project →
-          </a>
-        </div>
-      )}
     </div>
   );
 };
