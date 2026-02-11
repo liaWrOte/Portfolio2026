@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { createPortal } from 'react-dom';
 import { marked } from 'marked';
 import { BlocksRenderer } from '@strapi/blocks-react-renderer';
 import { FileSystemNode } from '../../types';
@@ -11,9 +12,100 @@ interface ProjectCardProps {
   isSelected?: boolean;
 }
 
+// ImageZoomModal component
+const ImageZoomModal: React.FC<{ 
+  isOpen: boolean; 
+  onClose: () => void; 
+  images: any[];
+  currentIndex: number;
+  onIndexChange: (index: number) => void;
+}> = ({ isOpen, onClose, images, currentIndex, onIndexChange }) => {
+  if (!isOpen) return null;
+
+  const goToPrevious = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const newIndex = currentIndex === 0 ? images.length - 1 : currentIndex - 1;
+    onIndexChange(newIndex);
+  };
+
+  const goToNext = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    const newIndex = currentIndex === images.length - 1 ? 0 : currentIndex + 1;
+    onIndexChange(newIndex);
+  };
+
+  const handleKeyDown = (e: KeyboardEvent) => {
+    if (e.key === 'ArrowLeft') {
+      const newIndex = currentIndex === 0 ? images.length - 1 : currentIndex - 1;
+      onIndexChange(newIndex);
+    } else if (e.key === 'ArrowRight') {
+      const newIndex = currentIndex === images.length - 1 ? 0 : currentIndex + 1;
+      onIndexChange(newIndex);
+    } else if (e.key === 'Escape') {
+      onClose();
+    }
+  };
+
+  React.useEffect(() => {
+    if (isOpen) {
+      document.addEventListener('keydown', handleKeyDown);
+      return () => {
+        document.removeEventListener('keydown', handleKeyDown);
+      };
+    }
+    return undefined;
+  }, [isOpen, currentIndex]);
+
+  const currentImage = images[currentIndex];
+
+  const portalContainer = document.querySelector('.App');
+  
+  if (!portalContainer) {
+    return null;
+  }
+
+  return createPortal(
+    <div className="image-zoom-modal" onClick={onClose}>
+      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+        <button className="modal-close" onClick={onClose}>×</button>
+        
+        {/* Navigation buttons */}
+        {images.length > 1 && (
+          <>
+            <button className="zoom-nav-button prev" onClick={goToPrevious}>
+              ‹
+            </button>
+            <button className="zoom-nav-button next" onClick={goToNext}>
+              ›
+            </button>
+          </>
+        )}
+        
+        <img 
+          src={`${backendUrl}${currentImage.attributes.url}`} 
+          alt={currentImage.attributes.alternativeText || ''} 
+          className="zoomed-image"
+        />
+        {currentImage.attributes.caption && (
+          <div className="zoom-caption">{currentImage.attributes.caption}</div>
+        )}
+        
+        {/* Image counter */}
+        {images.length > 1 && (
+          <div className="zoom-counter">
+            {currentIndex + 1} / {images.length}
+          </div>
+        )}
+      </div>
+    </div>,
+    portalContainer
+  );
+};
+
 // ImageSlider component
 const ImageSlider: React.FC<{ images: any[] }> = ({ images }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isZoomOpen, setIsZoomOpen] = useState(false);
 
   const goToPrevious = () => {
     const isFirstSlide = currentIndex === 0;
@@ -27,41 +119,71 @@ const ImageSlider: React.FC<{ images: any[] }> = ({ images }) => {
     setCurrentIndex(newIndex);
   };
 
+  const openZoom = () => {
+    setIsZoomOpen(true);
+  };
+
+  const closeZoom = () => {
+    setIsZoomOpen(false);
+  };
+
   if (images.length === 0) return null;
 
+  const currentImage = images[currentIndex];
+
   return (
-    <div className="image-slider">
-      <div className="slider-container">
-        <img 
-          src={`${backendUrl}${images[currentIndex].attributes.url}`} 
-          alt={images[currentIndex].attributes.alternativeText || ''} 
-          className="slider-image" 
-        />
+    <>
+      <div className="image-slider">
+        <div className="slider-container">
+          <img 
+            src={`${backendUrl}${currentImage.attributes.url}`} 
+            alt={currentImage.attributes.alternativeText || ''} 
+            className="slider-image" 
+            onClick={openZoom}
+            style={{ cursor: 'pointer' }}
+          />
+          
+          {images.length > 1 && (
+            <>
+              <button className="slider-button prev" onClick={goToPrevious}>
+                ‹
+              </button>
+              <button className="slider-button next" onClick={goToNext}>
+                ›
+              </button>
+            </>
+          )}
+        </div>
+        
+        {/* Caption block */}
+        {currentImage.attributes.caption && (
+          <div className="slider-caption">
+            {currentImage.attributes.caption}
+          </div>
+        )}
         
         {images.length > 1 && (
-          <>
-            <button className="slider-button prev" onClick={goToPrevious}>
-              ‹
-            </button>
-            <button className="slider-button next" onClick={goToNext}>
-              ›
-            </button>
-          </>
+          <div className="slider-dots">
+            {images.map((_, index) => (
+              <button
+                key={index}
+                className={`dot ${index === currentIndex ? 'active' : ''}`}
+                onClick={() => setCurrentIndex(index)}
+              />
+            ))}
+          </div>
         )}
       </div>
-      
-      {images.length > 1 && (
-        <div className="slider-dots">
-          {images.map((_, index) => (
-            <button
-              key={index}
-              className={`dot ${index === currentIndex ? 'active' : ''}`}
-              onClick={() => setCurrentIndex(index)}
-            />
-          ))}
-        </div>
-      )}
-    </div>
+
+      {/* Zoom Modal */}
+      <ImageZoomModal
+        isOpen={isZoomOpen}
+        onClose={closeZoom}
+        images={images}
+        currentIndex={currentIndex}
+        onIndexChange={setCurrentIndex}
+      />
+    </>
   );
 };
 
@@ -113,16 +235,6 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
       className={`project-card ${isSelected ? 'selected' : ''}`}
       onClick={() => onClick(id)}
     >
-      {/* Project header with icon */}
-      <div className="project-card-header">
-        <div className="project-icon">
-          📄
-        </div>
-        <div className="project-meta">
-          {type && <span className="project-type">{type}</span>}
-          {date && <span className="project-date">{date}</span>}
-        </div>
-      </div>
 
       {/* Project title */}
       <h1 className="project-title">{name}</h1>
@@ -138,7 +250,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
       <div className="project-info-block">
         {date && (
           <div className="info-item">
-            <span className="info-label">Date:</span>
+            <span className="info-label">Date : </span>
             <span className="info-value">{date}</span>
           </div>
         )}
@@ -166,7 +278,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         <div className="project-paragraphs">
           {paragraph.map((para: any, index: number) => (
             <div key={index} className="paragraph-item">
-              {para.Title && <h4 className="paragraph-title">{para.Title}</h4>}
+              {para.Title && <h2 className="paragraph-title">{para.Title}</h2>}
               {para.Description && (
                 <div className="paragraph-description">
                   {parseContent(para.Description)}
