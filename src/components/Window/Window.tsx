@@ -720,6 +720,7 @@ const Window: React.FC<WindowProps> = ({
               >
               <div
                 className={`window level-class-fourth artquiz-main-window`}
+                style={{width: '450px', height: '750px'}}
                 key={Math.random()}
                 onClick={(e) => handleZIndex(e)}
               >
