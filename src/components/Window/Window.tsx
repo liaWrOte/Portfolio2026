@@ -50,6 +50,8 @@ import IconGrid from '../../containers/iconGrid';
 
 import Stolify from '../Stolify/Stolify';
 
+import ArtQuizApp from '../ArtQuiz/App';
+
 
 
 interface WindowProps {
@@ -705,6 +707,36 @@ const Window: React.FC<WindowProps> = ({
 
             </Draggable>
 
+        }
+
+
+        {/* ArtQuiz */}
+        {shouldDisplayWindow('artquiz') && 
+            <Draggable
+              bounds={'.App'}
+              onDrag={(e) => handleZIndex(e)}
+              handle={'.window-header-container'}
+              defaultPosition={{ x: 200, y: 200 }}
+              >
+              <div
+                className={`window level-class-fourth artquiz-main-window`}
+                key={Math.random()}
+                onClick={(e) => handleZIndex(e)}
+              >
+                <WindowHeader
+                  label={getWindowLabel('artquiz')}
+                  itemId={'artquiz'}
+                  minify={minify} isMinified={isMinified}
+                  currentPath={null}
+                  fileSystem={null}
+                  openFolder={openFolder}
+                  useOnlyLabel={true}
+                />
+                <div className="window-item-container artquiz-window" style={{width: '100%', height: '100%'}}>
+                  <ArtQuizApp />
+                </div>
+              </div>
+            </Draggable>
         }
 
 

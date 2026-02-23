@@ -29,9 +29,6 @@ const App = () => {
     return (
         <QuizProvider>
             <div className='artquiz-container'>
-                <button className="close-btn" onClick={() => dispatch(closeArtquiz())}>
-                    ×
-                </button>
                 <div className='app'>
                     <BrowserRouter>
                         <Routes>

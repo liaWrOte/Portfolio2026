@@ -58,7 +58,7 @@ const Item = ({
         break;
 
       case 'artquiz':
-        openArtquiz();
+        openWindow('artquiz');
         break;
 
       case 'stolify':

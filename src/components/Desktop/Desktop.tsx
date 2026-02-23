@@ -13,9 +13,6 @@ import folderClosed2Icon from '../assets/img/icons/folder_closed_2_icon.svg';
 import fileIcon from '../assets/img/icons/file_icon.svg';
 import emailIcon from '../assets/img/icons/email_icon.svg';
 
-// Import React Quiz local app
-import ArtQuizApp from '../ArtQuiz/App';
-
 import { useTranslation } from '../../contexts/LanguageContext';
 
 
@@ -66,11 +63,6 @@ export const Desktop = ({
 
       {/* Item Window to open all items */}
       <Window/>
-
-      {/* Local React ArtQuiz app */}  
-      {props.displayArtquiz &&
-        <ArtQuizApp />
-      }
 
     </div>
   );
