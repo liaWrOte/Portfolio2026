@@ -10,9 +10,13 @@ import Item from '../../containers/item';
 
 import TaskBar from '../TaskBar/TaskBar';
 
+import LanguageSwitch from '../LanguageSwitch/LanguageSwitch';
+
 import { connect } from 'react-redux';
 
 import { toggleWindow, closeWindow } from '../../actions/main';
+
+import { useTranslation } from '../../contexts/LanguageContext';
 
 
 
@@ -47,6 +51,8 @@ const DesktopBottomBar = ({
   onCloseWindow
 
 }) => {
+
+  const { t } = useTranslation();
 
 
 
@@ -96,7 +102,7 @@ const DesktopBottomBar = ({
 
         <p>Sandrine M'ZE</p>
 
-        <p>Développeuse front-end WordPress | React créative</p>
+        <p>{t('developer')}</p>
 
       </div>
 
@@ -163,6 +169,8 @@ const DesktopBottomBar = ({
         <span className="time">{hour}</span>
 
         <span className="date">{date}</span>
+
+        <LanguageSwitch />
 
       </div>
 

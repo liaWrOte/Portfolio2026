@@ -24,6 +24,7 @@ export const RESTORE_WINDOW = 'RESTORE_WINDOW';
 export const TOGGLE_WINDOW = 'TOGGLE_WINDOW';
 export const FETCH_PROJECTS = 'FETCH_PROJECTS';
 export const SET_FILESYSTEM = 'SET_FILESYSTEM';
+export const SET_LANGUAGE = 'SET_LANGUAGE';
 export const OPEN_FOLDER = 'OPEN_FOLDER';
 export const OPEN_PROJECT = 'OPEN_PROJECT';
 export const GO_BACK = 'GO_BACK';

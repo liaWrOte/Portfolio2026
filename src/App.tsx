@@ -1,13 +1,16 @@
 import React from 'react';
 import './App.scss';
 import Main from './containers/main';
+import { LanguageProvider } from './contexts/LanguageContext';
 
 const App: React.FC = () => {
 
   return (
-    <div className="App">
-      <Main />
-    </div>
+    <LanguageProvider>
+      <div className="App">
+        <Main />
+      </div>
+    </LanguageProvider>
   );
 };
 

@@ -1,9 +1,27 @@
 import React from 'react';
 import './breadcrumb.scss';
 import { BreadcrumbProps, BreadcrumbItem } from './Breadcrumb.types';
+import { useTranslation } from '../../contexts/LanguageContext';
 
 // Breadcrumb component for navigation
 const Breadcrumb: React.FC<BreadcrumbProps> = ({ currentPath = [], fileSystem, openFolder }) => {
+  const { t, getLocalizedContent } = useTranslation();
+
+  // Fonction pour traduire les noms de dossiers connus
+  const translateFolderName = (node: any): string => {
+    // D'abord essayer d'utiliser le contenu localisé depuis Strapi
+    const localizedContent = getLocalizedContent(node, 'name');
+    if (localizedContent && localizedContent !== node.name) {
+      return localizedContent;
+    }
+    
+    // Ensuite essayer les traductions statiques
+    const folderKey = `folder_${node.name.toLowerCase().replace(/\s+/g, '_')}`;
+    const translated = t(folderKey);
+    // Si la traduction n'existe pas, retourner le nom original
+    return translated !== folderKey ? translated : node.name;
+  };
+
   const buildBreadcrumb = (): BreadcrumbItem[] => {
     const breadcrumb: BreadcrumbItem[] = [];
     let current = fileSystem;
@@ -12,9 +30,10 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({ currentPath = [], fileSystem, o
     
     currentPath.forEach((pathId: string, index: number) => {
       if (current && current.id === pathId) {
+        const translatedName = translateFolderName(current);
         breadcrumb.push({
           id: pathId,
-          name: current.name,
+          name: translatedName,
           isLast: index === currentPath.length - 1
         });
         current = current.children?.find((child: any) => 

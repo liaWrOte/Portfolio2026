@@ -12,6 +12,8 @@ import { RootState } from '../../store';
 
 import { FileSystemNode, Project } from '../../types';
 
+import { useTranslation } from '../../contexts/LanguageContext';
+
 
 
 // Import State selectors
@@ -336,7 +338,7 @@ const Window: React.FC<WindowProps> = ({
 
   const activeProject = useSelector((state: any) => getProjectById(state.main, windowItemId));
 
-
+  const { t } = useTranslation();
 
   // Mapping for window labels to match outWindowLabel
 
@@ -346,23 +348,23 @@ const Window: React.FC<WindowProps> = ({
 
       case 'projets':
 
-        return 'Projets';
+        return t('projects');
 
       case 'resume':
 
-        return 'resume.pdf';
+        return t('resume');
 
       case 'contact_me':
 
-        return 'contact.me';
+        return t('contact');
 
       case 'artquiz':
 
-        return 'Artquiz';
+        return t('artquiz');
 
       case 'stolify':
 
-        return 'Stolify';
+        return t('stolify');
 
       default:
 

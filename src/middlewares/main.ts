@@ -38,16 +38,15 @@ const desktopMiddleware = (store) => (next) => (action) => {
             break;
 
         case FETCH_PROJECTS: 
-            axios.get(`${apiUrl}/projects?populate[paragraph][populate][Image]=*&sort[0]=type&sort[1]=date`)
+            // Récupérer seulement la langue par défaut (français) avec les localizations
+            axios.get(`${apiUrl}/projects?populate[paragraph][populate][Image]=*&populate[paragraph][populate][localizations]=*&sort[0]=type&sort[1]=date&populate[localizations][populate][paragraph][populate][Image]=*`)
             .then((response) => {
                 let projects = response.data.data;
                 // Construction du file system
                 const fileSystem = buildFileSystemFromProjects(projects);
-                console.log('MIDDLEWARE ', fileSystem);
                 store.dispatch(setFileSystem(fileSystem));
             })
             .catch((error) => {
-                console.error(error);
             });
             next(action);
             break;

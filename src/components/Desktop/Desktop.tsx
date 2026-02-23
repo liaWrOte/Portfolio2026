@@ -16,6 +16,8 @@ import emailIcon from '../assets/img/icons/email_icon.svg';
 // Import React Quiz local app
 import ArtQuizApp from '../ArtQuiz/App';
 
+import { useTranslation } from '../../contexts/LanguageContext';
+
 
 export const Desktop = ({
   displayWindowItem,
@@ -23,6 +25,8 @@ export const Desktop = ({
   displayWindow,
   ...props
 }) => {
+  const { t } = useTranslation();
+  
   return (
     <div className="desktop">
       <img
@@ -35,7 +39,7 @@ export const Desktop = ({
         key={Math.random()}
         inWindow={false} 
         itemId="projets"
-        outWindowLabel="Projets"
+        outWindowLabel={t('projects')}
         triggerOpen="projets"
         srcImg={folderClosed2Icon}
       />
@@ -45,7 +49,7 @@ export const Desktop = ({
         key={Math.random()}
         inWindow={false} 
         itemId="resume"
-        outWindowLabel="resume.pdf"
+        outWindowLabel={t('resume')}
         triggerOpen="resume"
         srcImg={fileIcon}
       />
@@ -55,7 +59,7 @@ export const Desktop = ({
         key={Math.random()}
         inWindow={false} 
         itemId="contact_me"
-        outWindowLabel="contact.me"
+        outWindowLabel={t('contact')}
         triggerOpen="openWindow"
         srcImg={emailIcon}
       />

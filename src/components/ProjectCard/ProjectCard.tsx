@@ -4,6 +4,7 @@ import { marked } from 'marked';
 import { BlocksRenderer } from '@strapi/blocks-react-renderer';
 import { FileSystemNode } from '../../types';
 import { backendUrl } from '../../middlewares/env';
+import { useTranslation } from '../../contexts/LanguageContext';
 import './project-card.scss';
 
 interface ProjectCardProps {
@@ -198,8 +199,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   onClick,
   isSelected = false 
 }) => {
-  // Debug pour voir la structure du project
-  console.log('ProjectCard project:', project);
+  const { t, getLocalizedContent, getLocalizedParagraph } = useTranslation();
   
   // Le composant ne gère que les FileSystemNode
   const fsNode = project as FileSystemNode;
@@ -215,9 +215,24 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
     paragraph
   } = fsNode;
 
-  // Debug du contenu
-  if (pitch) console.log('Pitch content:', pitch);
-  if (paragraph) console.log('Paragraph content:', paragraph);
+  // Fonction pour obtenir le contenu localisé avec contexte parent
+  const getLocalizedContentWithContext = (content: any, field: string, parentContext?: any) => {
+    // D'abord essayer avec le contenu lui-même
+    let result = getLocalizedContent(content, field);
+    if (result && result !== content[field]) {
+      return result;
+    }
+    
+    // Si ça ne marche pas et qu'on a un contexte parent (pour les paragraphes)
+    if (parentContext && result === content[field]) {
+      const parentResult = getLocalizedContent(parentContext, field);
+      if (parentResult && parentResult !== content[field]) {
+        return parentResult;
+      }
+    }
+    
+    return content[field] || '';
+  };
 
   // Fonction pour parser le contenu selon son type
   const parseContent = (content: any) => {
@@ -250,17 +265,17 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
           className="project-link-button"
           onClick={(e) => e.stopPropagation()}
         >
-          Voir le projet
+          {t('see_project')}
         </a>
       )}
 
       {/* Project title */}
-      <h1 className="project-title">{name}</h1>
+      <h1 className="project-title">{getLocalizedContent(fsNode, 'name')}</h1>
 
       {/* Project description */}
       {pitch && (
         <div className="project-description">
-          {parseContent(pitch)}
+          {parseContent(getLocalizedContent(fsNode, 'pitch'))}
         </div>
       )}
 
@@ -268,21 +283,21 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
       <div className="project-info-block">
         {date && (
           <div className="info-item">
-            <span className="info-label">Date : </span>
+            <span className="info-label">{t('date')} </span>
             <span className="info-value">{date}</span>
           </div>
         )}
         
         {role && (
           <div className="info-item">
-            <span className="info-label">Role:</span>
-            <span className="info-value">{role}</span>
+            <span className="info-label">{t('role')}</span>
+            <span className="info-value">{getLocalizedContent(fsNode, 'role')}</span>
           </div>
         )}
         
         {technologies && technologies.length > 0 && (
           <div className="info-item">
-            <span className="info-label">Technologies:</span>
+            <span className="info-label">{t('technologies')}</span>
             <div className="techno-list">
               {(technologies as string[]).map((tech: string, index: number) => (
                 <span key={index} className="techno-item">{tech}</span>
@@ -294,21 +309,25 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
       {/* Paragraphs */}
       {paragraph && paragraph.length > 0 && (
         <div className="project-paragraphs">
-          {paragraph.map((para: any, index: number) => (
-            <div key={index} className="paragraph-item">
-              {para.Title && <h2 className="paragraph-title">{para.Title}</h2>}
-              {para.Description && (
-                <div className="paragraph-description">
-                  {parseContent(para.Description)}
-                </div>
-              )}
-              {para.Image && para.Image.data.length > 0 && (
-                <div className="paragraph-images">
-                  <ImageSlider images={para.Image.data} />
-                </div>
-               )}
-            </div>
-          ))}
+          {paragraph.map((para: any, index: number) => {
+            console.log(`🔍 Paragraph ${index}:`, para);
+            console.log(`🔍 Paragraph ${index} localizations:`, para.localizations);
+            return (
+              <div key={index} className="paragraph-item">
+                {para.Title && <h2 className="paragraph-title">{getLocalizedParagraph(para, 'Title', fsNode)}</h2>}
+                {para.Description && (
+                  <div className="paragraph-description">
+                    {parseContent(getLocalizedParagraph(para, 'Description', fsNode))}
+                  </div>
+                )}
+                {para.Image && para.Image.data.length > 0 && (
+                  <div className="paragraph-images">
+                    <ImageSlider images={para.Image.data} />
+                  </div>
+                 )}
+              </div>
+            );
+          })}
         </div>
       )}
 

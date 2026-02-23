@@ -1,0 +1,34 @@
+.language-switch {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  padding: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-left: 12px;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.3);
+  }
+
+  .flag {
+    font-size: 16px;
+    padding: 4px 6px;
+    border-radius: 16px;
+    transition: all 0.3s ease;
+    opacity: 0.6;
+    
+    &.active {
+      background: rgba(255, 255, 255, 0.2);
+      opacity: 1;
+    }
+
+    &:not(.active):hover {
+      opacity: 0.8;
+    }
+  }
+}

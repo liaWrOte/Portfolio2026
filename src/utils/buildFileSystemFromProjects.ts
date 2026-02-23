@@ -37,6 +37,9 @@ export function buildFileSystemFromProjects(projects: Project[]): FileSystemNode
       updatedAt: project.attributes.updatedAt,
       publishedAt: project.attributes.publishedAt,
       paragraph: project.attributes.paragraph,
+      // Ajouter les localizations de Strapi
+      locale: project.attributes.locale,
+      localizations: project.attributes.localizations,
     });
   });
 

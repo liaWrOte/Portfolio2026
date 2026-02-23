@@ -1,5 +1,12 @@
 // Interfaces principales pour l'application
 
+export interface Localizations {
+  [key: string]: {
+    id: string;
+    attributes: ProjectAttributes;
+  };
+}
+
 export interface ProjectAttributes {
   title: string;
   type: string;
@@ -11,10 +18,28 @@ export interface ProjectAttributes {
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
+  locale: string;
+  localizations?: {
+    data: Array<{
+      id: string;
+      attributes: ProjectAttributes;
+    }>;
+  };
   paragraph?: Array<{
     Title?: string;
     Description?: string;
     Image?: any[];
+    locale?: string;
+    localizations?: {
+      data: Array<{
+        id: string;
+        attributes: {
+          Title?: string;
+          Description?: string;
+          locale: string;
+        };
+      }>;
+    };
   }>;
 }
 
@@ -43,7 +68,37 @@ export interface FileSystemNode {
     Title?: string;
     Description?: string;
     Image?: any[];
+    locale?: string;
+    localizations?: {
+      data: Array<{
+        id: string;
+        attributes: {
+          Title?: string;
+          Description?: string;
+          locale: string;
+        };
+      }>;
+    };
   }>;
+  // Champs Strapi i18n
+  locale?: string;
+  localizations?: {
+    data: Array<{
+      id: string;
+      attributes: {
+        title?: string;
+        pitch?: string;
+        role?: string;
+        techno?: string;
+        locale: string;
+        paragraph?: Array<{
+          Title?: string;
+          Description?: string;
+          Image?: any[];
+        }>;
+      };
+    }>;
+  };
 }
 
 export interface WindowState {
