@@ -111,6 +111,10 @@ const Stolify = () => {
 
     // Mettre à jour l'état initial des contrôles
     updateControlStates();
+    
+    // Mettre à jour le titre et l'image du morceau
+    updateTrackTitle();
+    updateCoverImage();
   };
 
   // Mettre à jour l'état visuel des contrôles selon l'état de lecture
@@ -165,6 +169,11 @@ const Stolify = () => {
     if (isPlaying) {
       audioRef.current.play();
     }
+    // Mettre à jour le titre et l'image après un court délai
+    setTimeout(() => {
+      updateTrackTitle();
+      updateCoverImage();
+    }, 100);
   };
 
   // Next navigation function 
@@ -182,7 +191,96 @@ const Stolify = () => {
     if (isPlaying) {
       audioRef.current.play();
     }
+    // Mettre à jour le titre et l'image après un court délai
+    setTimeout(() => {
+      updateTrackTitle();
+      updateCoverImage();
+    }, 100);
   };
+
+  // Mettre à jour l'image du morceau dans l'élément .cls-14
+  const updateCoverImage = () => {
+    const coverElement = document.querySelector('#disc .cls-14') as SVGCircleElement;
+    if (coverElement) {
+      const svgNS = "http://www.w3.org/2000/svg";
+      const defs = document.querySelector('svg defs');
+      
+      if (defs) {
+        // Supprimer l'ancien clipPath s'il existe
+        const oldClipPath = defs.querySelector('#cover-clip');
+        if (oldClipPath) {
+          oldClipPath.remove();
+        }
+        
+        // Créer un clipPath avec les mêmes dimensions que le cercle
+        const clipPath = document.createElementNS(svgNS, 'clipPath');
+        clipPath.setAttribute('id', 'cover-clip');
+        
+        const clipCircle = document.createElementNS(svgNS, 'circle');
+        clipCircle.setAttribute('cx', coverElement.getAttribute('cx') || '146.79');
+        clipCircle.setAttribute('cy', coverElement.getAttribute('cy') || '152.2');
+        clipCircle.setAttribute('r', coverElement.getAttribute('r') || '119.51');
+        
+        clipPath.appendChild(clipCircle);
+        defs.appendChild(clipPath);
+        
+        // Créer l'image directement dans le SVG
+        const oldImage = document.querySelector('#cover-image');
+        if (oldImage) {
+          oldImage.remove();
+        }
+        
+        const image = document.createElementNS(svgNS, 'image');
+        image.setAttribute('id', 'cover-image');
+        image.setAttribute('href', tracks[currentTrackIndex].cover);
+        image.setAttribute('x', (parseFloat(coverElement.getAttribute('cx') || '146.79') - parseFloat(coverElement.getAttribute('r') || '119.51')).toString());
+        image.setAttribute('y', (parseFloat(coverElement.getAttribute('cy') || '152.2') - parseFloat(coverElement.getAttribute('r') || '119.51')).toString());
+        image.setAttribute('width', (parseFloat(coverElement.getAttribute('r') || '119.51') * 2).toString());
+        image.setAttribute('height', (parseFloat(coverElement.getAttribute('r') || '119.51') * 2).toString());
+        image.setAttribute('preserveAspectRatio', 'xMidYMid slice');
+        image.setAttribute('clip-path', 'url(#cover-clip)');
+        
+        // Ajouter l'image après le cercle
+        coverElement.parentNode?.insertBefore(image, coverElement.nextSibling);
+        
+        // Cacher le cercle original pour ne voir que l'image
+        coverElement.style.fill = 'none';
+      }
+    }
+  };
+
+  // Mettre à jour le titre du morceau dans l'élément .cls-6
+  const updateTrackTitle = () => {
+    const titleElement = document.querySelector('.cls-6') as SVGRectElement;
+    if (titleElement) {
+      // Créer un élément text pour afficher le titre
+      const svgNS = "http://www.w3.org/2000/svg";
+      let textElement = titleElement.parentNode?.querySelector('text[data-title]');
+      
+      if (!textElement) {
+        textElement = document.createElementNS(svgNS, 'text');
+        textElement.setAttribute('data-title', 'true');
+        textElement.setAttribute('x', (parseFloat(titleElement.getAttribute('x') || '0') + 10).toString());
+        textElement.setAttribute('y', (parseFloat(titleElement.getAttribute('y') || '0') + 22).toString());
+        textElement.setAttribute('fill', 'white');
+        textElement.setAttribute('font-family', 'Arial, sans-serif');
+        textElement.setAttribute('font-size', '16');
+        textElement.setAttribute('font-weight', 'bold');
+        titleElement.parentNode?.insertBefore(textElement, titleElement.nextSibling);
+      }
+      
+      textElement.textContent = tracks[currentTrackIndex].title;
+    }
+  };
+
+  // Mettre à jour le titre et l'image quand le morceau change
+  useEffect(() => {
+    // Attendre un peu que le SVG soit chargé
+    setTimeout(() => {
+      updateTrackTitle();
+      updateCoverImage();
+    }, 200);
+  }, [currentTrackIndex]);
 
   return (
     <div className="stolify-wrapper">
