@@ -45,6 +45,12 @@ const Stolify = () => {
   const [isPlaying, setIsPlaying] = useState(false);
   const [svgContent, setSvgContent] = useState('');
   const audioRef = useRef(new Audio(tracks[currentTrackIndex].source));
+  const currentIndexRef = useRef(0); // Référence synchrone de l'index
+
+  // Synchroniser la référence avec l'état
+  useEffect(() => {
+    currentIndexRef.current = currentTrackIndex;
+  }, [currentTrackIndex]);
 
   // Charger le contenu XML du SVG
   useEffect(() => {
@@ -112,9 +118,8 @@ const Stolify = () => {
     // Mettre à jour l'état initial des contrôles
     updateControlStates();
     
-    // Mettre à jour le titre et l'image du morceau
+    // Mettre à jour le titre du morceau (l'image sera mise à jour par le useEffect)
     updateTrackTitle();
-    updateCoverImage();
   };
 
   // Mettre à jour l'état visuel des contrôles selon l'état de lecture
@@ -156,50 +161,50 @@ const Stolify = () => {
 
   // Previous navigation function 
   const previous = () => {
-    const newIndex = currentTrackIndex - 1;
-    if (newIndex < 0) {
-      setCurrentTrackIndex(tracks.length - 1);
-      audioRef.current.pause();
-      audioRef.current = new Audio(tracks[tracks.length - 1].source);
-    } else {
-      setCurrentTrackIndex(newIndex);
-      audioRef.current.pause();
-      audioRef.current = new Audio(tracks[newIndex].source);
-    }
+    const currentIndex = currentIndexRef.current;
+    const newIndex = currentIndex - 1;
+    const targetIndex = newIndex < 0 ? tracks.length - 1 : newIndex;
+    
+    currentIndexRef.current = targetIndex; // Mise à jour synchrone
+    setCurrentTrackIndex(targetIndex);
+    audioRef.current.pause();
+    audioRef.current = new Audio(tracks[targetIndex].source);
+    
     if (isPlaying) {
       audioRef.current.play();
     }
     // Mettre à jour le titre et l'image après un court délai
     setTimeout(() => {
       updateTrackTitle();
-      updateCoverImage();
+      updateCoverImage(targetIndex);
     }, 100);
   };
 
   // Next navigation function 
   const next = () => {
-    const newIndex = currentTrackIndex + 1;
-    if (newIndex >= tracks.length) {
-      setCurrentTrackIndex(0);
-      audioRef.current.pause();
-      audioRef.current = new Audio(tracks[0].source);
-    } else {
-      setCurrentTrackIndex(newIndex);
-      audioRef.current.pause();
-      audioRef.current = new Audio(tracks[newIndex].source);
-    }
+    const currentIndex = currentIndexRef.current;
+    const newIndex = currentIndex + 1;
+    const targetIndex = newIndex >= tracks.length ? 0 : newIndex;
+    
+    currentIndexRef.current = targetIndex; // Mise à jour synchrone
+    setCurrentTrackIndex(targetIndex);
+    audioRef.current.pause();
+    audioRef.current = new Audio(tracks[targetIndex].source);
+    
     if (isPlaying) {
       audioRef.current.play();
     }
     // Mettre à jour le titre et l'image après un court délai
     setTimeout(() => {
       updateTrackTitle();
-      updateCoverImage();
+      updateCoverImage(targetIndex);
     }, 100);
   };
 
   // Mettre à jour l'image du morceau dans l'élément .cls-14
-  const updateCoverImage = () => {
+  const updateCoverImage = (trackIndex?: number) => {
+    const index = trackIndex !== undefined ? trackIndex : currentTrackIndex;
+    console.error('updateCoverImage', index);
     const coverElement = document.querySelector('#disc .cls-14') as SVGCircleElement;
     if (coverElement) {
       const svgNS = "http://www.w3.org/2000/svg";
@@ -232,13 +237,14 @@ const Stolify = () => {
         
         const image = document.createElementNS(svgNS, 'image');
         image.setAttribute('id', 'cover-image');
-        image.setAttribute('href', tracks[currentTrackIndex].cover);
+        image.setAttribute('href', tracks[index].cover);
         image.setAttribute('x', (parseFloat(coverElement.getAttribute('cx') || '146.79') - parseFloat(coverElement.getAttribute('r') || '119.51')).toString());
         image.setAttribute('y', (parseFloat(coverElement.getAttribute('cy') || '152.2') - parseFloat(coverElement.getAttribute('r') || '119.51')).toString());
         image.setAttribute('width', (parseFloat(coverElement.getAttribute('r') || '119.51') * 2).toString());
         image.setAttribute('height', (parseFloat(coverElement.getAttribute('r') || '119.51') * 2).toString());
         image.setAttribute('preserveAspectRatio', 'xMidYMid slice');
         image.setAttribute('clip-path', 'url(#cover-clip)');
+        console.log(image);
         
         // Ajouter l'image après le cercle
         coverElement.parentNode?.insertBefore(image, coverElement.nextSibling);
