@@ -15,7 +15,7 @@
   border: 2px solid $dark-brown;
   box-shadow: -10px 10px 0 $orange;
   position: fixed;
-  z-index: 9999;
+  z-index: 1;
   top: 0;
   overflow: hidden;
   resize: both;
@@ -144,28 +144,6 @@
       display: inline-block;
       color: $dark-brown;
     }
-  }
-  &.level-class-first {
-    position: absolute;
-    z-index: 0;
-    left: 140px;
-    top: 90px;
-    transform: scale(1);
-  }
-  &.level-class-second {
-    z-index: 1;
-    left: 170px;
-    top: 120px;
-  }
-  &.level-class-third {
-    z-index: 2;
-    right: 200px;
-    top: 150px;
-  }
-  &.level-class-fourth {
-    z-index: 2;
-    left: 230px;
-    top: 180px;
   }
   &.full {
     width: 100vw;

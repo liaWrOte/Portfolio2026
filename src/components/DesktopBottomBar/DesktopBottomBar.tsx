@@ -6,14 +6,12 @@ import Item from '../../containers/item';
 import TaskBar from '../TaskBar/TaskBar';
 import LanguageSwitch from '../LanguageSwitch/LanguageSwitch';
 import { connect } from 'react-redux';
-import { toggleWindow, closeWindow } from '../../actions/main';
+import { openWindow, closeWindow } from '../../actions/main';
 import { useTranslation } from '../../contexts/LanguageContext';
 
 // Import images
 import stolifyIcon from '../assets/img/icons/stolify_icon.svg';
 import artquizIcon from '../assets/img/icons/artquiz_icon.svg';
-
-
 
 const DesktopBottomBar = ({
   primary,
@@ -24,7 +22,7 @@ const DesktopBottomBar = ({
   openArtquiz,
   openWindows,
   minimizedWindows,
-  onToggleWindow,
+  onOpenWindow,
   onCloseWindow
 }) => {
   const { t } = useTranslation();
@@ -44,14 +42,9 @@ const DesktopBottomBar = ({
 
 
 
-  const hour = today.toLocaleTimeString(locale, {hour: '2-digit', minute:'2-digit'});
-  const date = today.toLocaleDateString(locale, {day: '2-digit', month: '2-digit', year: 'numeric'});
-
-
-
+  const hour = today.toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit' });
+  const date = today.toLocaleDateString(locale, { day: '2-digit', month: '2-digit', year: 'numeric' });
   // END Date and time display
-
-
 
   return (
     <aside className="desktop-bar">
@@ -79,9 +72,9 @@ const DesktopBottomBar = ({
           animated={true}
           clickTrigger={"simple"}
         />
-        <TaskBar 
+        <TaskBar
           openWindows={openWindows || []}
-          onWindowClick={onToggleWindow}
+          onWindowClick={onOpenWindow}
           onCloseWindow={onCloseWindow}
         />
       </div>
@@ -96,8 +89,6 @@ const DesktopBottomBar = ({
 
 };
 
-
-
 DesktopBottomBar.propTypes = {
   primary: PropTypes.string,
   backgroundColor: PropTypes.string,
@@ -107,7 +98,7 @@ DesktopBottomBar.propTypes = {
   openArtquiz: PropTypes.func,
   openWindows: PropTypes.array,
   minimizedWindows: PropTypes.array,
-  onToggleWindow: PropTypes.func,
+  onOpenWindow: PropTypes.func,
   onCloseWindow: PropTypes.func,
 };
 
@@ -117,7 +108,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  onToggleWindow: (windowId) => dispatch(toggleWindow(windowId)),
+  onOpenWindow: (windowId) => dispatch(openWindow(windowId)),
   onCloseWindow: (windowId) => dispatch(closeWindow(windowId)),
 });
 
