@@ -1,4 +1,4 @@
-@import '../microComponents/_vars';
+@use '../microComponents/_vars' as *;
 @import url('https://fonts.googleapis.com/css?family=Chewy');
 
 .home {
