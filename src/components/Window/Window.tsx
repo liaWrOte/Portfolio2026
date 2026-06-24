@@ -2,7 +2,7 @@ import React, { useEffect, useState, Suspense, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import Draggable from 'react-draggable';
-import ReactMarkdown from "react-markdown";
+import ReactMarkdown from 'react-markdown';
 import { RootState } from '../../store';
 import { FileSystemNode, Project } from '../../types';
 import { useTranslation } from '../../contexts/LanguageContext';
@@ -61,7 +61,6 @@ const Window: React.FC<WindowProps> = ({
   currentPath,
   openFolder
 }) => {
-
   // Window positioning
   const boxRef = useRef(null);
 
@@ -229,15 +228,14 @@ const Window: React.FC<WindowProps> = ({
   // Get window index for positioning
   const getWindowIndex = (windowId) => {
     if (!openWindows) return 0;
-    const visibleWindows = openWindows.filter(id => !isWindowMinimized(id));
+    const visibleWindows = openWindows.filter((id) => !isWindowMinimized(id));
     return visibleWindows.indexOf(windowId);
   };
 
   return (
     <>
-
       {/* File explorer and projects */}
-      {shouldDisplayWindow('projets') && fileSystem &&
+      {shouldDisplayWindow('projets') && fileSystem && (
         <Draggable
           bounds={'.desktop'}
           handle={'.window-header-container'}
@@ -247,13 +245,12 @@ const Window: React.FC<WindowProps> = ({
           nodeRef={boxRef}
         >
           <div
-            className={`window ${isMinified ? "minified" : ""}`}
+            className={`window ${isMinified ? 'minified' : ''}`}
             onClick={() => handleZIndex('projets')}
             style={{ zIndex: getZIndex('projets') }}
             origin={position}
             ref={boxRef}
           >
-
             {/* Window Header  */}
             <WindowHeader
               label={getWindowLabel('projets')}
@@ -268,16 +265,14 @@ const Window: React.FC<WindowProps> = ({
             />
 
             <div className="window-item-container">
-
               {/* SidebarTree for explorer navigation */}
               <SidebarTree />
 
               <div className="window-right-items">
-
                 {/* Explorer view */}
-                {fileSystem && view && (view === 'explorer') &&
+                {fileSystem && view && view === 'explorer' && (
                   <ExplorerView view={view} node={fileSystem} />
-                }
+                )}
 
                 {/* Folder view */}
                 {fileSystem && view && view === 'folder' && node && (
@@ -285,20 +280,17 @@ const Window: React.FC<WindowProps> = ({
                 )}
 
                 {/* Project View  */}
-                {fileSystem && view && (view === 'project') &&
+                {fileSystem && view && view === 'project' && (
                   <ProjectView node={activeProject ?? node} />
-                }
-
+                )}
               </div>
-
             </div>
-
           </div>
         </Draggable>
-      }
+      )}
 
       {/* Resume  */}
-      {shouldDisplayWindow('resume') &&
+      {shouldDisplayWindow('resume') && (
         <Draggable
           bounds={'.App'}
           onStart={() => handleZIndex('resume')}
@@ -321,13 +313,20 @@ const Window: React.FC<WindowProps> = ({
               openFolder={openFolder}
               useOnlyLabel={true}
             />
-            <iframe src="https://heady-salto-322.notion.site/ebd//2aadb394a5ab8121bd4afde3e99c9a7f" width="100%" height="100%" frameborder="0" allowfullscreen title="resume" />
+            <iframe
+              src="https://heady-salto-322.notion.site/ebd//2aadb394a5ab8121bd4afde3e99c9a7f"
+              width="100%"
+              height="100%"
+              frameborder="0"
+              allowfullscreen
+              title="resume"
+            />
           </div>
         </Draggable>
-      }
+      )}
 
       {/* Contact Me */}
-      {shouldDisplayWindow('contact_me') &&
+      {shouldDisplayWindow('contact_me') && (
         <Draggable
           bounds={'.App'}
           onStart={() => handleZIndex('contact_me')}
@@ -361,10 +360,10 @@ const Window: React.FC<WindowProps> = ({
             </div>
           </div>
         </Draggable>
-      }
+      )}
 
       {/* Stolify */}
-      {shouldDisplayWindow('stolify') &&
+      {shouldDisplayWindow('stolify') && (
         <Draggable
           bounds={'.App'}
           onStart={() => handleZIndex('stolify')}
@@ -392,10 +391,10 @@ const Window: React.FC<WindowProps> = ({
             </div>
           </div>
         </Draggable>
-      }
+      )}
 
       {/* ArtQuiz */}
-      {shouldDisplayWindow('artquiz') &&
+      {shouldDisplayWindow('artquiz') && (
         <Draggable
           bounds={'.App'}
           onStart={() => handleZIndex('artquiz')}
@@ -418,16 +417,17 @@ const Window: React.FC<WindowProps> = ({
               openFolder={openFolder}
               useOnlyLabel={true}
             />
-            <div className="window-item-container artquiz-window" style={{ width: '100%', height: '100%' }}>
+            <div
+              className="window-item-container artquiz-window"
+              style={{ width: '100%', height: '100%' }}
+            >
               <ArtQuizApp />
             </div>
           </div>
         </Draggable>
-      }
-
+      )}
     </>
   );
-
 };
 
 export default Window;

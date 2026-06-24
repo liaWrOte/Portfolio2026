@@ -1,16 +1,13 @@
 import React from 'react';
 import { useTranslation } from '../../contexts/LanguageContext';
 import './language-switch.scss';
-
 const LanguageSwitch: React.FC = () => {
   const { language, setLanguage } = useTranslation();
-
   const toggleLanguage = () => {
     setLanguage(language === 'fr' ? 'en' : 'fr');
   };
-
   return (
-    <button 
+    <button
       className="language-switch"
       onClick={toggleLanguage}
       title={language === 'fr' ? 'Switch to English' : 'Passer en français'}
@@ -20,5 +17,4 @@ const LanguageSwitch: React.FC = () => {
     </button>
   );
 };
-
 export default LanguageSwitch;

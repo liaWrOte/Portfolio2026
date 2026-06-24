@@ -1,8 +1,9 @@
 @use '../_vars' as *;
 
-.timer, .timer-end {
-    display: inline-block;
-    width: 100%;
-    text-align: center;
-    margin: $big-gutter 0;
+.timer,
+.timer-end {
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  margin: $big-gutter 0;
 }

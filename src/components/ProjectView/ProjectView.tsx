@@ -3,14 +3,13 @@ import ProjectCard from '../ProjectCard/ProjectCard';
 import './project-view.scss';
 
 const ProjectView = ({ node }) => {
-  
   if (!node) return null;
 
   // If node is a project (has project attributes)
   if (node.type === 'project') {
     return (
       <div className="project-view">
-        <ProjectCard 
+        <ProjectCard
           project={node}
           onClick={() => {}} // No click action needed in project view
           isSelected={true}
@@ -43,6 +42,6 @@ const ProjectView = ({ node }) => {
       <p>No project data available</p>
     </div>
   );
-};   
+};
 
 export default ProjectView;

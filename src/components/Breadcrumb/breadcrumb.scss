@@ -4,7 +4,7 @@
   display: flex;
   align-items: center;
   font-size: $font-size-small;
-  
+
   .breadcrumb-link {
     background: none;
     border: none;
@@ -14,17 +14,17 @@
     border-radius: 0.2rem;
     font-size: inherit;
     font-family: inherit;
-    
+
     &:hover {
       background-color: rgba($dark-brown, 0.1);
       text-decoration: underline;
     }
-    
+
     &:active {
       background-color: rgba($dark-brown, 0.2);
     }
   }
-  
+
   .breadcrumb-current {
     color: $dark-brown;
     font-weight: bold;

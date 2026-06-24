@@ -1,4 +1,4 @@
-import React from 'react'; 
+import React from 'react';
 
 // styles
 import './treenode.scss';
@@ -7,18 +7,11 @@ import folderClosedIcon2 from '../assets/img/icons/folder_closed_2_icon.svg';
 import folderOpenIcon from '../assets/img/icons/folder_open_icon.svg';
 import fileIcon from '../assets/img/icons/file_icon.svg';
 
-export default function TreeNode({
-  node,
-  openFolder,
-  openProject,
-  nodeLevel = 0,
-  currentPath,
-}) {
-
-  // IsActive class for selected node 
+export default function TreeNode({ node, openFolder, openProject, nodeLevel = 0, currentPath }) {
+  // IsActive class for selected node
   const isActive = currentPath.includes(node.id);
 
-  // Dispatch of called function on click 
+  // Dispatch of called function on click
   const handleClick = () => {
     if (node.type === 'folder') openFolder(node.id);
     if (node.type === 'project') openProject(node.id);
@@ -26,47 +19,33 @@ export default function TreeNode({
 
   return (
     <li>
-
       {/* TreeNode element */}
       <span
         onClick={handleClick}
         style={{
           fontWeight: isActive ? 'bold' : 'normal',
           background: isActive ? '#e0e0e0' : 'transparent',
-          cursor: 'pointer',
+          cursor: 'pointer'
         }}
-        className='treenode'
+        className="treenode"
       >
-        {[...Array(nodeLevel)].map((_, i) =>
-          i > 0 ? <span key={i}>&nbsp;</span> : null
-        )}
-        {node.type === 'folder' ? 
-          (isActive ? (
-            <img 
-              src={folderOpenIcon} 
-              alt="Logo" 
-              className='treenode-icons'
-            /> 
+        {[...Array(nodeLevel)].map((_, i) => (i > 0 ? <span key={i}>&nbsp;</span> : null))}
+        {node.type === 'folder' ? (
+          isActive ? (
+            <img src={folderOpenIcon} alt="Logo" className="treenode-icons" />
           ) : (
-            <img 
-              src={folderClosedIcon2} 
-              alt="Logo" 
-              className='treenode-icons'
-            />
+            <img src={folderClosedIcon2} alt="Logo" className="treenode-icons" />
           )
-          ) : 
-          <img 
-            src={fileIcon} 
-            alt="Logo" 
-            className='treenode-icons'
-          /> }
-          &nbsp;{node.name}
+        ) : (
+          <img src={fileIcon} alt="Logo" className="treenode-icons" />
+        )}
+        &nbsp;{node.name}
       </span>
 
       {/* Recursive TreeNode children */}
       {node.children && (
         <ul>
-          {node.children.map(child => (
+          {node.children.map((child) => (
             <TreeNode
               key={child.id}
               node={child}
@@ -78,8 +57,6 @@ export default function TreeNode({
           ))}
         </ul>
       )}
-      
     </li>
   );
 }
-

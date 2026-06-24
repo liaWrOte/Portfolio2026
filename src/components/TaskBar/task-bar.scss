@@ -1,5 +1,4 @@
 .task-bar {
-
   display: flex;
 
   gap: 2px;
@@ -11,13 +10,9 @@
   padding: 0 8px;
 
   // Suppression du background et de la bordure
-
 }
 
-
-
 .task-bar-item {
-
   display: inline-block; // Identique aux items
 
   flex-direction: column; // Identique aux items
@@ -32,20 +27,12 @@
 
   margin: 0 2px; // Espacement entre items
 
-
-
   &:hover {
-
     cursor: pointer; // Identique aux items
-
   }
-
 }
 
-
-
 .task-bar-icon {
-
   display: block; // Identique aux items
 
   margin: 0 auto; // Identique aux items
@@ -57,25 +44,17 @@
   font-size: 48px; // Pour les emojis
 
   line-height: 1;
-
 }
 
-
-
 .task-bar-label {
-
   margin-top: 0.5rem; // Identique aux items
 
   text-align: center; // Identique aux items
 
   font-size: inherit; // Hériter de la taille par défaut
-
 }
 
-
-
 .task-bar-close {
-
   display: none;
 
   background: none;
@@ -98,23 +77,13 @@
 
   right: 2px;
 
-
-
   &:hover {
-
     background: rgba(255, 0, 0, 0.1);
 
     color: #000;
-
   }
-
 }
-
-
 
 .task-bar-item:hover .task-bar-close {
-
   display: block;
-
 }
-

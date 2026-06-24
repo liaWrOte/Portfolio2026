@@ -14,7 +14,7 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({ currentPath = [], fileSystem, o
     if (localizedContent && localizedContent !== node.name) {
       return localizedContent;
     }
-    
+
     // Ensuite essayer les traductions statiques
     const folderKey = `folder_${node.name.toLowerCase().replace(/\s+/g, '_')}`;
     const translated = t(folderKey);
@@ -25,9 +25,9 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({ currentPath = [], fileSystem, o
   const buildBreadcrumb = (): BreadcrumbItem[] => {
     const breadcrumb: BreadcrumbItem[] = [];
     let current = fileSystem;
-    
+
     if (!currentPath || !fileSystem) return breadcrumb;
-    
+
     currentPath.forEach((pathId: string, index: number) => {
       if (current && current.id === pathId) {
         const translatedName = translateFolderName(current);
@@ -36,12 +36,10 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({ currentPath = [], fileSystem, o
           name: translatedName,
           isLast: index === currentPath.length - 1
         });
-        current = current.children?.find((child: any) => 
-          child.id === currentPath[index + 1]
-        );
+        current = current.children?.find((child: any) => child.id === currentPath[index + 1]);
       }
     });
-    
+
     return breadcrumb;
   };
 
@@ -55,10 +53,7 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({ currentPath = [], fileSystem, o
           {item.isLast ? (
             <span className="breadcrumb-current">{item.name}</span>
           ) : (
-            <button 
-              className="breadcrumb-link"
-              onClick={() => openFolder(item.id)}
-            >
+            <button className="breadcrumb-link" onClick={() => openFolder(item.id)}>
               {item.name}
             </button>
           )}

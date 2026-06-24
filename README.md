@@ -33,4 +33,16 @@ yarn start:all
 # Backend : yarn start:strapi (dossier strapi) (localhost:1337)
     ```
 
+**Formatage du code**
+
+Le projet utilise [Prettier](https://prettier.io/) pour un style de code cohérent (`.tsx`, `.ts`, `.scss`).
+
+```bash
+# Formater tous les fichiers
+npm run format
+
+# Vérifier le formatage sans modifier les fichiers (ex: en CI)
+npm run format:check
+```
+
 C'est un portfolio interactif avec une architecture full-stack moderne.

@@ -11,12 +11,12 @@ interface ProjectShowcaseProps {
   subtitle?: string;
 }
 
-const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({ 
-  projects, 
+const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({
+  projects,
   onProjectClick,
   selectedProjectId,
-  title = "Projects",
-  subtitle = "Explore my work"
+  title = 'Projects',
+  subtitle = 'Explore my work'
 }) => {
   return (
     <div className="project-showcase">
@@ -27,7 +27,7 @@ const ProjectShowcase: React.FC<ProjectShowcaseProps> = ({
       </div>
 
       {/* Projects grid */}
-      <ProjectGrid 
+      <ProjectGrid
         projects={projects}
         onProjectClick={onProjectClick}
         selectedProjectId={selectedProjectId}

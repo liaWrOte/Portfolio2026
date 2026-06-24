@@ -37,13 +37,15 @@ const DesktopBottomBar = ({
     }, 60 * 1000);
     return () => {
       clearInterval(timer);
-    }
+    };
   }, []);
 
-
-
   const hour = today.toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit' });
-  const date = today.toLocaleDateString(locale, { day: '2-digit', month: '2-digit', year: 'numeric' });
+  const date = today.toLocaleDateString(locale, {
+    day: '2-digit',
+    month: '2-digit',
+    year: 'numeric'
+  });
   // END Date and time display
 
   return (
@@ -61,7 +63,7 @@ const DesktopBottomBar = ({
           triggerOpen="artquiz"
           itemId="artquiz"
           srcImg={artquizIcon}
-          clickTrigger={"simple"}
+          clickTrigger={'simple'}
         />
         <Item
           key={Math.random()}
@@ -70,7 +72,7 @@ const DesktopBottomBar = ({
           triggerOpen="stolify"
           srcImg={stolifyIcon}
           animated={true}
-          clickTrigger={"simple"}
+          clickTrigger={'simple'}
         />
         <TaskBar
           openWindows={openWindows || []}
@@ -86,7 +88,6 @@ const DesktopBottomBar = ({
       </div>
     </aside>
   );
-
 };
 
 DesktopBottomBar.propTypes = {
@@ -99,18 +100,17 @@ DesktopBottomBar.propTypes = {
   openWindows: PropTypes.array,
   minimizedWindows: PropTypes.array,
   onOpenWindow: PropTypes.func,
-  onCloseWindow: PropTypes.func,
+  onCloseWindow: PropTypes.func
 };
 
 const mapStateToProps = (state) => ({
   openWindows: state.main.openWindows,
-  minimizedWindows: state.main.minimizedWindows,
+  minimizedWindows: state.main.minimizedWindows
 });
 
 const mapDispatchToProps = (dispatch) => ({
   onOpenWindow: (windowId) => dispatch(openWindow(windowId)),
-  onCloseWindow: (windowId) => dispatch(closeWindow(windowId)),
+  onCloseWindow: (windowId) => dispatch(closeWindow(windowId))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(DesktopBottomBar);
-

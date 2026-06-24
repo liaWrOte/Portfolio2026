@@ -1,19 +1,19 @@
 @use '../microComponents/_vars' as *;
 
 .artquiz-container {
-    position: relative;
-    width: 100%;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .app {
-    width: 100%;
-    height: 100%;
-    background-color: $beige;
-    border-radius: 20px;
-    border: 2px solid $beige;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
-    overflow: hidden;
+  width: 100%;
+  height: 100%;
+  background-color: $beige;
+  border-radius: 20px;
+  border: 2px solid $beige;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
 }

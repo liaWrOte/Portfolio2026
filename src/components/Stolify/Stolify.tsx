@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 
-// Import styles 
+// Import styles
 import './stolify.scss';
 
 // Imports image buttons - Ancienne UI (commentée)
@@ -23,24 +23,23 @@ import tezeta from '../assets/mp3/Tezeta (Nostalgia) (128 kbps).mp3';
 // Tracks list mapping
 const tracks = [
   {
-    title : 'I Got The... (2006 Remaster)',
+    title: 'I Got The... (2006 Remaster)',
     source: labi,
-    cover: labiCover,
+    cover: labiCover
   },
   {
-    title : 'Anyone Who Knows What Love Is',
+    title: 'Anyone Who Knows What Love Is',
     source: irma,
-    cover: irmaCover,
+    cover: irmaCover
   },
   {
-    title : 'Tezeta (Nostalgia)',
+    title: 'Tezeta (Nostalgia)',
     source: tezeta,
-    cover: tezetaCover,
-  },
+    cover: tezetaCover
+  }
 ];
 
 const Stolify = () => {
-  
   const [currentTrackIndex, setCurrentTrackIndex] = useState(0);
   const [isPlaying, setIsPlaying] = useState(false);
   const [svgContent, setSvgContent] = useState('');
@@ -55,15 +54,15 @@ const Stolify = () => {
   // Charger le contenu XML du SVG
   useEffect(() => {
     fetch(stolifyUI)
-      .then(response => response.text())
-      .then(svgText => {
+      .then((response) => response.text())
+      .then((svgText) => {
         setSvgContent(svgText);
         // Ajouter les écouteurs d'événements après que le SVG soit injecté
         setTimeout(() => {
           addSVGEventListeners();
         }, 100);
       })
-      .catch(error => {
+      .catch((error) => {
         console.error('Error loading SVG:', error);
       });
   }, []);
@@ -117,7 +116,7 @@ const Stolify = () => {
 
     // Mettre à jour l'état initial des contrôles
     updateControlStates();
-    
+
     // Mettre à jour le titre du morceau (l'image sera mise à jour par le useEffect)
     updateTrackTitle();
   };
@@ -126,7 +125,7 @@ const Stolify = () => {
   const updateControlStates = (forceState?: boolean) => {
     const playElement = document.querySelector('#play') as HTMLElement;
     const pauseElement = document.querySelector('#pause') as HTMLElement;
-    
+
     // Utiliser l'état forcé ou l'état actuel
     const currentState = forceState !== undefined ? forceState : isPlaying;
 
@@ -143,15 +142,15 @@ const Stolify = () => {
     }
   };
 
-  // Play function 
+  // Play function
   const play = () => {
     setIsPlaying(true);
     audioRef.current.play();
     // Mettre à jour l'UI SVG avec le nouvel état
     updateControlStates(true);
   };
-  
-  // Pause function 
+
+  // Pause function
   const pause = () => {
     setIsPlaying(false);
     audioRef.current.pause();
@@ -159,17 +158,17 @@ const Stolify = () => {
     updateControlStates(false);
   };
 
-  // Previous navigation function 
+  // Previous navigation function
   const previous = () => {
     const currentIndex = currentIndexRef.current;
     const newIndex = currentIndex - 1;
     const targetIndex = newIndex < 0 ? tracks.length - 1 : newIndex;
-    
+
     currentIndexRef.current = targetIndex; // Mise à jour synchrone
     setCurrentTrackIndex(targetIndex);
     audioRef.current.pause();
     audioRef.current = new Audio(tracks[targetIndex].source);
-    
+
     if (isPlaying) {
       audioRef.current.play();
     }
@@ -180,17 +179,17 @@ const Stolify = () => {
     }, 100);
   };
 
-  // Next navigation function 
+  // Next navigation function
   const next = () => {
     const currentIndex = currentIndexRef.current;
     const newIndex = currentIndex + 1;
     const targetIndex = newIndex >= tracks.length ? 0 : newIndex;
-    
+
     currentIndexRef.current = targetIndex; // Mise à jour synchrone
     setCurrentTrackIndex(targetIndex);
     audioRef.current.pause();
     audioRef.current = new Audio(tracks[targetIndex].source);
-    
+
     if (isPlaying) {
       audioRef.current.play();
     }
@@ -207,48 +206,66 @@ const Stolify = () => {
     console.error('updateCoverImage', index);
     const coverElement = document.querySelector('#disc .cls-14') as SVGCircleElement;
     if (coverElement) {
-      const svgNS = "http://www.w3.org/2000/svg";
+      const svgNS = 'http://www.w3.org/2000/svg';
       const defs = document.querySelector('svg defs');
-      
+
       if (defs) {
         // Supprimer l'ancien clipPath s'il existe
         const oldClipPath = defs.querySelector('#cover-clip');
         if (oldClipPath) {
           oldClipPath.remove();
         }
-        
+
         // Créer un clipPath avec les mêmes dimensions que le cercle
         const clipPath = document.createElementNS(svgNS, 'clipPath');
         clipPath.setAttribute('id', 'cover-clip');
-        
+
         const clipCircle = document.createElementNS(svgNS, 'circle');
         clipCircle.setAttribute('cx', coverElement.getAttribute('cx') || '146.79');
         clipCircle.setAttribute('cy', coverElement.getAttribute('cy') || '152.2');
         clipCircle.setAttribute('r', coverElement.getAttribute('r') || '119.51');
-        
+
         clipPath.appendChild(clipCircle);
         defs.appendChild(clipPath);
-        
+
         // Créer l'image directement dans le SVG
         const oldImage = document.querySelector('#cover-image');
         if (oldImage) {
           oldImage.remove();
         }
-        
+
         const image = document.createElementNS(svgNS, 'image');
         image.setAttribute('id', 'cover-image');
         image.setAttribute('href', tracks[index].cover);
-        image.setAttribute('x', (parseFloat(coverElement.getAttribute('cx') || '146.79') - parseFloat(coverElement.getAttribute('r') || '119.51')).toString());
-        image.setAttribute('y', (parseFloat(coverElement.getAttribute('cy') || '152.2') - parseFloat(coverElement.getAttribute('r') || '119.51')).toString());
-        image.setAttribute('width', (parseFloat(coverElement.getAttribute('r') || '119.51') * 2).toString());
-        image.setAttribute('height', (parseFloat(coverElement.getAttribute('r') || '119.51') * 2).toString());
+        image.setAttribute(
+          'x',
+          (
+            parseFloat(coverElement.getAttribute('cx') || '146.79') -
+            parseFloat(coverElement.getAttribute('r') || '119.51')
+          ).toString()
+        );
+        image.setAttribute(
+          'y',
+          (
+            parseFloat(coverElement.getAttribute('cy') || '152.2') -
+            parseFloat(coverElement.getAttribute('r') || '119.51')
+          ).toString()
+        );
+        image.setAttribute(
+          'width',
+          (parseFloat(coverElement.getAttribute('r') || '119.51') * 2).toString()
+        );
+        image.setAttribute(
+          'height',
+          (parseFloat(coverElement.getAttribute('r') || '119.51') * 2).toString()
+        );
         image.setAttribute('preserveAspectRatio', 'xMidYMid slice');
         image.setAttribute('clip-path', 'url(#cover-clip)');
         console.log(image);
-        
+
         // Ajouter l'image après le cercle
         coverElement.parentNode?.insertBefore(image, coverElement.nextSibling);
-        
+
         // Cacher le cercle original pour ne voir que l'image
         coverElement.style.fill = 'none';
       }
@@ -260,21 +277,27 @@ const Stolify = () => {
     const titleElement = document.querySelector('.cls-6') as SVGRectElement;
     if (titleElement) {
       // Créer un élément text pour afficher le titre
-      const svgNS = "http://www.w3.org/2000/svg";
+      const svgNS = 'http://www.w3.org/2000/svg';
       let textElement = titleElement.parentNode?.querySelector('text[data-title]');
-      
+
       if (!textElement) {
         textElement = document.createElementNS(svgNS, 'text');
         textElement.setAttribute('data-title', 'true');
-        textElement.setAttribute('x', (parseFloat(titleElement.getAttribute('x') || '0') + 10).toString());
-        textElement.setAttribute('y', (parseFloat(titleElement.getAttribute('y') || '0') + 22).toString());
+        textElement.setAttribute(
+          'x',
+          (parseFloat(titleElement.getAttribute('x') || '0') + 10).toString()
+        );
+        textElement.setAttribute(
+          'y',
+          (parseFloat(titleElement.getAttribute('y') || '0') + 22).toString()
+        );
         textElement.setAttribute('fill', 'white');
         textElement.setAttribute('font-family', 'Arial, sans-serif');
         textElement.setAttribute('font-size', '16');
         textElement.setAttribute('font-weight', 'bold');
         titleElement.parentNode?.insertBefore(textElement, titleElement.nextSibling);
       }
-      
+
       textElement.textContent = tracks[currentTrackIndex].title;
     }
   };
@@ -292,13 +315,13 @@ const Stolify = () => {
     <div className="stolify-wrapper">
       {/* <div className="stolify-container" id="stolify"> */}
 
-        {/* Track title */}
-        {/* <div className="title-container">
+      {/* Track title */}
+      {/* <div className="title-container">
           <span className='title'>{tracks[currentTrackIndex].title}</span>
         </div> */}
 
-        {/* Track cover */}
-        {/* <div className='cover-container'>
+      {/* Track cover */}
+      {/* <div className='cover-container'>
           <img
             src={tracks[currentTrackIndex].cover}
             alt={`${tracks[currentTrackIndex].title} cover`}
@@ -306,7 +329,7 @@ const Stolify = () => {
           />
         </div> */}
 
-        {/* Audio controls - Ancienne UI (commentée) */}
+      {/* Audio controls - Ancienne UI (commentée) */}
       {/* <div className="stolify-controls">
         <img 
             src={previousBtn} 
@@ -346,6 +369,5 @@ const Stolify = () => {
     </div>
   );
 };
-
 
 export default Stolify;

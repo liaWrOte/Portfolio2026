@@ -1,21 +1,21 @@
 @use '../_vars' as *;
 
 .timeline {
-    display: flex;
-    margin-top: $small-gutter;
-    span {
-        width: 100%;
-        height: 5px;
-        background-color: $darkbrown;
-        &.active {
-            background-color: $darkgreen;
-        }
+  display: flex;
+  margin-top: $small-gutter;
+  span {
+    width: 100%;
+    height: 5px;
+    background-color: $darkbrown;
+    &.active {
+      background-color: $darkgreen;
     }
+  }
 }
 
 .timeline-text {
-    display: inline-block;
-    width: 100%;
-    text-align: center;
-    margin-top: calc($small-gutter / 3);
+  display: inline-block;
+  width: 100%;
+  text-align: center;
+  margin-top: calc($small-gutter / 3);
 }

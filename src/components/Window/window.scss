@@ -1,12 +1,15 @@
 @use '../assets/scss/vars' as *;
 
-
 .window-container {
   position: absolute;
   top: 0;
   transform: scale(0.1);
   opacity: 0;
-  transition: left 0.7s, top 0.7s, transform 0.7s, opacity 0.7s;
+  transition:
+    left 0.7s,
+    top 0.7s,
+    transform 0.7s,
+    opacity 0.7s;
 }
 .window {
   width: 750px;
@@ -19,7 +22,7 @@
   top: 0;
   overflow: hidden;
   resize: both;
-  
+
   // Style spécifique pour la fenêtre Stolify
   &.stolify-main-window {
     width: auto;
@@ -28,7 +31,7 @@
     min-height: 415.01px;
     resize: none;
   }
-  
+
   .window-item-container {
     width: 100%;
     display: flex;
@@ -36,7 +39,7 @@
     align-items: flex-start;
     height: -webkit-fill-available;
     font-family: monospace;
-    
+
     // Style spécifique pour Stolify
     &.stolify-window {
       padding: 0;
@@ -45,7 +48,7 @@
       height: fit-content; // Adapter la hauteur au contenu
       min-width: 359.6px; // Largeur minimale pour le SVG
       min-height: 415.01px; // Hauteur minimale pour le SVG
-      
+
       // Désactiver complètement les scrollbars
       &::-webkit-scrollbar {
         display: none;
@@ -55,7 +58,7 @@
         -ms-overflow-style: none; // IE/Edge
       }
     }
-    
+
     .sidebar-tree {
       width: 30%;
       height: 100%;
@@ -71,7 +74,7 @@
           padding-left: 1rem;
           display: flex;
           &:before {
-            content:"";
+            content: '';
             display: block;
             border-top: 1px solid $dark-brown;
           }
@@ -90,21 +93,21 @@
       overflow-y: auto;
       overflow-y: auto;
       height: -webkit-fill-available;
-      
+
       // Custom scrollbar styling
       &::-webkit-scrollbar {
         width: 8px;
       }
-      
+
       &::-webkit-scrollbar-track {
         background: #f1f1f1;
         border-radius: 4px;
       }
-      
+
       &::-webkit-scrollbar-thumb {
         background: #888;
         border-radius: 4px;
-        
+
         &:hover {
           background: #555;
         }
@@ -115,7 +118,9 @@
       display: inline;
       margin-right: $big-gutter;
     }
-    &>*, &div, p {
+    & > *,
+    &div,
+    p {
       font-family: monospace;
       color: $dark-brown;
     }

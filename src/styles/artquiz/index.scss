@@ -34,7 +34,7 @@ p {
   @include block;
   background-color: vars.$darkgreen;
   &:hover {
-    background-color: color.adjust(vars.$darkgreen, $lightness: -5%)
+    background-color: color.adjust(vars.$darkgreen, $lightness: -5%);
   }
 }
 
@@ -43,7 +43,7 @@ p {
   background-color: vars.$orange;
   padding: 0.7rem;
   &:hover {
-    background-color: color.adjust(vars.$orange, $lightness: -5%)
+    background-color: color.adjust(vars.$orange, $lightness: -5%);
   }
 }
 

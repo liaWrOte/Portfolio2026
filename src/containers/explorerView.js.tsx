@@ -1,10 +1,7 @@
 import { connect } from 'react-redux';
 import ExplorerView from '../components/ExplorerView/ExplorerView';
 
-import {
-  openFolder,
-  openProject,
-} from '../actions/main';
+import { openFolder, openProject } from '../actions/main';
 
 const mapStateToProps = (state) => ({
   view: state.main.window.view,
@@ -20,7 +17,4 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(ExplorerView);
+export default connect(mapStateToProps, mapDispatchToProps)(ExplorerView);

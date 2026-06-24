@@ -1,10 +1,7 @@
 import { connect } from 'react-redux';
 import SidebarTree from '../components/SidebarTree/SidebarTree';
 
-import {
-  openFolder,
-  openProject,
-} from '../actions/main';
+import { openFolder, openProject } from '../actions/main';
 
 const mapStateToProps = (state) => ({
   fileSystem: state.main.fileSystem,
@@ -20,7 +17,4 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
-export default connect(
-    mapStateToProps,
-    mapDispatchToProps
-)(SidebarTree);
+export default connect(mapStateToProps, mapDispatchToProps)(SidebarTree);

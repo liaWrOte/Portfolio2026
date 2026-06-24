@@ -1,13 +1,7 @@
 import { connect } from 'react-redux';
 import Window from '../components/Window/Window';
 
-import {
-  getAllProjects,
-  openWindow,
-  openWindowItem,
-  openFolder
-} from '../actions/main';
-
+import { getAllProjects, openWindow, openWindowItem, openFolder } from '../actions/main';
 
 const mapStateToProps = (state) => ({
   displayWindow: state.main.displayWindow,
@@ -44,7 +38,4 @@ const mapDispatchToProps = (dispatch) => ({
   }
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Window);
+export default connect(mapStateToProps, mapDispatchToProps)(Window);

@@ -14,9 +14,9 @@ interface ProjectCardProps {
 }
 
 // ImageZoomModal component
-const ImageZoomModal: React.FC<{ 
-  isOpen: boolean; 
-  onClose: () => void; 
+const ImageZoomModal: React.FC<{
+  isOpen: boolean;
+  onClose: () => void;
   images: any[];
   currentIndex: number;
   onIndexChange: (index: number) => void;
@@ -60,7 +60,7 @@ const ImageZoomModal: React.FC<{
   const currentImage = images[currentIndex];
 
   const portalContainer = document.querySelector('.App');
-  
+
   if (!portalContainer) {
     return null;
   }
@@ -68,8 +68,10 @@ const ImageZoomModal: React.FC<{
   return createPortal(
     <div className="image-zoom-modal" onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        <button className="modal-close" onClick={onClose}>×</button>
-        
+        <button className="modal-close" onClick={onClose}>
+          ×
+        </button>
+
         {/* Navigation buttons */}
         {images.length > 1 && (
           <>
@@ -81,20 +83,21 @@ const ImageZoomModal: React.FC<{
             </button>
           </>
         )}
-        
-        <img 
-          src={`${backendUrl}${currentImage.attributes.url}`} 
-          alt={currentImage.attributes.alternativeText || ''} 
+
+        <img
+          src={`${backendUrl}${currentImage.attributes.url}`}
+          alt={currentImage.attributes.alternativeText || ''}
           className="zoomed-image"
         />
         {currentImage.attributes.caption && (
-          <div className="zoom-caption"
-            dangerouslySetInnerHTML={{ 
+          <div
+            className="zoom-caption"
+            dangerouslySetInnerHTML={{
               __html: marked.parse(currentImage.attributes.caption) as string
             }}
           />
         )}
-        
+
         {/* Image counter */}
         {images.length > 1 && (
           <div className="zoom-counter">
@@ -140,14 +143,14 @@ const ImageSlider: React.FC<{ images: any[] }> = ({ images }) => {
     <>
       <div className="image-slider">
         <div className="slider-container">
-          <img 
-            src={`${backendUrl}${currentImage.attributes.url}`} 
-            alt={currentImage.attributes.alternativeText || ''} 
-            className="slider-image" 
+          <img
+            src={`${backendUrl}${currentImage.attributes.url}`}
+            alt={currentImage.attributes.alternativeText || ''}
+            className="slider-image"
             onClick={openZoom}
             style={{ cursor: 'pointer' }}
           />
-          
+
           {images.length > 1 && (
             <>
               <button className="slider-button prev" onClick={goToPrevious}>
@@ -159,16 +162,17 @@ const ImageSlider: React.FC<{ images: any[] }> = ({ images }) => {
             </>
           )}
         </div>
-        
+
         {/* Caption block */}
         {currentImage.attributes.caption && (
-          <div className="slider-caption"
-            dangerouslySetInnerHTML={{ 
+          <div
+            className="slider-caption"
+            dangerouslySetInnerHTML={{
               __html: marked.parse(currentImage.attributes.caption) as string
             }}
           />
         )}
-        
+
         {images.length > 1 && (
           <div className="slider-dots">
             {images.map((_, index) => (
@@ -194,26 +198,12 @@ const ImageSlider: React.FC<{ images: any[] }> = ({ images }) => {
   );
 };
 
-const ProjectCard: React.FC<ProjectCardProps> = ({ 
-  project, 
-  onClick,
-  isSelected = false 
-}) => {
+const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClick, isSelected = false }) => {
   const { t, getLocalizedContent, getLocalizedParagraph } = useTranslation();
-  
+
   // Le composant ne gère que les FileSystemNode
   const fsNode = project as FileSystemNode;
-  const {
-    id,
-    name,
-    techno,
-    role,
-    pitch,
-    link,
-    date,
-    type,
-    paragraph
-  } = fsNode;
+  const { id, name, techno, role, pitch, link, date, type, paragraph } = fsNode;
 
   // Fonction pour obtenir le contenu localisé avec contexte parent
   const getLocalizedContentWithContext = (content: any, field: string, parentContext?: any) => {
@@ -222,7 +212,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
     if (result && result !== content[field]) {
       return result;
     }
-    
+
     // Si ça ne marche pas et qu'on a un contexte parent (pour les paragraphes)
     if (parentContext && result === content[field]) {
       const parentResult = getLocalizedContent(parentContext, field);
@@ -230,7 +220,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         return parentResult;
       }
     }
-    
+
     return content[field] || '';
   };
 
@@ -248,19 +238,15 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
   };
 
   // Ensure techno is an array
-  const technologies = Array.isArray(techno) ? techno : 
-                   (typeof techno === 'string' ? [techno] : []);
+  const technologies = Array.isArray(techno) ? techno : typeof techno === 'string' ? [techno] : [];
 
   return (
-    <div 
-      className={`project-card ${isSelected ? 'selected' : ''}`}
-      onClick={() => onClick(id)}
-    >
+    <div className={`project-card ${isSelected ? 'selected' : ''}`} onClick={() => onClick(id)}>
       {/* Project link button */}
       {link && (
-        <a 
-          href={link} 
-          target="_blank" 
+        <a
+          href={link}
+          target="_blank"
           rel="noopener noreferrer"
           className="project-link-button"
           onClick={(e) => e.stopPropagation()}
@@ -287,20 +273,22 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
             <span className="info-value">{date}</span>
           </div>
         )}
-        
+
         {role && (
           <div className="info-item">
             <span className="info-label">{t('role')}</span>
             <span className="info-value">{getLocalizedContent(fsNode, 'role')}</span>
           </div>
         )}
-        
+
         {technologies && technologies.length > 0 && (
           <div className="info-item">
             <span className="info-label">{t('technologies')}</span>
             <div className="techno-list">
               {(technologies as string[]).map((tech: string, index: number) => (
-                <span key={index} className="techno-item">{tech}</span>
+                <span key={index} className="techno-item">
+                  {tech}
+                </span>
               ))}
             </div>
           </div>
@@ -314,7 +302,11 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
             console.log(`🔍 Paragraph ${index} localizations:`, para.localizations);
             return (
               <div key={index} className="paragraph-item">
-                {para.Title && <h2 className="paragraph-title">{getLocalizedParagraph(para, 'Title', fsNode)}</h2>}
+                {para.Title && (
+                  <h2 className="paragraph-title">
+                    {getLocalizedParagraph(para, 'Title', fsNode)}
+                  </h2>
+                )}
                 {para.Description && (
                   <div className="paragraph-description">
                     {parseContent(getLocalizedParagraph(para, 'Description', fsNode))}
@@ -324,13 +316,12 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
                   <div className="paragraph-images">
                     <ImageSlider images={para.Image.data} />
                   </div>
-                 )}
+                )}
               </div>
             );
           })}
         </div>
       )}
-
     </div>
   );
 };

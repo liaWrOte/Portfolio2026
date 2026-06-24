@@ -11,15 +11,14 @@ import fileIcon from '../assets/img/icons/file_icon.svg';
 import emailIcon from '../assets/img/icons/email_icon.svg';
 
 const TaskBar = ({ openWindows, onWindowClick, onCloseWindow }) => {
-
   // Ne pas afficher la TaskBar si aucune fenêtre n'est ouverte
   if (!openWindows || openWindows.length === 0) {
     return null;
   }
 
   // Filtrer artquiz et stolify car ils sont déjà dans DesktopBottomBar
-  const filteredWindows = openWindows.filter(windowId =>
-    windowId !== 'artquiz' && windowId !== 'stolify'
+  const filteredWindows = openWindows.filter(
+    (windowId) => windowId !== 'artquiz' && windowId !== 'stolify'
   );
 
   // Ne pas afficher la TaskBar si aucune fenêtre restante après filtrage
@@ -65,11 +64,7 @@ const TaskBar = ({ openWindows, onWindowClick, onCloseWindow }) => {
   return (
     <div className="task-bar">
       {filteredWindows.map((windowId) => (
-        <div
-          key={windowId}
-          className="task-bar-item"
-          onClick={() => onWindowClick(windowId)}
-        >
+        <div key={windowId} className="task-bar-item" onClick={() => onWindowClick(windowId)}>
           <img
             src={getIconForWindow(windowId)}
             alt={`${getLabelForWindow(windowId)} icon`}
@@ -89,13 +84,12 @@ const TaskBar = ({ openWindows, onWindowClick, onCloseWindow }) => {
       ))}
     </div>
   );
-
 };
 
 TaskBar.propTypes = {
   openWindows: PropTypes.array.isRequired,
   onWindowClick: PropTypes.func.isRequired,
-  onCloseWindow: PropTypes.func.isRequired,
+  onCloseWindow: PropTypes.func.isRequired
 };
 
 export default TaskBar;

@@ -42,15 +42,15 @@
     color: $dark-brown;
     display: flex;
     align-items: center;
-    
+
     span {
       white-space: nowrap;
     }
   }
   .window-header-nav {
     .nav {
-        padding: 6px 14px;
-        outline: 1px solid $dark-brown;
+      padding: 6px 14px;
+      outline: 1px solid $dark-brown;
     }
   }
 }

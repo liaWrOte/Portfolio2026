@@ -8,12 +8,12 @@ export function buildFileSystemFromProjects(projects: Project[]): FileSystemNode
     type: 'folder',
     children: []
   };
-  
+
   const foldersMap: Record<string, FileSystemNode> = {};
-  
+
   projects.forEach((project: Project) => {
     const category = project.attributes.type || 'Autres';
-    
+
     if (!foldersMap[category]) {
       foldersMap[category] = {
         id: category,
@@ -23,7 +23,7 @@ export function buildFileSystemFromProjects(projects: Project[]): FileSystemNode
       };
       root.children!.push(foldersMap[category]);
     }
-    
+
     foldersMap[category].children!.push({
       id: project.id,
       name: project.attributes.title,
@@ -39,7 +39,7 @@ export function buildFileSystemFromProjects(projects: Project[]): FileSystemNode
       paragraph: project.attributes.paragraph,
       // Ajouter les localizations de Strapi
       locale: project.attributes.locale,
-      localizations: project.attributes.localizations,
+      localizations: project.attributes.localizations
     });
   });
 

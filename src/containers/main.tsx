@@ -13,10 +13,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-   fetchProjects: () => dispatch(fetchProjects())
+  fetchProjects: () => dispatch(fetchProjects())
 });
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(Main);
+export default connect(mapStateToProps, mapDispatchToProps)(Main);

@@ -9,10 +9,10 @@ interface ProjectGridProps {
   selectedProjectId?: string | null;
 }
 
-const ProjectGrid: React.FC<ProjectGridProps> = ({ 
-  projects, 
+const ProjectGrid: React.FC<ProjectGridProps> = ({
+  projects,
   onProjectClick,
-  selectedProjectId = null 
+  selectedProjectId = null
 }) => {
   if (!projects || projects.length === 0) {
     return (
