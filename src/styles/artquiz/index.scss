@@ -1,3 +1,4 @@
+@use 'sass:color';
 @use 'reset';
 @use 'vars';
 
@@ -33,7 +34,7 @@ p {
   @include block;
   background-color: vars.$darkgreen;
   &:hover {
-    background-color: darken($color: vars.$darkgreen, $amount: 5)
+    background-color: color.adjust(vars.$darkgreen, $lightness: -5%)
   }
 }
 
@@ -42,7 +43,7 @@ p {
   background-color: vars.$orange;
   padding: 0.7rem;
   &:hover {
-    background-color: darken($color: vars.$orange, $amount: 5)
+    background-color: color.adjust(vars.$orange, $lightness: -5%)
   }
 }
 
