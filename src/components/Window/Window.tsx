@@ -133,6 +133,7 @@ const Window: React.FC<WindowProps> = ({
   const [zIndexes, setZIndexes] = useState<Record<string, number>>({});
 
   const bringToFront = (windowId: string) => {
+    if (zIndexes[windowId] === zIndexCounterRef.current) return;
     zIndexCounterRef.current += 1;
     setZIndexes((prev) => ({ ...prev, [windowId]: zIndexCounterRef.current }));
   };
@@ -240,8 +241,8 @@ const Window: React.FC<WindowProps> = ({
         <Draggable
           bounds={'.desktop'}
           handle={'.window-header-container'}
-          onDrag={() => handleZIndex('projets')}
-          key={Math.random()}
+          onStart={() => handleZIndex('projets')}
+          key={'projets'}
           defaultPosition={projetsPos}
           nodeRef={boxRef}
         >
@@ -300,13 +301,13 @@ const Window: React.FC<WindowProps> = ({
       {shouldDisplayWindow('resume') &&
         <Draggable
           bounds={'.App'}
-          onDrag={() => handleZIndex('resume')}
+          onStart={() => handleZIndex('resume')}
           handle={'.window-header-container'}
           defaultPosition={resumePos}
         >
           <div
             className={`window level-class-third`}
-            key={Math.random()}
+            key={'resume'}
             onClick={() => handleZIndex('resume')}
             style={{ zIndex: getZIndex('resume') }}
           >
@@ -329,13 +330,13 @@ const Window: React.FC<WindowProps> = ({
       {shouldDisplayWindow('contact_me') &&
         <Draggable
           bounds={'.App'}
-          onDrag={() => handleZIndex('contact_me')}
+          onStart={() => handleZIndex('contact_me')}
           handle={'.window-header-container'}
           defaultPosition={contactPos}
         >
           <div
             className={`window level-class-fourth`}
-            key={Math.random()}
+            key={'contact_me'}
             onClick={() => handleZIndex('contact_me')}
             style={{ zIndex: getZIndex('contact_me') }}
           >
@@ -366,13 +367,13 @@ const Window: React.FC<WindowProps> = ({
       {shouldDisplayWindow('stolify') &&
         <Draggable
           bounds={'.App'}
-          onDrag={() => handleZIndex('stolify')}
+          onStart={() => handleZIndex('stolify')}
           handle={'.window-header-container'}
           defaultPosition={stolifyPos}
         >
           <div
             className={`window level-class-fourth stolify-main-window`}
-            key={Math.random()}
+            key={'stolify'}
             onClick={() => handleZIndex('stolify')}
             style={{ zIndex: getZIndex('stolify') }}
           >
@@ -397,14 +398,14 @@ const Window: React.FC<WindowProps> = ({
       {shouldDisplayWindow('artquiz') &&
         <Draggable
           bounds={'.App'}
-          onDrag={() => handleZIndex('artquiz')}
+          onStart={() => handleZIndex('artquiz')}
           handle={'.window-header-container'}
           defaultPosition={artquizPos}
         >
           <div
             className={`window level-class-fourth artquiz-main-window`}
             style={{ width: '450px', height: '750px', zIndex: getZIndex('artquiz') }}
-            key={Math.random()}
+            key={'artquiz'}
             onClick={() => handleZIndex('artquiz')}
           >
             <WindowHeader
