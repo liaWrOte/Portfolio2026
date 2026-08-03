@@ -3,9 +3,9 @@ import gsap from 'gsap';
 import './contact-me.scss';
 
 const CONTACTS = [
-  { num: '01', label: 'EMAIL', value: 'sandrine@example.com', href: 'mailto:sandrine@example.com' },
-  { num: '02', label: 'LINKEDIN', value: '/in/sandrine-mze', href: 'https://linkedin.com/in/sandrine-mze' },
-  { num: '03', label: 'GITHUB', value: 'github.com/sandrine', href: 'https://github.com/sandrine' }
+  { num: '01', label: 'EMAIL', value: 'sandrinemze@gmail.com', href: 'mailto:sandrinemze@gmail.com' },
+  { num: '02', label: 'LINKEDIN', value: '/in/sandrine-mze', href: 'https://www.linkedin.com/in/sandrinemze/' },
+  { num: '03', label: 'GITHUB', value: 'github.com/liaWrOte', href: 'https://github.com/liaWrOte' }
 ];
 
 const ContactMe: React.FC = () => {
@@ -42,7 +42,7 @@ const ContactMe: React.FC = () => {
       <section className="cm-card cm-in">
         <div className="cm-card-inner">
           <h1 className="cm-name">SANDRINE M'ZE</h1>
-          <p className="cm-role">DÉVELOPPEUSE WEB &amp; CRÉATRICE UI/UX</p>
+          <p className="cm-role">DÉVELOPPEUSE WEB &amp; CREATIVE</p>
           <div className="cm-traffic-lights">
             <span className="cm-light cm-red" />
             <span className="cm-light cm-yellow" />
@@ -71,7 +71,7 @@ const ContactMe: React.FC = () => {
       <footer className="cm-footer cm-in">
         <div className="cm-available">
           <span className="cm-pulse" />
-          <span>DISPONIBLE POUR MISSIONS FREELANCE</span>
+          <span>A LA RECHERCHE DE NOUVEAUX DEFIS</span>
           <span className="cm-pulse" />
         </div>
         <p className="cm-copyright">
