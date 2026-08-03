@@ -110,90 +110,44 @@ const ImageZoomModal: React.FC<{
   );
 };
 
-// ImageSlider component
-const ImageSlider: React.FC<{ images: any[] }> = ({ images }) => {
-  const [currentIndex, setCurrentIndex] = useState(0);
-  const [isZoomOpen, setIsZoomOpen] = useState(false);
-
-  const goToPrevious = () => {
-    const isFirstSlide = currentIndex === 0;
-    const newIndex = isFirstSlide ? images.length - 1 : currentIndex - 1;
-    setCurrentIndex(newIndex);
-  };
-
-  const goToNext = () => {
-    const isLastSlide = currentIndex === images.length - 1;
-    const newIndex = isLastSlide ? 0 : currentIndex + 1;
-    setCurrentIndex(newIndex);
-  };
-
-  const openZoom = () => {
-    setIsZoomOpen(true);
-  };
-
-  const closeZoom = () => {
-    setIsZoomOpen(false);
-  };
+// ImageGallery component
+const ImageGallery: React.FC<{ images: any[] }> = ({ images }) => {
+  const [zoomIndex, setZoomIndex] = useState<number | null>(null);
 
   if (images.length === 0) return null;
 
-  const currentImage = images[currentIndex];
-
   return (
     <>
-      <div className="image-slider">
-        <div className="slider-container">
-          <img
-            src={`${backendUrl}${currentImage.attributes.url}`}
-            alt={currentImage.attributes.alternativeText || ''}
-            className="slider-image"
-            onClick={openZoom}
-            style={{ cursor: 'pointer' }}
-          />
-
-          {images.length > 1 && (
-            <>
-              <button className="slider-button prev" onClick={goToPrevious}>
-                ‹
-              </button>
-              <button className="slider-button next" onClick={goToNext}>
-                ›
-              </button>
-            </>
-          )}
-        </div>
-
-        {/* Caption block */}
-        {currentImage.attributes.caption && (
-          <div
-            className="slider-caption"
-            dangerouslySetInnerHTML={{
-              __html: marked.parse(currentImage.attributes.caption) as string
-            }}
-          />
-        )}
-
-        {images.length > 1 && (
-          <div className="slider-dots">
-            {images.map((_, index) => (
-              <button
-                key={index}
-                className={`dot ${index === currentIndex ? 'active' : ''}`}
-                onClick={() => setCurrentIndex(index)}
+      <div className="image-gallery">
+        {images.map((image, index) => (
+          <figure key={index} className="gallery-figure">
+            <img
+              src={`${backendUrl}${image.attributes.url}`}
+              alt={image.attributes.alternativeText || ''}
+              className="gallery-image"
+              onClick={() => setZoomIndex(index)}
+            />
+            {image.attributes.caption && (
+              <figcaption
+                className="gallery-caption"
+                dangerouslySetInnerHTML={{
+                  __html: marked.parse(image.attributes.caption) as string
+                }}
               />
-            ))}
-          </div>
-        )}
+            )}
+          </figure>
+        ))}
       </div>
 
-      {/* Zoom Modal */}
-      <ImageZoomModal
-        isOpen={isZoomOpen}
-        onClose={closeZoom}
-        images={images}
-        currentIndex={currentIndex}
-        onIndexChange={setCurrentIndex}
-      />
+      {zoomIndex !== null && (
+        <ImageZoomModal
+          isOpen={true}
+          onClose={() => setZoomIndex(null)}
+          images={images}
+          currentIndex={zoomIndex}
+          onIndexChange={setZoomIndex}
+        />
+      )}
     </>
   );
 };
@@ -242,57 +196,59 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClick, isSelected 
 
   return (
     <div className={`project-card ${isSelected ? 'selected' : ''}`} onClick={() => onClick(id)}>
-      {/* Project link button */}
-      {link && (
-        <a
-          href={link}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="project-link-button"
-          onClick={(e) => e.stopPropagation()}
-        >
-          {t('see_project')}
-        </a>
-      )}
+      <div className="project-header-card">
+        {/* Project link button */}
+        {link && (
+          <a
+            href={link}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="project-link-button"
+            onClick={(e) => e.stopPropagation()}
+          >
+            {t('see_project')}
+          </a>
+        )}
 
-      {/* Project title */}
-      <h1 className="project-title">{getLocalizedContent(fsNode, 'name')}</h1>
+        {/* Project title */}
+        <h1 className="project-title">{getLocalizedContent(fsNode, 'name')}</h1>
 
-      {/* Project description */}
-      {pitch && (
-        <div className="project-description">
-          {parseContent(getLocalizedContent(fsNode, 'pitch'))}
-        </div>
-      )}
-
-      {/* Project info block */}
-      <div className="project-info-block">
-        {date && (
-          <div className="info-item">
-            <span className="info-label">{t('date')} </span>
-            <span className="info-value">{date}</span>
+        {/* Project description */}
+        {pitch && (
+          <div className="project-description">
+            {parseContent(getLocalizedContent(fsNode, 'pitch'))}
           </div>
         )}
 
-        {role && (
-          <div className="info-item">
-            <span className="info-label">{t('role')}</span>
-            <span className="info-value">{getLocalizedContent(fsNode, 'role')}</span>
-          </div>
-        )}
-
-        {technologies && technologies.length > 0 && (
-          <div className="info-item">
-            <span className="info-label">{t('technologies')}</span>
-            <div className="techno-list">
-              {(technologies as string[]).map((tech: string, index: number) => (
-                <span key={index} className="techno-item">
-                  {tech}
-                </span>
-              ))}
+        {/* Project info block */}
+        <div className="project-info-block">
+          {date && (
+            <div className="info-item">
+              <span className="info-label">{t('date')} </span>
+              <span className="info-value">{date}</span>
             </div>
-          </div>
-        )}
+          )}
+
+          {role && (
+            <div className="info-item">
+              <span className="info-label">{t('role')}</span>
+              <span className="info-value">{getLocalizedContent(fsNode, 'role')}</span>
+            </div>
+          )}
+
+          {technologies && technologies.length > 0 && (
+            <div className="info-item">
+              <span className="info-label">{t('technologies')}</span>
+              <div className="techno-list">
+                {(technologies as string[]).map((tech: string, index: number) => (
+                  <span key={index} className="techno-item">
+                    {tech}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+        </div>
       </div>
       {/* Paragraphs */}
       {paragraph && paragraph.length > 0 && (
@@ -314,7 +270,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClick, isSelected 
                 )}
                 {para.Image && para.Image.data.length > 0 && (
                   <div className="paragraph-images">
-                    <ImageSlider images={para.Image.data} />
+                    <ImageGallery images={para.Image.data} />
                   </div>
                 )}
               </div>

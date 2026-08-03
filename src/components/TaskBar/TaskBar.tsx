@@ -64,22 +64,13 @@ const TaskBar = ({ openWindows, onWindowClick, onCloseWindow }) => {
   return (
     <div className="task-bar">
       {filteredWindows.map((windowId) => (
-        <div key={windowId} className="task-bar-item" onClick={() => onWindowClick(windowId)}>
+        <div key={windowId} className="task-bar-item" data-taskbar-id={windowId} onClick={() => onWindowClick(windowId)}>
           <img
             src={getIconForWindow(windowId)}
             alt={`${getLabelForWindow(windowId)} icon`}
             className="task-bar-icon"
           />
           <span className="task-bar-label">{getLabelForWindow(windowId)}</span>
-          <button
-            className="task-bar-close"
-            onClick={(e) => {
-              e.stopPropagation();
-              onCloseWindow(windowId);
-            }}
-          >
-            ✕
-          </button>
         </div>
       ))}
     </div>

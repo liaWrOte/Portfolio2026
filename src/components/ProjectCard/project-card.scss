@@ -1,84 +1,38 @@
+@use '../assets/scss/vars' as *;
+
 /* Styles supprimés - le composant ProjectCard ne ressemblera plus à une card */
 
-/* Image Slider Styles */
-.image-slider {
+/* Image Gallery Styles */
+.image-gallery {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 32px;
   margin: 16px 0;
-  border-radius: 8px;
-  overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
-.slider-container {
-  position: relative;
+.gallery-figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
-  height: 300px;
-  background: #f5f5f5;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  margin: 0;
 }
 
-.slider-image {
+.gallery-image {
   max-width: 100%;
-  max-height: 100%;
-  object-fit: contain;
-  border-radius: 8px;
-}
-
-.slider-button {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background: rgba(0, 0, 0, 0.5);
-  color: white;
-  border: none;
-  border-radius: 50%;
-  width: 40px;
-  height: 40px;
-  font-size: 20px;
+  height: auto;
   cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background-color 0.3s ease;
-  z-index: 10;
-
-  &:hover {
-    background: rgba(0, 0, 0, 0.7);
-  }
-
-  &.prev {
-    left: 10px;
-  }
-
-  &.next {
-    right: 10px;
-  }
 }
 
-.slider-dots {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  padding: 12px 0;
-  background: #f9f9f9;
-}
+.gallery-caption {
+  margin-top: 8px;
+  text-align: center;
+  font-size: 0.85rem;
+  line-height: 1.5;
 
-.dot {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  border: none;
-  background: #ccc;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-
-  &.active {
-    background: #007bff;
-  }
-
-  &:hover {
-    background: #0056b3;
+  p {
+    margin: 0;
   }
 }
 
@@ -87,11 +41,64 @@
   position: relative;
 }
 
+/* Header card — same visual as cm-card-inner */
+.project-header-card {
+  position: relative;
+  border: 2px solid $dark-brown;
+  padding: 1.4rem 1.8rem;
+  box-shadow: 6px 6px 0 $orange, 6px 6px 0 2px $dark-brown;
+  margin-bottom: 2rem;
+
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: $dark-brown;
+  }
+
+  &::before {
+    top: -5px;
+    left: -5px;
+  }
+
+  &::after {
+    bottom: -5px;
+    right: -5px;
+  }
+}
+
 /* Project link button */
 .project-link-button {
   position: absolute;
   top: 16px;
   right: 16px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.4rem 0.6rem;
+  text-decoration: none;
+  color: $dark-brown;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  transition: color 0.15s, gap 0.2s;
+
+  &::after {
+    content: '→';
+    font-size: 1rem;
+    transition: transform 0.15s, color 0.15s;
+  }
+
+  &:hover {
+    color: $red;
+
+    &::after {
+      transform: translateX(5px);
+      color: $orange;
+    }
+  }
 }
 
 /* Markdown content styles */
@@ -222,84 +229,14 @@
   }
 }
 
-/* Slider caption styles */
-.slider-caption {
-  margin-top: 12px;
-  padding: 8px;
-  background: #f9f9f9;
-  border-radius: 4px;
-  font-size: 14px;
-  line-height: 1.4;
-
-  // Markdown styles
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    margin: 8px 0;
-    font-weight: bold;
-    color: #333;
-  }
-
-  h1 {
-    font-size: 1.4em;
-  }
-  h2 {
-    font-size: 1.2em;
-  }
-  h3 {
-    font-size: 1.1em;
-  }
-
-  p {
-    margin: 4px 0;
-    color: #666;
-  }
-
-  ul,
-  ol {
-    margin: 8px 0;
-    padding-left: 20px;
-    color: #666;
-  }
-
-  li {
-    margin: 2px 0;
-  }
-
-  strong,
-  b {
-    font-weight: bold;
-    color: #333;
-  }
-
-  em,
-  i {
-    font-style: italic;
-    color: #666;
-  }
-
-  code {
-    background: #e8e8e8;
-    padding: 2px 4px;
-    border-radius: 3px;
-    font-family: monospace;
-    color: #333;
-  }
-
-  blockquote {
-    border-left: 3px solid #ddd;
-    padding-left: 12px;
-    margin: 8px 0;
-    font-style: italic;
-    color: #666;
-  }
+.project-paragraph {
+  padding-top: 2rem;
 }
+
 
 .paragraph-images {
   margin: 16px 0;
+  padding-top: 2rem;
 }
 
 /* Image Zoom Modal Styles */

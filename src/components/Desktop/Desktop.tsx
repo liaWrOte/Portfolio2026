@@ -1,5 +1,6 @@
 import React, { useEffect, useRef } from 'react';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { minimizeWindow } from '../../actions/main';
 import gsap from 'gsap';
 // Import styles
 import './desktop.scss';
@@ -16,6 +17,7 @@ import { getWindowTargetPosition } from '../../utils/windowPosition';
 
 export const Desktop = ({ displayWindowItem, displayImageItem, displayWindow, ...props }) => {
   const { t } = useTranslation();
+  const dispatch = useDispatch();
 
   // windowItemId est mis à jour par OPEN_WINDOW à chaque clic sur n'importe
   // quel item (projets, resume, contact_me, stolify, artquiz...), donc il
@@ -88,6 +90,54 @@ export const Desktop = ({ displayWindowItem, displayImageItem, displayWindow, ..
       ease: 'power2.out'
     });
   }, [iconPosition, windowItemId, openWindows]);
+
+  // Animate fantom from window → taskbar item, then actually minimize
+  useEffect(() => {
+    const handleMinimize = (e: Event) => {
+      const { windowId } = (e as CustomEvent).detail;
+      const el = fantomRef.current;
+      if (!el) {
+        dispatch(minimizeWindow(windowId));
+        return;
+      }
+
+      const windowEl = document.querySelector<HTMLElement>(`[data-window-id="${windowId}"]`);
+      const taskbarEl = document.querySelector<HTMLElement>(`[data-taskbar-id="${windowId}"]`);
+
+      const winRect = windowEl?.getBoundingClientRect();
+      const taskRect = taskbarEl?.getBoundingClientRect();
+
+      // Start at center of the window (or middle of screen as fallback)
+      const startCX = winRect ? winRect.left + winRect.width / 2 : window.innerWidth / 2;
+      const startCY = winRect ? winRect.top + winRect.height / 2 : window.innerHeight / 2;
+
+      // Target: center of the taskbar item (or bottom center as fallback)
+      const endCX = taskRect ? taskRect.left + taskRect.width / 2 : window.innerWidth / 2;
+      const endCY = taskRect ? taskRect.top + taskRect.height / 2 : window.innerHeight - 40;
+
+      gsap.set(el, {
+        left: startCX - 50,
+        top: startCY - 50,
+        x: 0,
+        y: 0,
+        opacity: 1,
+        scale: 1
+      });
+
+      gsap.to(el, {
+        x: endCX - startCX,
+        y: endCY - startCY,
+        scale: 0.2,
+        opacity: 0,
+        duration: 0.45,
+        ease: 'power2.in',
+        onComplete: () => dispatch(minimizeWindow(windowId))
+      });
+    };
+
+    document.addEventListener('window-minimize', handleMinimize);
+    return () => document.removeEventListener('window-minimize', handleMinimize);
+  }, [dispatch]);
 
   return (
     <div className="desktop">

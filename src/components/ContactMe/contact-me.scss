@@ -1,0 +1,263 @@
+@use '../assets/scss/vars' as *;
+
+.contact-me {
+  flex: 1;
+  min-height: 0;
+  padding: 1.8rem 2.2rem 1.8rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.6rem;
+  font-family: 'Space Mono', monospace;
+  background-color: $cray;
+  overflow-y: auto;
+  position: relative;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 4px;
+
+    &:hover {
+      background: #555;
+    }
+  }
+}
+
+// ─── CRT scanlines ───────────────────────────────────────────────
+.cm-scanlines {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    to bottom,
+    transparent 0px,
+    transparent 3px,
+    rgba(0, 0, 0, 0.025) 3px,
+    rgba(0, 0, 0, 0.025) 4px
+  );
+  pointer-events: none;
+  z-index: 100;
+}
+
+// ─── Terminal prompt ─────────────────────────────────────────────
+.cm-prompt-line {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.cm-prompt-text {
+  font-size: 0.68rem;
+  color: $dark-brown;
+  opacity: 0.45;
+  letter-spacing: 0.05em;
+}
+
+.cm-cursor {
+  font-size: 0.75rem;
+  color: $orange;
+  line-height: 1;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+// ─── Welcome banner ──────────────────────────────────────────────
+.cm-banner {
+  display: flex;
+  flex-direction: column;
+  font-size: 0.72rem;
+  color: $dark-brown;
+  letter-spacing: 0.04em;
+  line-height: 1.55;
+  opacity: 0.55;
+  user-select: none;
+}
+
+// ─── Identity card ────────────────────────────────────────────────
+.cm-card-inner {
+  border: 2px solid $dark-brown;
+  padding: 1.4rem 1.8rem 1.2rem;
+  position: relative;
+  background: $cray;
+  box-shadow: 6px 6px 0 $orange, 6px 6px 0 2px $dark-brown;
+
+  // Pixel squares at corners
+  &::before,
+  &::after {
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 8px;
+    background: $dark-brown;
+  }
+
+  &::before {
+    top: -5px;
+    left: -5px;
+  }
+
+  &::after {
+    bottom: -5px;
+    right: -5px;
+  }
+}
+
+.cm-name {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 1.55rem;
+  font-weight: 700;
+  color: $dark-brown;
+  letter-spacing: 0.04em;
+  margin: 0;
+  line-height: 1.1;
+}
+
+.cm-role {
+  font-size: 0.72rem;
+  color: $orange;
+  letter-spacing: 0.12em;
+  margin-top: 0.45rem;
+  margin-bottom: 0;
+}
+
+.cm-traffic-lights {
+  display: flex;
+  gap: 6px;
+  margin-top: 1rem;
+}
+
+.cm-light {
+  display: block;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  border: 1.5px solid $dark-brown;
+
+  &.cm-red    { background: $red; }
+  &.cm-yellow { background: $yellow; }
+  &.cm-green  { background: $green; }
+}
+
+// ─── Contact links ────────────────────────────────────────────────
+.cm-links {
+  list-style: none;
+  border-top: 1px solid rgba($dark-brown, 0.25);
+  border-bottom: 1px solid rgba($dark-brown, 0.25);
+}
+
+.cm-link-row {
+  border-bottom: 1px solid rgba($dark-brown, 0.1);
+
+  &:last-child { border-bottom: none; }
+
+  &:hover .cm-link {
+    background: rgba($dark-brown, 0.04);
+    padding-left: 1rem;
+
+    .cm-label { color: $red; }
+    .cm-arrow { transform: translateX(5px); color: $orange; }
+    .cm-num   { opacity: 1; }
+  }
+}
+
+.cm-link {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  padding: 0.85rem 0.5rem;
+  text-decoration: none;
+  color: $dark-brown;
+  transition: background 0.15s, padding-left 0.2s;
+}
+
+.cm-num {
+  font-size: 0.62rem;
+  color: $orange;
+  opacity: 0.6;
+  min-width: 1.4rem;
+  transition: opacity 0.15s;
+}
+
+.cm-sep {
+  font-size: 0.8rem;
+  opacity: 0.2;
+}
+
+.cm-label {
+  font-weight: 700;
+  font-size: 0.78rem;
+  letter-spacing: 0.1em;
+  min-width: 5.5rem;
+  transition: color 0.15s;
+}
+
+.cm-fill {
+  flex: 1;
+  border-bottom: 1px dotted rgba($dark-brown, 0.2);
+  margin-bottom: 3px;
+}
+
+.cm-value {
+  font-size: 0.7rem;
+  color: $light-brown;
+  opacity: 0.75;
+}
+
+.cm-arrow {
+  font-size: 1.1rem;
+  transition: transform 0.15s, color 0.15s;
+  color: $dark-brown;
+}
+
+// ─── Footer ───────────────────────────────────────────────────────
+.cm-footer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: auto;
+}
+
+.cm-available {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: $green;
+
+  &::before { content: '░░'; opacity: 0.45; }
+  &::after  { content: '░░'; opacity: 0.45; }
+}
+
+.cm-pulse {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  background: $green;
+  border-radius: 50%;
+  animation: pulse 2.2s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1;   transform: scale(1); }
+  50%       { opacity: 0.2; transform: scale(0.65); }
+}
+
+.cm-copyright {
+  font-size: 0.58rem;
+  opacity: 0.3;
+  letter-spacing: 0.08em;
+  margin: 0;
+}

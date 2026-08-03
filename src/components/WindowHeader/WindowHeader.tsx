@@ -65,7 +65,16 @@ export const WindowHeader: React.FC<WindowHeaderProps> = ({
           )}
         </div>
         <div className="toggle-window-container">
-          <span className="toggle-window yellow" onClick={() => minify(!isMinified)}></span>
+          <span
+            className="toggle-window yellow"
+            onClick={() => {
+              if (itemId) {
+                document.dispatchEvent(
+                  new CustomEvent('window-minimize', { detail: { windowId: itemId } })
+                );
+              }
+            }}
+          ></span>
           {itemId !== undefined && (
             <span
               className="toggle-window green"

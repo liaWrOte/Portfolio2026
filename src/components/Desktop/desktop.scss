@@ -49,12 +49,37 @@
     padding: 1em;
     position: relative;
     z-index: 1;
+
+    &.on-desktop {
+      width: 130px;
+
+      span {
+        width: 100%;
+        word-break: break-word;
+      }
+    }
   }
 }
 
 .fantom {
   width: 100px;
-  height: 100px;
-  background-color: $dark-brown;
+  height: 70px;
+  background-color: $cray;
+  border: 2px solid $dark-brown;
+  box-shadow: -4px 4px 0 $orange;
   z-index: 10;
+  overflow: hidden;
+  position: relative;
+
+  &::before {
+    content: '';
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 22px;
+    background-color: $yellow;
+    border-bottom: 2px solid $dark-brown;
+  }
 }

@@ -26,6 +26,7 @@ import ProjectView from '../ProjectView/ProjectView';
 import IconGrid from '../../containers/iconGrid';
 import Stolify from '../Stolify/Stolify';
 import ArtQuizApp from '../ArtQuiz/App';
+import ContactMe from '../ContactMe/ContactMe';
 
 interface WindowProps {
   displayWindow: boolean;
@@ -216,6 +217,7 @@ const Window: React.FC<WindowProps> = ({
             className={`window ${isMinified ? 'minified' : ''}`}
             onClick={() => handleZIndex('projets')}
             style={{ zIndex: getZIndex('projets') }}
+            data-window-id="projets"
             origin={position}
             ref={boxRef}
           >
@@ -270,6 +272,7 @@ const Window: React.FC<WindowProps> = ({
             key={'resume'}
             onClick={() => handleZIndex('resume')}
             style={{ zIndex: getZIndex('resume') }}
+            data-window-id="resume"
           >
             <WindowHeader
               label={getWindowLabel('resume')}
@@ -306,6 +309,7 @@ const Window: React.FC<WindowProps> = ({
             key={'contact_me'}
             onClick={() => handleZIndex('contact_me')}
             style={{ zIndex: getZIndex('contact_me') }}
+            data-window-id="contact_me"
           >
             <WindowHeader
               label={getWindowLabel('contact_me')}
@@ -317,15 +321,7 @@ const Window: React.FC<WindowProps> = ({
               openFolder={openFolder}
               useOnlyLabel={true}
             />
-            <div style={{ padding: '20px', height: 'calc(100% - 40px)', overflow: 'auto' }}>
-              <h2>Contactez-moi</h2>
-              <p>Vous pouvez me contacter via :</p>
-              <ul>
-                <li>Email : sandrine@example.com</li>
-                <li>LinkedIn : linkedin.com/in/sandrine-mze</li>
-                <li>GitHub : github.com/sandrine</li>
-              </ul>
-            </div>
+            <ContactMe />
           </div>
         </Draggable>
       )}
@@ -343,6 +339,7 @@ const Window: React.FC<WindowProps> = ({
             key={'stolify'}
             onClick={() => handleZIndex('stolify')}
             style={{ zIndex: getZIndex('stolify') }}
+            data-window-id="stolify"
           >
             <WindowHeader
               label={getWindowLabel('stolify')}
@@ -374,6 +371,7 @@ const Window: React.FC<WindowProps> = ({
             style={{ width: '450px', height: '750px', zIndex: getZIndex('artquiz') }}
             key={'artquiz'}
             onClick={() => handleZIndex('artquiz')}
+            data-window-id="artquiz"
           >
             <WindowHeader
               label={getWindowLabel('artquiz')}

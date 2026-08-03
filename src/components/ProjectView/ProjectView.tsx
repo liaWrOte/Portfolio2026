@@ -11,7 +11,7 @@ const ProjectView = ({ node }) => {
       <div className="project-view">
         <ProjectCard
           project={node}
-          onClick={() => {}} // No click action needed in project view
+          onClick={() => {}}
           isSelected={true}
         />
       </div>
@@ -27,7 +27,7 @@ const ProjectView = ({ node }) => {
             <ProjectCard
               key={project.id}
               project={project}
-              onClick={() => {}} // Handle project click if needed
+              onClick={() => {}}
               isSelected={false}
             />
           ))}

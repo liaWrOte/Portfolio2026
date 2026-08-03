@@ -22,6 +22,8 @@
   top: 0;
   overflow: hidden;
   resize: both;
+  display: flex;
+  flex-direction: column;
 
   // Style spécifique pour la fenêtre Stolify
   &.stolify-main-window {
@@ -35,9 +37,10 @@
   .window-item-container {
     width: 100%;
     display: flex;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    height: -webkit-fill-available;
+    align-items: stretch;
+    flex: 1;
+    min-height: 0;
+    overflow: hidden;
     font-family: monospace;
 
     // Style spécifique pour Stolify
@@ -89,10 +92,26 @@
     }
     .window-right-items {
       width: 70%;
-      padding: 1rem;
+      padding: 2rem;
       overflow-y: auto;
-      overflow-y: auto;
-      height: -webkit-fill-available;
+      flex: 1;
+      min-height: 0;
+      position: relative;
+
+      &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        background: repeating-linear-gradient(
+          to bottom,
+          transparent 0px,
+          transparent 3px,
+          rgba(0, 0, 0, 0.025) 3px,
+          rgba(0, 0, 0, 0.025) 4px
+        );
+        pointer-events: none;
+        z-index: 100;
+      }
 
       // Custom scrollbar styling
       &::-webkit-scrollbar {
