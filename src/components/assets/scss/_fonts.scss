@@ -1,8 +1,19 @@
+body {
+  font-family: 'Space Mono', monospace;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: 'Space Grotesk', sans-serif;
+}
+
 h1 {
   font-size: 1.875rem;
   line-height: 2.25rem;
-  font-family: 'Trebuchet MS', 'Verdana', sans-serif;
-  letter-spacing: -0.05rem;
   letter-spacing: -0.05rem;
   font-weight: 700;
 }

@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import Draggable from 'react-draggable';
 import ReactMarkdown from 'react-markdown';
+import { getWindowTargetPosition } from '../../utils/windowPosition';
 import { RootState } from '../../store';
 import { FileSystemNode, Project } from '../../types';
 import { useTranslation } from '../../contexts/LanguageContext';
@@ -70,42 +71,9 @@ const Window: React.FC<WindowProps> = ({
       return position;
     }
 
-    // Get desktop dimensions (excluding taskbar, etc.)
-    const desktopWidth = window.innerWidth;
-    const desktopHeight = window.innerHeight - 80; // Subtract desktop bar height
-
-    // Center window precisely - get dimensions from CSS
-    const getWindowDimensions = () => {
-      // Create a temporary element to measure CSS dimensions
-      const tempEl = document.createElement('div');
-      tempEl.style.position = 'fixed';
-      tempEl.style.width = '750px';
-      tempEl.style.height = '515px';
-      tempEl.style.visibility = 'hidden';
-      document.body.appendChild(tempEl);
-
-      const rect = tempEl.getBoundingClientRect();
-      document.body.removeChild(tempEl);
-
-      return {
-        width: rect.width,
-        height: rect.height
-      };
-    };
-
-    const windowDimensions = getWindowDimensions();
-
-    // Add offset based on window index in openWindows
-    let windowIndex = 0;
-    if (windowId && openWindows) {
-      windowIndex = openWindows.indexOf(windowId);
-    }
-    const offset = windowIndex * 50;
-
-    return {
-      x: Math.max(0, (desktopWidth - windowDimensions.width) / 2 + offset),
-      y: Math.max(0, (desktopHeight - windowDimensions.height) / 2 + offset)
-    };
+    // Shared with Desktop.tsx (and any other component that needs to know in
+    // advance where a window will land, e.g. an icon -> window fly animation).
+    return getWindowTargetPosition(windowId, openWindows);
   };
 
   // Positions are derived per-window from openWindows on every render, so that

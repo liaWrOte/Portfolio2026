@@ -30,10 +30,8 @@ const Item = ({
       case 'openWindow':
       case 'projets':
       case 'resume':
+        setPosition(itemId, ref.current.getBoundingClientRect());
         openWindow(itemId);
-        if (triggerOpen === 'openWindow' || triggerOpen === 'projets') {
-          setPosition(ref.current.getBoundingClientRect());
-        }
         break;
       case 'openWindowItem':
         openWindowItem(itemId);
@@ -48,9 +46,11 @@ const Item = ({
         openAllItems(itemId);
         break;
       case 'artquiz':
+        setPosition('artquiz', ref.current.getBoundingClientRect());
         openWindow('artquiz');
         break;
       case 'stolify':
+        setPosition('stolify', ref.current.getBoundingClientRect());
         openWindow('stolify');
         break;
       default:

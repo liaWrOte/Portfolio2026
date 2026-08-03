@@ -13,6 +13,7 @@ const mapStateToProps = (state) => ({
   displayAllItems: state.main.displayAllItems,
   displayResume: state.main.displayResume,
   windowPosition: state.main.windowPosition,
+  windowPositions: state.main.windowPositions,
   displayArtquiz: state.main.displayArtquiz,
   isOpen: state.main.window.isOpen,
   fileSystem: state.main.fileSystem,

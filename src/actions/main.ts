@@ -76,8 +76,12 @@ export const expandWindow = (value: string) => ({
   type: EXPAND_WINDOW,
   value
 });
-export const setPosition = (value: { x: number; y: number }) => ({
+export const setPosition = (
+  windowId: string,
+  value: { x: number; y: number; width: number; height: number }
+) => ({
   type: SET_POSITION,
+  windowId,
   value
 });
 export const openArtquiz = () => ({

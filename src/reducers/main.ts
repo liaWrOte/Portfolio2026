@@ -37,6 +37,7 @@ const initialState = {
   openedWindows: [], // Tracker les fenêtres qui ont été ouvertes au moins une fois
   displayResume: false,
   windowPosition: {},
+  windowPositions: {}, // Position de l'icône au clic, par windowId (pour l'effet "genie")
   displayArtquiz: false,
   fileSystem: null,
   window: {
@@ -130,6 +131,16 @@ const desktopReducer = (state = initialState, action = {}) => {
         ...state,
         window: { ...state.window, view: 'explorer', activeId: null }
       };
+
+    case SET_POSITION: {
+      return {
+        ...state,
+        windowPositions: {
+          ...state.windowPositions,
+          [action.windowId]: action.value
+        }
+      };
+    }
 
     case OPEN_WINDOW: {
       let tempArr = [...state.allProjects];

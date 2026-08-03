@@ -56,7 +56,7 @@ const DesktopBottomBar = ({
       </div>
 
       <div className="desktop-bar-center">
-        <Item
+        {/* <Item
           key={Math.random()}
           inWindow={false}
           outWindowLabel="Artquiz"
@@ -64,7 +64,7 @@ const DesktopBottomBar = ({
           itemId="artquiz"
           srcImg={artquizIcon}
           clickTrigger={'simple'}
-        />
+        /> */}
         <Item
           key={Math.random()}
           inWindow={false}
