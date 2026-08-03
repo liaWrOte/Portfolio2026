@@ -22,6 +22,10 @@ interface WindowHeaderProps {
   fileSystem?: FileSystemNode;
   openFolder: (path: string) => void;
   useOnlyLabel?: boolean;
+  canGoBack?: boolean;
+  canGoForward?: boolean;
+  goBack?: () => void;
+  goForward?: () => void;
 }
 export const WindowHeader: React.FC<WindowHeaderProps> = ({
   primary,
@@ -38,7 +42,11 @@ export const WindowHeader: React.FC<WindowHeaderProps> = ({
   currentPath,
   fileSystem,
   openFolder,
-  useOnlyLabel = false
+  useOnlyLabel = false,
+  canGoBack = false,
+  canGoForward = false,
+  goBack,
+  goForward
 }) => {
   function minifyWindow(e: React.MouseEvent) {
     const window = (e.target as HTMLElement).closest('.window');
@@ -56,7 +64,26 @@ export const WindowHeader: React.FC<WindowHeaderProps> = ({
   return (
     <div className="window-header">
       <div className="window-header-container">
-        <div className="window-header-nav"></div>
+        <div className="window-header-nav">
+          {!useOnlyLabel && (
+            <>
+              <button
+                className={`nav-btn${canGoBack ? '' : ' disabled'}`}
+                onClick={() => canGoBack && goBack?.()}
+                disabled={!canGoBack}
+              >
+                <img src={arrowRight} alt="Back" />
+              </button>
+              <button
+                className={`nav-btn${canGoForward ? '' : ' disabled'}`}
+                onClick={() => canGoForward && goForward?.()}
+                disabled={!canGoForward}
+              >
+                <img src={arrowLeft} alt="Forward" />
+              </button>
+            </>
+          )}
+        </div>
         <div className="window-header-label">
           {useOnlyLabel || !currentPath || !fileSystem ? (
             <span>{label}</span>

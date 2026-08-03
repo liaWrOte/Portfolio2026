@@ -19,6 +19,7 @@ export interface ProjectAttributes {
   updatedAt: string;
   publishedAt: string;
   locale: string;
+  logo?: { data?: { attributes?: { url: string; alternativeText?: string } } };
   localizations?: {
     data: Array<{
       id: string;
@@ -64,6 +65,7 @@ export interface FileSystemNode {
   createdAt?: string;
   updatedAt?: string;
   publishedAt?: string;
+  logo?: { data?: { attributes?: { url: string; alternativeText?: string } } };
   paragraph?: Array<{
     Title?: string;
     Description?: string;

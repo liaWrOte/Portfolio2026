@@ -41,6 +41,16 @@
   position: relative;
 }
 
+/* Project logo */
+.project-logo {
+  display: block;
+  max-height: 56px;
+  width: auto;
+  max-width: 100%;
+  margin-bottom: 1rem;
+  object-fit: contain;
+}
+
 /* Header card — same visual as cm-card-inner */
 .project-header-card {
   position: relative;

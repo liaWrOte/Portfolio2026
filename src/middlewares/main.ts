@@ -40,7 +40,7 @@ const desktopMiddleware = (store) => (next) => (action) => {
       // Récupérer seulement la langue par défaut (français) avec les localizations
       axios
         .get(
-          `${apiUrl}/projects?populate[paragraph][populate][Image]=*&populate[paragraph][populate][localizations]=*&sort[0]=type&sort[1]=date&populate[localizations][populate][paragraph][populate][Image]=*`
+          `${apiUrl}/projects?populate[paragraph][populate][Image]=*&populate[paragraph][populate][localizations]=*&sort[0]=type&sort[1]=date&populate[localizations][populate][paragraph][populate][Image]=*&populate[logo]=*`
         )
         .then((response) => {
           let projects = response.data.data;

@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { WindowHeader } from '../components/WindowHeader/WindowHeader';
-import { closeWindow, expandWindow, openFolder } from '../actions/main';
+import { closeWindow, expandWindow, openFolder, goBack, goForward } from '../actions/main';
 const mapStateToProps = (state) => ({
   displayWindow: state.main.displayWindow,
   displayProjects: state.main.allProjects,
@@ -10,7 +10,9 @@ const mapStateToProps = (state) => ({
   displaySpecsItem: state.main.displaySpecsItem,
   displayAllItems: state.main.displayAllItems,
   currentPath: state.main.navigation.currentPath,
-  fileSystem: state.main.fileSystem
+  fileSystem: state.main.fileSystem,
+  canGoBack: state.main.navigation.historyIndex > 0,
+  canGoForward: state.main.navigation.historyIndex < state.main.navigation.history.length - 1
 });
 const mapDispatchToProps = (dispatch) => ({
   closeWindow: (newValue) => {
@@ -21,6 +23,8 @@ const mapDispatchToProps = (dispatch) => ({
   },
   openFolder: (newValue) => {
     dispatch(openFolder(newValue));
-  }
+  },
+  goBack: () => dispatch(goBack()),
+  goForward: () => dispatch(goForward())
 });
 export default connect(mapStateToProps, mapDispatchToProps)(WindowHeader);

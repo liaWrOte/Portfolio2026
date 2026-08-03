@@ -37,10 +37,21 @@ export function buildFileSystemFromProjects(projects: Project[]): FileSystemNode
       updatedAt: project.attributes.updatedAt,
       publishedAt: project.attributes.publishedAt,
       paragraph: project.attributes.paragraph,
+      logo: project.attributes.logo,
       // Ajouter les localizations de Strapi
       locale: project.attributes.locale,
       localizations: project.attributes.localizations
     });
+  });
+
+  const CATEGORY_ORDER = ['Développement', 'Brand Design'];
+
+  root.children!.sort((a, b) => {
+    const ai = CATEGORY_ORDER.indexOf(a.name);
+    const bi = CATEGORY_ORDER.indexOf(b.name);
+    const aRank = ai === -1 ? CATEGORY_ORDER.length : ai;
+    const bRank = bi === -1 ? CATEGORY_ORDER.length : bi;
+    return aRank - bRank;
   });
 
   return root;

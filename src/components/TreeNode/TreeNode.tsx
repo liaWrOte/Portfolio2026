@@ -18,7 +18,7 @@ export default function TreeNode({ node, openFolder, openProject, nodeLevel = 0,
   };
 
   return (
-    <li>
+    <li style={{ marginTop: nodeLevel === 0 ? '1rem' : 0 }}>
       {/* TreeNode element */}
       <span
         onClick={handleClick}
@@ -29,7 +29,6 @@ export default function TreeNode({ node, openFolder, openProject, nodeLevel = 0,
         }}
         className="treenode"
       >
-        {[...Array(nodeLevel)].map((_, i) => (i > 0 ? <span key={i}>&nbsp;</span> : null))}
         {node.type === 'folder' ? (
           isActive ? (
             <img src={folderOpenIcon} alt="Logo" className="treenode-icons" />

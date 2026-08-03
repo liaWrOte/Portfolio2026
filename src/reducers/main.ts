@@ -20,7 +20,8 @@ import {
   SET_FILESYSTEM,
   OPEN_PROJECT,
   OPEN_FOLDER,
-  GO_BACK
+  GO_BACK,
+  GO_FORWARD
 } from '../actions/main';
 
 const initialState = {
@@ -47,7 +48,7 @@ const initialState = {
   },
   navigation: {
     currentPath: ['root'],
-    history: [['root']],
+    history: [{ view: 'explorer', currentPath: ['root'], activeId: null }],
     historyIndex: 0
   },
   loading: true
@@ -84,53 +85,62 @@ const desktopReducer = (state = initialState, action = {}) => {
 
     case OPEN_FOLDER: {
       let newPath;
-      console.log('action.payload ', action.payload);
       if (action.payload === 'root' && state.navigation.currentPath.length > 2) {
         newPath = ['root'];
       } else {
         newPath = [...state.navigation.currentPath, action.payload];
       }
-      console.log('OPEN_FOLDER ', action, newPath);
+      const folderEntry = { view: 'folder', currentPath: newPath, activeId: null };
+      const truncatedF = state.navigation.history.slice(0, state.navigation.historyIndex + 1);
+      const newHistoryF = [...truncatedF, folderEntry];
       return {
         ...state,
-        window: {
-          ...state.window,
-          view: 'folder',
-          activeId: null
-        },
+        window: { ...state.window, view: 'folder', activeId: null },
         navigation: {
-          ...state.navigation,
           currentPath: newPath,
-          history: newPath,
-          historyIndex: state.navigation.historyIndex + 1
+          history: newHistoryF,
+          historyIndex: newHistoryF.length - 1
         }
       };
     }
 
     case OPEN_PROJECT: {
       const newPath = [...state.navigation.currentPath, action.payload];
-      console.log('OPEN_PROJECT ', action, newPath);
+      const projectEntry = { view: 'project', currentPath: newPath, activeId: action.payload };
+      const truncatedP = state.navigation.history.slice(0, state.navigation.historyIndex + 1);
+      const newHistoryP = [...truncatedP, projectEntry];
       return {
         ...state,
-        window: {
-          ...state.window,
-          view: 'project',
-          activeId: action.payload
-        },
+        window: { ...state.window, view: 'project', activeId: action.payload },
         navigation: {
-          ...state.navigation,
           currentPath: newPath,
-          history: [...state.navigation.history, newPath],
-          historyIndex: state.navigation.historyIndex + 1
+          history: newHistoryP,
+          historyIndex: newHistoryP.length - 1
         }
       };
     }
 
-    case GO_BACK:
+    case GO_BACK: {
+      const newIndexB = Math.max(0, state.navigation.historyIndex - 1);
+      const entryB = state.navigation.history[newIndexB];
+      if (!entryB) return state;
       return {
         ...state,
-        window: { ...state.window, view: 'explorer', activeId: null }
+        window: { ...state.window, view: entryB.view, activeId: entryB.activeId },
+        navigation: { ...state.navigation, currentPath: entryB.currentPath, historyIndex: newIndexB }
       };
+    }
+
+    case GO_FORWARD: {
+      const newIndexF = Math.min(state.navigation.history.length - 1, state.navigation.historyIndex + 1);
+      const entryF = state.navigation.history[newIndexF];
+      if (!entryF) return state;
+      return {
+        ...state,
+        window: { ...state.window, view: entryF.view, activeId: entryF.activeId },
+        navigation: { ...state.navigation, currentPath: entryF.currentPath, historyIndex: newIndexF }
+      };
+    }
 
     case SET_POSITION: {
       return {

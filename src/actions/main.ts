@@ -26,6 +26,7 @@ export const SET_LANGUAGE = 'SET_LANGUAGE';
 export const OPEN_FOLDER = 'OPEN_FOLDER';
 export const OPEN_PROJECT = 'OPEN_PROJECT';
 export const GO_BACK = 'GO_BACK';
+export const GO_FORWARD = 'GO_FORWARD';
 export const getProject = () => ({
   type: GET_PROJECT
 });
@@ -103,10 +104,8 @@ export const openProject = (id: string) => ({
   type: OPEN_PROJECT,
   payload: id
 });
-export const goBack = (value: boolean) => ({
-  type: GO_BACK,
-  value
-});
+export const goBack = () => ({ type: GO_BACK });
+export const goForward = () => ({ type: GO_FORWARD });
 export const minimizeWindow = (windowId: string) => ({
   type: MINIMIZE_WINDOW,
   payload: windowId

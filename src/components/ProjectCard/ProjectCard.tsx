@@ -157,7 +157,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClick, isSelected 
 
   // Le composant ne gère que les FileSystemNode
   const fsNode = project as FileSystemNode;
-  const { id, name, techno, role, pitch, link, date, type, paragraph } = fsNode;
+  const { id, name, techno, role, pitch, link, date, type, paragraph, logo } = fsNode;
 
   // Fonction pour obtenir le contenu localisé avec contexte parent
   const getLocalizedContentWithContext = (content: any, field: string, parentContext?: any) => {

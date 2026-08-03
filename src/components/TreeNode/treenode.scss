@@ -1,9 +1,76 @@
+@use '../assets/scss/vars' as *;
+
+// Metrics for alignment
+// li padding-top (window.scss): 0.5rem
+// .treenode padding-top: 0.25rem
+// icon size: 22px → half = 11px
+// → icon center from li top: 0.5rem + 0.25rem + 11px = 0.75rem + 11px ≈ 23px
+
+// .treenode padding-left: 0.4rem
+// → parent icon center from li left: 0.4rem + 11px
+// branch width: 14px
+// → ul margin-left: 0.4rem + 11px + 14px = 0.4rem + 25px
+//   so that (::after left: -14px) lands exactly on parent icon center
+
+$branch: 14px;
+
 .treenode {
   display: flex;
   align-items: center;
+  padding: 0.25rem 0.4rem;
+  position: relative;
+  white-space: nowrap;
+  transition: background 0.12s;
+
+  &:hover {
+    background: rgba($dark-brown, 0.04);
+  }
 }
 
 .treenode-icons {
   width: 22px;
   height: 22px;
+  flex-shrink: 0;
+  margin-right: 0.3rem;
+}
+
+// ─── Retro tree connector lines ─────────────────────────────────────
+.sidebar-tree {
+  li > ul {
+    margin-left: calc(0.4rem + 25px); // 0.4rem + 11px + 14px (branch)
+
+    > li {
+      position: relative;
+
+      // Trait horizontal — centré sur l'icône enfant
+      &::before {
+        content: '';
+        position: absolute;
+        left: -$branch;
+        top: calc(0.75rem + 11px);
+        width: $branch;
+        border-top: 1px solid rgba($dark-brown, 0.22);
+      }
+
+      // Trait vertical — tronc continu pour les non-derniers enfants
+      &:not(:last-child)::after {
+        content: '';
+        position: absolute;
+        left: -$branch;
+        top: 0;
+        bottom: 0;
+        border-left: 1px solid rgba($dark-brown, 0.22);
+      }
+
+      // Dernier enfant — tronc clipé au centre de l'icône
+      &:last-child::after {
+        content: '';
+        position: absolute;
+        left: -$branch;
+        top: 0;
+        height: calc(0.75rem + 11px);
+        border-left: 1px solid rgba($dark-brown, 0.22);
+      }
+    }
+  }
 }

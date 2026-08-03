@@ -1,0 +1,26 @@
+.icon-grid {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+
+  .item {
+    width: 160px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    span {
+      width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      text-align: center;
+    }
+  }
+
+  .item img.project-logo {
+    width: auto;
+    height: 74px;
+  }
+}

@@ -48,9 +48,34 @@
     }
   }
   .window-header-nav {
-    .nav {
-      padding: 6px 14px;
-      outline: 1px solid $dark-brown;
+    display: flex;
+    gap: 4px;
+
+    .nav-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: none;
+      border: 1px solid $dark-brown;
+      border-radius: 3px;
+      padding: 3px 6px;
+      cursor: pointer;
+      transition: background 0.15s, opacity 0.15s;
+
+      img {
+        width: 14px;
+        height: 14px;
+        display: block;
+      }
+
+      &:hover:not(.disabled) {
+        background: rgba($dark-brown, 0.1);
+      }
+
+      &.disabled {
+        opacity: 0.3;
+        cursor: default;
+      }
     }
   }
 }

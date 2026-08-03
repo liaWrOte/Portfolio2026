@@ -1,20 +1,35 @@
 import React from 'react';
-// Import components
 import TreeNode from '../../containers/treeNode';
-const SidebarTree = ({ fileSystem, currentPath, openFolder, openProject }) => {
+import fileIcon from '../assets/img/icons/file_icon.svg';
+import emailIcon from '../assets/img/icons/email_icon.svg';
+import './sidebar-tree.scss';
+
+const SidebarTree = ({ fileSystem, currentPath, openFolder, openProject, openWindow }) => {
   const fs = fileSystem;
-  let treeNodeLevel = 0;
   if (!fs) return null;
   return (
     <ul className="sidebar-tree">
       <TreeNode
         node={fs}
-        nodeLevel={treeNodeLevel}
+        nodeLevel={0}
         currentPath={currentPath}
         openFolder={openFolder}
         openProject={openProject}
       />
+      <li style={{ marginTop: '1rem' }}>
+        <span className="treenode" onClick={() => openWindow('resume')}>
+          <img src={fileIcon} alt="resume" className="treenode-icons" />
+          &nbsp;resume.pdf
+        </span>
+      </li>
+      <li style={{ marginTop: '0.25rem' }}>
+        <span className="treenode" onClick={() => openWindow('contact_me')}>
+          <img src={emailIcon} alt="contact" className="treenode-icons" />
+          &nbsp;contact.me
+        </span>
+      </li>
     </ul>
   );
 };
+
 export default SidebarTree;
