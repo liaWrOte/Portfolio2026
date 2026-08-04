@@ -12,8 +12,8 @@ const LanguageSwitch: React.FC = () => {
       onClick={toggleLanguage}
       title={language === 'fr' ? 'Switch to English' : 'Passer en français'}
     >
-      <span className={`flag ${language === 'fr' ? 'active' : ''}`}>FR</span>
-      <span className={`flag ${language === 'en' ? 'active' : ''}`}>EN</span>
+      <span className={`flag ${language === 'fr' ? 'active' : ''}`}>🇫🇷</span>
+      <span className={`flag ${language === 'en' ? 'active' : ''}`}>🇬🇧</span>
     </button>
   );
 };
