@@ -16,7 +16,8 @@ const mapStateToProps = (state) => ({
   displayWindow: state.main.displayImageItem,
   displayProjects: state.main.displaySpecsItem,
   displayWindowItem: state.main.displayWindowItem,
-  windowItemId: state.main.windowItemId
+  windowItemId: state.main.windowItemId,
+  minimizedWindows: state.main.minimizedWindows
 });
 
 const mapDispatchToProps = (dispatch) => ({

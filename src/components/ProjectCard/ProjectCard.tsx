@@ -5,6 +5,7 @@ import { BlocksRenderer } from '@strapi/blocks-react-renderer';
 import { FileSystemNode } from '../../types';
 import { backendUrl } from '../../middlewares/env';
 import { useTranslation } from '../../contexts/LanguageContext';
+import ScrambleText from '../ScrambleText/ScrambleText';
 import './project-card.scss';
 
 interface ProjectCardProps {
@@ -206,12 +207,12 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClick, isSelected 
             className="project-link-button"
             onClick={(e) => e.stopPropagation()}
           >
-            {t('see_project')}
+            <ScrambleText text={t('see_project')} />
           </a>
         )}
 
         {/* Project title */}
-        <h1 className="project-title">{getLocalizedContent(fsNode, 'name')}</h1>
+        <ScrambleText text={getLocalizedContent(fsNode, 'name')} tag="h1" className="project-title" />
 
         {/* Project description */}
         {pitch && (
@@ -224,21 +225,21 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClick, isSelected 
         <div className="project-info-block">
           {date && (
             <div className="info-item">
-              <span className="info-label">{t('date')} </span>
+              <ScrambleText text={t('date')} className="info-label" />
               <span className="info-value">{date}</span>
             </div>
           )}
 
           {role && (
             <div className="info-item">
-              <span className="info-label">{t('role')}</span>
-              <span className="info-value">{getLocalizedContent(fsNode, 'role')}</span>
+              <ScrambleText text={t('role')} className="info-label" />
+              <ScrambleText text={getLocalizedContent(fsNode, 'role')} className="info-value" />
             </div>
           )}
 
           {technologies && technologies.length > 0 && (
             <div className="info-item">
-              <span className="info-label">{t('technologies')}</span>
+              <ScrambleText text={t('technologies')} className="info-label" />
               <div className="techno-list">
                 {(technologies as string[]).map((tech: string, index: number) => (
                   <span key={index} className="techno-item">

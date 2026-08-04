@@ -10,7 +10,14 @@ import folderOpenIcon from '../assets/img/icons/folder_open_icon.svg';
 import fileIcon from '../assets/img/icons/file_icon.svg';
 import emailIcon from '../assets/img/icons/email_icon.svg';
 
-const TaskBar = ({ openWindows, onWindowClick, onCloseWindow }) => {
+const TaskBar = ({ openWindows, minimizedWindows, onWindowClick, onCloseWindow }) => {
+  const handleWindowClick = (windowId: string) => {
+    if (minimizedWindows && minimizedWindows.includes(windowId)) {
+      document.dispatchEvent(new CustomEvent('window-restore', { detail: { windowId } }));
+    } else {
+      onWindowClick(windowId);
+    }
+  };
   // Ne pas afficher la TaskBar si aucune fenêtre n'est ouverte
   if (!openWindows || openWindows.length === 0) {
     return null;
@@ -64,7 +71,7 @@ const TaskBar = ({ openWindows, onWindowClick, onCloseWindow }) => {
   return (
     <div className="task-bar">
       {filteredWindows.map((windowId) => (
-        <div key={windowId} className="task-bar-item" data-taskbar-id={windowId} onClick={() => onWindowClick(windowId)}>
+        <div key={windowId} className="task-bar-item" data-taskbar-id={windowId} onClick={() => handleWindowClick(windowId)}>
           <img
             src={getIconForWindow(windowId)}
             alt={`${getLabelForWindow(windowId)} icon`}
@@ -79,6 +86,7 @@ const TaskBar = ({ openWindows, onWindowClick, onCloseWindow }) => {
 
 TaskBar.propTypes = {
   openWindows: PropTypes.array.isRequired,
+  minimizedWindows: PropTypes.array,
   onWindowClick: PropTypes.func.isRequired,
   onCloseWindow: PropTypes.func.isRequired
 };

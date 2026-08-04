@@ -1,30 +1,27 @@
 @use '../assets/scss/vars' as *;
 
+.stolify-wrapper {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
 .stolify-container {
-  display: block;
-  position: relative; // Changed from absolute
-  width: auto; // Changed from 200px
-  height: fit-content;
+  display: flex;
+  position: relative;
+  width: 100%;
+  flex: 1;
   background-color: $black-brown;
   color: $cray;
-  justify-content: space-between;
-  transform: none; // Removed transform
-  border: none; // Removed border as window already has one
-  margin: 0 auto; // Center in window
-  padding: 0; // Removed padding
+  margin: 0;
+  padding: 0;
 
-  #stolify-ui {
+  // div injecté par dangerouslySetInnerHTML (exclure .vol-overlay)
+  > div:not(.vol-overlay) {
     width: 100%;
-    height: auto;
-    margin-top: 10px;
+    height: 100%;
     display: flex;
-    justify-content: center;
-
-    img {
-      width: 100%;
-      height: auto;
-      max-width: 300px;
-    }
   }
 
   .title-container {
@@ -34,13 +31,12 @@
     overflow: hidden;
     .title {
       font-size: 10px;
-      // text-overflow: ellipsis;
       white-space: nowrap;
-      // overflow: hidden;
       display: block;
       margin: 0 auto;
     }
   }
+
   .cover-container {
     display: block;
     overflow: hidden;
@@ -57,7 +53,7 @@
   }
 
   .stolify-controls {
-    width: 200px; // Match container width
+    width: 200px;
     text-align: center;
     display: flex;
     justify-content: space-evenly;
@@ -75,19 +71,111 @@
       height: 25px;
     }
   }
-  &.playing {
-    .title-container {
-      .title {
-      }
-    }
-  }
 }
 
 .stolify-class {
   position: relative;
 }
 
-#stolify-ui,
 #stolify-ui svg {
-  height: 400px;
+  width: 100%;
+  height: 100%;
+}
+
+// ── Fader volume vertical (overlay dans cls-3) ───────────
+// cls-3 = panneau blanc bas-droite du SVG (viewBox 358.1×413.51)
+// Zone libre : x≈291–349, y≈217–400 (hors bras de lecture et boutons)
+.vol-overlay {
+  position: absolute;
+  right: 26px;
+  top: 55%;
+  height: 38%;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+
+  .vol-label {
+    font-family: monospace;
+    font-size: 0.46rem;
+    font-weight: 700;
+    letter-spacing: 0.22em;
+    color: $dark-brown;
+    text-transform: uppercase;
+    margin-bottom: 1px;
+  }
+
+  .vol-mark {
+    font-family: monospace;
+    font-size: 0.4rem;
+    letter-spacing: 0.05em;
+    color: rgba($dark-brown, 0.5);
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+
+  // Fader vertical style console de mixage
+  .vol-slider {
+    writing-mode: vertical-lr;
+    direction: rtl; // top = MAX, bottom = MUTE
+    -webkit-appearance: none;
+    appearance: none;
+    flex: 1;
+    width: 2px;
+    // Piste : jaune de bas (min) jusqu'au thumb, sombre au-dessus
+    background: linear-gradient(
+      to top,
+      $yellow 0%,
+      $yellow var(--pct, 100%),
+      rgba($dark-brown, 0.18) var(--pct, 100%),
+      rgba($dark-brown, 0.18) 100%
+    );
+    cursor: pointer;
+    border-radius: 0;
+    outline: none;
+    border: none;
+
+    &::-webkit-slider-runnable-track {
+      width: 2px;
+      background: transparent;
+      border-radius: 0;
+    }
+
+    &::-moz-range-track {
+      width: 2px;
+      background: transparent;
+      border-radius: 0;
+    }
+
+    // Poignée horizontale style fader de console
+    &::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 24px;  // large horizontalement
+      height: 6px;  // fine verticalement
+      background: $yellow;
+      border: 1px solid rgba($dark-brown, 0.65);
+      border-radius: 0;
+      margin-left: -11px; // centre sur la piste de 2px
+      cursor: grab;
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.35),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.2),
+        0 1px 4px rgba(0, 0, 0, 0.35);
+
+      &:active { cursor: grabbing; }
+    }
+
+    &::-moz-range-thumb {
+      width: 24px;
+      height: 6px;
+      background: $yellow;
+      border: 1px solid rgba($dark-brown, 0.65);
+      border-radius: 0;
+      cursor: grab;
+      box-shadow:
+        inset 0 1px 0 rgba(255, 255, 255, 0.35),
+        0 1px 4px rgba(0, 0, 0, 0.35);
+    }
+  }
 }

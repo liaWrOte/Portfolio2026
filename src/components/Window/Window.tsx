@@ -350,6 +350,7 @@ const Window: React.FC<WindowProps> = ({
               fileSystem={null}
               openFolder={openFolder}
               useOnlyLabel={true}
+              hideExpandButton={true}
             />
             <div className="window-item-container stolify-window">
               <Stolify />

@@ -1,44 +1,38 @@
-import React, { useState } from 'react';
+﻿import React from 'react';
 import './window-header.scss';
-import file from '../assets/img/file.png';
 import Breadcrumb from '../Breadcrumb/Breadcrumb';
 import { FileSystemNode } from '../../types';
-// Import images
 import arrowLeft from '../assets/img/arrow_left.svg';
 import arrowRight from '../assets/img/arrow_right.svg';
+import ScrambleText from '../ScrambleText/ScrambleText';
+
 interface WindowHeaderProps {
   primary?: boolean;
   backgroundColor?: string;
   size?: string;
   label: string;
-  closeWindow: (id: string) => void;
+  closeWindow?: (id: string) => void;
   itemId?: string;
-  expandWindow: (e: React.MouseEvent) => void;
-  minify: (minified: boolean) => void;
-  isMinified: boolean;
+  expandWindow?: (e: React.MouseEvent) => void;
+  minify?: (minified: boolean) => void;
+  isMinified?: boolean;
   closeAnimState?: boolean;
   closeAnim?: () => void;
   currentPath?: string;
   fileSystem?: FileSystemNode;
-  openFolder: (path: string) => void;
+  openFolder?: (path: string) => void;
   useOnlyLabel?: boolean;
   canGoBack?: boolean;
   canGoForward?: boolean;
   goBack?: () => void;
   goForward?: () => void;
+  hideExpandButton?: boolean;
 }
+
 export const WindowHeader: React.FC<WindowHeaderProps> = ({
-  primary,
-  backgroundColor,
-  size,
   label,
   closeWindow,
   itemId,
-  expandWindow,
-  minify,
-  isMinified,
-  closeAnimState,
-  closeAnim,
   currentPath,
   fileSystem,
   openFolder,
@@ -46,21 +40,19 @@ export const WindowHeader: React.FC<WindowHeaderProps> = ({
   canGoBack = false,
   canGoForward = false,
   goBack,
-  goForward
+  goForward,
+  hideExpandButton = false,
 }) => {
-  function minifyWindow(e: React.MouseEvent) {
-    const window = (e.target as HTMLElement).closest('.window');
-    window?.classList.toggle('minified');
-  }
   function expandedWindow(e: React.MouseEvent) {
-    const window = (e.target as HTMLElement).closest('.window');
-    window?.classList.toggle('full');
+    const win = (e.target as HTMLElement).closest('.window');
+    win?.classList.toggle('full');
   }
-  function handleClose(itemId: string) {
-    // closeAnim(true);
-    console.log(itemId);
-    closeWindow(itemId);
+
+  function handleClose(id: string) {
+    console.log(id);
+    closeWindow?.(id);
   }
+
   return (
     <div className="window-header">
       <div className="window-header-container">
@@ -86,9 +78,13 @@ export const WindowHeader: React.FC<WindowHeaderProps> = ({
         </div>
         <div className="window-header-label">
           {useOnlyLabel || !currentPath || !fileSystem ? (
-            <span>{label}</span>
+            <ScrambleText text={label} />
           ) : (
-            <Breadcrumb currentPath={currentPath} fileSystem={fileSystem} openFolder={openFolder} />
+            <Breadcrumb
+              currentPath={currentPath}
+              fileSystem={fileSystem}
+              openFolder={openFolder!}
+            />
           )}
         </div>
         <div className="toggle-window-container">
@@ -101,15 +97,17 @@ export const WindowHeader: React.FC<WindowHeaderProps> = ({
                 );
               }
             }}
-          ></span>
-          {itemId !== undefined && (
+          />
+          {!hideExpandButton && itemId !== undefined && (
             <span
               className="toggle-window green"
               onClick={(e) => expandedWindow(e)}
-              // onClick={() => expandWindow(itemId)}
-            ></span>
+            />
           )}
-          <span className="toggle-window red" onClick={() => itemId && handleClose(itemId)}></span>
+          <span
+            className="toggle-window red"
+            onClick={() => itemId && handleClose(itemId)}
+          />
         </div>
       </div>
     </div>

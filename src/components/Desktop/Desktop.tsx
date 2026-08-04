@@ -1,6 +1,6 @@
 import React, { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { minimizeWindow } from '../../actions/main';
+import { minimizeWindow, openWindow, closeWindow } from '../../actions/main';
 import gsap from 'gsap';
 // Import styles
 import './desktop.scss';
@@ -70,24 +70,42 @@ export const Desktop = ({ displayWindowItem, displayImageItem, displayWindow, ..
 
     const el = fantomRef.current;
 
-    // Place l'élément sur l'icône cliquée, sans transition (état de départ)
+    // Lire la taille réelle de la fenêtre qui vient de s'ouvrir
+    const windowEl = document.querySelector<HTMLElement>(`[data-window-id="${windowItemId}"]`);
+    const winRect = windowEl?.getBoundingClientRect();
+    const wW = winRect ? winRect.width : 100;
+    const wH = winRect ? winRect.height : 70;
+    const winLeft = winRect ? winRect.left : targetWindowPosition.x;
+    const winTop = winRect ? winRect.top : targetWindowPosition.y;
+    const windowZIndex = windowEl ? parseInt(windowEl.style.zIndex || '1') : 1;
+
+    // Masquer la fenêtre pendant l'animation
+    if (windowEl) windowEl.style.visibility = 'hidden';
+
+    // Part positionné sur la fenêtre (à sa taille exacte) mais centré sur l'icône (scale 0.1)
     gsap.set(el, {
-      left: iconPosition.x - 50,
-      top: iconPosition.y - 50,
-      x: 0,
-      y: 0,
+      left: winLeft,
+      top: winTop,
+      width: wW,
+      height: wH,
+      x: iconPosition.x - (winLeft + wW / 2),
+      y: iconPosition.y - (winTop + wH / 2),
       opacity: 1,
-      scale: 1
+      scale: 0.1,
+      zIndex: windowZIndex + 1
     });
 
-    // L'anime jusqu'à la position de sa fenêtre, en s'estompant à l'arrivée
+    // Grandit jusqu'à la fenêtre et s'estompe en arrivant, puis révèle la fenêtre
     gsap.to(el, {
-      x: targetWindowPosition.x - iconPosition.x,
-      y: targetWindowPosition.y - iconPosition.y,
+      x: 0,
+      y: 0,
+      scale: 1,
       opacity: 0,
-      scale: 0.3,
       duration: 0.45,
-      ease: 'power2.out'
+      ease: 'power2.out',
+      onComplete: () => {
+        if (windowEl) windowEl.style.visibility = '';
+      }
     });
   }, [iconPosition, windowItemId, openWindows]);
 
@@ -107,36 +125,156 @@ export const Desktop = ({ displayWindowItem, displayImageItem, displayWindow, ..
       const winRect = windowEl?.getBoundingClientRect();
       const taskRect = taskbarEl?.getBoundingClientRect();
 
-      // Start at center of the window (or middle of screen as fallback)
-      const startCX = winRect ? winRect.left + winRect.width / 2 : window.innerWidth / 2;
-      const startCY = winRect ? winRect.top + winRect.height / 2 : window.innerHeight / 2;
+      // Fantom matches the window's exact size (capped at window size per UX intent)
+      const wW = winRect ? winRect.width : 100;
+      const wH = winRect ? winRect.height : 70;
+      const startLeft = winRect ? winRect.left : window.innerWidth / 2 - 50;
+      const startTop = winRect ? winRect.top : window.innerHeight / 2 - 35;
 
       // Target: center of the taskbar item (or bottom center as fallback)
       const endCX = taskRect ? taskRect.left + taskRect.width / 2 : window.innerWidth / 2;
       const endCY = taskRect ? taskRect.top + taskRect.height / 2 : window.innerHeight - 40;
 
+      // Window's z-index so the fantom matches its stacking level
+      const windowZIndex = windowEl ? parseInt(windowEl.style.zIndex || '1') : 1;
+
+      // Dispatch first: window disappears, fantom takes its place visually
+      dispatch(minimizeWindow(windowId));
+
       gsap.set(el, {
-        left: startCX - 50,
-        top: startCY - 50,
+        left: startLeft,
+        top: startTop,
+        width: wW,
+        height: wH,
         x: 0,
         y: 0,
         opacity: 1,
-        scale: 1
+        scale: 1,
+        zIndex: windowZIndex
       });
 
+      // Shrink from window position/size toward the taskbar item center
       gsap.to(el, {
-        x: endCX - startCX,
-        y: endCY - startCY,
-        scale: 0.2,
+        x: endCX - (startLeft + wW / 2),
+        y: endCY - (startTop + wH / 2),
+        scale: 0.1,
         opacity: 0,
         duration: 0.45,
-        ease: 'power2.in',
-        onComplete: () => dispatch(minimizeWindow(windowId))
+        ease: 'power2.in'
       });
     };
 
     document.addEventListener('window-minimize', handleMinimize);
     return () => document.removeEventListener('window-minimize', handleMinimize);
+  }, [dispatch]);
+
+  // Animate fantom from taskbar item → restored window
+  useEffect(() => {
+    const handleRestore = (e: Event) => {
+      const { windowId } = (e as CustomEvent).detail;
+      const el = fantomRef.current;
+
+      const taskbarEl = document.querySelector<HTMLElement>(`[data-taskbar-id="${windowId}"]`);
+      const taskRect = taskbarEl?.getBoundingClientRect();
+      const taskCX = taskRect ? taskRect.left + taskRect.width / 2 : window.innerWidth / 2;
+      const taskCY = taskRect ? taskRect.top + taskRect.height / 2 : window.innerHeight - 40;
+
+      // Restore window first, then read its rect after React renders it
+      dispatch(openWindow(windowId));
+
+      if (!el) return;
+
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          const windowEl = document.querySelector<HTMLElement>(`[data-window-id="${windowId}"]`);
+          const winRect = windowEl?.getBoundingClientRect();
+          const wW = winRect ? winRect.width : 300;
+          const wH = winRect ? winRect.height : 200;
+          const winLeft = winRect ? winRect.left : window.innerWidth / 2 - 150;
+          const winTop = winRect ? winRect.top : window.innerHeight / 2 - 100;
+          const windowZIndex = windowEl ? parseInt(windowEl.style.zIndex || '1') : 1;
+
+          if (windowEl) windowEl.style.visibility = 'hidden';
+
+          gsap.set(el, {
+            left: winLeft,
+            top: winTop,
+            width: wW,
+            height: wH,
+            x: taskCX - (winLeft + wW / 2),
+            y: taskCY - (winTop + wH / 2),
+            opacity: 1,
+            scale: 0.1,
+            zIndex: windowZIndex + 1
+          });
+
+          gsap.to(el, {
+            x: 0,
+            y: 0,
+            scale: 1,
+            opacity: 0,
+            duration: 0.45,
+            ease: 'power2.out',
+            onComplete: () => {
+              if (windowEl) windowEl.style.visibility = '';
+            }
+          });
+        });
+      });
+    };
+
+    document.addEventListener('window-restore', handleRestore);
+    return () => document.removeEventListener('window-restore', handleRestore);
+  }, [dispatch]);
+
+  // Animate fantom from window → icon/taskbar, then close
+  useEffect(() => {
+    const handleClose = (e: Event) => {
+      const { windowId } = (e as CustomEvent).detail;
+      const el = fantomRef.current;
+
+      const windowEl = document.querySelector<HTMLElement>(`[data-window-id="${windowId}"]`);
+      const taskbarEl = document.querySelector<HTMLElement>(`[data-taskbar-id="${windowId}"]`);
+
+      const winRect = windowEl?.getBoundingClientRect();
+      const taskRect = taskbarEl?.getBoundingClientRect();
+
+      const wW = winRect ? winRect.width : 100;
+      const wH = winRect ? winRect.height : 70;
+      const startLeft = winRect ? winRect.left : window.innerWidth / 2 - 50;
+      const startTop = winRect ? winRect.top : window.innerHeight / 2 - 35;
+      const endCX = taskRect ? taskRect.left + taskRect.width / 2 : window.innerWidth / 2;
+      const endCY = taskRect ? taskRect.top + taskRect.height / 2 : window.innerHeight - 40;
+      const windowZIndex = windowEl ? parseInt(windowEl.style.zIndex || '1') : 1;
+
+      dispatch(closeWindow(windowId));
+
+      if (!el) return;
+
+      gsap.set(el, {
+        left: startLeft,
+        top: startTop,
+        width: wW,
+        height: wH,
+        x: 0,
+        y: 0,
+        opacity: 1,
+        scale: 1,
+        zIndex: windowZIndex
+      });
+
+      gsap.to(el, {
+        x: endCX - (startLeft + wW / 2),
+        y: endCY - (startTop + wH / 2),
+        scale: 0.1,
+        opacity: 0,
+        duration: 0.45,
+        ease: 'power2.in'
+      });
+    };
+
+    document.addEventListener('window-close', handleClose);
+    return () => document.removeEventListener('window-close', handleClose);
   }, [dispatch]);
 
   return (
@@ -154,7 +292,7 @@ export const Desktop = ({ displayWindowItem, displayImageItem, displayWindow, ..
       <img className="cloud cloud--lg cloud--8" src={cloud} alt="" />
       {/* Item projets */}
       <Item
-        key={Math.random()}
+        key="projets"
         inWindow={false}
         itemId="projets"
         outWindowLabel={t('projects')}
@@ -163,7 +301,7 @@ export const Desktop = ({ displayWindowItem, displayImageItem, displayWindow, ..
       />
       {/* Item resume */}
       <Item
-        key={Math.random()}
+        key="resume"
         inWindow={false}
         itemId="resume"
         outWindowLabel={t('resume')}
@@ -172,7 +310,7 @@ export const Desktop = ({ displayWindowItem, displayImageItem, displayWindow, ..
       />
       {/* Item contact me */}
       <Item
-        key={Math.random()}
+        key="contact_me"
         inWindow={false}
         itemId="contact_me"
         outWindowLabel={t('contact')}

@@ -2,6 +2,7 @@ import React from 'react';
 import './breadcrumb.scss';
 import { BreadcrumbProps, BreadcrumbItem } from './Breadcrumb.types';
 import { useTranslation } from '../../contexts/LanguageContext';
+import ScrambleText from '../ScrambleText/ScrambleText';
 
 // Breadcrumb component for navigation
 const Breadcrumb: React.FC<BreadcrumbProps> = ({ currentPath = [], fileSystem, openFolder }) => {
@@ -51,10 +52,10 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({ currentPath = [], fileSystem, o
         <span key={item.id}>
           {index > 0 && ' > '}
           {item.isLast ? (
-            <span className="breadcrumb-current">{item.name}</span>
+            <ScrambleText text={item.name} className="breadcrumb-current" />
           ) : (
             <button className="breadcrumb-link" onClick={() => openFolder(item.id)}>
-              {item.name}
+              <ScrambleText text={item.name} />
             </button>
           )}
         </span>

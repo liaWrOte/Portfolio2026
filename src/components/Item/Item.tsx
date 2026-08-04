@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import './item.scss';
+import ScrambleText from '../ScrambleText/ScrambleText';
 // Imports images
 import file from '../assets/img/file.png';
 import Stolify from '../Stolify/Stolify';
@@ -21,7 +22,9 @@ const Item = ({
   setPosition,
   animated,
   openArtquiz,
-  openResume
+  openResume,
+  minimizedWindows,
+  'data-taskbar-id': dataTaskbarId
 }) => {
   let desktopClass = !inWindow ? ' on-desktop' : '';
   const ref = useRef();
@@ -50,8 +53,12 @@ const Item = ({
         openWindow('artquiz');
         break;
       case 'stolify':
-        setPosition('stolify', ref.current.getBoundingClientRect());
-        openWindow('stolify');
+        if (minimizedWindows && minimizedWindows.includes('stolify')) {
+          document.dispatchEvent(new CustomEvent('window-restore', { detail: { windowId: 'stolify' } }));
+        } else {
+          setPosition('stolify', ref.current.getBoundingClientRect());
+          openWindow('stolify');
+        }
         break;
       default:
         openImageItem({ itemId, triggerOpen });
@@ -59,17 +66,21 @@ const Item = ({
     }
   }
   return (
-    <div className={`item${desktopClass} ${triggerOpen}-class`} ref={ref}>
+    <div
+      className={`item${desktopClass} ${triggerOpen}-class`}
+      ref={ref}
+      {...(dataTaskbarId ? { 'data-taskbar-id': dataTaskbarId } : {})}
+    >
       {clickTrigger === 'simple' && (
         <div onClick={() => openWindowFunc(triggerOpen)}>
           <img src={srcImg} alt="Logo" onClick={() => openWindowFunc(triggerOpen)} />
-          {inWindow ? <span>{label}</span> : <span>{outWindowLabel}</span>}
+          {inWindow ? <span>{label}</span> : <ScrambleText text={outWindowLabel} />}
         </div>
       )}
       {clickTrigger === undefined && (
         <>
           <img src={srcImg} alt="Logo" onClick={() => openWindowFunc(triggerOpen)} />
-          {inWindow ? <span>{label}</span> : <span>{outWindowLabel}</span>}
+          {inWindow ? <span>{label}</span> : <ScrambleText text={outWindowLabel} />}
         </>
       )}
     </div>

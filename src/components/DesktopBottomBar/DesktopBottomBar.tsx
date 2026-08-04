@@ -7,6 +7,8 @@ import TaskBar from '../TaskBar/TaskBar';
 import LanguageSwitch from '../LanguageSwitch/LanguageSwitch';
 import { connect } from 'react-redux';
 import { openWindow, closeWindow } from '../../actions/main';
+import LogoSvg from '../Logo/LogoSvg';
+import ScrambleText from '../ScrambleText/ScrambleText';
 import { useTranslation } from '../../contexts/LanguageContext';
 
 // Import images
@@ -51,8 +53,11 @@ const DesktopBottomBar = ({
   return (
     <aside className="desktop-bar">
       <div className="identity">
-        <p>Sandrine M'ZE</p>
-        <p>{t('developer')}</p>
+        <LogoSvg className="identity-logo" />
+        <div>
+          <p>Sandrine M'ZE</p>
+          <ScrambleText text={t('developer')} tag="p" />
+        </div>
       </div>
 
       <div className="desktop-bar-center">
@@ -66,25 +71,30 @@ const DesktopBottomBar = ({
           clickTrigger={'simple'}
         /> */}
         <Item
-          key={Math.random()}
+          key="stolify"
           inWindow={false}
           outWindowLabel="Stolify"
           triggerOpen="stolify"
+          itemId="stolify"
           srcImg={stolifyIcon}
           animated={true}
           clickTrigger={'simple'}
+          data-taskbar-id="stolify"
         />
         <TaskBar
           openWindows={openWindows || []}
+          minimizedWindows={minimizedWindows || []}
           onWindowClick={onOpenWindow}
           onCloseWindow={onCloseWindow}
         />
       </div>
 
       <div className="datetime-container">
-        <span className="time">{hour}</span>
-        <span className="date">{date}</span>
         <LanguageSwitch />
+        <div className="datetime-text">
+          <span className="time">{hour}</span>
+          <span className="date">{date}</span>
+        </div>
       </div>
     </aside>
   );
