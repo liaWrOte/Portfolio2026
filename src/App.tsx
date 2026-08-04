@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import './App.scss';
 import Main from './containers/main';
+import MobileScreen from './components/MobileScreen/MobileScreen';
 import { LanguageProvider } from './contexts/LanguageContext';
 import { initRetroClickGlobal } from './utils/retroClick';
 
@@ -10,7 +11,10 @@ const App: React.FC = () => {
   return (
     <LanguageProvider>
       <div className="App">
-        <Main />
+        <MobileScreen />
+        <div className="desktop-only">
+          <Main />
+        </div>
       </div>
     </LanguageProvider>
   );
