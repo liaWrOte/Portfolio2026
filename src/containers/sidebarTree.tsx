@@ -4,7 +4,7 @@ import SidebarTree from '../components/SidebarTree/SidebarTree';
 import { openFolder, openProject, openWindow } from '../actions/main';
 
 const mapStateToProps = (state) => ({
-  fileSystem: state.main.fileSystem,
+  fileSystem: state.main.language === 'en' ? (state.main.fileSystemEn ?? state.main.fileSystem) : state.main.fileSystem,
   currentPath: state.main.navigation.currentPath
 });
 

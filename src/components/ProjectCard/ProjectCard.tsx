@@ -14,96 +14,38 @@ interface ProjectCardProps {
   isSelected?: boolean;
 }
 
-// ImageZoomModal component
+// ImageZoomModal — affiche une seule image zoomée, sans navigation
 const ImageZoomModal: React.FC<{
-  isOpen: boolean;
+  image: any;
   onClose: () => void;
-  images: any[];
-  currentIndex: number;
-  onIndexChange: (index: number) => void;
-}> = ({ isOpen, onClose, images, currentIndex, onIndexChange }) => {
-  if (!isOpen) return null;
-
-  const goToPrevious = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    const newIndex = currentIndex === 0 ? images.length - 1 : currentIndex - 1;
-    onIndexChange(newIndex);
-  };
-
-  const goToNext = (e: React.MouseEvent) => {
-    e.stopPropagation();
-    const newIndex = currentIndex === images.length - 1 ? 0 : currentIndex + 1;
-    onIndexChange(newIndex);
-  };
-
-  const handleKeyDown = (e: KeyboardEvent) => {
-    if (e.key === 'ArrowLeft') {
-      const newIndex = currentIndex === 0 ? images.length - 1 : currentIndex - 1;
-      onIndexChange(newIndex);
-    } else if (e.key === 'ArrowRight') {
-      const newIndex = currentIndex === images.length - 1 ? 0 : currentIndex + 1;
-      onIndexChange(newIndex);
-    } else if (e.key === 'Escape') {
-      onClose();
-    }
-  };
-
+}> = ({ image, onClose }) => {
   React.useEffect(() => {
-    if (isOpen) {
-      document.addEventListener('keydown', handleKeyDown);
-      return () => {
-        document.removeEventListener('keydown', handleKeyDown);
-      };
-    }
-    return undefined;
-  }, [isOpen, currentIndex]);
-
-  const currentImage = images[currentIndex];
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') onClose();
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, []);
 
   const portalContainer = document.querySelector('.App');
-
-  if (!portalContainer) {
-    return null;
-  }
+  if (!portalContainer) return null;
 
   return createPortal(
     <div className="image-zoom-modal" onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        <button className="modal-close" onClick={onClose}>
-          ×
-        </button>
-
-        {/* Navigation buttons */}
-        {images.length > 1 && (
-          <>
-            <button className="zoom-nav-button prev" onClick={goToPrevious}>
-              ‹
-            </button>
-            <button className="zoom-nav-button next" onClick={goToNext}>
-              ›
-            </button>
-          </>
-        )}
-
+        <button className="modal-close" onClick={onClose}>✕</button>
         <img
-          src={`${backendUrl}${currentImage.attributes.url}`}
-          alt={currentImage.attributes.alternativeText || ''}
+          src={`${backendUrl}${image.attributes.url}`}
+          alt={image.attributes.alternativeText || ''}
           className="zoomed-image"
         />
-        {currentImage.attributes.caption && (
+        {image.attributes.caption && (
           <div
             className="zoom-caption"
             dangerouslySetInnerHTML={{
-              __html: marked.parse(currentImage.attributes.caption) as string
+              __html: marked.parse(image.attributes.caption) as string
             }}
           />
-        )}
-
-        {/* Image counter */}
-        {images.length > 1 && (
-          <div className="zoom-counter">
-            {currentIndex + 1} / {images.length}
-          </div>
         )}
       </div>
     </div>,
@@ -111,9 +53,9 @@ const ImageZoomModal: React.FC<{
   );
 };
 
-// ImageGallery component
+// ImageGallery — images affichées en séquence, clic pour zoomer
 const ImageGallery: React.FC<{ images: any[] }> = ({ images }) => {
-  const [zoomIndex, setZoomIndex] = useState<number | null>(null);
+  const [zoomedImage, setZoomedImage] = useState<any | null>(null);
 
   if (images.length === 0) return null;
 
@@ -126,7 +68,7 @@ const ImageGallery: React.FC<{ images: any[] }> = ({ images }) => {
               src={`${backendUrl}${image.attributes.url}`}
               alt={image.attributes.alternativeText || ''}
               className="gallery-image"
-              onClick={() => setZoomIndex(index)}
+              onClick={() => setZoomedImage(image)}
             />
             {image.attributes.caption && (
               <figcaption
@@ -139,15 +81,8 @@ const ImageGallery: React.FC<{ images: any[] }> = ({ images }) => {
           </figure>
         ))}
       </div>
-
-      {zoomIndex !== null && (
-        <ImageZoomModal
-          isOpen={true}
-          onClose={() => setZoomIndex(null)}
-          images={images}
-          currentIndex={zoomIndex}
-          onIndexChange={setZoomIndex}
-        />
+      {zoomedImage && (
+        <ImageZoomModal image={zoomedImage} onClose={() => setZoomedImage(null)} />
       )}
     </>
   );
@@ -261,7 +196,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClick, isSelected 
               <div key={index} className="paragraph-item">
                 {para.Title && (
                   <h2 className="paragraph-title">
-                    {getLocalizedParagraph(para, 'Title', fsNode)}
+                    <ScrambleText text={getLocalizedParagraph(para, 'Title', fsNode)} />
                   </h2>
                 )}
                 {para.Description && (
@@ -269,7 +204,7 @@ const ProjectCard: React.FC<ProjectCardProps> = ({ project, onClick, isSelected 
                     {parseContent(getLocalizedParagraph(para, 'Description', fsNode))}
                   </div>
                 )}
-                {para.Image && para.Image.data.length > 0 && (
+                {para.Image && para.Image.data && para.Image.data.length > 0 && (
                   <div className="paragraph-images">
                     <ImageGallery images={para.Image.data} />
                   </div>

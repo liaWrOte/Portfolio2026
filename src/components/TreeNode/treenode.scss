@@ -20,10 +20,16 @@ $branch: 14px;
   padding: 0.25rem 0.4rem;
   position: relative;
   white-space: nowrap;
-  transition: background 0.12s;
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s;
 
   &:hover {
-    background: rgba($dark-brown, 0.04);
+    background: rgba($dark-brown, 0.06);
+  }
+
+  &--active {
+    font-weight: bold;
+    background: rgba($dark-brown, 0.1);
   }
 }
 

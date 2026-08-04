@@ -1,5 +1,7 @@
 import React, { useEffect, useRef } from 'react';
 import gsap from 'gsap';
+import { useTranslation } from '../../contexts/LanguageContext';
+import ScrambleText from '../ScrambleText/ScrambleText';
 import './contact-me.scss';
 
 const CONTACTS = [
@@ -9,6 +11,7 @@ const CONTACTS = [
 ];
 
 const ContactMe: React.FC = () => {
+  const { t } = useTranslation();
   const rootRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -42,7 +45,7 @@ const ContactMe: React.FC = () => {
       <section className="cm-card cm-in">
         <div className="cm-card-inner">
           <h1 className="cm-name">SANDRINE M'ZE</h1>
-          <p className="cm-role">DÉVELOPPEUSE WEB &amp; CREATIVE</p>
+          <ScrambleText text={t('developer')} tag="p" className="cm-role" />
           <div className="cm-traffic-lights">
             <span className="cm-light cm-red" />
             <span className="cm-light cm-yellow" />
@@ -71,12 +74,14 @@ const ContactMe: React.FC = () => {
       <footer className="cm-footer cm-in">
         <div className="cm-available">
           <span className="cm-pulse" />
-          <span>A LA RECHERCHE DE NOUVEAUX DEFIS</span>
+          <ScrambleText text={t('contact_available')} />
           <span className="cm-pulse" />
         </div>
-        <p className="cm-copyright">
-          &copy; {new Date().getFullYear()} SANDRINE M'ZE — ALL RIGHTS RESERVED
-        </p>
+        <ScrambleText
+          text={`© ${new Date().getFullYear()} SANDRINE M'ZE — ${t('contact_rights')}`}
+          tag="p"
+          className="cm-copyright"
+        />
       </footer>
     </div>
   );

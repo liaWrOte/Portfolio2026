@@ -29,10 +29,10 @@
   }
   .datetime-container {
     display: flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: flex-end;
-    gap: 12px;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 4px;
 
     .datetime-text {
       display: flex;

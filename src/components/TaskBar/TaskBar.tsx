@@ -1,5 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import ScrambleText from '../ScrambleText/ScrambleText';
+import { useTranslation } from '../../contexts/LanguageContext';
 import './task-bar.scss';
 
 // Importer les mêmes icônes que les items
@@ -11,6 +13,7 @@ import fileIcon from '../assets/img/icons/file_icon.svg';
 import emailIcon from '../assets/img/icons/email_icon.svg';
 
 const TaskBar = ({ openWindows, minimizedWindows, onWindowClick, onCloseWindow }) => {
+  const { t } = useTranslation();
   const handleWindowClick = (windowId: string) => {
     if (minimizedWindows && minimizedWindows.includes(windowId)) {
       document.dispatchEvent(new CustomEvent('window-restore', { detail: { windowId } }));
@@ -54,15 +57,15 @@ const TaskBar = ({ openWindows, minimizedWindows, onWindowClick, onCloseWindow }
   const getLabelForWindow = (windowId) => {
     switch (windowId) {
       case 'projets':
-        return 'Projets';
+        return t('projects');
       case 'resume':
-        return 'resume.pdf';
+        return t('resume');
       case 'contact_me':
-        return 'contact.me';
+        return t('contact');
       case 'artquiz':
-        return 'Artquiz';
+        return t('artquiz');
       case 'stolify':
-        return 'Stolify';
+        return t('stolify');
       default:
         return windowId;
     }
@@ -77,7 +80,7 @@ const TaskBar = ({ openWindows, minimizedWindows, onWindowClick, onCloseWindow }
             alt={`${getLabelForWindow(windowId)} icon`}
             className="task-bar-icon"
           />
-          <span className="task-bar-label">{getLabelForWindow(windowId)}</span>
+          <span className="task-bar-label"><ScrambleText text={getLabelForWindow(windowId)} /></span>
         </div>
       ))}
     </div>

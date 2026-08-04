@@ -13,22 +13,23 @@
 }
 
 .task-bar-item {
-  display: inline-block; // Identique aux items
-
-  flex-direction: column; // Identique aux items
-
-  width: fit-content; // Identique aux items
-
-  align-items: center; // Identique aux items
-
-  cursor: pointer; // Identique aux items
-
-  position: relative; // Pour le bouton close
-
-  margin: 0 2px; // Espacement entre items
+  display: inline-block;
+  flex-direction: column;
+  width: fit-content;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
+  margin: 0 2px;
+  transition: transform 0.08s ease, opacity 0.08s ease;
 
   &:hover {
-    cursor: pointer; // Identique aux items
+    cursor: pointer;
+  }
+
+  &:active {
+    transform: scale(0.88);
+    opacity: 0.75;
+    transition: transform 0.04s ease, opacity 0.04s ease;
   }
 }
 

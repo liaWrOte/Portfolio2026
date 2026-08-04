@@ -118,3 +118,6 @@ export const toggleWindow = (windowId: string) => ({
   type: TOGGLE_WINDOW,
   payload: windowId
 });
+export const SET_FILESYSTEM_EN = 'SET_FILESYSTEM_EN';
+export const setFileSystemEn = (fs: any) => ({ type: SET_FILESYSTEM_EN, payload: fs });
+export const setLanguage = (lang: string) => ({ type: SET_LANGUAGE, payload: lang });

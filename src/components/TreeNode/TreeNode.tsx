@@ -1,4 +1,6 @@
 import React from 'react';
+import { useTranslation } from '../../contexts/LanguageContext';
+import ScrambleText from '../ScrambleText/ScrambleText';
 
 // styles
 import './treenode.scss';
@@ -8,6 +10,8 @@ import folderOpenIcon from '../assets/img/icons/folder_open_icon.svg';
 import fileIcon from '../assets/img/icons/file_icon.svg';
 
 export default function TreeNode({ node, openFolder, openProject, nodeLevel = 0, currentPath }) {
+  const { t } = useTranslation();
+
   // IsActive class for selected node
   const isActive = currentPath.includes(node.id);
 
@@ -17,17 +21,21 @@ export default function TreeNode({ node, openFolder, openProject, nodeLevel = 0,
     if (node.type === 'project') openProject(node.id);
   };
 
+  const getDisplayName = () => {
+    if (node.type === 'folder') {
+      const key = `folder_${node.name.toLowerCase().replace(/\s+/g, '_')}`;
+      const translated = t(key);
+      return translated !== key ? translated : node.name;
+    }
+    return node.name;
+  };
+
   return (
     <li style={{ marginTop: nodeLevel === 0 ? '1rem' : 0 }}>
       {/* TreeNode element */}
       <span
         onClick={handleClick}
-        style={{
-          fontWeight: isActive ? 'bold' : 'normal',
-          background: isActive ? '#e0e0e0' : 'transparent',
-          cursor: 'pointer'
-        }}
-        className="treenode"
+        className={`treenode${isActive ? ' treenode--active' : ''}`}
       >
         {node.type === 'folder' ? (
           isActive ? (
@@ -38,7 +46,7 @@ export default function TreeNode({ node, openFolder, openProject, nodeLevel = 0,
         ) : (
           <img src={fileIcon} alt="Logo" className="treenode-icons" />
         )}
-        &nbsp;{node.name}
+        &nbsp;<ScrambleText text={getDisplayName()} />
       </span>
 
       {/* Recursive TreeNode children */}

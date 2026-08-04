@@ -10,7 +10,7 @@ const mapStateToProps = (state) => ({
   displaySpecsItem: state.main.displaySpecsItem,
   displayAllItems: state.main.displayAllItems,
   currentPath: state.main.navigation.currentPath,
-  fileSystem: state.main.fileSystem,
+  fileSystem: state.main.language === 'en' ? (state.main.fileSystemEn ?? state.main.fileSystem) : state.main.fileSystem,
   canGoBack: state.main.navigation.historyIndex > 0,
   canGoForward: state.main.navigation.historyIndex < state.main.navigation.history.length - 1
 });

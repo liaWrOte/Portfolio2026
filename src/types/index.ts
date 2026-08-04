@@ -126,6 +126,8 @@ export interface MainState {
   openWindows: WindowState[];
   loading: boolean;
   fileSystem?: FileSystemNode;
+  fileSystemEn?: FileSystemNode;
+  language?: 'fr' | 'en';
   currentPath?: string[];
   navigation?: {
     currentPath: string[];

@@ -145,11 +145,24 @@ const Stolify = () => {
       const el = document.querySelector(selector) as SVGElement | null;
       if (!el) return;
       el.style.cursor = 'pointer';
+      el.style.transition = 'opacity 0.08s ease';
       // pointer-events: bounding-box rend toute la zone rectangulaire cliquable
       el.setAttribute('pointer-events', 'bounding-box');
       el.addEventListener('click', (e) => {
         e.stopPropagation();
         handler();
+      });
+      el.addEventListener('mousedown', () => {
+        el.style.opacity = '0.45';
+        el.style.transition = 'opacity 0.04s ease';
+      });
+      el.addEventListener('mouseup', () => {
+        el.style.opacity = '1';
+        el.style.transition = 'opacity 0.08s ease';
+      });
+      el.addEventListener('mouseleave', () => {
+        el.style.opacity = '1';
+        el.style.transition = 'opacity 0.08s ease';
       });
     };
 

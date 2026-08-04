@@ -1,12 +1,11 @@
-// Position cible par défaut d'une fenêtre (centrée sur le bureau, avec un
-// décalage en cascade selon son index dans openWindows). Logique partagée
-// entre Window.tsx (positionnement réel des fenêtres) et tout composant qui
-// a besoin de connaître à l'avance où une fenêtre va apparaître (ex: une
-// animation qui part d'une icône vers l'emplacement de sa fenêtre).
-const WINDOW_WIDTH = 750;
-const WINDOW_HEIGHT = 515;
+const DEFAULT_WINDOW_WIDTH = 750;
+const DEFAULT_WINDOW_HEIGHT = 515;
 const DESKTOP_BAR_HEIGHT = 80;
 const STACK_OFFSET = 50;
+
+const WINDOW_SIZES: Record<string, { width: number; height: number }> = {
+  stolify: { width: 360, height: 460 },
+};
 
 export interface Point {
   x: number;
@@ -20,8 +19,10 @@ export const getWindowTargetPosition = (windowId: string, openWindows: string[] 
   const windowIndex = windowId ? openWindows.indexOf(windowId) : -1;
   const offset = windowIndex >= 0 ? windowIndex * STACK_OFFSET : 0;
 
+  const size = WINDOW_SIZES[windowId] ?? { width: DEFAULT_WINDOW_WIDTH, height: DEFAULT_WINDOW_HEIGHT };
+
   return {
-    x: Math.max(0, (desktopWidth - WINDOW_WIDTH) / 2 + offset),
-    y: Math.max(0, (desktopHeight - WINDOW_HEIGHT) / 2 + offset)
+    x: Math.max(0, (desktopWidth - size.width) / 2 + offset),
+    y: Math.max(0, (desktopHeight - size.height) / 2 + offset)
   };
 };

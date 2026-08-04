@@ -62,8 +62,14 @@
     img {
       width: 18px;
       height: 18px;
+      transition: transform 0.08s ease, opacity 0.08s ease;
       &:hover {
         cursor: pointer;
+      }
+      &:active {
+        transform: scale(0.88);
+        opacity: 0.75;
+        transition: transform 0.04s ease, opacity 0.04s ease;
       }
     }
     .main-controls {

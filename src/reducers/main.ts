@@ -18,6 +18,8 @@ import {
   RESTORE_WINDOW,
   TOGGLE_WINDOW,
   SET_FILESYSTEM,
+  SET_FILESYSTEM_EN,
+  SET_LANGUAGE,
   OPEN_PROJECT,
   OPEN_FOLDER,
   GO_BACK,
@@ -41,6 +43,8 @@ const initialState = {
   windowPositions: {}, // Position de l'icône au clic, par windowId (pour l'effet "genie")
   displayArtquiz: false,
   fileSystem: null,
+  fileSystemEn: null,
+  language: 'fr',
   window: {
     isOpen: false,
     view: 'explorer', // 'explorer' | 'project'
@@ -258,6 +262,12 @@ const desktopReducer = (state = initialState, action = {}) => {
           ? state.minimizedWindows.filter((id) => id !== windowId)
           : [...state.minimizedWindows, windowId]
       };
+    }
+    case SET_FILESYSTEM_EN: {
+      return { ...state, fileSystemEn: action.payload };
+    }
+    case SET_LANGUAGE: {
+      return { ...state, language: action.payload };
     }
     default:
       return { ...state };

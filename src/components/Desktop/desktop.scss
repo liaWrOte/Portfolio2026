@@ -6,6 +6,22 @@
   overflow: hidden;
 }
 
+@keyframes cloud-drift-1 {
+  0%   { transform: translate(0px,   0px); }
+  50%  { transform: translate(20px, -3px); }
+  100% { transform: translate(0px,   0px); }
+}
+@keyframes cloud-drift-2 {
+  0%   { transform: translate(0px,  0px); }
+  50%  { transform: translate(-18px, 3px); }
+  100% { transform: translate(0px,  0px); }
+}
+@keyframes cloud-drift-3 {
+  0%   { transform: translate(0px,  0px); }
+  50%  { transform: translate(15px,  2px); }
+  100% { transform: translate(0px,  0px); }
+}
+
 .desktop {
   position: relative;
   display: block;
@@ -18,23 +34,24 @@
     user-select: none;
     z-index: 0;
 
-    // Arrière-plan — petits, quasi transparents
-    &--xs { opacity: 0.35; }
-    &--sm { opacity: 0.55; }
+    // Arrière-plan — petits, quasi transparents (haut de l'écran)
+    &--xs { opacity: 0.30; }
+    &--sm { opacity: 0.50; }
     // Plan intermédiaire
-    &--md { opacity: 0.75; }
-    // Premier plan — grands, opaques
-    &--lg { opacity: 1; }
+    &--md { opacity: 0.70; }
+    // Premier plan — grands, opaques (bas de l'écran)
+    &--lg { opacity: 0.92; }
 
-    // Positions individuelles
-    &--1 { width: 6vw;  top: 11%;              left: 5%; }
-    &--2 { width: 7vw;  top: 21%;              right: 8%; }
-    &--3 { width: 9vw;  top: 8%;               left: 30%; }
-    &--4 { width: 8vw;  top: calc(33% - 4vw);  right: 28%; }
-    &--5 { width: 12vw; top: 15%;              left: 18%; }
-    &--6 { width: 11vw; top: 9%;               right: 15%; }
-    &--7 { width: 17vw; top: 6%;               left: 48%; }
-    &--8 { width: 15vw; top: 17%;              left: 2%; }
+    // Profondeur : petits en haut → grands en bas
+    // Les nuages lointains (petits) dérivent lentement, les proches plus vite
+    &--1 { width: 5vw;  top: 5%;  left: 8%;   animation: cloud-drift-1 18s ease-in-out infinite; }
+    &--2 { width: 6vw;  top: 9%;  right: 10%; animation: cloud-drift-2 22s ease-in-out infinite; }
+    &--3 { width: 8vw;  top: 16%; left: 38%;  animation: cloud-drift-3 20s ease-in-out infinite; }
+    &--4 { width: 9vw;  top: 13%; right: 28%; animation: cloud-drift-1 25s ease-in-out infinite reverse; }
+    &--5 { width: 15vw; top: 30%; left: 10%;  animation: cloud-drift-2 14s ease-in-out infinite; }
+    &--6 { width: 14vw; top: 26%; right: 8%;  animation: cloud-drift-3 16s ease-in-out infinite reverse; }
+    &--7 { width: 24vw; top: 48%; left: 52%;  animation: cloud-drift-1 10s ease-in-out infinite; }
+    &--8 { width: 22vw; top: 44%; left: -2%;  animation: cloud-drift-2 12s ease-in-out infinite reverse; }
   }
   .landscape {
     position: absolute;

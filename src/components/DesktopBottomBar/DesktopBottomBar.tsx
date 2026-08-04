@@ -27,10 +27,10 @@ const DesktopBottomBar = ({
   onOpenWindow,
   onCloseWindow
 }) => {
-  const { t } = useTranslation();
+  const { t, language } = useTranslation();
 
   // START Date and time display
-  const locale = 'fr-FR';
+  const locale = language === 'en' ? 'en-US' : 'fr-FR';
   const [today, setDate] = useState(new Date());
 
   useEffect(() => {
@@ -90,11 +90,11 @@ const DesktopBottomBar = ({
       </div>
 
       <div className="datetime-container">
-        <LanguageSwitch />
         <div className="datetime-text">
-          <span className="time">{hour}</span>
-          <span className="date">{date}</span>
+          <span className="time"><ScrambleText text={hour} /></span>
+          <span className="date"><ScrambleText text={date} /></span>
         </div>
+        <LanguageSwitch />
       </div>
     </aside>
   );

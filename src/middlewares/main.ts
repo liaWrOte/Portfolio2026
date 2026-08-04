@@ -12,6 +12,7 @@ import {
   OPEN_IMAGE_ITEM,
   showImageItem,
   setFileSystem,
+  setFileSystemEn,
   FETCH_PROJECTS
 } from '../actions/main';
 
@@ -37,18 +38,43 @@ const desktopMiddleware = (store) => (next) => (action) => {
       break;
 
     case FETCH_PROJECTS:
-      // Récupérer seulement la langue par défaut (français) avec les localizations
-      axios
-        .get(
+      Promise.all([
+        axios.get(
           `${apiUrl}/projects?populate[paragraph][populate][Image]=*&populate[paragraph][populate][localizations]=*&sort[0]=type&sort[1]=date&populate[localizations][populate][paragraph][populate][Image]=*&populate[logo]=*`
+        ),
+        axios.get(
+          `${apiUrl}/projects?locale=en&populate[paragraph][populate][Image]=*&sort[0]=type&sort[1]=date&populate[logo]=*`
         )
-        .then((response) => {
-          let projects = response.data.data;
-          // Construction du file system
-          const fileSystem = buildFileSystemFromProjects(projects);
-          store.dispatch(setFileSystem(fileSystem));
+      ])
+        .then(([frResponse, enResponse]) => {
+          const frProjects = frResponse.data.data;
+
+          // Build EN id → FR id/type mapping so navigation paths and folder IDs stay consistent
+          const enToFrId: Record<string, any> = {};
+          const enToFrType: Record<string, string> = {};
+          frProjects.forEach((frProj: any) => {
+            frProj.attributes.localizations?.data?.forEach((loc: any) => {
+              if (loc.attributes?.locale === 'en') {
+                enToFrId[String(loc.id)] = frProj.id;
+                enToFrType[String(loc.id)] = frProj.attributes.type; // use FR type to keep folder IDs consistent
+              }
+            });
+          });
+
+          // Remap EN projects to use FR ids and category names (folder IDs must match FR)
+          const enProjects = enResponse.data.data.map((proj: any) => ({
+            ...proj,
+            id: enToFrId[String(proj.id)] ?? proj.id,
+            attributes: {
+              ...proj.attributes,
+              type: enToFrType[String(proj.id)] ?? proj.attributes.type
+            }
+          }));
+
+          store.dispatch(setFileSystem(buildFileSystemFromProjects(frProjects)));
+          store.dispatch(setFileSystemEn(buildFileSystemFromProjects(enProjects)));
         })
-        .catch((error) => {});
+        .catch((error) => { console.error(error); });
       next(action);
       break;
 

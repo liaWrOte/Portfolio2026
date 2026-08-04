@@ -1,4 +1,6 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
+import store from '../store';
+import { setLanguage as setLanguageAction } from '../actions/main';
 export type Language = 'fr' | 'en';
 interface LanguageContextType {
   language: Language;
@@ -24,7 +26,11 @@ const translations = {
     folder_websites: 'Sites web',
     folder_apps: 'Applications',
     folder_games: 'Jeux',
-    folder_other: 'Autres'
+    folder_other: 'Autres',
+    folder_développement: 'Développement',
+    folder_brand_design: 'Brand Design',
+    contact_available: 'À LA RECHERCHE DE NOUVEAUX DÉFIS',
+    contact_rights: 'TOUS DROITS RÉSERVÉS'
   },
   en: {
     see_project: 'See project',
@@ -42,7 +48,11 @@ const translations = {
     folder_websites: 'Websites',
     folder_apps: 'Applications',
     folder_games: 'Games',
-    folder_other: 'Other'
+    folder_other: 'Other',
+    folder_développement: 'Development',
+    folder_brand_design: 'Brand Design',
+    contact_available: 'OPEN TO NEW OPPORTUNITIES',
+    contact_rights: 'ALL RIGHTS RESERVED'
   }
 };
 const LanguageContext = createContext<LanguageContextType | undefined>(undefined);
@@ -50,7 +60,12 @@ interface LanguageProviderProps {
   children: ReactNode;
 }
 export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) => {
-  const [language, setLanguage] = useState<Language>('fr');
+  const [language, setLang] = useState<Language>('fr');
+
+  const setLanguage = (lang: Language) => {
+    setLang(lang);
+    store.dispatch(setLanguageAction(lang));
+  };
   const t = (key: string): string => {
     return translations[language][key as keyof typeof translations.fr] || key;
   };

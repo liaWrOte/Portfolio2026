@@ -1,12 +1,18 @@
 import { MainState, Project, FileSystemNode } from '../types';
+
+const getActiveFileSystem = (state: MainState): FileSystemNode | undefined => {
+  return state.language === 'en' && state.fileSystemEn ? state.fileSystemEn : state.fileSystem;
+};
+
 export const getCurrentNode = (state: MainState) => {
-  if (!state.fileSystem) return null;
-  let node: FileSystemNode | undefined = state.fileSystem;
+  const activeFs = getActiveFileSystem(state);
+  if (!activeFs) return null;
+  let node: FileSystemNode | undefined = activeFs;
   // Le currentPath est dans state.navigation.currentPath
   // Prendre seulement le dernier élément du chemin pour le projet actuel
   const pathIds = state.navigation?.currentPath?.filter((id: string) => id !== 'root') || [];
-  const currentId = pathIds[pathIds.length - 1]; // Prendre le dernier ID
-  if (!currentId) return state.fileSystem; // Retourner root si pas d'ID
+  const currentId = pathIds[pathIds.length - 1];
+  if (!currentId) return activeFs;
   // Si c'est un ID numérique, chercher récursivement
   if (!isNaN(Number(currentId))) {
     const findProjectRecursively = (
@@ -27,13 +33,13 @@ export const getCurrentNode = (state: MainState) => {
     };
     node = findProjectRecursively(node);
   } else {
-    // Pour les IDs de dossiers (comme 'Brand Design', 'Pro')
     node = node?.children?.find((child: FileSystemNode) => child.id === currentId);
   }
   return node || null;
 };
 export const getProjectById = (state: MainState, id: string): Project | null => {
-  if (!state.fileSystem) return null;
+  const activeFs = getActiveFileSystem(state);
+  if (!activeFs) return null;
   const walk = (node: FileSystemNode): Project | null => {
     if (node.type === 'project' && node.id === id) {
       return {
@@ -60,5 +66,5 @@ export const getProjectById = (state: MainState, id: string): Project | null => 
     }
     return null;
   };
-  return walk(state.fileSystem);
+  return walk(activeFs);
 };

@@ -16,7 +16,7 @@ const mapStateToProps = (state) => ({
   windowPositions: state.main.windowPositions,
   displayArtquiz: state.main.displayArtquiz,
   isOpen: state.main.window.isOpen,
-  fileSystem: state.main.fileSystem,
+  fileSystem: state.main.language === 'en' ? (state.main.fileSystemEn ?? state.main.fileSystem) : state.main.fileSystem,
   activeId: state.main.window.activeId,
   view: state.main.window.view,
   currentPath: state.main.navigation.currentPath,
