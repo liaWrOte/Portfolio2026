@@ -20,3 +20,19 @@ span {
   font-family: monospace;
   color: $dark-brown;
 }
+
+// Scrollbar fine — thème DA, appliquée globalement
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+::-webkit-scrollbar-thumb {
+  background: rgba($dark-brown, 0.28);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgba($dark-brown, 0.55);
+}

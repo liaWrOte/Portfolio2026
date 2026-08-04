@@ -180,7 +180,7 @@ const Stolify = () => {
 
   const setupSVGLayout = () => {
     const svgNS = 'http://www.w3.org/2000/svg';
-    const defs = document.querySelector('svg defs');
+    const defs = document.querySelector('#stolify-ui svg defs');
 
     // Barre de titre : look écran LCD (override fill CSS du pattern rouge)
     const titleRect = document.querySelector('.cls-6') as SVGRectElement | null;
@@ -342,11 +342,10 @@ const Stolify = () => {
   // Mettre à jour l'image du morceau dans l'élément .cls-14
   const updateCoverImage = (trackIndex?: number) => {
     const index = trackIndex !== undefined ? trackIndex : currentTrackIndex;
-    console.error('updateCoverImage', index);
-    const coverElement = document.querySelector('#disc .cls-14') as SVGCircleElement;
+    const coverElement = document.querySelector('#stolify-ui #disc .cls-14') as SVGCircleElement;
     if (coverElement) {
       const svgNS = 'http://www.w3.org/2000/svg';
-      const defs = document.querySelector('svg defs');
+      const defs = document.querySelector('#stolify-ui svg defs');
 
       if (defs) {
         // Supprimer l'ancien clipPath s'il existe
@@ -400,7 +399,6 @@ const Stolify = () => {
         );
         image.setAttribute('preserveAspectRatio', 'xMidYMid slice');
         image.setAttribute('clip-path', 'url(#cover-clip)');
-        console.log(image);
 
         // Ajouter l'image après le cercle
         coverElement.parentNode?.insertBefore(image, coverElement.nextSibling);
@@ -413,7 +411,7 @@ const Stolify = () => {
 
   // Mettre à jour le titre du morceau dans l'élément .cls-6
   const updateTrackTitle = () => {
-    const titleElement = document.querySelector('.cls-6') as SVGRectElement;
+    const titleElement = document.querySelector('#stolify-ui .cls-6') as SVGRectElement;
     if (titleElement) {
       // Créer un élément text pour afficher le titre
       const svgNS = 'http://www.w3.org/2000/svg';
@@ -436,7 +434,7 @@ const Stolify = () => {
         textElement.setAttribute('font-weight', 'bold');
 
         // Clipper le texte à la zone réduite pour ne pas déborder sur le fader
-        const defs = document.querySelector('svg defs');
+        const defs = document.querySelector('#stolify-ui svg defs');
         if (defs && !defs.querySelector('#title-text-clip')) {
           const clipPath = document.createElementNS(svgNS, 'clipPath');
           clipPath.setAttribute('id', 'title-text-clip');
