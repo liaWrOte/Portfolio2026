@@ -88,6 +88,11 @@
   height: 100%;
 }
 
+// Remplace l'orange du fond SVG par le noir-brun de la DA
+#stolify-ui .cls-9 {
+  fill: $black-brown;
+}
+
 // ── Fader volume vertical (overlay dans cls-3) ───────────
 // cls-3 = panneau blanc bas-droite du SVG (viewBox 358.1×413.51)
 // Zone libre : x≈291–349, y≈217–400 (hors bras de lecture et boutons)
