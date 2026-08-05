@@ -1,19 +1,9 @@
 import {
   SHOW_PROJECT_LABEL,
   SHOW_WINDOW,
-  SHOW_ALL_PROJECTS,
   OPEN_WINDOW,
-  OPEN_WINDOW_ITEM,
-  OPEN_IMAGE_ITEM,
-  OPEN_SPECS_ITEM,
-  OPEN_ALL_ITEMS,
   CLOSE_WINDOW,
-  SHOW_IMAGE_ITEM,
-  OPEN_STOLIFY,
-  EXPAND_WINDOW,
   SET_POSITION,
-  OPEN_ARTQUIZ,
-  CLOSE_ARTQUIZ,
   MINIMIZE_WINDOW,
   RESTORE_WINDOW,
   TOGGLE_WINDOW,
@@ -32,16 +22,11 @@ const initialState = {
   allProjects: [],
   displayWindowItem: false,
   windowItemId: '',
-  displayImageItem: false,
-  displaySpecsItem: false,
-  displayAllItems: false,
   openWindows: [],
   minimizedWindows: [],
-  openedWindows: [], // Tracker les fenêtres qui ont été ouvertes au moins une fois
+  openedWindows: [],
   displayResume: false,
-  windowPosition: {},
-  windowPositions: {}, // Position de l'icône au clic, par windowId (pour l'effet "genie")
-  displayArtquiz: false,
+  windowPositions: {},
   fileSystem: null,
   fileSystemEn: null,
   language: 'fr',
@@ -78,7 +63,6 @@ const desktopReducer = (state = initialState, action = {}) => {
     }
 
     case SET_FILESYSTEM: {
-      console.log(action);
       return {
         ...state,
         fileSystem: action.payload,
@@ -176,7 +160,6 @@ const desktopReducer = (state = initialState, action = {}) => {
     }
 
     case CLOSE_WINDOW: {
-      console.log('CLOSE_WINDOW ', action.value);
       if (typeof action.value === 'string') {
         const windowId = action.value.toLowerCase();
         return {
@@ -224,18 +207,6 @@ const desktopReducer = (state = initialState, action = {}) => {
           };
         }
       }
-    }
-    case OPEN_ARTQUIZ: {
-      return {
-        ...state,
-        displayArtquiz: true
-      };
-    }
-    case CLOSE_ARTQUIZ: {
-      return {
-        ...state,
-        displayArtquiz: false
-      };
     }
     case MINIMIZE_WINDOW: {
       const windowId = action.payload;

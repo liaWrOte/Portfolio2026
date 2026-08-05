@@ -1,23 +1,16 @@
-import React, { useEffect, useState, Suspense, useRef } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import PropTypes from 'prop-types';
 import Draggable from 'react-draggable';
-import ReactMarkdown from 'react-markdown';
 import { getWindowTargetPosition } from '../../utils/windowPosition';
-import { RootState } from '../../store';
-import { FileSystemNode, Project } from '../../types';
+import { FileSystemNode } from '../../types';
 import { useTranslation } from '../../contexts/LanguageContext';
 
-// Import State selectors
 import { getCurrentNode, getProjectById } from '../../selectors/explorerSelectors';
-
-// Import backend URL for backend calls
 import { backendUrl } from '../../middlewares/env';
 
-// Import styles
 import './window.scss';
 
-// Import components
 import Loader from '../Loader/Loader';
 import WindowHeader from '../../containers/windowHeader';
 import SidebarTree from './../../containers/sidebarTree';
@@ -29,14 +22,8 @@ import ArtQuizApp from '../ArtQuiz/App';
 import ContactMe from '../ContactMe/ContactMe';
 
 interface WindowProps {
-  displayWindow: boolean;
-  displayProjects: boolean;
-  displayImageItem: boolean;
   windowItemId: string;
-  displayResume: boolean;
-  displayArtquiz: boolean;
   position?: { x: number; y: number };
-  windowPosition?: { x: number; y: number };
   isOpen: boolean;
   fileSystem: FileSystemNode;
   view: string;
@@ -47,14 +34,8 @@ interface WindowProps {
 }
 
 const Window: React.FC<WindowProps> = ({
-  displayWindow,
-  displayProjects,
-  displayImageItem,
   windowItemId,
-  displayResume,
-  displayArtquiz,
   position,
-  windowPosition,
   isOpen,
   fileSystem,
   view,
@@ -63,31 +44,19 @@ const Window: React.FC<WindowProps> = ({
   currentPath,
   openFolder
 }) => {
-  // Window positioning
   const boxRef = useRef(null);
 
-  // Default to center of screen, but allow override with position prop
   const getDefaultPosition = (windowId?: string) => {
-    if (position && typeof position === 'object') {
-      return position;
-    }
-
-    // Shared with Desktop.tsx (and any other component that needs to know in
-    // advance where a window will land, e.g. an icon -> window fly animation).
+    if (position && typeof position === 'object') return position;
     return getWindowTargetPosition(windowId, openWindows);
   };
 
-  // Positions are derived per-window from openWindows on every render, so that
-  // a window mounting (opening) always reads the offset that matches its
-  // current index in openWindows. Using state here would lag one render
-  // behind at mount time (Draggable only reads defaultPosition once, on mount).
   const projetsPos = getDefaultPosition('projets');
   const resumePos = getDefaultPosition('resume');
   const contactPos = getDefaultPosition('contact_me');
   const stolifyPos = getDefaultPosition('stolify');
   const artquizPos = getDefaultPosition('artquiz');
 
-  // Force a re-render on resize so newly-opened windows still center correctly
   const [, forceRerender] = useState(0);
   useEffect(() => {
     const handleResize = () => forceRerender((n) => n + 1);
@@ -95,8 +64,6 @@ const Window: React.FC<WindowProps> = ({
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // z-index stacking: each window gets an incrementing z-index, the most
-  // recently opened or clicked window always ends up on top.
   const zIndexCounterRef = useRef(1);
   const [zIndexes, setZIndexes] = useState<Record<string, number>>({});
 
@@ -108,102 +75,46 @@ const Window: React.FC<WindowProps> = ({
 
   const getZIndex = (windowId: string) => zIndexes[windowId] ?? 1;
 
-  // Bring newly opened windows to front automatically
   const prevOpenWindowsRef = useRef<any[]>([]);
   useEffect(() => {
-    const prevOpenWindows = prevOpenWindowsRef.current;
-    const newlyOpened = (openWindows || []).filter((id) => !prevOpenWindows.includes(id));
-    newlyOpened.forEach((id) => bringToFront(id));
+    const prev = prevOpenWindowsRef.current;
+    (openWindows || []).filter((id) => !prev.includes(id)).forEach((id) => bringToFront(id));
     prevOpenWindowsRef.current = openWindows || [];
   }, [openWindows]);
 
-  // OPEN_WINDOW sets windowItemId on every dispatch, even when the window is
-  // already open (it's just not re-added to openWindows). Use that signal to
-  // bring an already-open window to the front when its item is clicked again.
   useEffect(() => {
     if (windowItemId && openWindows && openWindows.includes(windowItemId)) {
       bringToFront(windowItemId);
     }
   }, [windowItemId]);
 
-  // Handle z-index on click/drag: bring the targeted window to the front
   function handleZIndex(windowId: string) {
     bringToFront(windowId);
   }
 
-  // Handle minifying window
-  const [isMinified, minify] = useState(false);
-  const [showStyle, setShowStyle] = useState(true);
-
-  useEffect(() => {
-    if (displayWindow) {
-      // setShowStyle(true);
-      setTimeout(() => setShowStyle(false), 1000);
-      // return () => clearTimeout(timeout);
-    }
-  }, [displayWindow]);
-
-  useEffect(() => {
-    // This useEffect seems to be expecting an array but displayProjects is boolean
-    // Commenting out for now to prevent the error
-    // TODO: Fix this logic based on the actual data structure needed
-    // if (!displayProjects || displayProjects.length === 0) return;
-    //
-    // const projectOpen = displayProjects.find(
-    //   (item) => item?.projectOpen && item.projectOpen !== 0
-    // );
-    // if (projectOpen && projectOpen.attributes) {
-    //   setHeaderlabel('/' + projectOpen.attributes.title);
-    // }
-  }, [fileSystem]);
-
-  const [headerLabel, setHeaderlabel] = useState('');
-
-  // Get current node and active project from Redux store
-  const mainState = useSelector((state: any) => state.main);
   const node = useSelector((state: any) => getCurrentNode(state.main));
-  // Get active project by ID
   const activeProject = useSelector((state: any) => getProjectById(state.main, windowItemId));
   const { t } = useTranslation();
 
-  // Mapping for window labels to match outWindowLabel
   const getWindowLabel = (windowId) => {
     switch (windowId) {
-      case 'projets':
-        return t('projects');
-      case 'resume':
-        return t('resume');
-      case 'contact_me':
-        return t('contact');
-      case 'artquiz':
-        return t('artquiz');
-      case 'stolify':
-        return t('stolify');
-      default:
-        return windowId;
+      case 'projets': return t('projects');
+      case 'resume': return t('resume');
+      case 'contact_me': return t('contact');
+      case 'artquiz': return t('artquiz');
+      case 'stolify': return t('stolify');
+      default: return windowId;
     }
   };
 
-  // Check if a window is minimized
-  const isWindowMinimized = (windowId) => {
-    return minimizedWindows && minimizedWindows.includes(windowId);
-  };
+  const isWindowMinimized = (windowId) =>
+    minimizedWindows && minimizedWindows.includes(windowId);
 
-  // Check if a window should be displayed
-  const shouldDisplayWindow = (windowId) => {
-    return openWindows && openWindows.includes(windowId) && !isWindowMinimized(windowId);
-  };
-
-  // Get window index for positioning
-  const getWindowIndex = (windowId) => {
-    if (!openWindows) return 0;
-    const visibleWindows = openWindows.filter((id) => !isWindowMinimized(id));
-    return visibleWindows.indexOf(windowId);
-  };
+  const shouldDisplayWindow = (windowId) =>
+    openWindows && openWindows.includes(windowId) && !isWindowMinimized(windowId);
 
   return (
     <>
-      {/* File explorer and projects */}
       {shouldDisplayWindow('projets') && fileSystem && (
         <Draggable
           bounds={'.desktop'}
@@ -214,43 +125,29 @@ const Window: React.FC<WindowProps> = ({
           nodeRef={boxRef}
         >
           <div
-            className={`window ${isMinified ? 'minified' : ''}`}
+            className="window"
             onClick={() => handleZIndex('projets')}
             style={{ zIndex: getZIndex('projets') }}
             data-window-id="projets"
-            origin={position}
             ref={boxRef}
           >
-            {/* Window Header  */}
             <WindowHeader
               label={getWindowLabel('projets')}
-              minify={minify}
-              isMinified={isMinified}
-              closeAnimState={showStyle}
-              closeAnim={setShowStyle}
               itemId={'projets'}
               currentPath={currentPath}
               fileSystem={fileSystem}
               openFolder={openFolder}
             />
-
             <div className="window-item-container">
-              {/* SidebarTree for explorer navigation */}
               <SidebarTree />
-
               <div className="window-right-items">
-                {/* Explorer view */}
-                {fileSystem && view && view === 'explorer' && (
+                {fileSystem && view === 'explorer' && (
                   <ExplorerView view={view} node={fileSystem} />
                 )}
-
-                {/* Folder view */}
-                {fileSystem && view && view === 'folder' && node && (
-                  <IconGrid items={node.children || []} isIconGrid={true} />
+                {fileSystem && view === 'folder' && node && (
+                  <IconGrid items={node.children || []} />
                 )}
-
-                {/* Project View  */}
-                {fileSystem && view && view === 'project' && (
+                {fileSystem && view === 'project' && (
                   <ProjectView node={activeProject ?? node} />
                 )}
               </div>
@@ -259,7 +156,6 @@ const Window: React.FC<WindowProps> = ({
         </Draggable>
       )}
 
-      {/* Resume  */}
       {shouldDisplayWindow('resume') && (
         <Draggable
           bounds={'.App'}
@@ -268,7 +164,7 @@ const Window: React.FC<WindowProps> = ({
           defaultPosition={resumePos}
         >
           <div
-            className={`window level-class-third`}
+            className="window level-class-third"
             key={'resume'}
             onClick={() => handleZIndex('resume')}
             style={{ zIndex: getZIndex('resume') }}
@@ -277,11 +173,6 @@ const Window: React.FC<WindowProps> = ({
             <WindowHeader
               label={getWindowLabel('resume')}
               itemId={'resume'}
-              minify={minify}
-              isMinified={isMinified}
-              currentPath={null}
-              fileSystem={null}
-              openFolder={openFolder}
               useOnlyLabel={true}
             />
             <iframe
@@ -296,7 +187,6 @@ const Window: React.FC<WindowProps> = ({
         </Draggable>
       )}
 
-      {/* Contact Me */}
       {shouldDisplayWindow('contact_me') && (
         <Draggable
           bounds={'.App'}
@@ -305,7 +195,7 @@ const Window: React.FC<WindowProps> = ({
           defaultPosition={contactPos}
         >
           <div
-            className={`window level-class-fourth`}
+            className="window level-class-fourth"
             key={'contact_me'}
             onClick={() => handleZIndex('contact_me')}
             style={{ zIndex: getZIndex('contact_me') }}
@@ -314,11 +204,6 @@ const Window: React.FC<WindowProps> = ({
             <WindowHeader
               label={getWindowLabel('contact_me')}
               itemId={'contact_me'}
-              minify={minify}
-              isMinified={isMinified}
-              currentPath={null}
-              fileSystem={null}
-              openFolder={openFolder}
               useOnlyLabel={true}
             />
             <ContactMe />
@@ -326,7 +211,6 @@ const Window: React.FC<WindowProps> = ({
         </Draggable>
       )}
 
-      {/* Stolify */}
       {shouldDisplayWindow('stolify') && (
         <Draggable
           bounds={'.App'}
@@ -335,7 +219,7 @@ const Window: React.FC<WindowProps> = ({
           defaultPosition={stolifyPos}
         >
           <div
-            className={`window level-class-fourth stolify-main-window`}
+            className="window level-class-fourth stolify-main-window"
             key={'stolify'}
             onClick={() => handleZIndex('stolify')}
             style={{ zIndex: getZIndex('stolify') }}
@@ -344,11 +228,6 @@ const Window: React.FC<WindowProps> = ({
             <WindowHeader
               label={getWindowLabel('stolify')}
               itemId={'stolify'}
-              minify={minify}
-              isMinified={isMinified}
-              currentPath={null}
-              fileSystem={null}
-              openFolder={openFolder}
               useOnlyLabel={true}
               hideExpandButton={true}
             />
@@ -359,7 +238,6 @@ const Window: React.FC<WindowProps> = ({
         </Draggable>
       )}
 
-      {/* ArtQuiz */}
       {shouldDisplayWindow('artquiz') && (
         <Draggable
           bounds={'.App'}
@@ -368,7 +246,7 @@ const Window: React.FC<WindowProps> = ({
           defaultPosition={artquizPos}
         >
           <div
-            className={`window level-class-fourth artquiz-main-window`}
+            className="window level-class-fourth artquiz-main-window"
             style={{ width: '450px', height: '750px', zIndex: getZIndex('artquiz') }}
             key={'artquiz'}
             onClick={() => handleZIndex('artquiz')}
@@ -377,17 +255,9 @@ const Window: React.FC<WindowProps> = ({
             <WindowHeader
               label={getWindowLabel('artquiz')}
               itemId={'artquiz'}
-              minify={minify}
-              isMinified={isMinified}
-              currentPath={null}
-              fileSystem={null}
-              openFolder={openFolder}
               useOnlyLabel={true}
             />
-            <div
-              className="window-item-container artquiz-window"
-              style={{ width: '100%', height: '100%' }}
-            >
+            <div className="window-item-container artquiz-window" style={{ width: '100%', height: '100%' }}>
               <ArtQuizApp />
             </div>
           </div>

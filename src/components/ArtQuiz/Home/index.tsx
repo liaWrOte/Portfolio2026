@@ -1,6 +1,5 @@
 import React, { useContext } from 'react';
 import Title from '../microComponents/Title';
-import Cutie from '../microComponents/Cutie';
 import QuizVignette from '../microComponents/QuizVignette';
 import { Link } from 'react-router-dom';
 import { QuizContext } from '../../../reducers/artquiz';
@@ -89,7 +88,6 @@ const Home = () => {
         </>
       )}
 
-      {/* <Cutie /> */}
     </div>
   );
 };

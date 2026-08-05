@@ -12,10 +12,8 @@ import fileIcon from '../assets/img/icons/file_icon.svg';
 export default function TreeNode({ node, openFolder, openProject, nodeLevel = 0, currentPath }) {
   const { t } = useTranslation();
 
-  // IsActive class for selected node
   const isActive = currentPath.includes(node.id);
 
-  // Dispatch of called function on click
   const handleClick = () => {
     if (node.type === 'folder') openFolder(node.id);
     if (node.type === 'project') openProject(node.id);
@@ -32,7 +30,6 @@ export default function TreeNode({ node, openFolder, openProject, nodeLevel = 0,
 
   return (
     <li style={{ marginTop: nodeLevel === 0 ? '1rem' : 0 }}>
-      {/* TreeNode element */}
       <span
         onClick={handleClick}
         className={`treenode${isActive ? ' treenode--active' : ''}`}
@@ -49,7 +46,6 @@ export default function TreeNode({ node, openFolder, openProject, nodeLevel = 0,
         &nbsp;<ScrambleText text={getDisplayName()} />
       </span>
 
-      {/* Recursive TreeNode children */}
       {node.children && (
         <ul>
           {node.children.map((child) => (

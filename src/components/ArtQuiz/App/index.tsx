@@ -1,24 +1,13 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import { Route, Routes, BrowserRouter, useParams } from 'react-router-dom';
-// == Import composants
+import { Route, Routes, BrowserRouter } from 'react-router-dom';
 import Home from '../Home';
 import { QuizProvider } from '../../../reducers/artquiz';
 import Quiz from '../Quiz';
-import { closeArtquiz } from '../../../actions/main';
 import '../../../styles/artquiz/index.scss';
 import './index.scss';
-// Data
 import quizData from '../../../data/quiz.json';
-// function Users() {
-//     // get ID from url
-//     const params = useParams();
-//     console.log(params); // 👉️ {userId: '4200'}
-//     return <h2>userId is 👉️ {params.questionId}</h2>;
-//   }
-// == Composant
+
 const App = () => {
-  const dispatch = useDispatch();
   return (
     <QuizProvider>
       <div className="artquiz-container">

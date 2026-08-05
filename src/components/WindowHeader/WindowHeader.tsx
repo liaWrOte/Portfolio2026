@@ -1,4 +1,4 @@
-﻿import React from 'react';
+import React from 'react';
 import './window-header.scss';
 import Breadcrumb from '../Breadcrumb/Breadcrumb';
 import { FileSystemNode } from '../../types';
@@ -7,17 +7,9 @@ import arrowRight from '../assets/img/arrow_right.svg';
 import ScrambleText from '../ScrambleText/ScrambleText';
 
 interface WindowHeaderProps {
-  primary?: boolean;
-  backgroundColor?: string;
-  size?: string;
   label: string;
   closeWindow?: (id: string) => void;
   itemId?: string;
-  expandWindow?: (e: React.MouseEvent) => void;
-  minify?: (minified: boolean) => void;
-  isMinified?: boolean;
-  closeAnimState?: boolean;
-  closeAnim?: () => void;
   currentPath?: string;
   fileSystem?: FileSystemNode;
   openFolder?: (path: string) => void;
@@ -46,11 +38,6 @@ export const WindowHeader: React.FC<WindowHeaderProps> = ({
   function expandedWindow(e: React.MouseEvent) {
     const win = (e.target as HTMLElement).closest('.window');
     win?.classList.toggle('full');
-  }
-
-  function handleClose(id: string) {
-    console.log(id);
-    closeWindow?.(id);
   }
 
   return (
@@ -99,14 +86,11 @@ export const WindowHeader: React.FC<WindowHeaderProps> = ({
             }}
           />
           {!hideExpandButton && itemId !== undefined && (
-            <span
-              className="toggle-window green"
-              onClick={(e) => expandedWindow(e)}
-            />
+            <span className="toggle-window green" onClick={(e) => expandedWindow(e)} />
           )}
           <span
             className="toggle-window red"
-            onClick={() => itemId && handleClose(itemId)}
+            onClick={() => itemId && closeWindow?.(itemId)}
           />
         </div>
       </div>

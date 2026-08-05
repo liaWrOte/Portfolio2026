@@ -4,11 +4,9 @@ import { BreadcrumbProps, BreadcrumbItem } from './Breadcrumb.types';
 import { useTranslation } from '../../contexts/LanguageContext';
 import ScrambleText from '../ScrambleText/ScrambleText';
 
-// Breadcrumb component for navigation
 const Breadcrumb: React.FC<BreadcrumbProps> = ({ currentPath = [], fileSystem, openFolder }) => {
   const { t, getLocalizedContent } = useTranslation();
 
-  // Fonction pour traduire les noms de dossiers connus
   const translateFolderName = (node: any): string => {
     // D'abord essayer d'utiliser le contenu localisé depuis Strapi
     const localizedContent = getLocalizedContent(node, 'name');

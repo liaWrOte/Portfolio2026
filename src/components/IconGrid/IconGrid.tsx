@@ -8,9 +8,8 @@ interface IconGridProps {
   items: FileSystemNode[];
   openFolder: (id: string) => void;
   openProject: (id: string) => void;
-  isIconGrid?: boolean;
 }
-const IconGrid: React.FC<IconGridProps> = ({ items, openFolder, openProject, isIconGrid }) => {
+const IconGrid: React.FC<IconGridProps> = ({ items, openFolder, openProject }) => {
   if (!items || items.length === 0) return null;
   return (
     <div className="icon-grid">

@@ -111,8 +111,8 @@ Liste les fenêtres ouvertes (hors Stolify/ArtQuiz). Clic → restauration ou fo
 ### `Window`
 Gestionnaire des 5 fenêtres draggables : `projets`, `resume`, `contact_me`, `stolify`, `artquiz`. Gère le z-index, la position en cascade, le resize, et la visibilité selon l'état Redux.
 
-- **Redux** : lit l'état complet `state.main` via des sélecteurs (`getCurrentNode`, `getProjectById`)
-- **État local** : `zIndexes` (stacking), `isMinified`, `forceRerender`
+- **Redux** : lit `windowItemId`, `isOpen`, `fileSystem`, `view`, `currentPath`, `minimizedWindows`, `openWindows` ; dispatche `openFolder`. Utilise aussi `useSelector` directement pour `getCurrentNode` et `getProjectById`
+- **État local** : `zIndexes` (stacking), `forceRerender`
 - Utilise `react-draggable` avec `handle=".window-header-container"`
 - Chaque fenêtre a `data-window-id` (ciblé par GSAP dans Desktop)
 - Selon la vue active, rend : `ExplorerView`, `ProjectView`, `Stolify`, `ArtQuizApp`, `ContactMe`, ou un `<iframe>` Notion (CV)
@@ -170,12 +170,6 @@ Carte complète d'un projet : titre, pitch, date, rôle, technologies, paragraph
 - **Zoom images** : `ImageZoomModal` via `createPortal` (monté sur `.App`), fermeture par Escape ou clic extérieur
 - Animation d'ouverture modale : `@keyframes modal-open` (scale 0.08 → 1)
 
-### `ProjectGrid`
-Conteneur grille qui rend une liste de `ProjectCard`.
-
-### `ProjectShowcase`
-Wrapper avec header (titre + sous-titre) + `ProjectGrid`. Prévu pour une vue complète (non utilisé dans le flux principal actuel).
-
 ---
 
 ## Icône de bureau / sidebar
@@ -206,6 +200,7 @@ Lecteur audio vinyle complet. Charge un SVG via `fetch` et l'injecte dans le DOM
 - Manipulation directe du DOM SVG : `<image>` (cover), `<text>` + `<animateTransform>` (titre défilant), `<clipPath>`, `<filter>` (ombre portée)
 - Tous les sélecteurs DOM sont scopés à `#stolify-ui` pour éviter les conflits avec les autres SVG de la page
 - Dispatche `stolify-play { trackIndex }` au démarrage de la lecture et `stolify-stop` à la pause (écoutés par `Desktop` pour le thème couleur)
+- **À la fermeture de la fenêtre** (démontage du composant) : `audioRef.current.pause()` stoppe automatiquement la lecture
 - Fader volume : `<input type="range">` HTML superposé au SVG, avec CSS custom property `--pct`
 
 **Correctifs notables :**
@@ -290,7 +285,7 @@ Sélection de thème ou affichage des résultats. Rend `<QuizVignette>` avec `<L
 
 | Event | Émetteur | Récepteur | Effet |
 |---|---|---|---|
-| `window-minimize` | WindowHeader (jaune) | Desktop | GSAP → taskbar + dispatch minimizerWindow |
+| `window-minimize` | WindowHeader (jaune) | Desktop | GSAP → taskbar + dispatch minimizeWindow |
 | `window-restore` | TaskBar / Item | Desktop | GSAP → fenêtre + dispatch openWindow |
 | `window-close` | WindowHeader (rouge) | Desktop | GSAP → icône + dispatch closeWindow |
 | `stolify-play` | Stolify (play) | Desktop | Applique `desktop--track-N` (thème couleur) |

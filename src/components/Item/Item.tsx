@@ -2,32 +2,23 @@ import React, { useRef } from 'react';
 import PropTypes from 'prop-types';
 import './item.scss';
 import ScrambleText from '../ScrambleText/ScrambleText';
-// Imports images
-import file from '../assets/img/file.png';
-import Stolify from '../Stolify/Stolify';
-import StolifySvg from '../animated/stolify/StolifySvg';
+
 const Item = ({
   inWindow,
   outWindowLabel,
   label,
   srcImg,
   triggerOpen,
-  openWindowItem,
-  openImageItem,
-  openSpecsItem,
-  openAllItems,
   openWindow,
   itemId,
   clickTrigger,
   setPosition,
-  animated,
-  openArtquiz,
-  openResume,
   minimizedWindows,
   'data-taskbar-id': dataTaskbarId
 }) => {
-  let desktopClass = !inWindow ? ' on-desktop' : '';
+  const desktopClass = !inWindow ? ' on-desktop' : '';
   const ref = useRef();
+
   function openWindowFunc(triggerOpen) {
     switch (triggerOpen) {
       case 'openWindow':
@@ -35,18 +26,6 @@ const Item = ({
       case 'resume':
         setPosition(itemId, ref.current.getBoundingClientRect());
         openWindow(itemId);
-        break;
-      case 'openWindowItem':
-        openWindowItem(itemId);
-        break;
-      case 'openImageItem':
-        openImageItem(itemId);
-        break;
-      case 'openSpecsItem':
-        openSpecsItem(itemId);
-        break;
-      case 'openAllItems':
-        openAllItems(itemId);
         break;
       case 'artquiz':
         setPosition('artquiz', ref.current.getBoundingClientRect());
@@ -61,10 +40,10 @@ const Item = ({
         }
         break;
       default:
-        openImageItem({ itemId, triggerOpen });
         break;
     }
   }
+
   return (
     <div
       className={`item${desktopClass} ${triggerOpen}-class`}
@@ -86,4 +65,5 @@ const Item = ({
     </div>
   );
 };
+
 export default Item;

@@ -8,9 +8,8 @@ interface MainProps {
   fetchProjects: () => void;
   fileSystem: FileSystemNode | null;
   loadingState: boolean;
-  displayArtquiz: boolean;
 }
-const Main: React.FC<MainProps> = ({ fetchProjects, fileSystem, loadingState, displayArtquiz }) => {
+const Main: React.FC<MainProps> = ({ fetchProjects, fileSystem, loadingState }) => {
   const [showLoader, setShowLoader] = useState(true);
 
   useEffect(() => {
@@ -23,7 +22,7 @@ const Main: React.FC<MainProps> = ({ fetchProjects, fileSystem, loadingState, di
 
   return (
     <div>
-      <Desktop displayArtquiz={displayArtquiz} />
+      <Desktop />
       <DesktopBottomBar />
     </div>
   );

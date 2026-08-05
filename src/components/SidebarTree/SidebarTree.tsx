@@ -8,12 +8,11 @@ import './sidebar-tree.scss';
 
 const SidebarTree = ({ fileSystem, currentPath, openFolder, openProject, openWindow }) => {
   const { t } = useTranslation();
-  const fs = fileSystem;
-  if (!fs) return null;
+  if (!fileSystem) return null;
   return (
     <ul className="sidebar-tree">
       <TreeNode
-        node={fs}
+        node={fileSystem}
         nodeLevel={0}
         currentPath={currentPath}
         openFolder={openFolder}

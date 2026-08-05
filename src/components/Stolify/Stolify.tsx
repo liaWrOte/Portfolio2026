@@ -3,11 +3,6 @@ import React, { useState, useRef, useEffect } from 'react';
 // Import styles
 import './stolify.scss';
 
-// Imports image buttons - Ancienne UI (commentée)
-// import nextBtn from '../assets/img/audio_player/next.svg';
-// import previousBtn from '../assets/img/audio_player/previous.svg';
-// import playBtn from '../assets/img/audio_player/play.svg';
-// import pauseBtn from '../assets/img/audio_player/pause.svg';
 import stolifyUI from '../assets/img/stolify_ui.svg';
 
 // Imports tracks covers images
@@ -116,6 +111,7 @@ const Stolify = () => {
   useEffect(() => {
     audioRef.current.volume = 0.5;
     return () => {
+      audioRef.current.pause();
       if (armAnimRef.current) cancelAnimationFrame(armAnimRef.current);
       if (discAnimRef.current) cancelAnimationFrame(discAnimRef.current);
       if (trackChangeTimeoutRef.current) clearTimeout(trackChangeTimeoutRef.current);
@@ -487,52 +483,6 @@ const Stolify = () => {
 
   return (
     <div className="stolify-wrapper">
-      {/* <div className="stolify-container" id="stolify"> */}
-
-      {/* Track title */}
-      {/* <div className="title-container">
-          <span className='title'>{tracks[currentTrackIndex].title}</span>
-        </div> */}
-
-      {/* Track cover */}
-      {/* <div className='cover-container'>
-          <img
-            src={tracks[currentTrackIndex].cover}
-            alt={`${tracks[currentTrackIndex].title} cover`}
-            className="cover"
-          />
-        </div> */}
-
-      {/* Audio controls - Ancienne UI (commentée) */}
-      {/* <div className="stolify-controls">
-        <img 
-            src={previousBtn} 
-            alt="previous song"
-            onClick={previous}
-          />
-        {isPlaying ? (
-          <img 
-            src={pauseBtn} 
-            alt="pause song"
-            onClick={pause}
-            className="main-controls"
-          />
-        ) : (
-          <img 
-            src={playBtn} 
-            alt="play song"
-            onClick={play}
-            className="main-controls"
-          />
-        )}
-        <img 
-          src={nextBtn} 
-          alt="next song"
-          onClick={next}
-        />
-      </div> */}
-      {/* </div> */}
-
       <div className="stolify-container" id="stolify-ui">
         {svgContent ? (
           <div dangerouslySetInnerHTML={{ __html: svgContent }} />

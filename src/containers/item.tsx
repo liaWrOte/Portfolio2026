@@ -1,53 +1,14 @@
 import { connect } from 'react-redux';
 import Item from '../components/Item/Item';
-import {
-  getProject,
-  openWindow,
-  closeWindow,
-  openWindowItem,
-  openImageItem,
-  openSpecsItem,
-  openAllItems,
-  setPosition,
-  openArtquiz
-} from '../actions/main';
+import { openWindow, setPosition } from '../actions/main';
 
 const mapStateToProps = (state) => ({
-  displayWindow: state.main.displayImageItem,
-  displayProjects: state.main.displaySpecsItem,
-  displayWindowItem: state.main.displayWindowItem,
-  windowItemId: state.main.windowItemId,
   minimizedWindows: state.main.minimizedWindows
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  getProject: (newValue) => {
-    dispatch(getProject(newValue));
-  },
-  openWindow: (newValue) => {
-    dispatch(openWindow(newValue));
-  },
-  closeWindow: (newValue) => {
-    dispatch(closeWindow(newValue));
-  },
-  openWindowItem: (newValue) => {
-    dispatch(openWindowItem(newValue));
-  },
-  openImageItem: (newValue) => {
-    dispatch(openImageItem(newValue));
-  },
-  openSpecsItem: (newValue) => {
-    dispatch(openSpecsItem(newValue));
-  },
-  openAllItems: (newValue) => {
-    dispatch(openAllItems(newValue));
-  },
-  setPosition: (windowId, newValue) => {
-    dispatch(setPosition(windowId, newValue));
-  },
-  openArtquiz: () => {
-    dispatch(openArtquiz());
-  }
+  openWindow: (newValue) => dispatch(openWindow(newValue)),
+  setPosition: (windowId, newValue) => dispatch(setPosition(windowId, newValue))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Item);
