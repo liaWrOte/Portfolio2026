@@ -1,4 +1,4 @@
-Portfolio III est une application web de portfolio développée avec React et Strapi.
+Portfolio2026 est une application web de portfolio développée avec React et Strapi.
 
 **Architecture principale**
 
@@ -49,7 +49,7 @@ C'est un portfolio interactif avec une architecture full-stack moderne.
 
 ---
 
-# Composants — PortfolioIII
+# Composants — Portfolio2026
 
 L'application simule un **système d'exploitation de bureau** (style macOS/Windows) avec des fenêtres draggables, un explorateur de fichiers virtuel alimenté par Strapi, et deux mini-applications embarquées (Stolify, ArtQuiz).
 

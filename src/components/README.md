@@ -1,4 +1,4 @@
-# Composants — PortfolioIII
+# Composants — Portfolio2026
 
 L'application simule un **système d'exploitation de bureau** (style macOS/Windows) avec des fenêtres draggables, un explorateur de fichiers virtuel alimenté par Strapi, et deux mini-applications embarquées (Stolify, ArtQuiz).
 
