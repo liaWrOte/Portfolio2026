@@ -16,7 +16,7 @@ const lines = [
   { text: 'CHARGEMENT DES PROJETS', status: '3 FOUND', type: 'success' },
   { text: 'IMPORT STOLIFY', status: 'COMPLETED', type: 'success' },
   { text: 'IMPORT ARTQUIZ', status: 'COMPLETED', type: 'success' },
-  { text: 'IMPORT PORTFOLIO III', status: 'COMPLETED', type: 'success' },
+  { text: 'IMPORT PORTFOLIO2026', status: 'COMPLETED', type: 'success' },
   { text: 'VÉRIFICATION DU CSS', status: 'OK', type: 'success' },
   { text: 'VÉRIFICATION DU TYPESCRIPT', status: 'WARNING, TOO STRICT', type: 'warning' },
   { text: 'COMPILATION SASS', status: 'OK', type: 'success' },

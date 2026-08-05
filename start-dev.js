@@ -1,7 +1,7 @@
 const { spawn } = require('child_process');
 const path = require('path');
 
-console.log('🚀 Démarrage de Portfolio III...\n');
+console.log('🚀 Démarrage de Portfolio2026...\n');
 
 // Démarrer Strapi (port 1337)
 console.log('📡 Démarrage de Strapi sur le port 1337...');
