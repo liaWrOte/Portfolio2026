@@ -1,4 +1,5 @@
-import React, { createContext, useReducer } from 'react';
+import React, { createContext, useReducer, ReactNode } from 'react';
+import { AnyAction } from 'redux';
 
 const initialState = {
   theme: '',
@@ -11,7 +12,7 @@ const initialState = {
   timer: 4
 };
 
-const reducer = (state, action) => {
+const reducer = (state = initialState, action: AnyAction) => {
   console.error('STATE ', state, action.type);
   switch (action.type) {
     case 'SELECT_THEME': {
@@ -117,10 +118,10 @@ const reducer = (state, action) => {
   }
 };
 
-export const QuizContext = createContext();
+export const QuizContext = createContext<any>(undefined);
 
 // Safe provider
-export const QuizProvider = ({ children = null }) => {
+export const QuizProvider: React.FC<{ children?: ReactNode }> = ({ children = null }) => {
   const value = useReducer(reducer, initialState);
 
   // Verify that children exists

@@ -1,8 +1,10 @@
 import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
 import Window from '../components/Window/Window';
 import { openFolder } from '../actions/main';
+import type { RootState } from '../store';
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = (state: RootState) => ({
   windowItemId: state.main.windowItemId,
   isOpen: state.main.window.isOpen,
   fileSystem: state.main.language === 'en' ? (state.main.fileSystemEn ?? state.main.fileSystem) : state.main.fileSystem,
@@ -12,7 +14,7 @@ const mapStateToProps = (state) => ({
   openWindows: state.main.openWindows
 });
 
-const mapDispatchToProps = (dispatch) => ({
+const mapDispatchToProps = (dispatch: Dispatch) => ({
   openFolder: (newValue) => dispatch(openFolder(newValue))
 });
 

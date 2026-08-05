@@ -103,7 +103,7 @@ const Stolify = () => {
     if (disc) disc.setAttribute('transform', `rotate(0, ${DISC_CX}, ${DISC_CY})`);
   };
 
-  // Synchroniser la référence avec l'état
+  // Keep the ref in sync with the state
   useEffect(() => {
     currentIndexRef.current = currentTrackIndex;
   }, [currentTrackIndex]);
@@ -118,13 +118,13 @@ const Stolify = () => {
     };
   }, []);
 
-  // Charger le contenu XML du SVG
+  // Load the SVG XML content
   useEffect(() => {
     fetch(stolifyUI)
       .then((response) => response.text())
       .then((svgText) => {
         setSvgContent(svgText);
-        // Ajouter les écouteurs d'événements après que le SVG soit injecté
+        // Add event listeners after the SVG is injected
         setTimeout(() => {
           addSVGEventListeners();
           setupSVGLayout();
@@ -135,14 +135,14 @@ const Stolify = () => {
       });
   }, []);
 
-  // Ajouter les écouteurs d'événements aux éléments du SVG
+  // Add event listeners to SVG elements
   const addSVGEventListeners = () => {
     const setupBtn = (selector: string, handler: () => void) => {
       const el = document.querySelector(selector) as SVGElement | null;
       if (!el) return;
       el.style.cursor = 'pointer';
       el.style.transition = 'opacity 0.08s ease';
-      // pointer-events: bounding-box rend toute la zone rectangulaire cliquable
+      // pointer-events: bounding-box makes the entire rectangular area clickable
       el.setAttribute('pointer-events', 'bounding-box');
       el.addEventListener('click', (e) => {
         e.stopPropagation();
@@ -167,10 +167,10 @@ const Stolify = () => {
     setupBtn('#next', next);
     setupBtn('#previous', previous);
 
-    // Mettre à jour l'état initial des contrôles
+    // Update initial control states
     updateControlStates();
 
-    // Mettre à jour le titre du morceau (l'image sera mise à jour par le useEffect)
+    // Update the track title (the image will be updated by the useEffect)
     updateTrackTitle();
   };
 
@@ -178,7 +178,7 @@ const Stolify = () => {
     const svgNS = 'http://www.w3.org/2000/svg';
     const defs = document.querySelector('#stolify-ui svg defs');
 
-    // Barre de titre : look écran LCD (override fill CSS du pattern rouge)
+    // Title bar: LCD screen look (overrides the red pattern fill CSS)
     const titleRect = document.querySelector('.cls-6') as SVGRectElement | null;
     if (titleRect) {
       titleRect.setAttribute('width', '275');
@@ -187,7 +187,7 @@ const Stolify = () => {
     }
 
     if (defs) {
-      // Ombre portée partagée (disque + bras)
+      // Shared drop shadow (disc + arm)
       if (!defs.querySelector('#vinyl-shadow')) {
         const f = document.createElementNS(svgNS, 'filter');
         f.setAttribute('id', 'vinyl-shadow');
@@ -201,13 +201,13 @@ const Stolify = () => {
       }
     }
 
-    // Ombres portées sur disque et bras
+    // Apply drop shadows to disc and arm
     const disc = document.querySelector('#disc') as SVGElement | null;
     if (disc) disc.setAttribute('filter', 'url(#vinyl-shadow)');
     const arm = document.querySelector('#disc-arm') as SVGElement | null;
     if (arm) arm.setAttribute('filter', 'url(#vinyl-shadow)');
 
-    // Stries de vinyle sur l'anneau extérieur du disque
+    // Vinyl grooves on the outer ring of the disc
     if (disc && !disc.querySelector('[data-grooves]')) {
       const cx = 146.79, cy = 152.2;
       const grooveG = document.createElementNS(svgNS, 'g');
@@ -223,7 +223,7 @@ const Stolify = () => {
       disc.appendChild(grooveG);
     }
 
-    // Centrer les boutons sous le titre LCD
+    // Center the buttons under the LCD title
     const titleCenterX = 19.3 + 275 / 2; // 156.8
     const btnCenterX = (101.69 + 255.23) / 2; // 178.46
     const shift = Math.round(titleCenterX - btnCenterX); // ≈ -22
@@ -236,21 +236,21 @@ const Stolify = () => {
     });
   };
 
-  // Mettre à jour l'état visuel des contrôles selon l'état de lecture
+  // Update the visual state of controls based on playback state
   const updateControlStates = (forceState?: boolean) => {
     const playElement = document.querySelector('#play') as HTMLElement;
     const pauseElement = document.querySelector('#pause') as HTMLElement;
 
-    // Utiliser l'état forcé ou l'état actuel
+    // Use the forced state or the current state
     const currentState = forceState !== undefined ? forceState : isPlaying;
 
     if (playElement && pauseElement) {
       if (currentState) {
-        // Quand on joue, cacher play et montrer pause
+        // When playing, hide play and show pause
         playElement.style.display = 'none';
         pauseElement.style.display = 'block';
       } else {
-        // Quand on est en pause, montrer play et cacher pause
+        // When paused, show play and hide pause
         playElement.style.display = 'block';
         pauseElement.style.display = 'none';
       }
@@ -293,8 +293,8 @@ const Stolify = () => {
     audioRef.current = new Audio(tracks[targetIndex].source);
 
     animateArm(0);
-    // Reset disc AVANT setCurrentTrackIndex : le useEffect([currentTrackIndex])
-    // appelle updateCoverImage à 200ms — le disque doit déjà être à 0° à ce moment
+    // Reset the disc BEFORE setCurrentTrackIndex: the useEffect([currentTrackIndex])
+    // calls updateCoverImage at 200ms — the disc must already be at 0° by then
     resetDiscAngle();
     setCurrentTrackIndex(targetIndex);
 
@@ -335,7 +335,7 @@ const Stolify = () => {
     }
   };
 
-  // Mettre à jour l'image du morceau dans l'élément .cls-14
+  // Update the track cover image in the .cls-14 element
   const updateCoverImage = (trackIndex?: number) => {
     const index = trackIndex !== undefined ? trackIndex : currentTrackIndex;
     const coverElement = document.querySelector('#stolify-ui #disc .cls-14') as SVGCircleElement;
@@ -344,13 +344,13 @@ const Stolify = () => {
       const defs = document.querySelector('#stolify-ui svg defs');
 
       if (defs) {
-        // Supprimer l'ancien clipPath s'il existe
+        // Remove the old clipPath if it exists
         const oldClipPath = defs.querySelector('#cover-clip');
         if (oldClipPath) {
           oldClipPath.remove();
         }
 
-        // Créer un clipPath avec les mêmes dimensions que le cercle
+        // Create a clipPath matching the circle dimensions
         const clipPath = document.createElementNS(svgNS, 'clipPath');
         clipPath.setAttribute('id', 'cover-clip');
 
@@ -362,7 +362,7 @@ const Stolify = () => {
         clipPath.appendChild(clipCircle);
         defs.appendChild(clipPath);
 
-        // Créer l'image directement dans le SVG
+        // Create the image directly in the SVG
         const oldImage = document.querySelector('#cover-image');
         if (oldImage) {
           oldImage.remove();
@@ -396,20 +396,20 @@ const Stolify = () => {
         image.setAttribute('preserveAspectRatio', 'xMidYMid slice');
         image.setAttribute('clip-path', 'url(#cover-clip)');
 
-        // Ajouter l'image après le cercle
+        // Insert the image after the circle
         coverElement.parentNode?.insertBefore(image, coverElement.nextSibling);
 
-        // Cacher le cercle original pour ne voir que l'image
+        // Hide the original circle to show only the image
         coverElement.style.fill = 'none';
       }
     }
   };
 
-  // Mettre à jour le titre du morceau dans l'élément .cls-6
+  // Update the track title in the .cls-6 element
   const updateTrackTitle = () => {
     const titleElement = document.querySelector('#stolify-ui .cls-6') as SVGRectElement;
     if (titleElement) {
-      // Créer un élément text pour afficher le titre
+      // Create a text element to display the title
       const svgNS = 'http://www.w3.org/2000/svg';
       let textElement = titleElement.parentNode?.querySelector('text[data-title]');
 
@@ -429,7 +429,7 @@ const Stolify = () => {
         textElement.setAttribute('font-size', '13');
         textElement.setAttribute('font-weight', 'bold');
 
-        // Clipper le texte à la zone réduite pour ne pas déborder sur le fader
+        // Clip the text to the reduced area to avoid overflow onto the fader
         const defs = document.querySelector('#stolify-ui svg defs');
         if (defs && !defs.querySelector('#title-text-clip')) {
           const clipPath = document.createElementNS(svgNS, 'clipPath');
@@ -448,7 +448,7 @@ const Stolify = () => {
 
       textElement.textContent = tracks[currentTrackIndex].title;
 
-      // Marquee SVG si le titre déborde de la zone d'affichage
+      // SVG marquee if the title overflows the display area
       const svgText = textElement as SVGTextElement;
       svgText.querySelector('animateTransform[data-marquee]')?.remove();
       if (svgText.getComputedTextLength) {
@@ -472,9 +472,9 @@ const Stolify = () => {
     }
   };
 
-  // Mettre à jour le titre et l'image quand le morceau change
+  // Update the title and image when the track changes
   useEffect(() => {
-    // Attendre un peu que le SVG soit chargé
+    // Wait for the SVG to be loaded
     setTimeout(() => {
       updateTrackTitle();
       updateCoverImage();
@@ -490,7 +490,7 @@ const Stolify = () => {
           <img src={stolifyUI} alt="Stolify UI" />
         )}
 
-        {/* Fader vertical dans la zone cls-3 (panneau blanc en bas à droite) */}
+        {/* Vertical fader in the cls-3 area (white panel at the bottom right) */}
         <div className="vol-overlay">
           <span className="vol-label">VOL</span>
           <span className="vol-mark">MAX</span>

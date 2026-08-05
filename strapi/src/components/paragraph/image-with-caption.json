@@ -1,0 +1,33 @@
+{
+  "collectionName": "components_paragraph_image_with_captions",
+  "info": {
+    "displayName": "image with caption"
+  },
+  "options": {},
+  "attributes": {
+    "file": {
+      "allowedTypes": ["images"],
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "pluginOptions": {
+        "i18n": {
+          "localized": false
+        }
+      }
+    },
+    "caption": {
+      "type": "string",
+      "pluginOptions": {
+        "i18n": {
+          "localized": true
+        }
+      }
+    }
+  },
+  "pluginOptions": {
+    "i18n": {
+      "localized": true
+    }
+  }
+}

@@ -19,40 +19,39 @@ export const Desktop = ({ displayWindowItem, displayImageItem, displayWindow, ..
   const { t } = useTranslation();
   const dispatch = useDispatch();
 
-  // windowItemId est mis à jour par OPEN_WINDOW à chaque clic sur n'importe
-  // quel item (projets, resume, contact_me, stolify, artquiz...), donc il
-  // identifie toujours le dernier item cliqué.
+  // windowItemId is updated by OPEN_WINDOW on every item click
+  // (projets, resume, contact_me, stolify, artquiz...), so it always
+  // identifies the last clicked item.
   const windowItemId = useSelector((state: any) => state.main.windowItemId);
-  // Position de toutes les icônes, capturées par Item.tsx via setPosition au clic
+  // Position of all icons, captured by Item.tsx via setPosition on click
   const windowPositions = useSelector((state: any) => state.main.windowPositions);
-  // Liste des fenêtres ouvertes, nécessaire pour calculer le décalage en cascade
+  // List of open windows, needed to calculate the cascade offset
   const openWindows = useSelector((state: any) => state.main.openWindows);
 
-  // Position de l'icône effectivement cliquée, et position où sa fenêtre va
-  // apparaître (même calcul que Window.tsx) : le même .fantom sert pour tous
-  // les items, plus besoin de dupliquer la logique par item.
+  // Position of the actually clicked icon, and the target position for its window
+  // (same calculation as Window.tsx): the same .fantom serves all items,
+  // no need to duplicate the logic per item.
   const iconPosition = windowPositions?.[windowItemId];
   const targetWindowPosition = getWindowTargetPosition(windowItemId, openWindows);
 
-  // Élément .fantom toujours présent dans le DOM (invisible par défaut) :
-  // GSAP manipule directement son style à chaque clic, pas besoin de le
-  // démonter/remonter. gsap.to() interrompt et reprend automatiquement le
-  // tween en cours si l'utilisateur clique plusieurs fois de suite.
+  // The .fantom element is always present in the DOM (invisible by default):
+  // GSAP manipulates its style directly on each click, no need to unmount/remount it.
+  // gsap.to() automatically cancels and restarts the current tween if the user
+  // clicks multiple times in quick succession.
   const fantomRef = useRef<HTMLDivElement>(null);
 
-  // Etat initial (caché) géré par GSAP lui-même, une seule fois au montage.
-  // Si on le mettait dans le style JSX (React), React le réécrirait à chaque
-  // re-render du composant (déclenché par le clic via Redux) et effacerait
-  // l'animation de GSAP en plein vol.
+  // Initial (hidden) state managed by GSAP itself, once on mount.
+  // If set in JSX style (React), React would rewrite it on every component
+  // re-render (triggered by Redux click) and would cancel the GSAP animation mid-flight.
   useEffect(() => {
     if (fantomRef.current) {
       gsap.set(fantomRef.current, { opacity: 0 });
     }
   }, []);
 
-  // Garde la trace de openWindows "d'avant" pour détecter une vraie ouverture
-  // (fermé -> ouvert), par opposition à un simple re-clic qui ne fait que
-  // remettre une fenêtre déjà ouverte au premier plan.
+  // Tracks the previous openWindows to detect a real opening
+  // (closed → open), as opposed to a simple re-click that merely
+  // brings an already-open window to the foreground.
   const prevOpenWindowsRef = useRef<string[]>(openWindows || []);
 
   useEffect(() => {
@@ -64,13 +63,13 @@ export const Desktop = ({ displayWindowItem, displayImageItem, displayWindow, ..
     const wasAlreadyOpen = prevOpenWindowsRef.current.includes(windowItemId);
     prevOpenWindowsRef.current = openWindows || [];
 
-    // La fenêtre était déjà ouverte : ce n'est qu'un re-clic pour la remettre
-    // au premier plan, pas une ouverture -> pas d'animation de vol.
+    // The window was already open: this is just a re-click to bring it
+    // to the foreground, not an opening — skip the fly animation.
     if (wasAlreadyOpen) return;
 
     const el = fantomRef.current;
 
-    // Lire la taille réelle de la fenêtre qui vient de s'ouvrir
+    // Read the actual size of the window that just opened
     const windowEl = document.querySelector<HTMLElement>(`[data-window-id="${windowItemId}"]`);
     const winRect = windowEl?.getBoundingClientRect();
     const wW = winRect ? winRect.width : 100;
@@ -79,10 +78,10 @@ export const Desktop = ({ displayWindowItem, displayImageItem, displayWindow, ..
     const winTop = winRect ? winRect.top : targetWindowPosition.y;
     const windowZIndex = windowEl ? parseInt(windowEl.style.zIndex || '1') : 1;
 
-    // Masquer la fenêtre pendant l'animation
+    // Hide the window during the animation
     if (windowEl) windowEl.style.visibility = 'hidden';
 
-    // Part positionné sur la fenêtre (à sa taille exacte) mais centré sur l'icône (scale 0.1)
+    // Start positioned at the window (exact size) but centered on the icon (scale 0.1)
     gsap.set(el, {
       left: winLeft,
       top: winTop,
@@ -95,7 +94,7 @@ export const Desktop = ({ displayWindowItem, displayImageItem, displayWindow, ..
       zIndex: windowZIndex + 1
     });
 
-    // Grandit jusqu'à la fenêtre et s'estompe en arrivant, puis révèle la fenêtre
+    // Grow to the window size and fade out on arrival, then reveal the window
     gsap.to(el, {
       x: 0,
       y: 0,
@@ -332,18 +331,18 @@ export const Desktop = ({ displayWindowItem, displayImageItem, displayWindow, ..
 
   return (
     <div className="desktop">
-      {/* Nuages arrière-plan (petits, transparents) */}
+      {/* Background clouds (small, transparent) */}
       <img className="cloud cloud--xs cloud--1" src={cloud} alt="" />
       <img className="cloud cloud--xs cloud--2" src={cloud} alt="" />
       <img className="cloud cloud--sm cloud--3" src={cloud} alt="" />
       <img className="cloud cloud--sm cloud--4" src={cloud} alt="" />
-      {/* Nuages plan intermédiaire */}
+      {/* Intermediate-layer clouds */}
       <img className="cloud cloud--md cloud--5" src={cloud} alt="" />
       <img className="cloud cloud--md cloud--6" src={cloud} alt="" />
-      {/* Nuages premier plan (grands, opaques) */}
+      {/* Foreground clouds (large, opaque) */}
       <img className="cloud cloud--lg cloud--7" src={cloud} alt="" />
       <img className="cloud cloud--lg cloud--8" src={cloud} alt="" />
-      {/* Item projets */}
+      {/* Projects item */}
       <Item
         key="projets"
         inWindow={false}
@@ -352,7 +351,7 @@ export const Desktop = ({ displayWindowItem, displayImageItem, displayWindow, ..
         triggerOpen="projets"
         srcImg={folderClosed2Icon}
       />
-      {/* Item resume */}
+      {/* Resume item */}
       <Item
         key="resume"
         inWindow={false}

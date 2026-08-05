@@ -294,6 +294,18 @@
   padding-top: 2rem;
 }
 
+.project-paragraphs {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 1.5rem;
+}
+
+.paragraph-item {
+  display: flex;
+  flex-direction: column;
+}
+
 /* Image Zoom Modal */
 @keyframes modal-open {
   from { transform: scale(0.08); opacity: 0; }
@@ -348,11 +360,79 @@
   &:hover { color: $orange; }
 }
 
+.zoom-image-container {
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  max-height: 66vh;
+  width: 100%;
+  user-select: none;
+}
+
 .zoomed-image {
   max-width: 100%;
-  max-height: 78vh;
+  max-height: 66vh;
   object-fit: contain;
   display: block;
+  user-select: none;
+  -webkit-user-drag: none;
+  transform-origin: center center;
+}
+
+.zoom-controls {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 0.6rem;
+  align-self: flex-start;
+}
+
+.zoom-btn {
+  background: none;
+  border: 1px solid $dark-brown;
+  color: $dark-brown;
+  font-family: monospace;
+  font-size: 1rem;
+  font-weight: 700;
+  width: 24px;
+  height: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  cursor: pointer;
+  transition: background 0.12s, color 0.12s;
+  line-height: 1;
+
+  &:hover:not(:disabled) {
+    background: $dark-brown;
+    color: $cray;
+  }
+
+  &:disabled {
+    opacity: 0.25;
+    cursor: default;
+  }
+}
+
+.zoom-reset {
+  border-color: $orange;
+  color: $orange;
+
+  &:hover:not(:disabled) {
+    background: $orange;
+    color: $cray;
+  }
+}
+
+.zoom-level {
+  font-family: monospace;
+  font-size: 0.8rem;
+  color: $dark-brown;
+  min-width: 3.2rem;
+  text-align: center;
+  letter-spacing: 0.04em;
 }
 
 .zoom-caption {

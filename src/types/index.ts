@@ -29,7 +29,7 @@ export interface ProjectAttributes {
   paragraph?: Array<{
     Title?: string;
     Description?: string;
-    Image?: any[];
+    images?: any[];
     locale?: string;
     localizations?: {
       data: Array<{
@@ -69,7 +69,7 @@ export interface FileSystemNode {
   paragraph?: Array<{
     Title?: string;
     Description?: string;
-    Image?: any[];
+    images?: any[];
     locale?: string;
     localizations?: {
       data: Array<{
@@ -96,7 +96,7 @@ export interface FileSystemNode {
         paragraph?: Array<{
           Title?: string;
           Description?: string;
-          Image?: any[];
+          images?: any[];
         }>;
       };
     }>;

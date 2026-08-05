@@ -1,3 +1,4 @@
+import { AnyAction } from 'redux';
 import {
   SHOW_PROJECT_LABEL,
   SHOW_WINDOW,
@@ -43,7 +44,7 @@ const initialState = {
   loading: true
 };
 
-const desktopReducer = (state = initialState, action = {}) => {
+const desktopReducer = (state = initialState, action: AnyAction) => {
   switch (action.type) {
     case SHOW_PROJECT_LABEL: {
       return {

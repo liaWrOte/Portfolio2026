@@ -21,15 +21,10 @@
         }
       }
     },
-    "Image": {
-      "allowedTypes": [
-        "images",
-        "files",
-        "videos",
-        "audios"
-      ],
-      "type": "media",
-      "multiple": true,
+    "images": {
+      "type": "component",
+      "repeatable": true,
+      "component": "paragraph.image-with-caption",
       "pluginOptions": {
         "i18n": {
           "localized": true
