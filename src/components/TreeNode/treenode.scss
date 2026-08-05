@@ -48,7 +48,7 @@ $branch: 14px;
     > li {
       position: relative;
 
-      // Trait horizontal — centré sur l'icône enfant
+      // Horizontal line — centered on the child icon
       &::before {
         content: '';
         position: absolute;
@@ -58,7 +58,7 @@ $branch: 14px;
         border-top: 1px solid rgba($dark-brown, 0.22);
       }
 
-      // Trait vertical — tronc continu pour les non-derniers enfants
+      // Vertical line — continuous trunk for non-last children
       &:not(:last-child)::after {
         content: '';
         position: absolute;
@@ -68,7 +68,7 @@ $branch: 14px;
         border-left: 1px solid rgba($dark-brown, 0.22);
       }
 
-      // Dernier enfant — tronc clipé au centre de l'icône
+      // Last child — trunk clipped to the center of the icon
       &:last-child::after {
         content: '';
         position: absolute;

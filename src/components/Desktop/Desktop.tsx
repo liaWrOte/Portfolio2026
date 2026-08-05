@@ -277,6 +277,59 @@ export const Desktop = ({ displayWindowItem, displayImageItem, displayWindow, ..
     return () => document.removeEventListener('window-close', handleClose);
   }, [dispatch]);
 
+  // Animate fantom from current window size → fullscreen (or back), then toggle .full
+  useEffect(() => {
+    const handleExpand = (e: Event) => {
+      const { windowId } = (e as CustomEvent).detail;
+      const el = fantomRef.current;
+      if (!el) return;
+
+      const windowEl = document.querySelector<HTMLElement>(`[data-window-id="${windowId}"]`);
+      if (!windowEl) return;
+
+      const beforeRect = windowEl.getBoundingClientRect();
+      const windowZIndex = parseInt(windowEl.style.zIndex || '1');
+
+      windowEl.style.visibility = 'hidden';
+      windowEl.classList.toggle('full');
+
+      // Double rAF: let the browser apply the new CSS before reading the after-rect
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          const afterRect = windowEl.getBoundingClientRect();
+
+          gsap.set(el, {
+            left: beforeRect.left,
+            top: beforeRect.top,
+            width: beforeRect.width,
+            height: beforeRect.height,
+            x: 0,
+            y: 0,
+            opacity: 1,
+            scale: 1,
+            zIndex: windowZIndex + 1
+          });
+
+          gsap.to(el, {
+            left: afterRect.left,
+            top: afterRect.top,
+            width: afterRect.width,
+            height: afterRect.height,
+            opacity: 0,
+            duration: 0.35,
+            ease: 'power2.out',
+            onComplete: () => {
+              if (windowEl) windowEl.style.visibility = '';
+            }
+          });
+        });
+      });
+    };
+
+    document.addEventListener('window-expand', handleExpand);
+    return () => document.removeEventListener('window-expand', handleExpand);
+  }, []);
+
   return (
     <div className="desktop">
       {/* Nuages arrière-plan (petits, transparents) */}

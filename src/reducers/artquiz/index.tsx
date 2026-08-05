@@ -36,7 +36,7 @@ const reducer = (state, action) => {
       // if ()
       const timer = 0;
 
-      // 2. Mise à jour de rightAnswered
+      // 2. Update rightAnswered
       const updatedQuestions = state.questions.map((q, i) =>
         i === state.currentQuestionIndex
           ? { ...q, rightAnswered: action.payload === q.correctAnswer ? 1 : 0 }
@@ -85,8 +85,8 @@ const reducer = (state, action) => {
 
     case 'RESET_QUESTIONS': {
       const updatedQuestions = state.questions.map((q) => {
-        const { rightAnswered, ...rest } = q; // destructuration pour retirer rightAnswered
-        return rest; // retourne un nouvel objet sans rightAnswered
+        const { rightAnswered, ...rest } = q; // destructure to remove rightAnswered
+        return rest; // return a new object without rightAnswered
       });
 
       const modifiedCorrectAnswersCount = 0;
@@ -119,11 +119,11 @@ const reducer = (state, action) => {
 
 export const QuizContext = createContext();
 
-// Provider sécurisé
+// Safe provider
 export const QuizProvider = ({ children = null }) => {
   const value = useReducer(reducer, initialState);
 
-  // On peut vérifier que children existe
+  // Verify that children exists
   if (!children) {
     console.warn('QuizProvider has no children!');
     return null;

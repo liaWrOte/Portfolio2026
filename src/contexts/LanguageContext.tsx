@@ -21,7 +21,7 @@ const translations = {
     contact: 'contact.me',
     artquiz: 'Artquiz',
     stolify: 'Stolify',
-    // Noms de dossiers pour breadcrumb
+    // Folder names for breadcrumb
     folder_projets: 'Projets',
     folder_websites: 'Sites web',
     folder_apps: 'Applications',
@@ -71,11 +71,11 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
   };
   const getLocalizedContent = (content: any, field: string): string => {
     if (!content) return '';
-    // Pour les objets avec localizations Strapi
+    // For objects with Strapi localizations
     if (typeof content === 'object' && content !== null) {
       if (content.localizations && content.localizations.data) {
         const currentLocale = language;
-        // Si on est en anglais et qu'il y a des localizations
+        // If in English and there are localizations
         if (currentLocale === 'en' && content.localizations.data.length > 0) {
           const englishVersion = content.localizations.data.find(
             (loc: any) => loc.attributes.locale === 'en'
@@ -84,34 +84,34 @@ export const LanguageProvider: React.FC<LanguageProviderProps> = ({ children }) 
             console.log(`✅ Translated ${field}:`, englishVersion.attributes[field]);
             return englishVersion.attributes[field];
           }
-          // Si c'est le champ 'name' et qu'il n'existe pas, essayer 'title'
+          // If the field is 'name' and it doesn't exist, try 'title'
           if (field === 'name' && englishVersion && englishVersion.attributes.title) {
             console.log(`✅ Translated name (using title):`, englishVersion.attributes.title);
             return englishVersion.attributes.title;
           }
         }
       }
-      // Retourner la version française par défaut
+      // Return the default French version
       return content[field] || '';
     }
-    // Pour les chaînes de caractères simples
+    // For simple strings
     if (typeof content === 'string') {
       return content;
     }
     return '';
   };
-  // Fonction pour obtenir le contenu localisé des paragraphes depuis le projet parent
+  // Function to get localized paragraph content from the parent project
   const getLocalizedParagraph = (paragraph: any, field: string, projectContext: any): string => {
     if (!paragraph || !projectContext) return paragraph[field] || '';
     const currentLocale = language;
     if (currentLocale !== 'en') return paragraph[field] || '';
-    // Chercher dans les localizations du projet parent
+    // Search in the parent project's localizations
     if (projectContext.localizations && projectContext.localizations.data) {
       const englishVersion = projectContext.localizations.data.find(
         (loc: any) => loc.attributes.locale === 'en'
       );
       if (englishVersion && englishVersion.attributes.paragraph) {
-        // Chercher le paragraphe correspondant par ID
+        // Find the matching paragraph by ID
         const englishParagraph = englishVersion.attributes.paragraph.find(
           (p: any) => p.id === paragraph.id
         );

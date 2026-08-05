@@ -8,21 +8,21 @@ export const getCurrentNode = (state: MainState) => {
   const activeFs = getActiveFileSystem(state);
   if (!activeFs) return null;
   let node: FileSystemNode | undefined = activeFs;
-  // Le currentPath est dans state.navigation.currentPath
-  // Prendre seulement le dernier élément du chemin pour le projet actuel
+  // currentPath is in state.navigation.currentPath
+  // Take only the last element of the path for the current project
   const pathIds = state.navigation?.currentPath?.filter((id: string) => id !== 'root') || [];
   const currentId = pathIds[pathIds.length - 1];
   if (!currentId) return activeFs;
-  // Si c'est un ID numérique, chercher récursivement
+  // If it's a numeric ID, search recursively
   if (!isNaN(Number(currentId))) {
     const findProjectRecursively = (
       searchNode: FileSystemNode | undefined
     ): FileSystemNode | undefined => {
       if (!searchNode) return undefined;
-      // Chercher dans les enfants directs
+      // Search in direct children
       const found = searchNode.children?.find((child: FileSystemNode) => child.id === currentId);
       if (found) return found;
-      // Chercher récursivement dans les sous-dossiers
+      // Search recursively in subfolders
       for (const child of searchNode.children || []) {
         if (child.type === 'folder') {
           const result = findProjectRecursively(child);

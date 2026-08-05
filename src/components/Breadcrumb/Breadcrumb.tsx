@@ -1,23 +1,23 @@
 import React from 'react';
 import './breadcrumb.scss';
-import { BreadcrumbProps, BreadcrumbItem } from './Breadcrumb.types';
+import { BreadcrumbProps, BreadcrumbItem, FileSystemItem } from './Breadcrumb.types';
 import { useTranslation } from '../../contexts/LanguageContext';
 import ScrambleText from '../ScrambleText/ScrambleText';
 
 const Breadcrumb: React.FC<BreadcrumbProps> = ({ currentPath = [], fileSystem, openFolder }) => {
   const { t, getLocalizedContent } = useTranslation();
 
-  const translateFolderName = (node: any): string => {
-    // D'abord essayer d'utiliser le contenu localisé depuis Strapi
+  const translateFolderName = (node: FileSystemItem): string => {
+    // First try to use localized content from Strapi
     const localizedContent = getLocalizedContent(node, 'name');
     if (localizedContent && localizedContent !== node.name) {
       return localizedContent;
     }
 
-    // Ensuite essayer les traductions statiques
+    // Then try static translations
     const folderKey = `folder_${node.name.toLowerCase().replace(/\s+/g, '_')}`;
     const translated = t(folderKey);
-    // Si la traduction n'existe pas, retourner le nom original
+    // If no translation exists, return the original name
     return translated !== folderKey ? translated : node.name;
   };
 
@@ -35,7 +35,7 @@ const Breadcrumb: React.FC<BreadcrumbProps> = ({ currentPath = [], fileSystem, o
           name: translatedName,
           isLast: index === currentPath.length - 1
         });
-        current = current.children?.find((child: any) => child.id === currentPath[index + 1]);
+        current = current.children?.find((child) => child.id === currentPath[index + 1]);
       }
     });
 

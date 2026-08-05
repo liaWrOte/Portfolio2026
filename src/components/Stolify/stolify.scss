@@ -17,7 +17,7 @@
   margin: 0;
   padding: 0;
 
-  // div injecté par dangerouslySetInnerHTML (exclure .vol-overlay)
+  // div injected by dangerouslySetInnerHTML (exclude .vol-overlay)
   > div:not(.vol-overlay) {
     width: 100%;
     height: 100%;
@@ -88,14 +88,14 @@
   height: 100%;
 }
 
-// Remplace l'orange du fond SVG par le noir-brun de la DA
+// Replace the SVG background orange with the dark brown design color
 #stolify-ui .cls-9 {
   fill: $black-brown;
 }
 
-// ── Fader volume vertical (overlay dans cls-3) ───────────
-// cls-3 = panneau blanc bas-droite du SVG (viewBox 358.1×413.51)
-// Zone libre : x≈291–349, y≈217–400 (hors bras de lecture et boutons)
+// ── Vertical volume fader (overlay in cls-3) ───────────
+// cls-3 = bottom-right white panel of the SVG (viewBox 358.1×413.51)
+// Free zone: x≈291–349, y≈217–400 (outside tonearm and buttons)
 .vol-overlay {
   position: absolute;
   right: 26px;
@@ -126,7 +126,7 @@
     flex-shrink: 0;
   }
 
-  // Fader vertical style console de mixage
+  // Vertical fader in mixing console style
   .vol-slider {
     writing-mode: vertical-lr;
     direction: rtl; // top = MAX, bottom = MUTE
@@ -134,7 +134,7 @@
     appearance: none;
     flex: 1;
     width: 2px;
-    // Piste : jaune de bas (min) jusqu'au thumb, sombre au-dessus
+    // Track: yellow from bottom (min) to thumb, dark above
     background: linear-gradient(
       to top,
       $yellow 0%,
@@ -159,15 +159,15 @@
       border-radius: 0;
     }
 
-    // Poignée horizontale style fader de console
+    // Horizontal handle in mixing console fader style
     &::-webkit-slider-thumb {
       -webkit-appearance: none;
-      width: 24px;  // large horizontalement
-      height: 6px;  // fine verticalement
+      width: 24px;  // large horizontally
+      height: 6px;  // narrow vertically
       background: $yellow;
       border: 1px solid rgba($dark-brown, 0.65);
       border-radius: 0;
-      margin-left: -11px; // centre sur la piste de 2px
+      margin-left: -11px; // centre on the 2px track
       cursor: grab;
       box-shadow:
         inset 0 1px 0 rgba(255, 255, 255, 0.35),

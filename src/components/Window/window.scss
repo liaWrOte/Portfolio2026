@@ -25,7 +25,7 @@
   display: flex;
   flex-direction: column;
 
-  // Style spécifique pour la fenêtre Stolify
+  // Specific style for the Stolify window
   &.stolify-main-window {
     width: auto;
     height: auto;
@@ -43,7 +43,7 @@
     overflow: hidden;
     font-family: monospace;
 
-    // Style spécifique pour Stolify
+    // Specific style for Stolify
     &.stolify-window {
       padding: 0;
       overflow: hidden;

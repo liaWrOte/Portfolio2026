@@ -1,11 +1,11 @@
-// Breakpoint sous lequel l'expérience desktop se dégrade
+// Breakpoint below which the desktop experience degrades
 $mobile-breakpoint: 900px;
 
-// Sur desktop : expérience normale
+// On desktop: normal experience
 .mobile-screen { display: none; }
 .desktop-only  { display: block; }
 
-// Sur petits écrans : CV + message, expérience desktop masquée
+// On small screens: CV + message, desktop experience hidden
 @media (max-width: $mobile-breakpoint) {
   html, body, .App {
     overflow-x: hidden;

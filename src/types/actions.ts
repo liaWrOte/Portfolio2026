@@ -1,6 +1,6 @@
 import { Project, WindowState } from './index';
 
-// Types pour les actions Redux
+// Redux action types
 export type MainActionType =
   | { type: 'SET_LABEL'; payload: string }
   | { type: 'TOGGLE_WINDOW' }

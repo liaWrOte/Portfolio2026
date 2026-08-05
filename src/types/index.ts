@@ -1,4 +1,4 @@
-// Interfaces principales pour l'application
+// Main application interfaces
 
 export interface Localizations {
   [key: string]: {
@@ -82,7 +82,7 @@ export interface FileSystemNode {
       }>;
     };
   }>;
-  // Champs Strapi i18n
+  // Strapi i18n fields
   locale?: string;
   localizations?: {
     data: Array<{

@@ -1,3 +1,7 @@
+🇫🇷 Français | [🇬🇧 English](README.en.md)
+
+---
+
 Portfolio2026 est une application web de portfolio développée avec React et Strapi.
 
 **Architecture principale**
@@ -121,7 +125,7 @@ Gestionnaire des 5 fenêtres draggables : `projets`, `resume`, `contact_me`, `st
 Barre de titre de chaque fenêtre (style macOS). Navigation arrière/avant, breadcrumb, boutons trafic lights.
 
 - **Bouton jaune** : dispatche CustomEvent `window-minimize` → GSAP dans Desktop
-- **Bouton vert** : toggle classe `full` sur `.window` (plein écran CSS)
+- **Bouton vert** : dispatche CustomEvent `window-expand` → GSAP dans Desktop → toggle classe `full` (plein écran animé)
 - **Bouton rouge** : dispatche `closeWindow`
 - **Flèches** : `goBack()` / `goForward()` → `GO_BACK` / `GO_FORWARD` Redux
 - Affiche `<Breadcrumb>` ou `<ScrambleText>` selon `useOnlyLabel`
@@ -288,5 +292,6 @@ Sélection de thème ou affichage des résultats. Rend `<QuizVignette>` avec `<L
 | `window-minimize` | WindowHeader (jaune) | Desktop | GSAP → taskbar + dispatch minimizeWindow |
 | `window-restore` | TaskBar / Item | Desktop | GSAP → fenêtre + dispatch openWindow |
 | `window-close` | WindowHeader (rouge) | Desktop | GSAP → icône + dispatch closeWindow |
+| `window-expand` | WindowHeader (vert) | Desktop | GSAP fantom taille courante → plein écran (ou retour) + toggle `.full` |
 | `stolify-play` | Stolify (play) | Desktop | Applique `desktop--track-N` (thème couleur) |
 | `stolify-stop` | Stolify (pause/track change) | Desktop | Retire les classes de thème |

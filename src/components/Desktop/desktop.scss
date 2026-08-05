@@ -34,16 +34,16 @@
     user-select: none;
     z-index: 0;
 
-    // Arrière-plan — petits, quasi transparents (haut de l'écran)
+    // Background — small, nearly transparent (top of screen)
     &--xs { opacity: 0.30; }
     &--sm { opacity: 0.50; }
-    // Plan intermédiaire
+    // Intermediate layer
     &--md { opacity: 0.70; }
-    // Premier plan — grands, opaques (bas de l'écran)
+    // Foreground — large, opaque (bottom of screen)
     &--lg { opacity: 0.92; }
 
-    // Profondeur : petits en haut → grands en bas
-    // Les nuages lointains (petits) dérivent lentement, les proches plus vite
+    // Depth: small at top → large at bottom
+    // Distant clouds (small) drift slowly, nearby clouds drift faster
     &--1 { width: 5vw;  top: 5%;  left: 8%;   animation: cloud-drift-1 18s ease-in-out infinite; }
     &--2 { width: 6vw;  top: 9%;  right: 10%; animation: cloud-drift-2 22s ease-in-out infinite; }
     &--3 { width: 8vw;  top: 16%; left: 38%;  animation: cloud-drift-3 20s ease-in-out infinite; }

@@ -72,12 +72,12 @@ const LoadingScreen: React.FC<Props> = ({ onComplete }) => {
 
     const tl = gsap.timeline();
 
-    // Phase 1 : apparition ligne par ligne
+    // Phase 1: lines appear one by one
     tl.to(lineEls, { opacity: 1, stagger: STAGGER, duration: 0 });
 
-    // Phase 2 : scroll automatique quand les lignes débordent
-    // On démarre le scroll quand la zone est pleine, et on le synchronise
-    // avec l'apparition des lignes suivantes.
+    // Phase 2: auto-scroll when lines overflow
+    // Scroll starts when the area is full, synchronized
+    // with the appearance of the following lines.
     const lineHeight = lineEls[0].offsetHeight + 6;
     const wrapper = messages.parentElement as HTMLElement;
     const availableHeight = wrapper.clientHeight;
@@ -89,7 +89,7 @@ const LoadingScreen: React.FC<Props> = ({ onComplete }) => {
       const fadeEl = messages.parentElement?.querySelector('.loading-messages-fade');
       gsap.set(fadeEl, { opacity: 0 });
 
-      // Le fade apparaît au moment où le scroll démarre
+      // The fade appears when the scroll starts
       tl.to(fadeEl, { opacity: 1, duration: 0.4 }, visibleCount * STAGGER);
 
       tl.to(
@@ -103,7 +103,7 @@ const LoadingScreen: React.FC<Props> = ({ onComplete }) => {
       );
     }
 
-    // Phase 3 : disparition de l'écran de chargement
+    // Phase 3: loading screen fades out
     tl.to(screen, { opacity: 0, duration: 0.5 }, `+=${0.8}`);
     tl.call(onComplete);
 

@@ -9,7 +9,7 @@
 
   padding: 0 8px;
 
-  // Suppression du background et de la bordure
+  // Background and border removed
 }
 
 .task-bar-item {
@@ -34,25 +34,25 @@
 }
 
 .task-bar-icon {
-  display: block; // Identique aux items
+  display: block; // Same as items
 
-  margin: 0 auto; // Identique aux items
+  margin: 0 auto; // Same as items
 
-  width: 48px; // Identique aux items
+  width: 48px; // Same as items
 
-  height: 48px; // Identique aux items
+  height: 48px; // Same as items
 
-  font-size: 48px; // Pour les emojis
+  font-size: 48px; // For emojis
 
   line-height: 1;
 }
 
 .task-bar-label {
-  margin-top: 0.5rem; // Identique aux items
+  margin-top: 0.5rem; // Same as items
 
-  text-align: center; // Identique aux items
+  text-align: center; // Same as items
 
-  font-size: inherit; // Hériter de la taille par défaut
+  font-size: inherit; // Inherit default font size
 }
 
 .task-bar-close {
@@ -72,7 +72,7 @@
 
   border-radius: 2px;
 
-  position: absolute; // Position absolue pour ne pas affecter le layout
+  position: absolute; // Absolute position to avoid affecting layout
 
   top: 2px;
 

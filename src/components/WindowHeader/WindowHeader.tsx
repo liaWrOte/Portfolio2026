@@ -35,9 +35,10 @@ export const WindowHeader: React.FC<WindowHeaderProps> = ({
   goForward,
   hideExpandButton = false,
 }) => {
-  function expandedWindow(e: React.MouseEvent) {
-    const win = (e.target as HTMLElement).closest('.window');
-    win?.classList.toggle('full');
+  function expandedWindow() {
+    if (itemId) {
+      document.dispatchEvent(new CustomEvent('window-expand', { detail: { windowId: itemId } }));
+    }
   }
 
   return (
@@ -86,7 +87,7 @@ export const WindowHeader: React.FC<WindowHeaderProps> = ({
             }}
           />
           {!hideExpandButton && itemId !== undefined && (
-            <span className="toggle-window green" onClick={(e) => expandedWindow(e)} />
+            <span className="toggle-window green" onClick={() => expandedWindow()} />
           )}
           <span
             className="toggle-window red"
