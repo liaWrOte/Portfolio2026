@@ -4,6 +4,9 @@
 
 Portfolio2026 est une application web de portfolio développée avec React et Strapi.
 
+<img width="1356" height="906" alt="image" src="https://github.com/user-attachments/assets/4b35611c-15ec-4991-8fba-9c6b0cd7e281" />
+
+
 **Architecture principale**
 
 * Frontend : Application React 18 avec Redux Toolkit pour la gestion d'état
