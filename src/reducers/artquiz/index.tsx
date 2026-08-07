@@ -9,7 +9,7 @@ const initialState = {
   currentAnswer: '',
   showResults: false,
   correctAnswersCount: 0,
-  timer: 4
+  timer: 7
 };
 
 const reducer = (state = initialState, action: AnyAction) => {
@@ -58,7 +58,7 @@ const reducer = (state = initialState, action: AnyAction) => {
         showResults,
         currentQuestionIndex,
         currentAnswer: '',
-        timer: 4
+        timer: 7
       };
     }
 
@@ -80,7 +80,7 @@ const reducer = (state = initialState, action: AnyAction) => {
         correctAnswersCount: 0,
         currentQuestionIndex: 0,
         currentAnswer: '',
-        timer: 4,
+        timer: 7,
         showResults: false
       };
     }

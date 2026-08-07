@@ -247,7 +247,7 @@ const Window: React.FC<WindowProps> = ({
         >
           <div
             className="window level-class-fourth artquiz-main-window"
-            style={{ width: '450px', height: '750px', zIndex: getZIndex('artquiz') }}
+            style={{ width: '450px', height: '620px', zIndex: getZIndex('artquiz') }}
             key={'artquiz'}
             onClick={() => handleZIndex('artquiz')}
             data-window-id="artquiz"
@@ -256,6 +256,7 @@ const Window: React.FC<WindowProps> = ({
               label={getWindowLabel('artquiz')}
               itemId={'artquiz'}
               useOnlyLabel={true}
+              hideExpandButton={true}
             />
             <div className="window-item-container artquiz-window" style={{ width: '100%', height: '100%' }}>
               <ArtQuizApp />

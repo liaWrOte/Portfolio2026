@@ -5,6 +5,7 @@ const STACK_OFFSET = 50;
 
 const WINDOW_SIZES: Record<string, { width: number; height: number }> = {
   stolify: { width: 360, height: 460 },
+  artquiz: { width: 450, height: 620 },
 };
 
 export interface Point {
