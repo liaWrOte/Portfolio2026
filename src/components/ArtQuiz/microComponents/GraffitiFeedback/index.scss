@@ -1,0 +1,63 @@
+.graffiti-overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: none;
+  z-index: 50;
+}
+
+.graffiti-text {
+  font-family: 'Permanent Marker', cursive;
+  font-size: 3.2rem;
+  line-height: 1;
+  transform: rotate(var(--rot));
+  animation: graffiti-spray 2.2s ease-out forwards;
+  paint-order: stroke fill;
+  -webkit-text-stroke: 6px rgba(0, 0, 0, 0.75);
+}
+
+.graffiti--correct .graffiti-text {
+  color: #ffe100;
+  text-shadow:
+    3px  3px 0 rgba(0, 0, 0, 0.6),
+   -2px -2px 0 rgba(0, 0, 0, 0.4),
+    0   0  40px rgba(255, 225, 0, 0.6);
+}
+
+.graffiti--wrong .graffiti-text {
+  color: #ff4500;
+  text-shadow:
+    3px  3px 0 rgba(0, 0, 0, 0.6),
+   -2px -2px 0 rgba(0, 0, 0, 0.4),
+    0   0  40px rgba(255, 69, 0, 0.5);
+}
+
+@keyframes graffiti-spray {
+  0% {
+    opacity: 0;
+    filter: blur(24px);
+    transform: rotate(var(--rot)) scale(0.4);
+  }
+  20% {
+    opacity: 1;
+    filter: blur(4px);
+    transform: rotate(var(--rot)) scale(1.2);
+  }
+  40% {
+    filter: blur(0);
+    transform: rotate(var(--rot)) scale(0.95);
+  }
+  55% {
+    transform: rotate(var(--rot)) scale(1);
+    opacity: 1;
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: rotate(var(--rot)) scale(1.05);
+  }
+}

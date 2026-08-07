@@ -7,6 +7,7 @@ import Answers from '../microComponents/Answers';
 import Timer from '../microComponents/Timer';
 import NextQuestion from '../microComponents/NextQuestion';
 import Timeline from '../microComponents/Timeline';
+import GraffitiFeedback from '../microComponents/GraffitiFeedback';
 import quizData from '../../../data/quiz.json';
 import './index.scss';
 
@@ -40,6 +41,7 @@ const Quiz = ({ theme, questions }: { theme: string; questions: any[] }) => {
       <Question />
       <Answers />
       <NextQuestion />
+      <GraffitiFeedback />
     </div>
   );
 };

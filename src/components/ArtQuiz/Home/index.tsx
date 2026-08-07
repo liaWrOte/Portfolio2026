@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 import { QuizContext } from '../../../reducers/artquiz';
 import quizData from '../../../data/quiz.json';
 import badgeImage from '../../../assets/artquiz/badge.svg';
-import paletteLogo from '../../../assets/artquiz/palette.svg';
+import artquizIcon from '../../assets/img/icons/artquiz_icon.svg';
 import './index.scss';
 
 const Home = () => {
@@ -58,7 +58,7 @@ const Home = () => {
       {!quizState.showResults && (
         <>
           <div className="logo-container">
-            <img src={paletteLogo} alt="" />
+            <img src={artquizIcon} alt="" />
             <span className="logo-text">ArtQuiz</span>
             <p>Ready to play ?</p>
           </div>
