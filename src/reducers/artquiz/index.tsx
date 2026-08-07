@@ -13,7 +13,6 @@ const initialState = {
 };
 
 const reducer = (state = initialState, action: AnyAction) => {
-  console.error('STATE ', state, action.type);
   switch (action.type) {
     case 'SELECT_THEME': {
       return {
@@ -34,16 +33,12 @@ const reducer = (state = initialState, action: AnyAction) => {
         action.payload === state.questions[state.currentQuestionIndex].correctAnswer
           ? state.correctAnswersCount + 1
           : state.correctAnswersCount;
-      // if ()
       const timer = 0;
-
-      // 2. Update rightAnswered
       const updatedQuestions = state.questions.map((q, i) =>
         i === state.currentQuestionIndex
           ? { ...q, rightAnswered: action.payload === q.correctAnswer ? 1 : 0 }
           : q
       );
-
       return {
         ...state,
         questions: updatedQuestions,
@@ -58,57 +53,42 @@ const reducer = (state = initialState, action: AnyAction) => {
       const currentQuestionIndex = showResults
         ? state.currentQuestionIndex
         : state.currentQuestionIndex + 1;
-      const answers = showResults;
-      const currentAnswer = '';
-      const timer = 4;
       return {
         ...state,
         showResults,
         currentQuestionIndex,
-        answers,
-        currentAnswer,
-        timer
+        currentAnswer: '',
+        timer: 4
       };
     }
 
     case 'DECREASE_TIMER': {
-      let updatedTimer;
-      if (action.payload >= 0) {
-        updatedTimer = action.payload;
-      } else {
-        updatedTimer = 0;
-      }
       return {
         ...state,
-        timer: updatedTimer
+        timer: action.payload >= 0 ? action.payload : 0
       };
     }
 
     case 'RESET_QUESTIONS': {
       const updatedQuestions = state.questions.map((q) => {
-        const { rightAnswered, ...rest } = q; // destructure to remove rightAnswered
-        return rest; // return a new object without rightAnswered
+        const { rightAnswered, ...rest } = q;
+        return rest;
       });
-
-      const modifiedCorrectAnswersCount = 0;
-      const modifiedCurrentQuestionIndex = 0;
-      const modifiedCurrentAnswer = 0;
-
       return {
         ...state,
         questions: updatedQuestions,
-        correctAnswersCount: modifiedCorrectAnswersCount,
-        currentQuestionIndex: modifiedCurrentQuestionIndex,
-        currentAnswer: modifiedCurrentAnswer
+        correctAnswersCount: 0,
+        currentQuestionIndex: 0,
+        currentAnswer: '',
+        timer: 4,
+        showResults: false
       };
     }
 
     case 'END_QUIZ': {
-      console.log(action.payload);
-      const newShowResults = action.payload;
       return {
         ...state,
-        showResults: newShowResults
+        showResults: action.payload
       };
     }
 
@@ -120,15 +100,8 @@ const reducer = (state = initialState, action: AnyAction) => {
 
 export const QuizContext = createContext<any>(undefined);
 
-// Safe provider
 export const QuizProvider: React.FC<{ children?: ReactNode }> = ({ children = null }) => {
   const value = useReducer(reducer, initialState);
-
-  // Verify that children exists
-  if (!children) {
-    console.warn('QuizProvider has no children!');
-    return null;
-  }
-
+  if (!children) return null;
   return <QuizContext.Provider value={value}>{children}</QuizContext.Provider>;
 };

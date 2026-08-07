@@ -1,30 +1,27 @@
 import React, { useContext } from 'react';
 import { QuizContext } from '../../../../reducers/artquiz';
-
 import './index.scss';
 
 const Timeline = () => {
-  const [quizState, dispatch] = useContext(QuizContext);
+  const [quizState] = useContext(QuizContext);
 
-  if (quizState.questions.length > 0) {
-    const currentQuestion = quizState.questions[quizState.currentQuestionIndex];
-    const timelineClass = quizState.currentQuestionIndex;
+  if (quizState.questions.length === 0) return null;
 
-    return (
-      <>
-        <div className="timeline">
-          {quizState.questions.map((answer, index) => (
-            <span
-              index={index}
-              className={index <= quizState.currentQuestionIndex ? 'active' : ''}
-            ></span>
-          ))}
-        </div>
-        <span className="timeline-text">
-          {quizState.currentQuestionIndex + 1}/{quizState.questions.length}
-        </span>
-      </>
-    );
-  }
+  return (
+    <>
+      <div className="timeline">
+        {quizState.questions.map((_: any, index: number) => (
+          <span
+            key={index}
+            className={index <= quizState.currentQuestionIndex ? 'active' : ''}
+          />
+        ))}
+      </div>
+      <span className="timeline-text">
+        {quizState.currentQuestionIndex + 1}/{quizState.questions.length}
+      </span>
+    </>
+  );
 };
+
 export default Timeline;

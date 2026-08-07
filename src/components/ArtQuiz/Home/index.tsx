@@ -3,12 +3,9 @@ import Title from '../microComponents/Title';
 import QuizVignette from '../microComponents/QuizVignette';
 import { Link } from 'react-router-dom';
 import { QuizContext } from '../../../reducers/artquiz';
-
-// Data
 import quizData from '../../../data/quiz.json';
 import badgeImage from '../../../assets/artquiz/badge.svg';
 import paletteLogo from '../../../assets/artquiz/palette.svg';
-
 import './index.scss';
 
 const Home = () => {
@@ -18,7 +15,6 @@ const Home = () => {
     <div className="home">
       <div className="user-container">
         <Title />
-
         <div className="badge-container">
           <img src={badgeImage} alt="" />
           <img src={badgeImage} alt="" />
@@ -29,26 +25,27 @@ const Home = () => {
 
       {quizState.showResults && (
         <>
-          {quizState.correctAnswersCount > 6 && <div class="quiz-result">Good job !</div>}
-          {quizState.correctAnswersCount <= 6 && (
-            <div class="quiz-result">Almost there, try again</div>
-          )}
+          <div className="quiz-result">
+            {quizState.correctAnswersCount > 6 ? 'Good job !' : 'Almost there, try again'}
+          </div>
+
           <div className="answers-results answers">
-            {Object.entries(quizState.questions).map(([theme, questions], index) => (
+            {quizState.questions.map((question: any, index: number) => (
               <span
-                className={`answer ${questions.rightAnswered ? 'green-block right-answer' : 'orange-block wrong-answer'}`}
+                key={index}
+                className={`answer ${question.rightAnswered ? 'green-block right-answer' : 'orange-block wrong-answer'}`}
               >
-                {questions.correctAnswer}
+                {question.correctAnswer}
               </span>
             ))}
           </div>
 
           <div className="results-action-container">
             <Link
-              to={'/'}
+              to="/"
               onClick={() => {
                 dispatch({ type: 'END_QUIZ', payload: false });
-                dispatch({ type: 'RESET_QUESTIONS', payload: '' });
+                dispatch({ type: 'RESET_QUESTIONS' });
               }}
               className="green-block start-quiz"
             >
@@ -67,30 +64,23 @@ const Home = () => {
           </div>
 
           <div className="quiz-container">
-            <p class="quiz-label">Choose your theme</p>
+            <p className="quiz-label">Choose your theme</p>
             <div className="quiz-container-links">
-              {Object.entries(quizData).map(([theme, questions], index) => (
+              {Object.entries(quizData).map(([theme, questions]) => (
                 <Link
+                  key={theme}
                   to={'/quiz/' + theme}
-                  action=""
-                  onClick={() =>
-                    dispatch({
-                      type: 'SELECT_THEME',
-                      payload: theme
-                    })
-                  }
+                  onClick={() => dispatch({ type: 'SELECT_THEME', payload: theme })}
                 >
-                  <QuizVignette answers={questions} themeText={theme} key={index} />
+                  <QuizVignette answers={questions} themeText={theme} />
                 </Link>
               ))}
             </div>
           </div>
         </>
       )}
-
     </div>
   );
 };
 
-// == Export
 export default Home;

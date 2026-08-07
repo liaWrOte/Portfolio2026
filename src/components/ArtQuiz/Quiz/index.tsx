@@ -7,15 +7,14 @@ import Answers from '../microComponents/Answers';
 import Timer from '../microComponents/Timer';
 import NextQuestion from '../microComponents/NextQuestion';
 import Timeline from '../microComponents/Timeline';
-// Data
 import quizData from '../../../data/quiz.json';
-// Styles
 import './index.scss';
-const Quiz = (theme, questions) => {
-  let [quizState, dispatch] = useContext(QuizContext);
-  // console.error('THEME', theme);
-  const themeLabel = theme.theme;
+
+const Quiz = ({ theme, questions }: { theme: string; questions: any[] }) => {
+  const [quizState, dispatch] = useContext(QuizContext);
   const navigate = useNavigate();
+
+  // Detect end of quiz: last question answered → navigate to results
   useEffect(() => {
     const lastIndex = quizState.questions.length - 1;
     if (
@@ -26,14 +25,13 @@ const Quiz = (theme, questions) => {
       navigate('/');
     }
   }, [quizState.questions, navigate]);
-  // console.error('THEMELABEL', quizData[themeLabel]);
+
+  // Load questions for this theme on mount, resetting any previous game state
   useEffect(() => {
-    if (quizState.questions.length > 0) {
-      return;
-    } else {
-      dispatch({ type: 'LOADED_QUESTIONS', payload: quizData[themeLabel] });
-    }
-  });
+    dispatch({ type: 'RESET_QUESTIONS' });
+    dispatch({ type: 'LOADED_QUESTIONS', payload: quizData[theme] });
+  }, []);
+
   return (
     <div className="game-container">
       <Header />
@@ -45,4 +43,5 @@ const Quiz = (theme, questions) => {
     </div>
   );
 };
+
 export default Quiz;

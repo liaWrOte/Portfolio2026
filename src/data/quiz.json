@@ -9,7 +9,7 @@
         "Camille Pissarro"
       ],
       "correctAnswer": "Claude Monet",
-      "image_link": "https://upload.wikimedia.org/wikipedia/commons/thumb/7/78/Monet_w1200.jpg/640px-Monet_w1200.jpg"
+      "image_link": "/artquiz/impressionists/monet-rouen-cathedral.jpg"
     },
     {
       "question": "Which Renoir painting depicts a lively outdoor scene at a popular Parisian venue?",
@@ -20,8 +20,8 @@
         "Bal du moulin de la Galette"
       ],
       "correctAnswer": "Bal du moulin de la Galette",
-      "image_link": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Auguste_Renoir_-_Dance_at_Le_Moulin_de_la_Galette_-_Google_Art_Project.jpg/640px-Auguste_Renoir_-_Dance_at_Le_Moulin_de_la_Galette_-_Google_Art_Project.jpg"
-    
+      "image_link": "/artquiz/impressionists/renoir-moulin-galette.jpg"
+
     },
     {
       "question": "Edgar Degas is particularly known for his paintings of which subjects?",
@@ -32,7 +32,7 @@
         "Religious scenes"
       ],
       "correctAnswer": "Ballet dancers",
-      "image_link": "https://upload.wikimedia.org/wikipedia/commons/1/1c/Edgar_Degas_-_Dancers%2C_Pink_and_Green.jpg"
+      "image_link": "/artquiz/impressionists/degas-dancers.jpg"
     },
     {
       "question": "What was the name of the 1874 exhibition where the Impressionist movement got its name?",
@@ -43,7 +43,7 @@
         "Société Anonyme Exhibition"
       ],
       "correctAnswer": "Société Anonyme Exhibition",
-      "image_link": "https://upload.wikimedia.org/wikipedia/commons/5/59/Monet_-_Impression%2C_Sunrise.jpg"
+      "image_link": "/artquiz/impressionists/monet-impression-sunrise.jpg"
     },
     {
       "question": "Which Impressionist painter was known for his pointillist technique and scientific approach to color?",
@@ -54,7 +54,7 @@
         "Georges Seurat"
       ],
       "correctAnswer": "Georges Seurat",
-      "image_link": "https://upload.wikimedia.org/wikipedia/commons/7/7d/A_Sunday_on_La_Grande_Jatte%2C_Georges_Seurat%2C_1884.jpg"
+      "image_link": "/artquiz/impressionists/seurat-grande-jatte.jpg"
     },
     {
       "question": "Who painted 'Olympia', a controversial work that challenged traditional representations of the female nude?",
@@ -65,7 +65,7 @@
         "Gustave Courbet"
       ],
       "correctAnswer": "Édouard Manet",
-      "image_link": "https://upload.wikimedia.org/wikipedia/commons/5/5c/Edouard_Manet_-_Olympia.jpg"
+      "image_link": "/artquiz/impressionists/manet-olympia.jpg"
     },
     {
       "question": "Which female Impressionist painter was known for her intimate domestic scenes and portraits?",
@@ -76,7 +76,7 @@
         "Marie Bracquemond"
       ],
       "correctAnswer": "Berthe Morisot",
-      "image_link": "https://upload.wikimedia.org/wikipedia/commons/9/97/Berthe_Morisot_-_The_Cradle.jpg"
+      "image_link": "/artquiz/impressionists/morisot-the-cradle.jpg"
     },
     {
       "question": "What is the name of Monet's famous garden that inspired many of his later works?",
@@ -87,7 +87,7 @@
         "Étretat"
       ],
       "correctAnswer": "Giverny",
-      "image_link": "https://upload.wikimedia.org/wikipedia/commons/a/aa/Claude_Monet_-_Water_Lilies_-_1906.jpg"
+      "image_link": "/artquiz/impressionists/monet-water-lilies.jpg"
     },
     {
       "question": "Which post-Impressionist painter is known for his geometric approach and paintings of Mont Sainte-Victoire?",
@@ -98,7 +98,7 @@
         "Henri de Toulouse-Lautrec"
       ],
       "correctAnswer": "Paul Cézanne",
-      "image_link": "https://upload.wikimedia.org/wikipedia/commons/1/14/Paul_Cézanne_-_Mont_Sainte-Victoire.jpg"
+      "image_link": "/artquiz/impressionists/cezanne-mont-sainte-victoire.jpg"
     },
     {
       "question": "Which artist painted 'Starry Night Over the Rhône', featuring the night sky reflected in water?",
@@ -109,7 +109,7 @@
         "Armand Guillaumin"
       ],
       "correctAnswer": "Vincent van Gogh",
-      "image_link": "https://upload.wikimedia.org/wikipedia/commons/9/94/Starry_Night_Over_the_Rhone.jpg"
+      "image_link": "/artquiz/impressionists/vangogh-starry-night-rhone.jpg"
     }
   ],
   "graffiti": [
@@ -122,7 +122,7 @@
         "Keith Haring"
       ],
       "correctAnswer": "Banksy",
-      "image_link": "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Banksy_graffiti_on_Newman_Street_-_One_Nation_Under_CCTV.jpg/640px-Banksy_graffiti_on_Newman_Street_-_One_Nation_Under_CCTV.jpg"
+      "image_link": "/artquiz/graffiti/banksy-cctv.jpg"
     },
     {
       "question": "Who created the iconic 'OBEY Giant' campaign featuring Andre the Giant?",
@@ -133,7 +133,7 @@
         "Banksy"
       ],
       "correctAnswer": "Shepard Fairey",
-      "image_link": "https://upload.wikimedia.org/wikipedia/commons/0/0f/Shepard_Fairey_Mural.jpg"
+      "image_link": "/artquiz/graffiti/shepard-fairey.jpg"
     },
     {
       "question": "Which New York artist rose from graffiti to fine art and collaborated with Andy Warhol?",
@@ -144,7 +144,7 @@
         "Futura 2000"
       ],
       "correctAnswer": "Jean-Michel Basquiat",
-      "image_link": "https://upload.wikimedia.org/wikipedia/en/4/4a/Basquiat_Untitled_1982.jpg"
+      "image_link": "/artquiz/graffiti/basquiat.jpg"
     },
     {
       "question": "Which artist is famous for his radiant babies and chalk drawings in NYC subway stations?",
@@ -155,7 +155,7 @@
         "Jean-Michel Basquiat"
       ],
       "correctAnswer": "Keith Haring",
-      "image_link": "https://upload.wikimedia.org/wikipedia/commons/1/15/Keith_Haring_Mural%2C_Melbourne.jpg"
+      "image_link": "/artquiz/graffiti/keith-haring.jpg"
     },
     {
       "question": "Which French artist is known as the 'father of stencil graffiti'?",
@@ -166,7 +166,7 @@
         "JR"
       ],
       "correctAnswer": "Blek le Rat",
-      "image_link": "https://upload.wikimedia.org/wikipedia/commons/9/9a/Blek_le_rat_in_Shoreditch.jpg"
+      "image_link": "/artquiz/graffiti/blek-le-rat.jpg"
     },
     {
       "question": "Which artist places mosaic tile characters inspired by video games in cities worldwide?",
@@ -177,7 +177,7 @@
         "Os Gemeos"
       ],
       "correctAnswer": "Invader",
-      "image_link": "https://upload.wikimedia.org/wikipedia/commons/2/2a/Space_Invader_Hong_Kong.jpg"
+      "image_link": "/artquiz/graffiti/space-invader.jpg"
     },
     {
       "question": "Which Brazilian twin brothers are known for their distinctive yellow-skinned characters in street art?",
@@ -188,7 +188,7 @@
         "Blu and Ericailcane"
       ],
       "correctAnswer": "Os Gemeos",
-      "image_link": "https://upload.wikimedia.org/wikipedia/commons/a/a4/Os_Gemeos_Mural_in_Bushwick.jpg"
+      "image_link": "/artquiz/graffiti/os-gemeos.jpg"
     },
     {
       "question": "Which French street artist creates large-scale photographic paste-ups of community portraits?",
@@ -199,7 +199,7 @@
         "Ernest Pignon-Ernest"
       ],
       "correctAnswer": "JR",
-      "image_link": "https://upload.wikimedia.org/wikipedia/commons/e/e4/JR_Wrinkles_of_the_City_LA_Mural.jpg"
+      "image_link": "/artquiz/graffiti/jr.jpg"
     },
     {
       "question": "Which Portuguese artist is known for carving portraits into walls and buildings?",
@@ -210,7 +210,7 @@
         "Odeith"
       ],
       "correctAnswer": "Vhils",
-      "image_link": "https://upload.wikimedia.org/wikipedia/commons/9/99/Vhils_work_in_Hong_Kong.jpg"
+      "image_link": "/artquiz/graffiti/vhils.jpg"
     },
     {
       "question": "What writing system, originating in Philadelphia, became fundamental to graffiti culture?",
@@ -221,7 +221,7 @@
         "Stenciling"
       ],
       "correctAnswer": "Tagging",
-      "image_link": "https://upload.wikimedia.org/wikipedia/commons/e/ed/Graffiti_in_Rome.jpg"
+      "image_link": "/artquiz/graffiti/tagging.jpg"
     }
   ],
   "subversive_art": [
@@ -234,7 +234,7 @@
         "Marcel Duchamp"
       ],
       "correctAnswer": "Marcel Duchamp",
-      "image_link": "https://upload.wikimedia.org/wikipedia/commons/thumb/1/19/Ai_Weiwei_in_the_Machine_%285497364202%29.jpg/640px-Ai_Weiwei_in_the_Machine_%285497364202%29.jpg"
+      "image_link": "/artquiz/subversive_art/duchamp.jpg"
     },
     {
       "question": "Which performance artist is known for 'The Artist Is Present', where she sat silently across from museum visitors?",
@@ -245,7 +245,7 @@
         "Chris Burden"
       ],
       "correctAnswer": "Marina Abramović",
-      "image_link": "https://upload.wikimedia.org/wikipedia/commons/1/19/Marina_Abramovic_The_Artist_is_Present.jpg"
+      "image_link": "/artquiz/subversive_art/marina-abramovic.jpg"
     },
     {
       "question": "Which Chinese artist created the photo series 'Dropping a Han Dynasty Urn'?",
@@ -256,7 +256,7 @@
         "Cai Guo-Qiang"
       ],
       "correctAnswer": "Ai Weiwei",
-      "image_link": "https://upload.wikimedia.org/wikipedia/commons/8/82/Ai_Weiwei_Sunflower_Seeds.jpg"
+      "image_link": "/artquiz/subversive_art/ai-weiwei.jpg"
     },
     {
       "question": "Which artist created 'The Physical Impossibility of Death in the Mind of Someone Living' featuring a shark in formaldehyde?",
@@ -267,7 +267,7 @@
         "Tracy Emin"
       ],
       "correctAnswer": "Damien Hirst",
-      "image_link": "https://upload.wikimedia.org/wikipedia/en/2/2f/Hirst_shark.jpg"
+      "image_link": "/artquiz/subversive_art/damien-hirst.jpg"
     },
     {
       "question": "Which guerrilla art group uses billboards and public spaces to critique consumerism and media?",
@@ -278,7 +278,7 @@
         "Billboard Liberation Front"
       ],
       "correctAnswer": "Adbusters",
-      "image_link": "https://upload.wikimedia.org/wikipedia/commons/5/5a/Adbusters_July_2011_cover.jpg"
+      "image_link": "/artquiz/subversive_art/adbusters.jpg"
     },
     {
       "question": "Which feminist art collective wears gorilla masks and fights discrimination in the art world?",
@@ -289,7 +289,7 @@
         "The Feminist Art Workers"
       ],
       "correctAnswer": "Guerrilla Girls",
-      "image_link": "https://upload.wikimedia.org/wikipedia/commons/0/0d/Guerrilla_Girls_Talk_Back.jpg"
+      "image_link": "/artquiz/subversive_art/guerrilla-girls.jpg"
     },
     {
       "question": "Which Surrealist created 'The Treachery of Images' with the text 'This is not a pipe'?",
@@ -300,7 +300,7 @@
         "Salvador Dalí"
       ],
       "correctAnswer": "René Magritte",
-      "image_link": "https://upload.wikimedia.org/wikipedia/en/b/b9/MagrittePipe.jpg"
+      "image_link": "/artquiz/subversive_art/magritte.jpg"
     },
     {
       "question": "Who created the controversial 'Piss Christ', a photograph of a crucifix submerged in urine?",
@@ -311,7 +311,7 @@
         "Robert Mapplethorpe"
       ],
       "correctAnswer": "Andres Serrano",
-      "image_link": "https://upload.wikimedia.org/wikipedia/en/d/d4/Piss_Christ_by_Serrano_Andres_%281987%29.jpg"
+      "image_link": "/artquiz/subversive_art/piss-christ.jpg"
     },
     {
       "question": "Which Russian punk rock group staged protests in Moscow cathedrals against political authority?",
@@ -322,7 +322,7 @@
         "Voina"
       ],
       "correctAnswer": "Pussy Riot",
-      "image_link": "https://upload.wikimedia.org/wikipedia/commons/e/e0/Free_Pussy_Riot.jpg"
+      "image_link": "/artquiz/subversive_art/pussy-riot.jpg"
     },
     {
       "question": "Which British artist created 'My Bed', an installation of her unmade bed surrounded by personal items?",
@@ -333,7 +333,7 @@
         "Tracy Emin"
       ],
       "correctAnswer": "Tracy Emin",
-      "image_link": "https://upload.wikimedia.org/wikipedia/en/3/33/Emin-My-Bed.jpg"
+      "image_link": "/artquiz/subversive_art/tracy-emin.jpg"
     }
   ],
   "masterpieces": [
@@ -346,7 +346,7 @@
         "Vitruvian Man"
       ],
       "correctAnswer": "Mona Lisa",
-      "image_link": "https://upload.wikimedia.org/wikipedia/commons/thumb/6/6a/Mona_Lisa.jpg/640px-Mona_Lisa.jpg"
+      "image_link": "/artquiz/masterpieces/mona-lisa.jpg"
     },
     {
       "question": "Who painted 'The Starry Night', now housed in the Museum of Modern Art?",
@@ -357,7 +357,7 @@
         "Paul Cézanne"
       ],
       "correctAnswer": "Vincent van Gogh",
-      "image_link": "https://upload.wikimedia.org/wikipedia/commons/e/ea/Van_Gogh_-_Starry_Night.jpg"
+      "image_link": "/artquiz/masterpieces/vangogh-starry-night.jpg"
     },
     {
       "question": "Which Michelangelo fresco depicts the creation of Adam on the Sistine Chapel ceiling?",
@@ -368,7 +368,7 @@
         "The Last Judgment"
       ],
       "correctAnswer": "The Creation of Adam",
-      "image_link": "https://upload.wikimedia.org/wikipedia/commons/5/5b/Michelangelo_-_Creation_of_Adam.jpg"
+      "image_link": "/artquiz/masterpieces/michelangelo-creation-adam.jpg"
     },
     {
       "question": "Which Picasso painting depicts the bombing of a Basque town during the Spanish Civil War?",
@@ -379,7 +379,7 @@
         "Guernica"
       ],
       "correctAnswer": "Guernica",
-      "image_link": "https://upload.wikimedia.org/wikipedia/en/7/74/PicassoGuernica.jpg"
+      "image_link": "/artquiz/masterpieces/picasso-guernica.jpg"
     },
     {
       "question": "Who created 'The Birth of Venus', showing the goddess emerging from the sea?",
@@ -390,7 +390,7 @@
         "Titian"
       ],
       "correctAnswer": "Sandro Botticelli",
-      "image_link": "https://upload.wikimedia.org/wikipedia/commons/0/0b/Sandro_Botticelli_-_La_nascita_di_Venere.jpg"
+      "image_link": "/artquiz/masterpieces/botticelli-venus.jpg"
     },
     {
       "question": "Which Johannes Vermeer painting features a young woman with a turban and large pearl earring?",
@@ -401,7 +401,7 @@
         "The Milkmaid"
       ],
       "correctAnswer": "Girl with a Pearl Earring",
-      "image_link": "https://upload.wikimedia.org/wikipedia/commons/0/0f/1665_Girl_with_a_Pearl_Earring.jpg"
+      "image_link": "/artquiz/masterpieces/vermeer-pearl-earring.jpg"
     },
     {
       "question": "Who painted 'The Persistence of Memory' featuring melting clocks?",
@@ -412,7 +412,7 @@
         "Max Ernst"
       ],
       "correctAnswer": "Salvador Dalí",
-      "image_link": "https://upload.wikimedia.org/wikipedia/en/d/dd/The_Persistence_of_Memory.jpg"
+      "image_link": "/artquiz/masterpieces/dali-persistence-memory.jpg"
     },
     {
       "question": "Which Grant Wood painting shows a farmer and his daughter in front of a Gothic-style house?",
@@ -423,7 +423,7 @@
         "American Gothic"
       ],
       "correctAnswer": "American Gothic",
-      "image_link": "https://upload.wikimedia.org/wikipedia/commons/c/cc/Grant_Wood_-_American_Gothic.jpg"
+      "image_link": "/artquiz/masterpieces/grant-wood-american-gothic.jpg"
     },
     {
       "question": "Who created 'The Scream', showing an agonized figure against a tumultuous sky?",
@@ -434,7 +434,7 @@
         "Vincent van Gogh"
       ],
       "correctAnswer": "Edvard Munch",
-      "image_link": "https://upload.wikimedia.org/wikipedia/commons/c/c5/Edvard_Munch_The_Scream.jpg"
+      "image_link": "/artquiz/masterpieces/munch-scream.jpg"
     },
     {
       "question": "Which Diego Velázquez painting features the artist himself painting the Spanish royal family?",
@@ -445,7 +445,7 @@
         "The Surrender of Breda"
       ],
       "correctAnswer": "Las Meninas",
-      "image_link": "https://upload.wikimedia.org/wikipedia/commons/9/99/Las_Meninas_01.jpg"
+      "image_link": "/artquiz/masterpieces/velazquez-las-meninas.jpg"
     }
   ]
 }

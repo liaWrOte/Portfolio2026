@@ -11,6 +11,7 @@ import ScrambleText from '../ScrambleText/ScrambleText';
 import { useTranslation } from '../../contexts/LanguageContext';
 
 import stolifyIcon from '../assets/img/icons/stolify_icon.svg';
+import artquizIcon from '../assets/img/icons/artquiz_icon.svg';
 
 const DesktopBottomBar = ({ openWindows, minimizedWindows, onOpenWindow, onCloseWindow }) => {
   const { t, language } = useTranslation();
@@ -46,6 +47,16 @@ const DesktopBottomBar = ({ openWindows, minimizedWindows, onOpenWindow, onClose
           srcImg={stolifyIcon}
           clickTrigger={'simple'}
           data-taskbar-id="stolify"
+        />
+        <Item
+          key="artquiz"
+          inWindow={false}
+          outWindowLabel="ArtQuiz"
+          triggerOpen="artquiz"
+          itemId="artquiz"
+          srcImg={artquizIcon}
+          clickTrigger={'simple'}
+          data-taskbar-id="artquiz"
         />
         <TaskBar
           openWindows={openWindows || []}
