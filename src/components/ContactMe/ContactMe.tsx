@@ -5,7 +5,6 @@ import ScrambleText from '../ScrambleText/ScrambleText';
 import './contact-me.scss';
 
 const CONTACTS = [
-  { num: '01', label: 'EMAIL', value: 'sandrinemze@gmail.com', href: 'mailto:sandrinemze@gmail.com' },
   { num: '02', label: 'LINKEDIN', value: '/in/sandrine-mze', href: 'https://www.linkedin.com/in/sandrinemze/' },
   { num: '03', label: 'GITHUB', value: 'github.com/liaWrOte', href: 'https://github.com/liaWrOte' }
 ];
