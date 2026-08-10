@@ -2,7 +2,7 @@ import React from 'react';
 import { useContext } from 'react';
 import { QuizContext } from '../../../../reducers/artquiz';
 import './index.scss';
-const Answer = ({ answerText, onSelectAnswer, index, currentAnswer, correctAnswer }) => {
+const Answer = ({ answerText, displayText, onSelectAnswer, index, currentAnswer, correctAnswer }) => {
   const [quizState] = useContext(QuizContext);
   let isCorrectAnswer = currentAnswer && answerText === correctAnswer;
   isCorrectAnswer = quizState.timer === 0 ? answerText === correctAnswer : isCorrectAnswer;
@@ -18,7 +18,7 @@ const Answer = ({ answerText, onSelectAnswer, index, currentAnswer, correctAnswe
       className={`orange-block answer ${correctAnswerClass} ${wrongAnswerClass} ${disabledClass} ${badAnswerClass}`}
       onClick={() => onSelectAnswer(answerText)}
     >
-      {answerText}
+      {displayText ?? answerText}
     </div>
   );
 };

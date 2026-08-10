@@ -1,10 +1,12 @@
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { QuizContext } from '../../../../reducers/artquiz';
+import { useTranslation } from '../../../../contexts/LanguageContext';
 import './index.scss';
 
 const NextQuestion = () => {
   const [quizState, dispatch] = useContext(QuizContext);
+  const { t } = useTranslation();
 
   if (quizState.questions.length === 0) return null;
 
@@ -16,7 +18,7 @@ const NextQuestion = () => {
   if (canAdvance && quizState.currentQuestionIndex !== lastIndex) {
     return (
       <span className="next-question" onClick={() => dispatch({ type: 'NEXT_QUESTION' })}>
-        Next question <span className="next-question-arrow">&#62;</span>
+        {t('quiz_next')} <span className="next-question-arrow">&#62;</span>
       </span>
     );
   }
@@ -28,7 +30,7 @@ const NextQuestion = () => {
           className="next-question"
           onClick={() => dispatch({ type: 'END_QUIZ', payload: true })}
         >
-          End quiz <span className="next-question-arrow">&#62;</span>
+          {t('quiz_end')} <span className="next-question-arrow">&#62;</span>
         </span>
       </Link>
     );

@@ -11,22 +11,27 @@
   z-index: 10;
   padding: 0 30px;
   border-top: 1px solid $dark-brown;
+
   & > * {
     flex: 1;
   }
+
   .desktop-bar-center {
     display: flex;
     align-items: center;
     justify-content: center;
   }
+
   .time {
     text-align: right;
   }
+
   .date {
     text-align: right;
     font-size: 1rem;
     color: $dark-brown;
   }
+
   .datetime-container {
     display: flex;
     flex-direction: column;
@@ -41,9 +46,20 @@
       gap: 2px;
     }
   }
+
   .item {
     margin: 0 0.5rem;
   }
+
+  .artquiz-wip {
+    position: relative;
+
+    img {
+      filter: grayscale(100%);
+      opacity: 0.45;
+    }
+  }
+
   .identity {
     display: flex;
     align-items: center;
@@ -57,4 +73,26 @@
       flex-shrink: 0;
     }
   }
+}
+
+.wip-tooltip {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: $yellow;
+  color: $dark-brown;
+  font-size: 0.85rem;
+  padding: 3px 10px;
+  white-space: nowrap;
+  pointer-events: none;
+  border: 1px solid $orange;
+  animation: wip-appear 2.5s ease forwards;
+}
+
+@keyframes wip-appear {
+  0%   { opacity: 0; transform: translateX(-50%) translateY(4px); }
+  12%  { opacity: 1; transform: translateX(-50%) translateY(0); }
+  70%  { opacity: 1; }
+  100% { opacity: 0; }
 }

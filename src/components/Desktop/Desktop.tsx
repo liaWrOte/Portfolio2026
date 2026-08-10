@@ -1,6 +1,8 @@
 import React, { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { minimizeWindow, openWindow, closeWindow } from '../../actions/main';
+import { minimizeWindow, openWindow, closeWindow, openFolder, openProject, setPosition } from '../../actions/main';
+import { slugify } from '../../utils/projectSlug';
+import ScrambleText from '../ScrambleText/ScrambleText';
 import gsap from 'gsap';
 // Import styles
 import './desktop.scss';
@@ -14,6 +16,7 @@ import fileIcon from '../assets/img/icons/file_icon.svg';
 import emailIcon from '../assets/img/icons/email_icon.svg';
 import { useTranslation } from '../../contexts/LanguageContext';
 import { getWindowTargetPosition } from '../../utils/windowPosition';
+import { backendUrl } from '../../middlewares/env';
 
 export const Desktop = ({ displayWindowItem, displayImageItem, displayWindow, ...props }) => {
   const { t } = useTranslation();
@@ -23,10 +26,9 @@ export const Desktop = ({ displayWindowItem, displayImageItem, displayWindow, ..
   // (projets, resume, contact_me, stolify, artquiz...), so it always
   // identifies the last clicked item.
   const windowItemId = useSelector((state: any) => state.main.windowItemId);
-  // Position of all icons, captured by Item.tsx via setPosition on click
   const windowPositions = useSelector((state: any) => state.main.windowPositions);
-  // List of open windows, needed to calculate the cascade offset
   const openWindows = useSelector((state: any) => state.main.openWindows);
+  const fileSystem = useSelector((state: any) => state.main.fileSystem);
 
   // Position of the actually clicked icon, and the target position for its window
   // (same calculation as Window.tsx): the same .fantom serves all items,
@@ -39,6 +41,26 @@ export const Desktop = ({ displayWindowItem, displayImageItem, displayWindow, ..
   // gsap.to() automatically cancels and restarts the current tween if the user
   // clicks multiple times in quick succession.
   const fantomRef = useRef<HTMLDivElement>(null);
+  const abskillRef = useRef<HTMLDivElement>(null);
+
+  const abskillNode = fileSystem?.children
+    ?.find((c: any) => c.id === 'Développement' || c.name === 'Développement')
+    ?.children?.find((p: any) => slugify(p.name) === 'abskill');
+  const abskillSrc = abskillNode?.logo?.data?.attributes?.url
+    ? `${backendUrl}${abskillNode.logo.data.attributes.url}`
+    : folderClosed2Icon;
+
+  const handleAbskillClick = () => {
+    const node = abskillNode;
+    if (!node) return;
+    if (abskillRef.current) {
+      dispatch(setPosition('projets', abskillRef.current.getBoundingClientRect()));
+    }
+    dispatch(openWindow('projets' as any));
+    dispatch(openFolder('root' as any));
+    dispatch(openFolder('Développement'));
+    dispatch(openProject(String(node.id)));
+  };
 
   // Initial (hidden) state managed by GSAP itself, once on mount.
   // If set in JSX style (React), React would rewrite it on every component
@@ -351,7 +373,12 @@ export const Desktop = ({ displayWindowItem, displayImageItem, displayWindow, ..
         triggerOpen="projets"
         srcImg={folderClosed2Icon}
       />
-      {/* Resume item */}
+      {/* ABSkill shortcut */}
+      <div className="item on-desktop abskill-class" ref={abskillRef} onClick={handleAbskillClick}>
+        <img src={abskillSrc} alt="ABSkill" />
+        <ScrambleText text="ABSkill" />
+      </div>
+      {/* Resume item — temporarily hidden
       <Item
         key="resume"
         inWindow={false}
@@ -359,7 +386,7 @@ export const Desktop = ({ displayWindowItem, displayImageItem, displayWindow, ..
         outWindowLabel={t('resume')}
         triggerOpen="resume"
         srcImg={fileIcon}
-      />
+      /> */}
       {/* Item contact me */}
       <Item
         key="contact_me"

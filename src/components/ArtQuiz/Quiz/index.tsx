@@ -30,7 +30,7 @@ const Quiz = ({ theme, questions }: { theme: string; questions: any[] }) => {
   // Load questions for this theme on mount, resetting any previous game state
   useEffect(() => {
     dispatch({ type: 'RESET_QUESTIONS' });
-    dispatch({ type: 'LOADED_QUESTIONS', payload: quizData[theme] });
+    dispatch({ type: 'LOADED_QUESTIONS', payload: quizData[theme].slice(0, 5) });
   }, []);
 
   return (

@@ -20,7 +20,7 @@ export const getCurrentNode = (state: MainState) => {
     ): FileSystemNode | undefined => {
       if (!searchNode) return undefined;
       // Search in direct children
-      const found = searchNode.children?.find((child: FileSystemNode) => child.id === currentId);
+      const found = searchNode.children?.find((child: FileSystemNode) => String(child.id) === String(currentId));
       if (found) return found;
       // Search recursively in subfolders
       for (const child of searchNode.children || []) {

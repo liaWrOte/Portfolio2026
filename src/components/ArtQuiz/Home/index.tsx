@@ -1,8 +1,9 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Title from '../microComponents/Title';
 import QuizVignette from '../microComponents/QuizVignette';
 import { Link } from 'react-router-dom';
 import { QuizContext } from '../../../reducers/artquiz';
+import { useTranslation } from '../../../contexts/LanguageContext';
 import quizData from '../../../data/quiz.json';
 import badgeImage from '../../../assets/artquiz/badge.svg';
 import artquizIcon from '../../assets/img/icons/artquiz_icon.svg';
@@ -10,9 +11,16 @@ import './index.scss';
 
 const Home = () => {
   const [quizState, dispatch] = useContext(QuizContext);
+  const { t } = useTranslation();
+  const [entering, setEntering] = useState(false);
+
+  useEffect(() => {
+    const id = requestAnimationFrame(() => setEntering(true));
+    return () => cancelAnimationFrame(id);
+  }, []);
 
   return (
-    <div className="home">
+    <div className={`home${entering ? ' home--entering' : ''}`}>
       <div className="user-container">
         <Title />
         <div className="badge-container">
@@ -26,7 +34,7 @@ const Home = () => {
       {quizState.showResults && (
         <>
           <div className="quiz-result">
-            {quizState.correctAnswersCount > 6 ? 'Good job !' : 'Almost there, try again'}
+            {quizState.correctAnswersCount > 6 ? t('quiz_result_good') : t('quiz_result_try')}
           </div>
 
           <div className="answers-results answers">
@@ -49,7 +57,7 @@ const Home = () => {
               }}
               className="green-block start-quiz"
             >
-              <span>Play again !</span>
+              <span>{t('quiz_play_again')}</span>
             </Link>
           </div>
         </>
@@ -60,11 +68,11 @@ const Home = () => {
           <div className="logo-container">
             <img src={artquizIcon} alt="" />
             <span className="logo-text">ArtQuiz</span>
-            <p>Ready to play ?</p>
+            <p>{t('quiz_ready')}</p>
           </div>
 
           <div className="quiz-container">
-            <p className="quiz-label">Choose your theme</p>
+            <p className="quiz-label">{t('quiz_choose_theme')}</p>
             <div className="quiz-container-links">
               {Object.entries(quizData).map(([theme, questions]) => (
                 <Link

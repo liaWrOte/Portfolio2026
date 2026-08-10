@@ -22,7 +22,7 @@ const TaskBar = ({ openWindows, minimizedWindows, onWindowClick, onCloseWindow }
   if (!openWindows || openWindows.length === 0) return null;
 
   const filteredWindows = openWindows.filter(
-    (windowId) => windowId !== 'stolify'
+    (windowId) => windowId !== 'stolify' && windowId !== 'artquiz'
   );
 
   if (filteredWindows.length === 0) return null;

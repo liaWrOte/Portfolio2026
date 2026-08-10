@@ -87,7 +87,7 @@ Point d'entrée. Lance la récupération des projets Strapi, affiche `LoadingScr
 ## Bureau
 
 ### `Desktop`
-Surface principale. Affiche les icônes cliquables (Projets, CV, Contact), les nuages d'arrière-plan et orchestre **toutes les animations GSAP** de fenêtres via un `div.fantom` persistant.
+Surface principale. Affiche les icônes cliquables (Projets, ~~CV~~, Contact, ABSkill), les nuages d'arrière-plan et orchestre **toutes les animations GSAP** de fenêtres via un `div.fantom` persistant. _(L'icône cv.pdf est temporairement masquée — commentée dans `Desktop.tsx`.)_
 
 - **CustomEvents DOM écoutés** : `window-minimize`, `window-restore`, `window-close`
 - **Redux** : lit `windowItemId`, `windowPositions`, `openWindows` ; dispatche `minimizeWindow`, `openWindow`, `closeWindow`
@@ -138,10 +138,10 @@ Barre de titre de chaque fenêtre (style macOS). Navigation arrière/avant, brea
 ## Explorateur de fichiers
 
 ### `SidebarTree`
-Panneau latéral gauche de la fenêtre Projets. Arbre de fichiers + raccourcis statiques (cv.pdf, contact.me).
+Panneau latéral gauche de la fenêtre Projets. Arbre de fichiers + raccourci statique (contact.me). _(cv.pdf temporairement retiré.)_
 
 - Rend `<TreeNode>` récursivement
-- Clics sur cv.pdf / contact.me → `openWindow('resume')` / `openWindow('contact_me')`
+- Clic sur contact.me → `openWindow('contact_me')`
 
 ### `TreeNode`
 Nœud récursif de l'arbre. Icône dossier ouvert/fermé selon `currentPath`, ou icône fichier.

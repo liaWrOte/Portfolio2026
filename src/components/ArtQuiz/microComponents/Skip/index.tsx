@@ -1,11 +1,13 @@
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { QuizContext } from '../../../../reducers/artquiz';
+import { useTranslation } from '../../../../contexts/LanguageContext';
 import './index.scss';
 
 const Skip = () => {
   const [quizState, dispatch] = useContext(QuizContext);
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const handleSkip = () => {
     const isLastQuestion =
@@ -22,7 +24,7 @@ const Skip = () => {
 
   return (
     <span className="skip" onClick={handleSkip}>
-      Passer
+      {t('quiz_skip')}
     </span>
   );
 };

@@ -88,7 +88,7 @@ Entry point. Triggers the Strapi project fetch, shows `LoadingScreen` while load
 ## Desktop
 
 ### `Desktop`
-Main surface. Renders clickable icons (Projects, CV, Contact), background clouds, and orchestrates **all GSAP window animations** via a persistent `div.fantom`.
+Main surface. Renders clickable icons (Projects, ~~CV~~, Contact, ABSkill), background clouds, and orchestrates **all GSAP window animations** via a persistent `div.fantom`. _(The cv.pdf icon is temporarily hidden — commented out in `Desktop.tsx`.)_
 
 - **DOM CustomEvents listened**: `window-minimize`, `window-restore`, `window-close`
 - **Redux**: reads `windowItemId`, `windowPositions`, `openWindows`; dispatches `minimizeWindow`, `openWindow`, `closeWindow`
@@ -139,10 +139,10 @@ Title bar for each window (macOS style). Back/forward navigation, breadcrumb, tr
 ## File explorer
 
 ### `SidebarTree`
-Left panel of the Projects window. File tree + static shortcuts (cv.pdf, contact.me).
+Left panel of the Projects window. File tree + static shortcut (contact.me). _(cv.pdf temporarily removed.)_
 
 - Renders `<TreeNode>` recursively
-- Clicks on cv.pdf / contact.me → `openWindow('resume')` / `openWindow('contact_me')`
+- Click on contact.me → `openWindow('contact_me')`
 
 ### `TreeNode`
 Recursive tree node. Open/closed folder icon based on `currentPath`, or file icon.

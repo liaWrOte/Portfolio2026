@@ -20,15 +20,15 @@
   align-items: center;
   justify-content: center;
   gap: $small-gutter;
-  margin: 3rem 0;
+  margin: 1.25rem 0 1rem;
   img {
-    width: 75px;
+    width: 60px;
   }
   .logo-text {
     font-family: 'Chewy', system-ui;
     font-weight: 400;
     font-style: normal;
-    font-size: 35px;
+    font-size: 30px;
   }
 }
 
@@ -64,11 +64,38 @@
   }
 }
 
+.home--entering {
+  .user-container {
+    animation: aq-enter-top 0.4s ease-out both;
+  }
+  .logo-container {
+    animation: aq-logo-rise 0.55s cubic-bezier(0.34, 1.15, 0.64, 1) both;
+  }
+  .quiz-container {
+    animation: aq-enter-bottom 0.45s ease-out 0.12s both;
+  }
+}
+
+@keyframes aq-logo-rise {
+  from { transform: translateY(80px); opacity: 0.5; }
+  to   { transform: none; opacity: 1; }
+}
+
+@keyframes aq-enter-top {
+  from { transform: translateY(-18px); opacity: 0; }
+  to   { transform: none; opacity: 1; }
+}
+
+@keyframes aq-enter-bottom {
+  from { transform: translateY(18px); opacity: 0; }
+  to   { transform: none; opacity: 1; }
+}
+
 .quiz-container {
-  padding: 0 1.5rem 3rem 1.5rem;
+  padding: 0 1.5rem 1.5rem 1.5rem;
   .quiz-label {
     text-align: center;
-    padding: $big-gutter;
+    padding: $gutter $big-gutter;
   }
   .quiz-container-links {
     display: flex;
@@ -76,8 +103,7 @@
     gap: $gutter;
     a {
       flex: 0 1 calc(30% - $small-gutter);
-      // width: 30px;
-      height: 300px;
+      height: 230px;
       border-radius: $small-gutter;
       overflow: hidden;
       position: relative;

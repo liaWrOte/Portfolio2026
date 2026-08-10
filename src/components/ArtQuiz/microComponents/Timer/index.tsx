@@ -1,9 +1,11 @@
 import React, { useContext, useEffect } from 'react';
 import { QuizContext } from '../../../../reducers/artquiz';
+import { useTranslation } from '../../../../contexts/LanguageContext';
 import './index.scss';
 
 const Timer = () => {
   const [quizState, dispatch] = useContext(QuizContext);
+  const { t } = useTranslation();
 
   useEffect(() => {
     if (quizState.timer <= 0) return;
@@ -22,9 +24,9 @@ const Timer = () => {
   return (
     <>
       {quizState.timer > 0 && <div className="timer">{quizState.timer}s</div>}
-      {quizState.timer === 0 && isCorrectAnswer && <span className="timer-end">Bien joué !</span>}
+      {quizState.timer === 0 && isCorrectAnswer && <span className="timer-end">{t('quiz_timer_correct')}</span>}
       {quizState.timer === 0 && !isCorrectAnswer && (
-        <span className="timer-end">Zut, ça sera pour la prochaine !</span>
+        <span className="timer-end">{t('quiz_timer_timeout')}</span>
       )}
     </>
   );

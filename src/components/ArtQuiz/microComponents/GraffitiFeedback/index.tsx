@@ -1,12 +1,22 @@
 import React, { useContext, useEffect, useRef, useState } from 'react';
 import { QuizContext } from '../../../../reducers/artquiz';
+import { useTranslation } from '../../../../contexts/LanguageContext';
 import './index.scss';
 
-const CORRECT = ['Bien joué !', 'Incroyable !', 'Masterclass !', 'Top !', 'Génie !'];
-const WRONG   = ['Raté !', 'Presque...', 'Oops !', 'Pas de chance !', 'La prochaine !'];
+const MESSAGES = {
+  fr: {
+    correct: ['Bien joué !', 'Incroyable !', 'Masterclass !', 'Top !', 'Génie !'],
+    wrong:   ['Raté !', 'Presque...', 'Oops !', 'Pas de chance !', 'La prochaine !'],
+  },
+  en: {
+    correct: ['Well done!', 'Incredible!', 'Masterclass!', 'Spot on!', 'Genius!'],
+    wrong:   ['Missed it!', 'Almost...', 'Oops!', 'Bad luck!', 'Next time!'],
+  },
+};
 
 const GraffitiFeedback = () => {
   const [quizState] = useContext(QuizContext);
+  const { language } = useTranslation();
   const [visible, setVisible] = useState(false);
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -25,7 +35,8 @@ const GraffitiFeedback = () => {
 
   if (!visible || !answer) return null;
 
-  const messages = isCorrect ? CORRECT : WRONG;
+  const lang = language === 'en' ? 'en' : 'fr';
+  const messages = isCorrect ? MESSAGES[lang].correct : MESSAGES[lang].wrong;
   const message  = messages[idx % messages.length];
   // Deterministic rotation per question: -13° → +13°
   const rot = ((idx * 17 + (isCorrect ? 5 : 11)) % 27) - 13;

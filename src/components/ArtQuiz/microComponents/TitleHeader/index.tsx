@@ -1,5 +1,7 @@
 import React from 'react';
+import { useTranslation } from '../../../../contexts/LanguageContext';
 const TitleHeader = () => {
-  return <h2 className="main-font-display">Level 1</h2>;
+  const { t } = useTranslation();
+  return <h2 className="main-font-display">{t('quiz_level')}</h2>;
 };
 export default TitleHeader;

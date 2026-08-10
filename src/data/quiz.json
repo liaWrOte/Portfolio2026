@@ -2,6 +2,7 @@
   "impressionists": [
     {
       "question": "Which Impressionist painter is famous for his series of paintings depicting the Rouen Cathedral at different times of day?",
+      "question_fr": "Quel peintre impressionniste est célèbre pour sa série de tableaux représentant la cathédrale de Rouen à différentes heures de la journée ?",
       "answers": [
         "Pierre-Auguste Renoir",
         "Claude Monet",
@@ -13,40 +14,61 @@
     },
     {
       "question": "Which Renoir painting depicts a lively outdoor scene at a popular Parisian venue?",
+      "question_fr": "Quel tableau de Renoir dépeint une scène animée en plein air dans un lieu populaire parisien ?",
       "answers": [
         "Dance at Bougival",
         "The Swing",
         "Luncheon of the Boating Party",
         "Bal du moulin de la Galette"
       ],
+      "answers_fr": [
+        "La Danse à Bougival",
+        "La Balançoire",
+        "Le Déjeuner des canotiers",
+        "Bal du moulin de la Galette"
+      ],
       "correctAnswer": "Bal du moulin de la Galette",
       "image_link": "/artquiz/impressionists/renoir-moulin-galette.jpg"
-
     },
     {
       "question": "Edgar Degas is particularly known for his paintings of which subjects?",
+      "question_fr": "Edgar Degas est particulièrement connu pour ses peintures de quel sujet ?",
       "answers": [
         "Seascapes",
         "Still lifes",
         "Ballet dancers",
         "Religious scenes"
       ],
+      "answers_fr": [
+        "Paysages marins",
+        "Natures mortes",
+        "Danseuses de ballet",
+        "Scènes religieuses"
+      ],
       "correctAnswer": "Ballet dancers",
       "image_link": "/artquiz/impressionists/degas-dancers.jpg"
     },
     {
       "question": "What was the name of the 1874 exhibition where the Impressionist movement got its name?",
+      "question_fr": "Quel était le nom de l'exposition de 1874 lors de laquelle le mouvement impressionniste a été nommé ?",
       "answers": [
         "First Impressionist Exhibition",
         "Paris Salon",
         "Salon des Refusés",
         "Société Anonyme Exhibition"
       ],
+      "answers_fr": [
+        "Première exposition impressionniste",
+        "Salon de Paris",
+        "Salon des Refusés",
+        "Exposition de la Société Anonyme"
+      ],
       "correctAnswer": "Société Anonyme Exhibition",
       "image_link": "/artquiz/impressionists/monet-impression-sunrise.jpg"
     },
     {
       "question": "Which Impressionist painter was known for his pointillist technique and scientific approach to color?",
+      "question_fr": "Quel peintre impressionniste était connu pour sa technique pointilliste et son approche scientifique de la couleur ?",
       "answers": [
         "Berthe Morisot",
         "Édouard Manet",
@@ -58,6 +80,7 @@
     },
     {
       "question": "Who painted 'Olympia', a controversial work that challenged traditional representations of the female nude?",
+      "question_fr": "Qui a peint 'Olympia', une œuvre controversée remettant en question les représentations traditionnelles du nu féminin ?",
       "answers": [
         "Paul Cézanne",
         "Claude Monet",
@@ -69,6 +92,7 @@
     },
     {
       "question": "Which female Impressionist painter was known for her intimate domestic scenes and portraits?",
+      "question_fr": "Quelle peintre impressionniste était connue pour ses scènes domestiques intimes et ses portraits ?",
       "answers": [
         "Mary Cassatt",
         "Eva Gonzalès",
@@ -80,6 +104,7 @@
     },
     {
       "question": "What is the name of Monet's famous garden that inspired many of his later works?",
+      "question_fr": "Quel est le nom du célèbre jardin de Monet qui a inspiré bon nombre de ses œuvres tardives ?",
       "answers": [
         "Vétheuil",
         "Argenteuil",
@@ -91,6 +116,7 @@
     },
     {
       "question": "Which post-Impressionist painter is known for his geometric approach and paintings of Mont Sainte-Victoire?",
+      "question_fr": "Quel peintre post-impressionniste est connu pour son approche géométrique et ses tableaux du mont Sainte-Victoire ?",
       "answers": [
         "Vincent van Gogh",
         "Paul Gauguin",
@@ -102,6 +128,7 @@
     },
     {
       "question": "Which artist painted 'Starry Night Over the Rhône', featuring the night sky reflected in water?",
+      "question_fr": "Quel artiste a peint 'La Nuit étoilée sur le Rhône', avec le ciel nocturne reflété dans l'eau ?",
       "answers": [
         "Camille Pissarro",
         "Vincent van Gogh",
@@ -115,6 +142,7 @@
   "graffiti": [
     {
       "question": "Which anonymous British street artist is known for politically charged stenciled works?",
+      "question_fr": "Quel artiste de rue britannique anonyme est connu pour ses œuvres au pochoir à fort contenu politique ?",
       "answers": [
         "Jean-Michel Basquiat",
         "Shepard Fairey",
@@ -126,6 +154,7 @@
     },
     {
       "question": "Who created the iconic 'OBEY Giant' campaign featuring Andre the Giant?",
+      "question_fr": "Qui a créé la célèbre campagne 'OBEY Giant' mettant en scène André le Géant ?",
       "answers": [
         "Invader",
         "Shepard Fairey",
@@ -137,6 +166,7 @@
     },
     {
       "question": "Which New York artist rose from graffiti to fine art and collaborated with Andy Warhol?",
+      "question_fr": "Quel artiste new-yorkais est passé du graffiti aux beaux-arts et a collaboré avec Andy Warhol ?",
       "answers": [
         "Keith Haring",
         "Lady Pink",
@@ -148,6 +178,7 @@
     },
     {
       "question": "Which artist is famous for his radiant babies and chalk drawings in NYC subway stations?",
+      "question_fr": "Quel artiste est célèbre pour ses bébés rayonnants et ses dessins à la craie dans les stations de métro de New York ?",
       "answers": [
         "Dondi White",
         "Keith Haring",
@@ -159,6 +190,7 @@
     },
     {
       "question": "Which French artist is known as the 'father of stencil graffiti'?",
+      "question_fr": "Quel artiste français est connu comme le 'père du graffiti au pochoir' ?",
       "answers": [
         "Invader",
         "Miss.Tic",
@@ -170,6 +202,7 @@
     },
     {
       "question": "Which artist places mosaic tile characters inspired by video games in cities worldwide?",
+      "question_fr": "Quel artiste place des personnages en mosaïque inspirés des jeux vidéo dans des villes du monde entier ?",
       "answers": [
         "Swoon",
         "Banksy",
@@ -181,6 +214,7 @@
     },
     {
       "question": "Which Brazilian twin brothers are known for their distinctive yellow-skinned characters in street art?",
+      "question_fr": "Quels jumeaux brésiliens sont connus pour leurs personnages à la peau jaune dans le street art ?",
       "answers": [
         "Os Gemeos",
         "Saner and Sego",
@@ -192,6 +226,7 @@
     },
     {
       "question": "Which French street artist creates large-scale photographic paste-ups of community portraits?",
+      "question_fr": "Quel artiste de rue français crée de grands collages photographiques de portraits de communautés ?",
       "answers": [
         "JR",
         "C215",
@@ -203,6 +238,7 @@
     },
     {
       "question": "Which Portuguese artist is known for carving portraits into walls and buildings?",
+      "question_fr": "Quel artiste portugais est connu pour sculpter des portraits dans les murs et les bâtiments ?",
       "answers": [
         "Bordalo II",
         "Add Fuel",
@@ -214,11 +250,18 @@
     },
     {
       "question": "What writing system, originating in Philadelphia, became fundamental to graffiti culture?",
+      "question_fr": "Quel système d'écriture, né à Philadelphie, est devenu fondamental dans la culture graffiti ?",
       "answers": [
         "Muralism",
         "Bombing",
         "Tagging",
         "Stenciling"
+      ],
+      "answers_fr": [
+        "Muralisme",
+        "Bombing",
+        "Tag",
+        "Pochoir"
       ],
       "correctAnswer": "Tagging",
       "image_link": "/artquiz/graffiti/tagging.jpg"
@@ -227,6 +270,7 @@
   "subversive_art": [
     {
       "question": "Which artist submitted a urinal titled 'Fountain' to an art exhibition in 1917?",
+      "question_fr": "Quel artiste a soumis un urinoir intitulé 'Fontaine' à une exposition artistique en 1917 ?",
       "answers": [
         "Kurt Schwitters",
         "Man Ray",
@@ -238,6 +282,7 @@
     },
     {
       "question": "Which performance artist is known for 'The Artist Is Present', where she sat silently across from museum visitors?",
+      "question_fr": "Quelle artiste de performance est connue pour 'The Artist Is Present', où elle s'asseyait silencieusement face aux visiteurs du musée ?",
       "answers": [
         "Carolee Schneemann",
         "Marina Abramović",
@@ -249,6 +294,7 @@
     },
     {
       "question": "Which Chinese artist created the photo series 'Dropping a Han Dynasty Urn'?",
+      "question_fr": "Quel artiste chinois a créé la série photographique 'Dropping a Han Dynasty Urn' ?",
       "answers": [
         "Xu Bing",
         "Zhang Huan",
@@ -260,6 +306,7 @@
     },
     {
       "question": "Which artist created 'The Physical Impossibility of Death in the Mind of Someone Living' featuring a shark in formaldehyde?",
+      "question_fr": "Quel artiste a créé 'L'impossibilité physique de la mort dans l'esprit de quelqu'un de vivant', mettant en scène un requin dans du formaldéhyde ?",
       "answers": [
         "Sarah Lucas",
         "Marc Quinn",
@@ -271,6 +318,7 @@
     },
     {
       "question": "Which guerrilla art group uses billboards and public spaces to critique consumerism and media?",
+      "question_fr": "Quel groupe artistique de guérilla utilise des panneaux d'affichage et des espaces publics pour critiquer le consumérisme et les médias ?",
       "answers": [
         "The Yes Men",
         "Guerrilla Girls",
@@ -282,10 +330,17 @@
     },
     {
       "question": "Which feminist art collective wears gorilla masks and fights discrimination in the art world?",
+      "question_fr": "Quel collectif artistique féministe porte des masques de gorille et lutte contre les discriminations dans le monde de l'art ?",
       "answers": [
         "Guerrilla Girls",
         "Pussy Riot",
         "Women Artists in Revolution",
+        "The Feminist Art Workers"
+      ],
+      "answers_fr": [
+        "Guerrilla Girls",
+        "Pussy Riot",
+        "Femmes artistes en révolution",
         "The Feminist Art Workers"
       ],
       "correctAnswer": "Guerrilla Girls",
@@ -293,6 +348,7 @@
     },
     {
       "question": "Which Surrealist created 'The Treachery of Images' with the text 'This is not a pipe'?",
+      "question_fr": "Quel surréaliste a créé 'La Trahison des images' avec le texte 'Ceci n'est pas une pipe' ?",
       "answers": [
         "Max Ernst",
         "René Magritte",
@@ -304,6 +360,7 @@
     },
     {
       "question": "Who created the controversial 'Piss Christ', a photograph of a crucifix submerged in urine?",
+      "question_fr": "Qui a créé le controversé 'Piss Christ', une photographie d'un crucifix immergé dans de l'urine ?",
       "answers": [
         "Andres Serrano",
         "Sally Mann",
@@ -315,6 +372,7 @@
     },
     {
       "question": "Which Russian punk rock group staged protests in Moscow cathedrals against political authority?",
+      "question_fr": "Quel groupe de punk rock russe a organisé des protestations dans des cathédrales de Moscou contre l'autorité politique ?",
       "answers": [
         "Chto Delat",
         "AES+F",
@@ -326,6 +384,7 @@
     },
     {
       "question": "Which British artist created 'My Bed', an installation of her unmade bed surrounded by personal items?",
+      "question_fr": "Quelle artiste britannique a créé 'My Bed', une installation de son lit défait entouré d'objets personnels ?",
       "answers": [
         "Jenny Saville",
         "Rachel Whiteread",
@@ -339,17 +398,25 @@
   "masterpieces": [
     {
       "question": "Which Leonardo da Vinci painting is arguably the most famous portrait in the world?",
+      "question_fr": "Quel tableau de Léonard de Vinci est sans doute le portrait le plus célèbre du monde ?",
       "answers": [
         "Lady with an Ermine",
         "The Last Supper",
         "Mona Lisa",
         "Vitruvian Man"
       ],
+      "answers_fr": [
+        "La Dame à l'hermine",
+        "La Cène",
+        "La Joconde",
+        "L'Homme de Vitruve"
+      ],
       "correctAnswer": "Mona Lisa",
       "image_link": "/artquiz/masterpieces/mona-lisa.jpg"
     },
     {
       "question": "Who painted 'The Starry Night', now housed in the Museum of Modern Art?",
+      "question_fr": "Qui a peint 'La Nuit étoilée', aujourd'hui conservée au Museum of Modern Art ?",
       "answers": [
         "Claude Monet",
         "Vincent van Gogh",
@@ -361,20 +428,34 @@
     },
     {
       "question": "Which Michelangelo fresco depicts the creation of Adam on the Sistine Chapel ceiling?",
+      "question_fr": "Quelle fresque de Michel-Ange représente la création d'Adam sur le plafond de la chapelle Sixtine ?",
       "answers": [
         "The Fall of Man",
         "The Creation of Adam",
         "The Deluge",
         "The Last Judgment"
       ],
+      "answers_fr": [
+        "La Chute de l'homme",
+        "La Création d'Adam",
+        "Le Déluge",
+        "Le Jugement dernier"
+      ],
       "correctAnswer": "The Creation of Adam",
       "image_link": "/artquiz/masterpieces/michelangelo-creation-adam.jpg"
     },
     {
       "question": "Which Picasso painting depicts the bombing of a Basque town during the Spanish Civil War?",
+      "question_fr": "Quel tableau de Picasso dépeint le bombardement d'une ville basque pendant la guerre civile espagnole ?",
       "answers": [
         "The Old Guitarist",
         "The Weeping Woman",
+        "Les Demoiselles d'Avignon",
+        "Guernica"
+      ],
+      "answers_fr": [
+        "Le Vieux guitariste",
+        "La Femme qui pleure",
         "Les Demoiselles d'Avignon",
         "Guernica"
       ],
@@ -383,6 +464,7 @@
     },
     {
       "question": "Who created 'The Birth of Venus', showing the goddess emerging from the sea?",
+      "question_fr": "Qui a créé 'La Naissance de Vénus', montrant la déesse émergeant de la mer ?",
       "answers": [
         "Raphael",
         "Giorgione",
@@ -394,17 +476,25 @@
     },
     {
       "question": "Which Johannes Vermeer painting features a young woman with a turban and large pearl earring?",
+      "question_fr": "Quel tableau de Johannes Vermeer représente une jeune femme coiffée d'un turban et portant une grande boucle d'oreille en perle ?",
       "answers": [
         "Woman Holding a Balance",
         "Girl with a Pearl Earring",
         "The Art of Painting",
         "The Milkmaid"
       ],
+      "answers_fr": [
+        "La Femme à la balance",
+        "La Jeune Fille à la perle",
+        "L'Art de la peinture",
+        "La Laitière"
+      ],
       "correctAnswer": "Girl with a Pearl Earring",
       "image_link": "/artquiz/masterpieces/vermeer-pearl-earring.jpg"
     },
     {
       "question": "Who painted 'The Persistence of Memory' featuring melting clocks?",
+      "question_fr": "Qui a peint 'La Persistance de la mémoire' avec ses montres molles ?",
       "answers": [
         "Salvador Dalí",
         "Giorgio de Chirico",
@@ -416,10 +506,17 @@
     },
     {
       "question": "Which Grant Wood painting shows a farmer and his daughter in front of a Gothic-style house?",
+      "question_fr": "Quel tableau de Grant Wood montre un fermier et sa fille devant une maison de style gothique ?",
       "answers": [
         "Stone City Iowa",
         "The Midnight Ride of Paul Revere",
         "Daughters of Revolution",
+        "American Gothic"
+      ],
+      "answers_fr": [
+        "Stone City Iowa",
+        "La Chevauchée nocturne de Paul Revere",
+        "Filles de la révolution",
         "American Gothic"
       ],
       "correctAnswer": "American Gothic",
@@ -427,6 +524,7 @@
     },
     {
       "question": "Who created 'The Scream', showing an agonized figure against a tumultuous sky?",
+      "question_fr": "Qui a créé 'Le Cri', montrant une figure angoissée sous un ciel tourmenté ?",
       "answers": [
         "Oskar Kokoschka",
         "Egon Schiele",
@@ -438,11 +536,18 @@
     },
     {
       "question": "Which Diego Velázquez painting features the artist himself painting the Spanish royal family?",
+      "question_fr": "Quel tableau de Diego Vélasquez représente l'artiste lui-même en train de peindre la famille royale espagnole ?",
       "answers": [
         "The Rokeby Venus",
         "Las Meninas",
         "Portrait of Pope Innocent X",
         "The Surrender of Breda"
+      ],
+      "answers_fr": [
+        "La Vénus au miroir",
+        "Las Meninas",
+        "Portrait du pape Innocent X",
+        "La Reddition de Breda"
       ],
       "correctAnswer": "Las Meninas",
       "image_link": "/artquiz/masterpieces/velazquez-las-meninas.jpg"

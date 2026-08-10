@@ -1,5 +1,6 @@
 import React, { useContext, useRef, useEffect } from 'react';
 import { QuizContext } from '../../../../reducers/artquiz';
+import { useTranslation } from '../../../../contexts/LanguageContext';
 import './index.scss';
 
 const W = 500;
@@ -21,6 +22,7 @@ const drawCover = (
 
 const Question = () => {
   const [quizState] = useContext(QuizContext);
+  const { language } = useTranslation();
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const cacheRef = useRef<{ img: HTMLImageElement; src: string } | null>(null);
 
@@ -73,7 +75,7 @@ const Question = () => {
   return (
     <>
       <canvas ref={canvasRef} className="question-image" width={W} height={H} />
-      <p>{currentQuestion.question}</p>
+      <p>{language === 'fr' ? (currentQuestion.question_fr ?? currentQuestion.question) : currentQuestion.question}</p>
     </>
   );
 };

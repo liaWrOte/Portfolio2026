@@ -75,6 +75,11 @@
         word-break: break-word;
       }
     }
+
+    &.abskill-class img {
+      width: auto;
+      height: 56px;
+    }
   }
 }
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import './desktop-bottom-bar.scss';
 import Item from '../../containers/item';
 import TaskBar from '../TaskBar/TaskBar';
@@ -15,6 +15,9 @@ import artquizIcon from '../assets/img/icons/artquiz_icon.svg';
 
 const DesktopBottomBar = ({ openWindows, minimizedWindows, onOpenWindow, onCloseWindow }) => {
   const { t, language } = useTranslation();
+
+  const [wipKey, setWipKey] = useState(0);
+  const handleArtquizClick = () => setWipKey((k) => k + 1);
 
   const locale = language === 'en' ? 'en-US' : 'fr-FR';
   const [today, setDate] = useState(new Date());
@@ -48,16 +51,19 @@ const DesktopBottomBar = ({ openWindows, minimizedWindows, onOpenWindow, onClose
           clickTrigger={'simple'}
           data-taskbar-id="stolify"
         />
-        <Item
-          key="artquiz"
-          inWindow={false}
-          outWindowLabel="ArtQuiz"
-          triggerOpen="artquiz"
-          itemId="artquiz"
-          srcImg={artquizIcon}
-          clickTrigger={'simple'}
+        <div
+          className="item on-desktop artquiz-class artquiz-wip"
           data-taskbar-id="artquiz"
-        />
+          onClick={handleArtquizClick}
+        >
+          <img src={artquizIcon} alt="ArtQuiz" />
+          <ScrambleText text="ArtQuiz" />
+          {wipKey > 0 && (
+            <span key={wipKey} className="wip-tooltip" onAnimationEnd={() => setWipKey(0)}>
+              {t('under_construction')}
+            </span>
+          )}
+        </div>
         <TaskBar
           openWindows={openWindows || []}
           minimizedWindows={minimizedWindows || []}

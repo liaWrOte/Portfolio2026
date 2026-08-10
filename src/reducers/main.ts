@@ -74,7 +74,7 @@ const desktopReducer = (state = initialState, action: AnyAction) => {
 
     case OPEN_FOLDER: {
       let newPath;
-      if (action.payload === 'root' && state.navigation.currentPath.length > 2) {
+      if (action.payload === 'root') {
         newPath = ['root'];
       } else {
         newPath = [...state.navigation.currentPath, action.payload];
