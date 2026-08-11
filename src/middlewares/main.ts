@@ -37,7 +37,7 @@ const desktopMiddleware =
       case FETCH_PROJECTS:
         Promise.all([
           axios.get(
-            `${apiUrl}/projects?populate[paragraph][populate][images][populate][file]=*&populate[paragraph][populate][localizations]=*&sort[0]=type&sort[1]=date&populate[localizations][populate][paragraph][populate][images][populate][file]=*&populate[logo]=*`
+            `${apiUrl}/projects?locale=fr-FR&populate[paragraph][populate][images][populate][file]=*&populate[paragraph][populate][localizations]=*&sort[0]=type&sort[1]=date&populate[localizations][populate][paragraph][populate][images][populate][file]=*&populate[logo]=*`
           ),
           axios.get(
             `${apiUrl}/projects?locale=en&populate[paragraph][populate][images][populate][file]=*&sort[0]=type&sort[1]=date&populate[logo]=*`
