@@ -32,6 +32,7 @@ const translations = {
     under_construction: 'En construction',
     contact_available: 'À LA RECHERCHE DE NOUVEAUX DÉFIS',
     contact_rights: 'TOUS DROITS RÉSERVÉS',
+    mobile_notice: "L'expérience complète est conçue pour ordinateur.",
     // ArtQuiz
     quiz_result_good: 'Bravo !',
     quiz_result_try: 'Presque ! Réessaie',
@@ -72,6 +73,7 @@ const translations = {
     under_construction: 'Under construction',
     contact_available: 'OPEN TO NEW OPPORTUNITIES',
     contact_rights: 'ALL RIGHTS RESERVED',
+    mobile_notice: 'The full experience is designed for desktop.',
     // ArtQuiz
     quiz_result_good: 'Good job!',
     quiz_result_try: 'Almost! Try again',
