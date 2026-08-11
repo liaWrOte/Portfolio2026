@@ -1,5 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const ModuleFederationPlugin = require("webpack/lib/container/ModuleFederationPlugin");
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 const dependencies = require("./package.json").dependencies;
 const path = require('path');
 
@@ -68,29 +68,14 @@ module.exports = {
           favicon: './public/favicon.svg',
           manifest: './public/manifest.ico'
         }),
-        new ModuleFederationPlugin({
-            name: "Host",
-            remotes: {
-              remote: `Remote@http://localhost:4000/remoteEntry.js`,
-            },
-            shared: {
-              ...dependencies,
-              react: {
-                singleton: true,
-                eager: true,
-                requiredVersion: dependencies.react,
+        new CopyWebpackPlugin({
+            patterns: [
+              {
+                from: 'public',
+                to: '.',
+                globOptions: { ignore: ['**/index.html'] },
               },
-              "react-dom": {
-                singleton: true,
-                eager: true,
-                requiredVersion: dependencies["react-dom"],
-              },
-              "react-router-dom": {
-                singleton: true,
-                eager: true,
-                requiredVersion: dependencies["react-router-dom"],
-              },
-            },
+            ],
           }),
     ],
     resolve: {
