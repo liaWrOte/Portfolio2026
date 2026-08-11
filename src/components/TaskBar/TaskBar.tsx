@@ -31,8 +31,6 @@ const TaskBar = ({ openWindows, minimizedWindows, onWindowClick, onCloseWindow }
     switch (windowId) {
       case 'projets':
         return openWindows.includes('projets') ? folderOpenIcon : folderIcon;
-      case 'resume':
-        return fileIcon;
       case 'contact_me':
         return emailIcon;
       default:
@@ -43,7 +41,6 @@ const TaskBar = ({ openWindows, minimizedWindows, onWindowClick, onCloseWindow }
   const getLabelForWindow = (windowId) => {
     switch (windowId) {
       case 'projets': return t('projects');
-      case 'resume': return t('resume');
       case 'contact_me': return t('contact');
       default: return windowId;
     }

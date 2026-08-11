@@ -26,7 +26,6 @@ const initialState = {
   openWindows: [],
   minimizedWindows: [],
   openedWindows: [],
-  displayResume: false,
   windowPositions: {},
   fileSystem: null,
   fileSystemEn: null,
@@ -156,7 +155,6 @@ const desktopReducer = (state = initialState, action: AnyAction) => {
           ? state.openedWindows.concat(windowId)
           : state.openedWindows,
         minimizedWindows: state.minimizedWindows.filter((window) => window !== windowId),
-        displayResume: windowId === 'resume' ? true : state.displayResume
       };
     }
 
@@ -171,24 +169,10 @@ const desktopReducer = (state = initialState, action: AnyAction) => {
           minimizedWindows: state.minimizedWindows.filter(
             (window) => window !== action.value && window !== windowId
           ),
-          displayResume:
-            action.value === 'resume' || action.value === 'Resume' ? false : state.displayResume,
           displayWindow: action.value === 'projets' ? false : state.displayWindow
         };
       }
       if (Array.isArray(action.value)) {
-        if (action.value[0] === 'Resume') {
-          return {
-            ...state,
-            displayResume: !state.displayResume,
-            openWindows: state.openWindows.filter(
-              (window) => window !== 'resume' && window !== 'Resume'
-            ),
-            minimizedWindows: state.minimizedWindows.filter(
-              (window) => window !== 'resume' && window !== 'Resume'
-            )
-          };
-        }
         if (action.value.length === 1) {
           return {
             ...state,

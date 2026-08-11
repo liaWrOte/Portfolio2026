@@ -18,18 +18,7 @@ const MobileScreen: React.FC = () => (
       <span className="ms-prompt">C:\PORTFOLIO&gt;</span>
       <p className="ms-message">
         L'expérience complète est conçue pour ordinateur.
-        <br />
-        En attendant, voici mon CV.
       </p>
-    </div>
-
-    <div className="ms-cv">
-      <iframe
-        src="https://heady-salto-322.notion.site/ebd//2aadb394a5ab8121bd4afde3e99c9a7f"
-        title="CV Sandrine M'ZE"
-        frameBorder="0"
-        allowFullScreen
-      />
     </div>
   </div>
 );

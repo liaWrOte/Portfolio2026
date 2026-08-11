@@ -13,9 +13,6 @@ const DEEP_LINKS: Record<string, string> = {
   '/projects':   'projets',
   '/artquiz':    'artquiz',
   '/stolify':    'stolify',
-  '/resume':     'resume',
-  '/cv.pdf':     'resume',
-  '/resume.pdf': 'resume',
   '/contact':    'contact_me',
   '/contact.me': 'contact_me',
 };
@@ -24,7 +21,6 @@ const getWindowToPath = (windowId: string, lang: 'fr' | 'en'): string | null => 
   switch (windowId) {
     case 'artquiz':    return '/artquiz';
     case 'stolify':    return '/stolify';
-    case 'resume':     return lang === 'en' ? '/resume.pdf' : '/cv.pdf';
     case 'contact_me': return '/contact.me';
     default:           return null;
   }

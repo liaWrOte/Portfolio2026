@@ -121,7 +121,6 @@ export interface MainState {
   displayImageItem: boolean;
   displaySpecsItem: boolean;
   displayAllItems: boolean;
-  displayResume: boolean;
   minimizedWindows: string[];
   openWindows: WindowState[];
   loading: boolean;

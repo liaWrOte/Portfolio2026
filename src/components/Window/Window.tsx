@@ -52,7 +52,6 @@ const Window: React.FC<WindowProps> = ({
   };
 
   const projetsPos = getDefaultPosition('projets');
-  const resumePos = getDefaultPosition('resume');
   const contactPos = getDefaultPosition('contact_me');
   const stolifyPos = getDefaultPosition('stolify');
   const artquizPos = getDefaultPosition('artquiz');
@@ -99,7 +98,6 @@ const Window: React.FC<WindowProps> = ({
   const getWindowLabel = (windowId) => {
     switch (windowId) {
       case 'projets': return t('projects');
-      case 'resume': return t('resume');
       case 'contact_me': return t('contact');
       case 'artquiz': return t('artquiz');
       case 'stolify': return t('stolify');
@@ -156,36 +154,6 @@ const Window: React.FC<WindowProps> = ({
         </Draggable>
       )}
 
-      {shouldDisplayWindow('resume') && (
-        <Draggable
-          bounds={'.App'}
-          onStart={() => handleZIndex('resume')}
-          handle={'.window-header-container'}
-          defaultPosition={resumePos}
-        >
-          <div
-            className="window level-class-third"
-            key={'resume'}
-            onClick={() => handleZIndex('resume')}
-            style={{ zIndex: getZIndex('resume') }}
-            data-window-id="resume"
-          >
-            <WindowHeader
-              label={getWindowLabel('resume')}
-              itemId={'resume'}
-              useOnlyLabel={true}
-            />
-            <iframe
-              src="https://heady-salto-322.notion.site/ebd//2aadb394a5ab8121bd4afde3e99c9a7f"
-              width="100%"
-              height="100%"
-              frameborder="0"
-              allowfullscreen
-              title="resume"
-            />
-          </div>
-        </Draggable>
-      )}
 
       {shouldDisplayWindow('contact_me') && (
         <Draggable

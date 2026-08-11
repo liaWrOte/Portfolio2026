@@ -12,7 +12,6 @@ import Window from '../../containers/window';
 import DesktopBottomBar from '../DesktopBottomBar/DesktopBottomBar';
 import cloud from '../assets/img/cloud.svg';
 import folderClosed2Icon from '../assets/img/icons/folder_closed_2_icon.svg';
-import fileIcon from '../assets/img/icons/file_icon.svg';
 import emailIcon from '../assets/img/icons/email_icon.svg';
 import { useTranslation } from '../../contexts/LanguageContext';
 import { getWindowTargetPosition } from '../../utils/windowPosition';
@@ -378,15 +377,6 @@ export const Desktop = ({ displayWindowItem, displayImageItem, displayWindow, ..
         <img src={abskillSrc} alt="ABSkill" />
         <ScrambleText text="ABSkill" />
       </div>
-      {/* Resume item — temporarily hidden
-      <Item
-        key="resume"
-        inWindow={false}
-        itemId="resume"
-        outWindowLabel={t('resume')}
-        triggerOpen="resume"
-        srcImg={fileIcon}
-      /> */}
       {/* Item contact me */}
       <Item
         key="contact_me"
