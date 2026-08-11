@@ -7,6 +7,14 @@ import './components/assets/scss/index.scss';
 import reportWebVitals from './reportWebVitals';
 import store from './store';
 import { Provider } from 'react-redux';
+console.log(`
+  ┌─────────────────────────────┐
+  │  crafted by Sandrine MZE    │
+  │  React · TypeScript · Sass  │
+  │  → github.com/liaWrOte      │
+  └─────────────────────────────┘
+`);
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   // <React.StrictMode>
