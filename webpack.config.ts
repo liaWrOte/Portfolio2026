@@ -1,5 +1,6 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const webpack = require('webpack');
 const dependencies = require("./package.json").dependencies;
 const path = require('path');
 
@@ -63,6 +64,10 @@ module.exports = {
         ]
     },
     plugins: [
+        new webpack.DefinePlugin({
+          'process.env.REACT_APP_BACKEND_URL': JSON.stringify(process.env.REACT_APP_BACKEND_URL || ''),
+          'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'production'),
+        }),
         new HtmlWebpackPlugin({
           template: path.resolve(__dirname, './public/index.html'),
           favicon: './public/favicon.svg',
