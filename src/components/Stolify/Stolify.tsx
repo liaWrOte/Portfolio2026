@@ -128,6 +128,7 @@ const Stolify = () => {
         setTimeout(() => {
           addSVGEventListeners();
           setupSVGLayout();
+          updateCoverImage(currentIndexRef.current);
         }, 100);
       })
       .catch((error) => {
