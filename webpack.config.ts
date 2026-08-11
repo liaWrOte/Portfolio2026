@@ -4,11 +4,11 @@ const webpack = require('webpack');
 const dependencies = require("./package.json").dependencies;
 const path = require('path');
 
-module.exports = {
+module.exports = (env: any, argv: any) => ({
     entry: {
         index: path.resolve(__dirname, './src/index.ts')
     },
-    mode: 'development',
+    mode: argv?.mode || 'development',
     devServer: {
       static: {
         directory: path.join(__dirname, "public"),
@@ -85,4 +85,4 @@ module.exports = {
     resolve: {
         extensions: [".js", ".jsx", ".ts", ".tsx"]
     }
-}
+});

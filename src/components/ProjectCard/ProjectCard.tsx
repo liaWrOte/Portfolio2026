@@ -3,7 +3,7 @@ import { createPortal } from 'react-dom';
 import { marked } from 'marked';
 import { BlocksRenderer } from '@strapi/blocks-react-renderer';
 import { FileSystemNode } from '../../types';
-import { backendUrl } from '../../middlewares/env';
+import { mediaUrl } from '../../middlewares/env';
 import { useTranslation } from '../../contexts/LanguageContext';
 import ScrambleText from '../ScrambleText/ScrambleText';
 import './project-card.scss';
@@ -122,7 +122,7 @@ const ImageZoomModal: React.FC<{
           style={{ cursor: scale > 1 ? (isDragging ? 'grabbing' : 'grab') : 'default' }}
         >
           <img
-            src={`${backendUrl}${image.file.data.attributes.url}`}
+            src={mediaUrl(image.file.data.attributes.url) || ''}
             alt={image.file.data.attributes.alternativeText || ''}
             className="zoomed-image"
             style={{
@@ -160,7 +160,7 @@ const ImageGallery: React.FC<{ images: ImageWithCaption[] }> = ({ images }) => {
         {validImages.map((image, index) => (
           <figure key={index} className="gallery-figure">
             <img
-              src={`${backendUrl}${image.file.data.attributes.url}`}
+              src={mediaUrl(image.file.data.attributes.url) || ''}
               alt={image.file.data.attributes.alternativeText || ''}
               className="gallery-image"
               onClick={() => setZoomedImage(image)}

@@ -3,7 +3,7 @@ import { FileSystemNode } from '../../types';
 import './icon-grid.scss';
 import folderClosed2Icon from '../assets/img/icons/folder_closed_2_icon.svg';
 import fileIcon from '../assets/img/icons/file_icon.svg';
-import { backendUrl } from '../../middlewares/env';
+import { mediaUrl } from '../../middlewares/env';
 interface IconGridProps {
   items: FileSystemNode[];
   openFolder: (id: string) => void;
@@ -26,7 +26,7 @@ const IconGrid: React.FC<IconGridProps> = ({ items, openFolder, openProject }) =
             />
           ) : (
             <img
-              src={`${backendUrl}${item.logo.data.attributes.url}`}
+              src={mediaUrl(item.logo.data.attributes.url) || ''}
               alt={item.logo.data.attributes.alternativeText || item.name}
               className="project-logo"
             />

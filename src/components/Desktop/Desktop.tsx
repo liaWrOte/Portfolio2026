@@ -15,7 +15,7 @@ import folderClosed2Icon from '../assets/img/icons/folder_closed_2_icon.svg';
 import emailIcon from '../assets/img/icons/email_icon.svg';
 import { useTranslation } from '../../contexts/LanguageContext';
 import { getWindowTargetPosition } from '../../utils/windowPosition';
-import { backendUrl } from '../../middlewares/env';
+import { backendUrl, mediaUrl } from '../../middlewares/env';
 
 export const Desktop = ({ displayWindowItem, displayImageItem, displayWindow, ...props }) => {
   const { t } = useTranslation();
@@ -46,7 +46,7 @@ export const Desktop = ({ displayWindowItem, displayImageItem, displayWindow, ..
     ?.find((c: any) => c.id === 'Développement' || c.name === 'Développement')
     ?.children?.find((p: any) => slugify(p.name) === 'abskill');
   const abskillSrc = abskillNode?.logo?.data?.attributes?.url
-    ? `${backendUrl}${abskillNode.logo.data.attributes.url}`
+    ? (mediaUrl(abskillNode.logo.data.attributes.url) || folderClosed2Icon)
     : folderClosed2Icon;
 
   const handleAbskillClick = () => {
