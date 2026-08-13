@@ -103,8 +103,15 @@ const LoadingScreen: React.FC<Props> = ({ onComplete }) => {
       );
     }
 
-    // Phase 3: loading screen fades out
-    tl.to(screen, { opacity: 0, duration: 0.5 }, `+=${0.8}`);
+    // Phase 3: CRT power-off — screen collapses to a bright horizontal line
+    tl.to(screen, {
+      scaleY: 0.04,
+      filter: 'brightness(4)',
+      duration: 0.28,
+      ease: 'power2.in',
+      transformOrigin: 'center center'
+    }, `+=${0.8}`);
+    tl.to(screen, { scaleY: 0, opacity: 0, duration: 0.08, ease: 'none' });
     tl.call(onComplete);
 
     return () => {

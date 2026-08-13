@@ -13,7 +13,7 @@ const translations = {
   fr: {
     see_project: 'Voir le projet',
     date: 'Date :',
-    role: 'Role:',
+    role: 'Rôle :',
     technologies: 'Technologies:',
     developer: 'DÉVELOPPEUSE WEB & CREATIVE',
     projects: 'Projets',
