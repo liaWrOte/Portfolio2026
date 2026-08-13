@@ -7,7 +7,6 @@ import { slugify, categoryToSlug, slugToCategory } from '../../utils/projectSlug
 import { Desktop } from '../Desktop/Desktop';
 import DesktopBottomBar from '../DesktopBottomBar/DesktopBottomBar';
 import LoadingScreen from '../LoadingScreen/LoadingScreen';
-import CRTOverlay from '../CRTOverlay/CRTOverlay';
 
 const DEEP_LINKS: Record<string, string> = {
   '/projets':    'projets',
@@ -187,42 +186,22 @@ const isDeepLink =
 
 const Main: React.FC<MainProps> = ({ fetchProjects, fileSystem, loadingState }) => {
   const [showLoader, setShowLoader] = useState(!isDeepLink);
-  const [showCRT,    setShowCRT]    = useState(false);
 
   useEffect(() => {
     fetchProjects();
   }, []);
 
-  if (showLoader) {
-    return (
-      <LoadingScreen
-        onComplete={() => {
-          setShowLoader(false);
-          setShowCRT(true);
-        }}
-      />
-    );
-  }
+  if (showLoader) return <LoadingScreen onComplete={() => setShowLoader(false)} />;
   if (loadingState) return null;
   if (fileSystem === null) return null;
 
-  const desktopContent = (
-    <>
+  return (
+    <div>
       <Desktop />
       <DesktopBottomBar />
       <DeepLinkHandler />
       <URLSyncHandler />
-    </>
+    </div>
   );
-
-  if (showCRT) {
-    return (
-      <CRTOverlay onDone={() => setShowCRT(false)}>
-        {desktopContent}
-      </CRTOverlay>
-    );
-  }
-
-  return <div>{desktopContent}</div>;
 };
 export default Main;
