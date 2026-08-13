@@ -95,6 +95,12 @@ const Window: React.FC<WindowProps> = ({
   const activeProject = useSelector((state: any) => getProjectById(state.main, windowItemId));
   const { t } = useTranslation();
 
+  const rightPaneRef = useRef<HTMLDivElement>(null);
+  const displayedId = (activeProject ?? node)?.id;
+  useEffect(() => {
+    if (rightPaneRef.current) rightPaneRef.current.scrollTop = 0;
+  }, [displayedId]);
+
   const getWindowLabel = (windowId) => {
     switch (windowId) {
       case 'projets': return t('projects');
@@ -138,7 +144,7 @@ const Window: React.FC<WindowProps> = ({
             />
             <div className="window-item-container">
               <SidebarTree />
-              <div className="window-right-items">
+              <div className="window-right-items" ref={rightPaneRef}>
                 {fileSystem && view === 'explorer' && (
                   <ExplorerView view={view} node={fileSystem} />
                 )}
