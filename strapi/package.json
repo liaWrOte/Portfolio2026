@@ -4,6 +4,7 @@
   "version": "0.1.0",
   "description": "A Strapi application",
   "scripts": {
+    "preinstall": "python3 -m pip install setuptools --break-system-packages --quiet 2>/dev/null || true",
     "develop": "strapi develop",
     "start": "strapi start",
     "build": "strapi build",
