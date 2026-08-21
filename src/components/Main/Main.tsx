@@ -1,8 +1,10 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import gsap from 'gsap';
 import { FileSystemNode } from '../../types';
 import { openWindow, openFolder, openProject, setLanguage } from '../../actions/main';
 import { slugify, categoryToSlug, slugToCategory } from '../../utils/projectSlug';
+import { mediaUrl } from '../../middlewares/env';
 // Import components
 import { Desktop } from '../Desktop/Desktop';
 import DesktopBottomBar from '../DesktopBottomBar/DesktopBottomBar';
@@ -186,17 +188,77 @@ const isDeepLink =
 
 const Main: React.FC<MainProps> = ({ fetchProjects, fileSystem, loadingState }) => {
   const [showLoader, setShowLoader] = useState(!isDeepLink);
+  const [desktopReady, setDesktopReady] = useState(false);
+  const desktopRef = useRef<HTMLDivElement>(null);
+  const audioCtxRef = useRef<AudioContext | null>(null);
 
   useEffect(() => {
     fetchProjects();
+    try {
+      audioCtxRef.current = new AudioContext();
+      audioCtxRef.current.resume().catch(() => {});
+    } catch (_) {}
+    return () => { audioCtxRef.current?.close(); };
   }, []);
+
+  // Preload ABSkill image before fading in the desktop
+  useEffect(() => {
+    if (showLoader || !fileSystem) return;
+
+    const abskillNode = (fileSystem as any).children
+      ?.find((c: any) => c.id === 'Développement' || c.name === 'Développement')
+      ?.children?.find((p: any) => slugify(p.name) === 'abskill');
+
+    const rawUrl = abskillNode?.logo?.data?.attributes?.url;
+    const src = rawUrl ? mediaUrl(rawUrl) : null;
+
+    if (!src) { setDesktopReady(true); return; }
+
+    const img = new Image();
+    const timer = setTimeout(() => setDesktopReady(true), 3000);
+    img.onload = () => { clearTimeout(timer); setDesktopReady(true); };
+    img.onerror = () => { clearTimeout(timer); setDesktopReady(true); };
+    img.src = src;
+
+    return () => clearTimeout(timer);
+  }, [showLoader, fileSystem]);
+
+  // Fade in desktop once image is ready
+  useEffect(() => {
+    if (!desktopReady || !desktopRef.current) return;
+
+    try {
+      const ctx = audioCtxRef.current;
+      if (ctx) {
+        const doBeep = () => {
+          const osc = ctx.createOscillator();
+          const gain = ctx.createGain();
+          osc.type = 'square';
+          osc.frequency.value = 880;
+          gain.gain.setValueAtTime(0.105, ctx.currentTime);
+          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.2);
+          osc.connect(gain);
+          gain.connect(ctx.destination);
+          osc.start();
+          osc.stop(ctx.currentTime + 0.2);
+        };
+        if (ctx.state === 'suspended') {
+          ctx.resume().then(doBeep).catch(() => {});
+        } else {
+          doBeep();
+        }
+      }
+    } catch (_) {}
+
+    gsap.to(desktopRef.current, { opacity: 1, duration: 0.5, ease: 'power2.out' });
+  }, [desktopReady]);
 
   if (showLoader) return <LoadingScreen onComplete={() => setShowLoader(false)} />;
   if (loadingState) return null;
   if (fileSystem === null) return null;
 
   return (
-    <div>
+    <div ref={desktopRef} style={{ opacity: 0 }}>
       <Desktop />
       <DesktopBottomBar />
       <DeepLinkHandler />
