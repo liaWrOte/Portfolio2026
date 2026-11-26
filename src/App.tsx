@@ -18,6 +18,7 @@ const App: React.FC = () => {
     <LanguageProvider>
       <a href="#main-content" className="skip-link">Aller au contenu principal</a>
       <LangSync />
+      <div className="crt-overlay" aria-hidden="true" />
       <div className="App">
         <MobileScreen />
         <div id="main-content" className="desktop-only">
