@@ -31,17 +31,23 @@ export default function TreeNode({ node, openFolder, openProject, nodeLevel = 0,
   return (
     <li style={{ marginTop: nodeLevel === 0 ? '1rem' : 0 }}>
       <span
+        role="button"
+        tabIndex={0}
+        aria-label={getDisplayName()}
         onClick={handleClick}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleClick(); }
+        }}
         className={`treenode${isActive ? ' treenode--active' : ''}`}
       >
         {node.type === 'folder' ? (
           isActive ? (
-            <img src={folderOpenIcon} alt="Logo" className="treenode-icons" />
+            <img src={folderOpenIcon} alt="" aria-hidden="true" className="treenode-icons" />
           ) : (
-            <img src={folderClosedIcon2} alt="Logo" className="treenode-icons" />
+            <img src={folderClosedIcon2} alt="" aria-hidden="true" className="treenode-icons" />
           )
         ) : (
-          <img src={fileIcon} alt="Logo" className="treenode-icons" />
+          <img src={fileIcon} alt="" aria-hidden="true" className="treenode-icons" />
         )}
         &nbsp;<ScrambleText text={getDisplayName()} />
       </span>
