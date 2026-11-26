@@ -1,24 +1,26 @@
 @use '../assets/scss/vars' as *;
 
+// ── Layout ───────────────────────────────────────────────────────────────────
+
 .mobile-screen {
   flex-direction: column;
   min-height: 100vh;
   background: linear-gradient(to bottom, #f2ede8 0%, #e8e1d7 40%, #c4bdb3 100%);
   font-family: monospace;
   color: $dark-brown;
-  padding: 1.5rem 1.25rem;
+  padding: 1.5rem 1.25rem 2rem;
   box-sizing: border-box;
 }
+
+// ── Header ───────────────────────────────────────────────────────────────────
 
 .ms-header {
   display: flex;
   align-items: center;
   gap: 1rem;
-  margin-bottom: 1.5rem;
+  margin-bottom: 2rem;
 
-  .language-switch {
-    margin-left: auto;
-  }
+  .language-switch { margin-left: auto; }
 }
 
 .ms-logo {
@@ -26,6 +28,8 @@
   height: 44px;
   flex-shrink: 0;
 }
+
+.ms-identity { display: flex; flex-direction: column; }
 
 .ms-name {
   font-size: 1rem;
@@ -41,33 +45,193 @@
   color: $orange;
 }
 
-.ms-notice {
-  border: 2px solid $dark-brown;
-  box-shadow: -5px 5px 0 $orange, -5px 5px 0 2px $dark-brown;
-  padding: 1rem 1.25rem;
-  margin-bottom: 1.5rem;
-  background: $cray;
+// ── Sections ─────────────────────────────────────────────────────────────────
+
+.ms-section {
+  margin-bottom: 2.5rem;
 }
 
 .ms-prompt {
   display: block;
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   color: $orange;
-  margin-bottom: 0.5rem;
+  letter-spacing: 0.04em;
+  margin: 0 0 0.75rem;
+}
+
+// ── Loading ───────────────────────────────────────────────────────────────────
+
+.ms-loading {
+  font-size: 0.85rem;
+  padding: 0.5rem 0 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.ms-cursor {
+  animation: ms-cursor-blink 1s step-end infinite;
+}
+
+@keyframes ms-cursor-blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+// ── Categories ───────────────────────────────────────────────────────────────
+
+.ms-category {
+  margin-bottom: 1.5rem;
+}
+
+.ms-category-title {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: $orange;
+  text-transform: uppercase;
+  margin: 0 0 0.5rem;
+  padding-bottom: 0.3rem;
+  border-bottom: 1px dashed rgba($dark-brown, 0.3);
+}
+
+// ── Project accordion ────────────────────────────────────────────────────────
+
+.ms-project {
+  border: 2px solid $dark-brown;
+  margin-bottom: 0.9rem;
+  background: $cray;
+
+  &--open {
+    box-shadow: -4px 4px 0 $orange, -4px 4px 0 2px $dark-brown;
+  }
+}
+
+.ms-project-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.65rem 0.9rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  color: $dark-brown;
+  font-family: monospace;
+
+  &:focus-visible {
+    outline: 2px solid $orange;
+    outline-offset: -2px;
+  }
+}
+
+.ms-project-logo {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  flex-shrink: 0;
+  border-radius: 3px;
+}
+
+.ms-project-logo-placeholder {
+  width: 28px;
+  height: 28px;
+  background: rgba($dark-brown, 0.1);
+  flex-shrink: 0;
+  border-radius: 3px;
+}
+
+.ms-project-name {
+  flex: 1;
+  font-size: 0.82rem;
+  font-weight: 700;
   letter-spacing: 0.04em;
 }
 
-.ms-message {
-  margin: 0;
-  font-size: 0.9rem;
-  line-height: 1.6;
-  color: $dark-brown;
+.ms-project-toggle {
+  font-size: 0.6rem;
+  opacity: 0.55;
+  flex-shrink: 0;
 }
 
-.ms-divider {
-  border: none;
-  border-top: 1px dashed rgba($dark-brown, 0.3);
-  margin: 0.9rem 0;
+.ms-project-body {
+  padding: 0.65rem 0.9rem 0.9rem;
+  border-top: 1px solid rgba($dark-brown, 0.2);
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.ms-meta-row {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.5rem;
+  font-size: 0.74rem;
+
+  &--wrap { flex-wrap: wrap; }
+}
+
+.ms-meta-label {
+  color: $orange;
+  font-weight: 700;
+  min-width: 6rem;
+  flex-shrink: 0;
+}
+
+.ms-tech-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+}
+
+.ms-tech-item {
+  background: rgba($dark-brown, 0.07);
+  border: 1px solid rgba($dark-brown, 0.18);
+  padding: 0.1rem 0.4rem;
+  font-size: 0.65rem;
+  letter-spacing: 0.03em;
+}
+
+.ms-project-pitch {
+  font-size: 0.77rem;
+  line-height: 1.65;
+  color: rgba($dark-brown, 0.85);
+  margin-top: 0.1rem;
+
+  p, ul, ol { margin: 0 0 0.35rem; }
+
+  ul, ol {
+    padding-left: 1.1rem;
+    list-style: disc;
+  }
+
+  li { margin-bottom: 0.15rem; }
+
+  strong, b { font-weight: 700; color: $dark-brown; }
+}
+
+.ms-project-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: $orange;
+  text-decoration: none;
+  letter-spacing: 0.04em;
+  margin-top: 0.3rem;
+
+  &:hover { text-decoration: underline; }
+}
+
+// ── Contact ───────────────────────────────────────────────────────────────────
+
+.ms-contact-block {
+  border: 2px solid $dark-brown;
+  box-shadow: -5px 5px 0 $orange, -5px 5px 0 2px $dark-brown;
+  padding: 1rem 1.25rem;
+  background: $cray;
 }
 
 .ms-contacts {
@@ -88,9 +252,7 @@
   font-size: 0.78rem;
   letter-spacing: 0.04em;
 
-  &:hover .ms-contact-value {
-    text-decoration: underline;
-  }
+  &:hover .ms-contact-value { text-decoration: underline; }
 }
 
 .ms-contact-label {
@@ -99,13 +261,8 @@
   min-width: 5rem;
 }
 
-.ms-contact-sep {
-  opacity: 0.4;
-}
-
-.ms-contact-value {
-  opacity: 0.75;
-}
+.ms-contact-sep { opacity: 0.4; }
+.ms-contact-value { opacity: 0.75; }
 
 .ms-available {
   display: flex;
@@ -133,18 +290,17 @@
   50%       { opacity: 0.2; }
 }
 
-.ms-cv {
-  flex: 1;
-  min-height: 0;
-  border: 2px solid $dark-brown;
-  box-shadow: -5px 5px 0 $orange, -5px 5px 0 2px $dark-brown;
-  overflow: hidden;
+// ── Footer ────────────────────────────────────────────────────────────────────
 
-  iframe {
-    width: 100%;
-    height: 100%;
-    min-height: 75vh;
-    display: block;
-    border: none;
-  }
+.ms-footer {
+  margin-top: auto;
+  padding-top: 1.5rem;
+  border-top: 1px dashed rgba($dark-brown, 0.3);
+}
+
+.ms-copyright {
+  font-size: 0.65rem;
+  opacity: 0.55;
+  margin: 0;
+  letter-spacing: 0.04em;
 }
