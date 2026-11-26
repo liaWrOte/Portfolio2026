@@ -44,21 +44,33 @@ const Item = ({
     }
   }
 
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      openWindowFunc(triggerOpen);
+    }
+  };
+
   return (
     <div
       className={`item${desktopClass} ${triggerOpen}-class`}
       ref={ref}
+      role="button"
+      tabIndex={0}
+      aria-label={outWindowLabel || label}
+      onClick={() => openWindowFunc(triggerOpen)}
+      onKeyDown={handleKeyDown}
       {...(dataTaskbarId ? { 'data-taskbar-id': dataTaskbarId } : {})}
     >
       {clickTrigger === 'simple' && (
-        <div onClick={() => openWindowFunc(triggerOpen)}>
-          <img src={srcImg} alt="Logo" onClick={() => openWindowFunc(triggerOpen)} />
+        <div>
+          <img src={srcImg} alt="" aria-hidden="true" />
           {inWindow ? <span>{label}</span> : <ScrambleText text={outWindowLabel} />}
         </div>
       )}
       {clickTrigger === undefined && (
         <>
-          <img src={srcImg} alt="Logo" onClick={() => openWindowFunc(triggerOpen)} />
+          <img src={srcImg} alt="" aria-hidden="true" />
           {inWindow ? <span>{label}</span> : <ScrambleText text={outWindowLabel} />}
         </>
       )}

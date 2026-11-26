@@ -20,6 +20,7 @@ import { backendUrl, mediaUrl } from '../../middlewares/env';
 export const Desktop = ({ displayWindowItem, displayImageItem, displayWindow, ...props }) => {
   const { t } = useTranslation();
   const dispatch = useDispatch();
+  const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   // windowItemId is updated by OPEN_WINDOW on every item click
   // (projets, resume, contact_me, stolify, artquiz...), so it always
@@ -92,6 +93,12 @@ export const Desktop = ({ displayWindowItem, displayImageItem, displayWindow, ..
 
     // Read the actual size of the window that just opened
     const windowEl = document.querySelector<HTMLElement>(`[data-window-id="${windowItemId}"]`);
+
+    if (prefersReducedMotion) {
+      if (windowEl) windowEl.style.visibility = '';
+      return;
+    }
+
     const winRect = windowEl?.getBoundingClientRect();
     const wW = winRect ? winRect.width : 100;
     const wH = winRect ? winRect.height : 70;
@@ -133,6 +140,10 @@ export const Desktop = ({ displayWindowItem, displayImageItem, displayWindow, ..
   useEffect(() => {
     const handleMinimize = (e: Event) => {
       const { windowId } = (e as CustomEvent).detail;
+      if (prefersReducedMotion) {
+        dispatch(minimizeWindow(windowId));
+        return;
+      }
       const el = fantomRef.current;
       if (!el) {
         dispatch(minimizeWindow(windowId));
@@ -192,6 +203,10 @@ export const Desktop = ({ displayWindowItem, displayImageItem, displayWindow, ..
   useEffect(() => {
     const handleRestore = (e: Event) => {
       const { windowId } = (e as CustomEvent).detail;
+      if (prefersReducedMotion) {
+        dispatch(openWindow(windowId));
+        return;
+      }
       const el = fantomRef.current;
 
       const taskbarEl = document.querySelector<HTMLElement>(`[data-taskbar-id="${windowId}"]`);
@@ -251,6 +266,10 @@ export const Desktop = ({ displayWindowItem, displayImageItem, displayWindow, ..
   useEffect(() => {
     const handleClose = (e: Event) => {
       const { windowId } = (e as CustomEvent).detail;
+      if (prefersReducedMotion) {
+        dispatch(closeWindow(windowId));
+        return;
+      }
       const el = fantomRef.current;
 
       const windowEl = document.querySelector<HTMLElement>(`[data-window-id="${windowId}"]`);
@@ -301,11 +320,16 @@ export const Desktop = ({ displayWindowItem, displayImageItem, displayWindow, ..
   useEffect(() => {
     const handleExpand = (e: Event) => {
       const { windowId } = (e as CustomEvent).detail;
-      const el = fantomRef.current;
-      if (!el) return;
-
       const windowEl = document.querySelector<HTMLElement>(`[data-window-id="${windowId}"]`);
       if (!windowEl) return;
+
+      if (prefersReducedMotion) {
+        windowEl.classList.toggle('full');
+        return;
+      }
+
+      const el = fantomRef.current;
+      if (!el) return;
 
       const beforeRect = windowEl.getBoundingClientRect();
       const windowZIndex = parseInt(windowEl.style.zIndex || '1');
@@ -373,8 +397,21 @@ export const Desktop = ({ displayWindowItem, displayImageItem, displayWindow, ..
         srcImg={folderClosed2Icon}
       />
       {/* ABSkill shortcut */}
-      <div className="item on-desktop abskill-class" ref={abskillRef} onClick={handleAbskillClick}>
-        <img src={abskillSrc} alt="ABSkill" />
+      <div
+        className="item on-desktop abskill-class"
+        ref={abskillRef}
+        role="button"
+        tabIndex={0}
+        aria-label="ABSkill"
+        onClick={handleAbskillClick}
+        onKeyDown={(e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            e.preventDefault();
+            handleAbskillClick();
+          }
+        }}
+      >
+        <img src={abskillSrc} alt="" aria-hidden="true" />
         <ScrambleText text="ABSkill" />
       </div>
       {/* Item contact me */}
@@ -390,6 +427,7 @@ export const Desktop = ({ displayWindowItem, displayImageItem, displayWindow, ..
       <div
         ref={fantomRef}
         className="fantom"
+        aria-hidden="true"
         style={{
           position: 'fixed',
           pointerEvents: 'none'

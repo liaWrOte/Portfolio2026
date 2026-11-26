@@ -68,6 +68,14 @@ const LoadingScreen: React.FC<Props> = ({ onComplete }) => {
     const lineEls = Array.from(messages.querySelectorAll<HTMLElement>('.loading-line'));
     if (!lineEls.length) return;
 
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      gsap.set(lineEls, { opacity: 1 });
+      const tl = gsap.timeline();
+      tl.to(screen, { opacity: 0, duration: 0.1 }, '+=0.3');
+      tl.call(onComplete);
+      return () => { tl.kill(); };
+    }
+
     gsap.set(lineEls, { opacity: 0 });
 
     const tl = gsap.timeline();

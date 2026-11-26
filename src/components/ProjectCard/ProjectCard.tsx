@@ -44,10 +44,36 @@ const ImageZoomModal: React.FC<{
   const [isDragging, setIsDragging] = useState(false);
   const lastPos = useRef({ x: 0, y: 0 });
   const containerRef = useRef<HTMLDivElement>(null);
+  const modalContentRef = useRef<HTMLDivElement>(null);
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
+  const previousFocusRef = useRef<HTMLElement | null>(null);
 
   const clamp = (s: number) => Math.min(MAX_SCALE, Math.max(MIN_SCALE, s));
   const zoomBy = (delta: number) => setScale(prev => clamp(prev + delta));
   const reset = () => { setScale(1); setTranslate({ x: 0, y: 0 }); };
+
+  // Focus management: save previous focus, move to close button, restore on unmount
+  useEffect(() => {
+    previousFocusRef.current = document.activeElement as HTMLElement;
+    closeButtonRef.current?.focus();
+    return () => { previousFocusRef.current?.focus(); };
+  }, []);
+
+  // Focus trap within modal
+  const handleModalKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key !== 'Tab') return;
+    const focusable = modalContentRef.current?.querySelectorAll<HTMLElement>(
+      'button:not([disabled]), [href], input:not([disabled]), [tabindex]:not([tabindex="-1"])'
+    );
+    if (!focusable || focusable.length === 0) return;
+    const first = focusable[0];
+    const last = focusable[focusable.length - 1];
+    if (e.shiftKey) {
+      if (document.activeElement === first) { e.preventDefault(); last.focus(); }
+    } else {
+      if (document.activeElement === last) { e.preventDefault(); first.focus(); }
+    }
+  };
 
   // Reset pan when back to 1:1
   useEffect(() => {
@@ -101,9 +127,20 @@ const ImageZoomModal: React.FC<{
   const pct = Math.round(scale * 100);
 
   return createPortal(
-    <div className="image-zoom-modal" onClick={onClose}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        <button className="modal-close" onClick={onClose}>✕</button>
+    <div
+      className="image-zoom-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-label={image.file.data.attributes.alternativeText || 'Image agrandie'}
+      onClick={onClose}
+    >
+      <div
+        className="modal-content"
+        ref={modalContentRef}
+        onKeyDown={handleModalKeyDown}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <button ref={closeButtonRef} className="modal-close" type="button" onClick={onClose}>✕</button>
 
         <div className="zoom-controls">
           <button className="zoom-btn" onClick={() => zoomBy(-SCALE_STEP)} disabled={scale <= MIN_SCALE}>−</button>
@@ -163,7 +200,13 @@ const ImageGallery: React.FC<{ images: ImageWithCaption[] }> = ({ images }) => {
               src={mediaUrl(image.file.data.attributes.url) || ''}
               alt={image.file.data.attributes.alternativeText || ''}
               className="gallery-image"
+              role="button"
+              tabIndex={0}
+              aria-label={`Agrandir : ${image.file.data.attributes.alternativeText || `image ${index + 1}`}`}
               onClick={() => setZoomedImage(image)}
+              onKeyDown={(e) => {
+                if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); setZoomedImage(image); }
+              }}
             />
             {image.caption && (
               <figcaption

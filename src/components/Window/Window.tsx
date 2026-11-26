@@ -77,8 +77,23 @@ const Window: React.FC<WindowProps> = ({
   const prevOpenWindowsRef = useRef<any[]>([]);
   useEffect(() => {
     const prev = prevOpenWindowsRef.current;
-    (openWindows || []).filter((id) => !prev.includes(id)).forEach((id) => bringToFront(id));
+    const newlyOpened = (openWindows || []).filter((id) => !prev.includes(id));
+    newlyOpened.forEach((id) => bringToFront(id));
     prevOpenWindowsRef.current = openWindows || [];
+
+    // Move focus to the first focusable element of the newly opened window
+    if (newlyOpened.length > 0) {
+      const windowId = newlyOpened[newlyOpened.length - 1];
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+          const windowEl = document.querySelector<HTMLElement>(`[data-window-id="${windowId}"]`);
+          const focusable = windowEl?.querySelector<HTMLElement>(
+            'button:not([disabled]), [href], input:not([disabled]), [tabindex]:not([tabindex="-1"])'
+          );
+          focusable?.focus();
+        });
+      });
+    }
   }, [openWindows]);
 
   useEffect(() => {
@@ -130,6 +145,9 @@ const Window: React.FC<WindowProps> = ({
         >
           <div
             className="window"
+            role="dialog"
+            aria-modal="true"
+            aria-label={getWindowLabel('projets')}
             onClick={() => handleZIndex('projets')}
             style={{ zIndex: getZIndex('projets') }}
             data-window-id="projets"
@@ -170,6 +188,9 @@ const Window: React.FC<WindowProps> = ({
         >
           <div
             className="window level-class-fourth"
+            role="dialog"
+            aria-modal="true"
+            aria-label={getWindowLabel('contact_me')}
             key={'contact_me'}
             onClick={() => handleZIndex('contact_me')}
             style={{ zIndex: getZIndex('contact_me') }}
@@ -194,6 +215,9 @@ const Window: React.FC<WindowProps> = ({
         >
           <div
             className="window level-class-fourth stolify-main-window"
+            role="dialog"
+            aria-modal="true"
+            aria-label={getWindowLabel('stolify')}
             key={'stolify'}
             onClick={() => handleZIndex('stolify')}
             style={{ zIndex: getZIndex('stolify') }}
@@ -221,6 +245,9 @@ const Window: React.FC<WindowProps> = ({
         >
           <div
             className="window level-class-fourth artquiz-main-window"
+            role="dialog"
+            aria-modal="true"
+            aria-label={getWindowLabel('artquiz')}
             style={{ width: '450px', height: '620px', zIndex: getZIndex('artquiz') }}
             key={'artquiz'}
             onClick={() => handleZIndex('artquiz')}

@@ -37,6 +37,11 @@ const ScrambleText: React.FC<ScrambleTextProps> = ({ text, className, tag: Tag =
 
     if (!langChanged && !textChanged) return;
 
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      setDisplayed(text);
+      return;
+    }
+
     let frame = 0;
     const id = setInterval(() => {
       frame++;
@@ -50,7 +55,7 @@ const ScrambleText: React.FC<ScrambleTextProps> = ({ text, className, tag: Tag =
     return () => clearInterval(id);
   }, [text, language]);
 
-  return <Tag className={className}>{displayed}</Tag>;
+  return <Tag className={className} aria-label={text}>{displayed}</Tag>;
 };
 
 export default ScrambleText;

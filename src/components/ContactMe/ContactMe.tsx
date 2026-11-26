@@ -15,6 +15,7 @@ const ContactMe: React.FC = () => {
 
   useEffect(() => {
     if (!rootRef.current) return;
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
     const els = rootRef.current.querySelectorAll<HTMLElement>('.cm-in');
     gsap.fromTo(
       els,

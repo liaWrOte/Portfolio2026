@@ -54,7 +54,16 @@ const DesktopBottomBar = ({ openWindows, minimizedWindows, onOpenWindow, onClose
         <div
           className="item on-desktop artquiz-class artquiz-wip"
           data-taskbar-id="artquiz"
+          role="button"
+          tabIndex={0}
+          aria-label="ArtQuiz"
           onClick={handleArtquizClick}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              handleArtquizClick();
+            }
+          }}
         >
           <img src={artquizIcon} alt="ArtQuiz" />
           <ScrambleText text="ArtQuiz" />

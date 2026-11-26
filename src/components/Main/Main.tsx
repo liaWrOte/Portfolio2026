@@ -227,30 +227,34 @@ const Main: React.FC<MainProps> = ({ fetchProjects, fileSystem, loadingState }) 
   useEffect(() => {
     if (!desktopReady || !desktopRef.current) return;
 
-    try {
-      const ctx = audioCtxRef.current;
-      if (ctx) {
-        const doBeep = () => {
-          const osc = ctx.createOscillator();
-          const gain = ctx.createGain();
-          osc.type = 'square';
-          osc.frequency.value = 880;
-          gain.gain.setValueAtTime(0.105, ctx.currentTime);
-          gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.2);
-          osc.connect(gain);
-          gain.connect(ctx.destination);
-          osc.start();
-          osc.stop(ctx.currentTime + 0.2);
-        };
-        if (ctx.state === 'suspended') {
-          ctx.resume().then(doBeep).catch(() => {});
-        } else {
-          doBeep();
-        }
-      }
-    } catch (_) {}
+    const rm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    gsap.to(desktopRef.current, { opacity: 1, duration: 0.5, ease: 'power2.out' });
+    if (!rm) {
+      try {
+        const ctx = audioCtxRef.current;
+        if (ctx) {
+          const doBeep = () => {
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.type = 'square';
+            osc.frequency.value = 880;
+            gain.gain.setValueAtTime(0.105, ctx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.2);
+            osc.connect(gain);
+            gain.connect(ctx.destination);
+            osc.start();
+            osc.stop(ctx.currentTime + 0.2);
+          };
+          if (ctx.state === 'suspended') {
+            ctx.resume().then(doBeep).catch(() => {});
+          } else {
+            doBeep();
+          }
+        }
+      } catch (_) {}
+    }
+
+    gsap.to(desktopRef.current, { opacity: 1, duration: rm ? 0 : 0.5, ease: 'power2.out' });
   }, [desktopReady]);
 
   if (showLoader) return <LoadingScreen onComplete={() => setShowLoader(false)} />;

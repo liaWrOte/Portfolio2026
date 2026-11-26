@@ -51,15 +51,19 @@ export const WindowHeader: React.FC<WindowHeaderProps> = ({
                 className={`nav-btn${canGoBack ? '' : ' disabled'}`}
                 onClick={() => canGoBack && goBack?.()}
                 disabled={!canGoBack}
+                aria-label="Précédent"
+                type="button"
               >
-                <img src={arrowRight} alt="Back" />
+                <img src={arrowRight} alt="" aria-hidden="true" />
               </button>
               <button
                 className={`nav-btn${canGoForward ? '' : ' disabled'}`}
                 onClick={() => canGoForward && goForward?.()}
                 disabled={!canGoForward}
+                aria-label="Suivant"
+                type="button"
               >
-                <img src={arrowLeft} alt="Forward" />
+                <img src={arrowLeft} alt="" aria-hidden="true" />
               </button>
             </>
           )}
@@ -76,8 +80,10 @@ export const WindowHeader: React.FC<WindowHeaderProps> = ({
           )}
         </div>
         <div className="toggle-window-container">
-          <span
+          <button
+            type="button"
             className="toggle-window yellow"
+            aria-label="Réduire"
             onClick={() => {
               if (itemId) {
                 document.dispatchEvent(
@@ -87,10 +93,17 @@ export const WindowHeader: React.FC<WindowHeaderProps> = ({
             }}
           />
           {!hideExpandButton && itemId !== undefined && (
-            <span className="toggle-window green" onClick={() => expandedWindow()} />
+            <button
+              type="button"
+              className="toggle-window green"
+              aria-label="Agrandir"
+              onClick={() => expandedWindow()}
+            />
           )}
-          <span
+          <button
+            type="button"
             className="toggle-window red"
+            aria-label="Fermer"
             onClick={() => itemId && closeWindow?.(itemId)}
           />
         </div>

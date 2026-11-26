@@ -53,7 +53,16 @@ const TaskBar = ({ openWindows, minimizedWindows, onWindowClick, onCloseWindow }
           key={windowId}
           className="task-bar-item"
           data-taskbar-id={windowId}
+          role="button"
+          tabIndex={0}
+          aria-label={getLabelForWindow(windowId)}
           onClick={() => handleWindowClick(windowId)}
+          onKeyDown={(e) => {
+            if (e.key === 'Enter' || e.key === ' ') {
+              e.preventDefault();
+              handleWindowClick(windowId);
+            }
+          }}
         >
           <img
             src={getIconForWindow(windowId)}
