@@ -12,13 +12,13 @@ $mobile-breakpoint: 900px;
       0deg,
       transparent,
       transparent 2px,
-      rgba(0, 0, 0, 0.027) 2px,
-      rgba(0, 0, 0, 0.027) 4px
+      rgba(0, 0, 0, 0.019) 2px,
+      rgba(0, 0, 0, 0.019) 4px
     ),
     radial-gradient(
       ellipse at center,
       transparent 48%,
-      rgba(0, 0, 0, 0.31) 100%
+      rgba(0, 0, 0, 0.13) 100%
     );
   animation: crt-flicker 9s infinite;
 
@@ -27,9 +27,9 @@ $mobile-breakpoint: 900px;
 
 @keyframes crt-flicker {
   0%, 88%, 90%, 92%, 94%, 100% { opacity: 1; }
-  89%  { opacity: 0.96; }
-  91%  { opacity: 0.98; }
-  93%  { opacity: 0.94; }
+  89%  { opacity: 0.972; }
+  91%  { opacity: 0.986; }
+  93%  { opacity: 0.958; }
 }
 
 .skip-link {
